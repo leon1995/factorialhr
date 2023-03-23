@@ -1,0 +1,36 @@
+name: Lint package
+
+on: workflow_call
+
+jobs:
+  linters:
+    name: Run linters
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: [ "3.11" ]
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Python dependencies
+        run: pip install ".[lint]"
+
+      - name: Run Black
+        run: black --check factorialhr
+
+      - name: Run isort
+        run: isort factorialhr -c
+
+      - name: Run flake8
+        run: flake8 factorialhr
+
+      - name: Run mypy
+        run: mypy factorialhr
