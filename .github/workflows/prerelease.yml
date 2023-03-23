@@ -30,5 +30,5 @@ jobs:
         with:
           files: |
             dist/*.whl
-          prerelease: False
+          prerelease: True
           body_path: CHANGELOG.md
