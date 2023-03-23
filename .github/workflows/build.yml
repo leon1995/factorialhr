@@ -42,5 +42,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: dist
-          path: dist
+          path: dist/*.whl
           retention-days: 1
