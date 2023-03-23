@@ -2,7 +2,7 @@ name: Release package
 on:
   push:
     tags:
-      - "v[0-9]+.[0-9]+.[0-9]+*"
+      - "v[0-9]+.[0-9]+.[0-9]+"
 
 jobs:
   build:
@@ -41,5 +41,5 @@ jobs:
         with:
           files: |
             dist/*.whl
-          prerelease: ${{ github.ref_name }} =~ v[0-9]+.[0-9]+\.[0-9]+rc[0-9]+
+          prerelease: ${{ github.ref_name }} =~ v[0-9]+.[0-9]+.[0-9]+rc[0-9]+
           body_path: CHANGELOG.md
