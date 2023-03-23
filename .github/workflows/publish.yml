@@ -9,6 +9,7 @@ on:
 jobs:
   build:
     permissions:
+      id-token: write # This is required for requesting the JWT
       contents: write
     uses: ./.github/workflows/build.yml
 
