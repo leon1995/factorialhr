@@ -10,7 +10,7 @@ authors = [
 ]
 description = "Python package for the api of FactorialHR "
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: GNU Affero General Public License v3",
@@ -20,8 +20,6 @@ classifiers = [
     "Intended Audience :: End Users/Desktop",
     "Topic :: Office/Business",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
 ]
 keywords = [
