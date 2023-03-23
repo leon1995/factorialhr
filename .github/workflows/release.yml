@@ -1,8 +1,5 @@
 name: Release package
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/main
 on:
   push:
     tags:
