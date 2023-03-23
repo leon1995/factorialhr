@@ -1,0 +1,40 @@
+name: Release package
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]*"
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Detect release version
+        run: |
+          echo FACTORIALHR_VERSION=${GITHUB_REF/refs\/tags\//} >> $GITHUB_ENV
+
+      - name: Install build
+        run: pip install build
+
+      - name: Build package
+        run: python -m build
+
+      - name: Publish package to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
+          repository-url: https://test.pypi.org/legacy/
+
+      - name: Attach artifacts to github release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            dist/*.whl
+          prerelease: ${{ github.ref_name }} =~ ^v[0-9]+\.[0-9]+\.[0-9]+[rc]\d+$
+          body_path: CHANGELOG.md
