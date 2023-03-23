@@ -10,7 +10,6 @@ jobs:
   build:
     permissions:
       contents: write
-    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/v') # only publish on specific branches
     uses: ./.github/workflows/build.yml
 
   publish:
