@@ -1,6 +1,6 @@
 import typing
 
-import aiohttp
+import httpx
 
 from factorialhr import models
 
@@ -11,11 +11,11 @@ class NetworkHandler:
     """
 
     def __init__(self, api_key: str, base_url="https://api.factorialhr.com"):
-        self.headers = {"accept": "application/json", "x-api-key": api_key}
-        self.session = aiohttp.ClientSession(base_url, headers=self.headers)
+        headers = {"accept": "application/json", "x-api-key": api_key}
+        self._client = httpx.AsyncClient(base_url=base_url, headers=headers)
 
     async def close(self):
-        await self.session.close()
+        await self._client.aclose()
 
     async def __aexit__(self, *_, **__):
         await self.close()
@@ -25,17 +25,24 @@ class NetworkHandler:
 
     async def get(self, endpoint: str, **params: typing.Any | None) -> typing.Any:
         params = {k: str(v) for k, v in params.items() if v is not None}
-        async with self.session.get("/api/" + endpoint, params=params, raise_for_status=True) as resp:
-            return await resp.json()
+        resp = await self._client.get("/api/" + endpoint, params=params)
+        resp.raise_for_status()
+        return resp.json()
 
     async def post(self, endpoint: str, data: typing.Any = None, **params: str | None) -> typing.Any:
-        return await self.session.post("/api/" + endpoint, data=data, params=params, raise_for_status=True)
+        resp = await self._client.post("/api/" + endpoint, data=data, params=params)
+        resp.raise_for_status()
+        return resp.json()
 
     async def put(self, endpoint: str, data: typing.Any = None, **params: str | None) -> typing.Any:
-        return await self.session.put("/api/" + endpoint, data=data, params=params, raise_for_status=True)
+        resp = await self._client.put("/api/" + endpoint, data=data, params=params)
+        resp.raise_for_status()
+        return resp.json()
 
     async def delete(self, endpoint: str, **params: str | None) -> typing.Any:
-        return await self.session.delete("/api/" + endpoint, params=params, raise_for_status=True)
+        resp = await self._client.delete("/api/" + endpoint, params=params)
+        resp.raise_for_status()
+        return resp.json()
 
 
 class EmployeesEndpoint:
@@ -425,12 +432,12 @@ class CustomFieldsEndpoint:
         return "v2/custom_fields/"
 
     async def all(
-        self,
-        *,
-        field_id: int | None = None,
-        label: str | None = None,
-        slug_id: int | None = None,
-        slug_name: str | None = None,
+            self,
+            *,
+            field_id: int | None = None,
+            label: str | None = None,
+            slug_id: int | None = None,
+            slug_name: str | None = None,
     ) -> list[models.CustomField]:
         """
         Implements https://apidoc.factorialhr.com/reference/get_v2-custom-fields-fields
@@ -455,7 +462,7 @@ class CustomFieldsEndpoint:
         return models.CustomField(**await self.api.delete(f"{self._endpoint}/fields/{field_id}"))
 
     async def get_values(
-        self, *, field_id: int, label: str | None = None, slug_id: int | None = None, slug_name: str | None = None
+            self, *, field_id: int, label: str | None = None, slug_id: int | None = None, slug_name: str | None = None
     ) -> list[models.CustomFieldValue]:
         """
         Implements https://apidoc.factorialhr.com/reference/get_v2-custom-fields-values
@@ -751,11 +758,11 @@ class JobPostingsEndpoint:
         return "v1/ats/job_postings"
 
     async def all(
-        self,
-        *,
-        status: models.JobPostingStatus | None = None,
-        team_id: int | None = None,
-        location_id: int | None = None,
+            self,
+            *,
+            status: models.JobPostingStatus | None = None,
+            team_id: int | None = None,
+            location_id: int | None = None,
     ) -> list[models.JobPosting]:
         """
         Implements https://apidoc.factorialhr.com/reference/get_v1-ats-job-postings

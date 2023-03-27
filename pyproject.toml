@@ -27,7 +27,7 @@ keywords = [
     "HR",
 ]
 dependencies = [
-    "aiohttp",
+    "httpx",
     "pydantic"
 ]
 
