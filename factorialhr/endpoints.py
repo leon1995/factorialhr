@@ -1,6 +1,6 @@
 import typing
 
-import aiohttp
+import httpx
 
 from factorialhr import models
 
@@ -11,11 +11,11 @@ class NetworkHandler:
     """
 
     def __init__(self, api_key: str, base_url="https://api.factorialhr.com"):
-        self.headers = {"accept": "application/json", "x-api-key": api_key}
-        self.session = aiohttp.ClientSession(base_url, headers=self.headers)
+        headers = {"accept": "application/json", "x-api-key": api_key}
+        self._client = httpx.AsyncClient(base_url=base_url, headers=headers)
 
     async def close(self):
-        await self.session.close()
+        await self._client.aclose()
 
     async def __aexit__(self, *_, **__):
         await self.close()
@@ -25,17 +25,24 @@ class NetworkHandler:
 
     async def get(self, endpoint: str, **params: typing.Any | None) -> typing.Any:
         params = {k: str(v) for k, v in params.items() if v is not None}
-        async with self.session.get("/api/" + endpoint, params=params, raise_for_status=True) as resp:
-            return await resp.json()
+        resp = await self._client.get("/api/" + endpoint, params=params)
+        resp.raise_for_status()
+        return resp.json()
 
     async def post(self, endpoint: str, data: typing.Any = None, **params: str | None) -> typing.Any:
-        return await self.session.post("/api/" + endpoint, data=data, params=params, raise_for_status=True)
+        resp = await self._client.post("/api/" + endpoint, data=data, params=params)
+        resp.raise_for_status()
+        return resp.json()
 
     async def put(self, endpoint: str, data: typing.Any = None, **params: str | None) -> typing.Any:
-        return await self.session.put("/api/" + endpoint, data=data, params=params, raise_for_status=True)
+        resp = await self._client.put("/api/" + endpoint, data=data, params=params)
+        resp.raise_for_status()
+        return resp.json()
 
     async def delete(self, endpoint: str, **params: str | None) -> typing.Any:
-        return await self.session.delete("/api/" + endpoint, params=params, raise_for_status=True)
+        resp = await self._client.delete("/api/" + endpoint, params=params)
+        resp.raise_for_status()
+        return resp.json()
 
 
 class EmployeesEndpoint:
