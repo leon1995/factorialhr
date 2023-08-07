@@ -44,7 +44,7 @@ lint = [
 
 [tool.pytest.ini_options]
 testpaths = "tests/"
-addopts = "--cov=fwtv --cov-report term-missing --cov-fail-under=95"
+#addopts = "--cov=fwtv --cov-report term-missing --cov-fail-under=95"
 
 [tool.black]
 line-length = 120

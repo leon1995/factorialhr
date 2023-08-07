@@ -15,7 +15,7 @@ class Employee(pydantic.BaseModel):
     last_name: str
     full_name: str
     email: str
-    birthday: datetime.date | None
+    birthday_on: datetime.date | None
     terminated_on: datetime.date | None
     termination_reason: str | None
     termination_reason_type: str | None
