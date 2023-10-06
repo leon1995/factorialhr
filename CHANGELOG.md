@@ -3,7 +3,17 @@ All notable changes to fwtv module will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0)
 
-## [1.1] - 2023-08-07
+## [2.0.0] - 2023-10-06
+
+### Added
+
+- some missing url parameters
+
+### Changed
+
+- changed meaning of `kwargs` to be able to pass `timeout` and other parameters to the request. use `data` as the body parameter
+
+## [1.1.0] - 2023-08-07
 
 ### Fixed
 
