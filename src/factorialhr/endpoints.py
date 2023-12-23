@@ -1,3 +1,5 @@
+"""Implements the endpoints."""
+
 import datetime
 import typing
 
@@ -7,39 +9,42 @@ from factorialhr import models
 
 
 class NetworkHandler:
-    """
-    Factorial api class.
-    """
+    """Factorial api class."""
 
-    def __init__(self, api_key: str, base_url="https://api.factorialhr.com"):
-        headers = {"accept": "application/json", "x-api-key": api_key}
-        self._client = httpx.AsyncClient(base_url=base_url, headers=headers)
+    def __init__(self, authorizer: httpx.Auth, base_url: str = "https://api.factorialhr.com"):
+        headers = {"accept": "application/json"}
+        self._client = httpx.AsyncClient(base_url=base_url, headers=headers, auth=authorizer)
 
     async def close(self):
+        """Close the client session."""
         await self._client.aclose()
 
-    async def __aexit__(self, *_, **__):
+    async def __aexit__(self, *_, **__):  # noqa: ANN002
         await self.close()
 
     async def __aenter__(self) -> "NetworkHandler":
         return self
 
     async def get(self, endpoint: str, **kwargs) -> typing.Any:
+        """Perform a get request."""
         resp = await self._client.get("/api/" + endpoint, **kwargs)
         resp.raise_for_status()
         return resp.json()
 
     async def post(self, endpoint: str, **kwargs) -> typing.Any:
+        """Perform a post request."""
         resp = await self._client.post("/api/" + endpoint, **kwargs)
         resp.raise_for_status()
         return resp.json()
 
     async def put(self, endpoint: str, **kwargs) -> typing.Any:
+        """Perform a put request."""
         resp = await self._client.put("/api/" + endpoint, **kwargs)
         resp.raise_for_status()
         return resp.json()
 
     async def delete(self, endpoint: str, **kwargs) -> typing.Any:
+        """Perform a delete request."""
         resp = await self._client.delete("/api/" + endpoint, **kwargs)
         resp.raise_for_status()
         return resp.json()
@@ -54,46 +59,32 @@ class EmployeesEndpoint:
         return "v2/core/employees"
 
     async def all(self, *, full_text_name: str | None = None, **kwargs) -> list[models.Employee]:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v2-core-employees
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v2-core-employees."""
         params = {"full_text_name": full_text_name} if full_text_name is not None else {}
         return [models.Employee(**e) for e in await self.api.get(self._endpoint, params=params, **kwargs)]
 
     async def create(self, **kwargs) -> models.Employee:
-        """
-        Implements https://apidoc.factorialhr.com/reference/post_v2-core-employees
-        """
+        """Implement https://apidoc.factorialhr.com/reference/post_v2-core-employees."""
         return models.Employee(**await self.api.post(self._endpoint, **kwargs))
 
     async def get(self, *, employee_id: int, **kwargs) -> models.Employee:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v2-core-employees-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v2-core-employees-id."""
         return models.Employee(**await self.api.get(f"{self._endpoint}/{employee_id}", **kwargs))
 
     async def update(self, *, employee_id: int, **kwargs) -> models.Employee:
-        """
-        Implements https://apidoc.factorialhr.com/reference/put_v2-core-employees-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/put_v2-core-employees-id."""
         return models.Employee(**await self.api.put(f"{self._endpoint}/{employee_id}", **kwargs))
 
     async def invite(self, *, employee_id: int, **kwargs) -> models.Employee:
-        """
-        Implements https://apidoc.factorialhr.com/reference/post_v2-core-employees-id-invite
-        """
+        """Implement https://apidoc.factorialhr.com/reference/post_v2-core-employees-id-invite."""
         return models.Employee(**await self.api.post(f"{self._endpoint}/{employee_id}/invite", **kwargs))
 
     async def change_email(self, *, employee_id: int, **kwargs) -> models.Employee:
-        """
-        Implements https://apidoc.factorialhr.com/reference/put_v2-core-employees-id-email
-        """
+        """Implement https://apidoc.factorialhr.com/reference/put_v2-core-employees-id-email."""
         return models.Employee(**await self.api.put(f"{self._endpoint}/{employee_id}/email", **kwargs))
 
     async def terminate(self, *, employee_id: int, **kwargs) -> models.Employee:
-        """
-        Implements https://apidoc.factorialhr.com/reference/post_v2-core-employees-id-terminate
-        """
+        """Implement https://apidoc.factorialhr.com/reference/post_v2-core-employees-id-terminate."""
         return models.Employee(**await self.api.post(f"{self._endpoint}/{employee_id}/terminate", **kwargs))
 
 
@@ -106,27 +97,19 @@ class Webhook:
         return "v2/core/webhooks"
 
     async def all(self, **kwargs) -> list[models.Webhook]:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v2-core-webhooks
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v2-core-webhooks."""
         return [models.Webhook(**w) for w in await self.api.get(self._endpoint, **kwargs)]
 
     async def create(self, **kwargs) -> list[models.Webhook]:
-        """
-        Implements https://apidoc.factorialhr.com/reference/post_v2-core-webhooks
-        """
+        """Implement https://apidoc.factorialhr.com/reference/post_v2-core-webhooks."""
         return [models.Webhook(**w) for w in await self.api.post(self._endpoint, **kwargs)]
 
     async def update(self, *, webhook_id: int, **kwargs) -> models.Webhook:
-        """
-        Implements https://apidoc.factorialhr.com/reference/put_v2-core-webhooks-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/put_v2-core-webhooks-id."""
         return models.Webhook(**await self.api.put(f"{self._endpoint}/{webhook_id}", **kwargs))
 
     async def delete(self, *, webhook_id: int, **kwargs) -> models.Webhook:
-        """
-        Implements https://apidoc.factorialhr.com/reference/delete_v2-core-webhooks-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/delete_v2-core-webhooks-id."""
         return models.Webhook(**await self.api.delete(f"{self._endpoint}/{webhook_id}", **kwargs))
 
 
@@ -139,15 +122,11 @@ class LocationsEndpoint:
         return "v1/locations"
 
     async def all(self, **kwargs) -> list[models.Location]:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-locations
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-locations."""
         return [models.Location(**loc) for loc in await self.api.get(self._endpoint, **kwargs)]
 
     async def get(self, *, location_id: int, **kwargs) -> models.Location:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-locations-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-locations-id."""
         return models.Location(**await self.api.get(f"{self._endpoint}/{location_id}", **kwargs))
 
 
@@ -160,15 +139,11 @@ class HolidaysEndpoint:
         return "v1/company_holidays"
 
     async def all(self, **kwargs) -> list[models.CompanyHoliday]:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-company-holidays
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-company-holidays."""
         return [models.CompanyHoliday(**h) for h in await self.api.get(self._endpoint, **kwargs)]
 
     async def get(self, *, holiday_id: int, **kwargs) -> models.CompanyHoliday:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-company-holidays-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-company-holidays-id."""
         return models.CompanyHoliday(**await self.api.get(f"{self._endpoint}/{holiday_id}", **kwargs))
 
 
@@ -181,51 +156,35 @@ class TeamsEndpoint:
         return "v1/core/teams"
 
     async def all(self, **kwargs) -> list[models.Team]:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-core-teams
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-core-teams."""
         return [models.Team(**t) for t in await self.api.get(self._endpoint, **kwargs)]
 
     async def create(self, **kwargs) -> models.Team:
-        """
-        Implements https://apidoc.factorialhr.com/reference/post_v1-core-teams
-        """
+        """Implement https://apidoc.factorialhr.com/reference/post_v1-core-teams."""
         return models.Team(**await self.api.post(self._endpoint, **kwargs))
 
     async def get(self, *, team_id: int, **kwargs) -> models.Team:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-core-teams-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-core-teams-id."""
         return models.Team(**await self.api.get(f"{self._endpoint}/{team_id}", **kwargs))
 
     async def update(self, *, team_id: int, **kwargs) -> models.Team:
-        """
-        Implements https://apidoc.factorialhr.com/reference/put_v1-core-teams-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/put_v1-core-teams-id."""
         return models.Team(**await self.api.put(f"{self._endpoint}/{team_id}", **kwargs))
 
     async def delete(self, *, team_id: int, **kwargs) -> models.Team:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-core-teams-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-core-teams-id."""
         return models.Team(**await self.api.delete(f"{self._endpoint}/{team_id}", **kwargs))
 
     async def assign_employee(self, *, team_id: int, employee_id: int, **kwargs) -> models.Team:
-        """
-        Implements https://apidoc.factorialhr.com/reference/post_v1-core-teams-id-employees-employee-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/post_v1-core-teams-id-employees-employee-id."""
         return models.Team(**await self.api.post(f"{self._endpoint}/{team_id}/employees/{employee_id}", **kwargs))
 
     async def update_employee(self, *, team_id: int, employee_id: int, **kwargs) -> models.Team:
-        """
-        Implements https://apidoc.factorialhr.com/reference/put_v1-core-teams-id-employees-employee-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/put_v1-core-teams-id-employees-employee-id."""
         return models.Team(**await self.api.put(f"{self._endpoint}/{team_id}/employees/{employee_id}", **kwargs))
 
     async def unassign_employee(self, *, team_id: int, employee_id: int, **kwargs) -> models.Team:
-        """
-        Implements https://apidoc.factorialhr.com/reference/delete_v1-core-teams-id-employees-employee-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/delete_v1-core-teams-id-employees-employee-id."""
         return models.Team(**await self.api.delete(f"{self._endpoint}/{team_id}/employees/{employee_id}", **kwargs))
 
 
@@ -238,9 +197,7 @@ class FoldersEndpoint:
         return "v1/core/folders"
 
     async def all(self, *, name: str | None = None, active: bool | None = None, **kwargs) -> list[models.Folder]:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-core-folders
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-core-folders."""
         params: dict[str, str | bool] = {}
         if name is not None:
             params["name"] = name
@@ -249,21 +206,15 @@ class FoldersEndpoint:
         return [models.Folder(**f) for f in await self.api.get(self._endpoint, params=params, **kwargs)]
 
     async def create(self, **kwargs) -> models.Folder:
-        """
-        Implements https://apidoc.factorialhr.com/reference/post_v1-core-folders
-        """
+        """Implement https://apidoc.factorialhr.com/reference/post_v1-core-folders."""
         return models.Folder(**await self.api.post(self._endpoint, **kwargs))
 
     async def get(self, *, folder_id: int, **kwargs) -> models.Folder:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-core-folders-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-core-folders-id."""
         return models.Folder(**await self.api.post(f"{self._endpoint}/{folder_id}", **kwargs))
 
     async def update(self, *, folder_id: int, **kwargs) -> models.Folder:
-        """
-        Implements https://apidoc.factorialhr.com/reference/put_v1-core-folders-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/put_v1-core-folders-id."""
         return models.Folder(**await self.api.put(f"{self._endpoint}/{folder_id}", **kwargs))
 
 
@@ -276,33 +227,23 @@ class DocumentsEndpoint:
         return "v1/core/documents"
 
     async def all(self, **kwargs) -> list[models.Document]:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-core-documents
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-core-documents."""
         return [models.Document(**d) for d in await self.api.put(self._endpoint, **kwargs)]
 
     async def create(self, **kwargs) -> models.Document:
-        """
-        Implements https://apidoc.factorialhr.com/reference/post_v1-core-documents
-        """
+        """Implement https://apidoc.factorialhr.com/reference/post_v1-core-documents."""
         return models.Document(**await self.api.post(self._endpoint, **kwargs))
 
     async def get(self, *, document_id: int, **kwargs) -> models.Document:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-core-documents-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-core-documents-id."""
         return models.Document(**await self.api.get(f"{self._endpoint}/{document_id}", **kwargs))
 
     async def update(self, *, document_id: int, **kwargs) -> models.Document:
-        """
-        Implements https://apidoc.factorialhr.com/reference/put_v1-core-documents-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/put_v1-core-documents-id."""
         return models.Document(**await self.api.put(f"v1/core/documents/{document_id}", **kwargs))
 
     async def delete(self, *, document_id: int, **kwargs) -> models.Document:
-        """
-        Implements https://apidoc.factorialhr.com/reference/delete_v1-core-documents-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/delete_v1-core-documents-id."""
         return models.Document(**await self.api.delete(f"{self._endpoint}/{document_id}", **kwargs))
 
 
@@ -315,15 +256,11 @@ class LegalEntitiesEndpoint:
         return "v1/core/legal_entities"
 
     async def all(self, **kwargs) -> list[models.LegalEntity]:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-core-legal-entities
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-core-legal-entities."""
         return [models.LegalEntity(**le) for le in await self.api.put(self._endpoint, **kwargs)]
 
     async def get(self, *, entity_id: int, **kwargs) -> models.LegalEntity:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-core-legal-entities-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-core-legal-entities-id."""
         return models.LegalEntity(**await self.api.put(f"{self._endpoint}/{entity_id}", **kwargs))
 
 
@@ -336,21 +273,15 @@ class KeysEndpoint:
         return "v1/core/keys"
 
     async def all(self, **kwargs) -> list[models.Key]:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-core-keys
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-core-keys."""
         return [models.Key(**k) for k in await self.api.put(self._endpoint, **kwargs)]
 
     async def create(self, **kwargs) -> models.Key:
-        """
-        Implements https://apidoc.factorialhr.com/reference/post_v1-core-keys
-        """
+        """Implement https://apidoc.factorialhr.com/reference/post_v1-core-keys."""
         return models.Key(**await self.api.post(self._endpoint, **kwargs))
 
     async def delete(self, *, key_id: int, **kwargs) -> models.Key:
-        """
-        Implements https://apidoc.factorialhr.com/reference/delete_v1-core-keys-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/delete_v1-core-keys-id."""
         return models.Key(**await self.api.delete(f"{self._endpoint}/{key_id}", **kwargs))
 
 
@@ -363,69 +294,47 @@ class TasksEndpoint:
         return "v1/core/tasks"
 
     async def all(self, **kwargs) -> list[models.Task]:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-core-tasks
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-core-tasks."""
         return [models.Task(**t) for t in await self.api.get(self._endpoint, **kwargs)]
 
     async def create(self, **kwargs) -> models.Task:
-        """
-        Implements https://apidoc.factorialhr.com/reference/post_v1-core-tasks
-        """
+        """Implement https://apidoc.factorialhr.com/reference/post_v1-core-tasks."""
         return models.Task(**await self.api.post(self._endpoint, **kwargs))
 
     async def get(self, *, task_id: int, **kwargs) -> models.Task:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-core-tasks-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-core-tasks-id."""
         return models.Task(**await self.api.get(f"{self._endpoint}/{task_id}", **kwargs))
 
     async def update(self, *, task_id: int, **kwargs) -> models.Task:
-        """
-        Implements https://apidoc.factorialhr.com/reference/put_v1-core-tasks-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/put_v1-core-tasks-id."""
         return models.Task(**await self.api.put(f"{self._endpoint}/{task_id}", **kwargs))
 
     async def delete(self, *, task_id: int, **kwargs) -> models.Task:
-        """
-        Implements https://apidoc.factorialhr.com/reference/delete_v1-core-tasks-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/delete_v1-core-tasks-id."""
         return models.Task(**await self.api.get(f"{self._endpoint}/{task_id}", **kwargs))
 
     async def resolve(self, *, task_id: int, **kwargs) -> models.Task:
-        """
-        Implements https://apidoc.factorialhr.com/reference/post_v1-core-tasks-id-resolve
-        """
+        """Implement https://apidoc.factorialhr.com/reference/post_v1-core-tasks-id-resolve."""
         return models.Task(**await self.api.post(f"{self._endpoint}/{task_id}/resolve", **kwargs))
 
     async def copy(self, *, task_id: int, **kwargs) -> models.Task:
-        """
-        Implements https://apidoc.factorialhr.com/reference/post_v1-core-tasks-id-copy
-        """
+        """Implement https://apidoc.factorialhr.com/reference/post_v1-core-tasks-id-copy."""
         return models.Task(**await self.api.post(f"{self._endpoint}/{task_id}/copy", **kwargs))
 
     async def get_files(self, *, task_id: int, **kwargs) -> list[models.File]:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-core-tasks-id-files
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-core-tasks-id-files."""
         return [models.File(**f) for f in await self.api.get(f"{self._endpoint}/{task_id}/files", **kwargs)]
 
     async def create_file(self, *, task_id: int, **kwargs) -> models.File:
-        """
-        Implements https://apidoc.factorialhr.com/reference/post_v1-core-tasks-id-files
-        """
+        """Implement https://apidoc.factorialhr.com/reference/post_v1-core-tasks-id-files."""
         return models.File(**await self.api.post(f"{self._endpoint}/{task_id}/files", **kwargs))
 
     async def get_file(self, *, task_id: int, file_id: int, **kwargs) -> models.File:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-core-tasks-task-id-files-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-core-tasks-task-id-files-id."""
         return models.File(**await self.api.get(f"{self._endpoint}/{task_id}/files/{file_id}", **kwargs))
 
     async def delete_file(self, *, task_id: int, file_id: int, **kwargs) -> models.File:
-        """
-        Implements https://apidoc.factorialhr.com/reference/post_v1-core-tasks-task-id-files-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/post_v1-core-tasks-task-id-files-id."""
         return models.File(**await self.api.post(f"{self._endpoint}/{task_id}/files/{file_id}", **kwargs))
 
 
@@ -438,17 +347,15 @@ class CustomFieldsEndpoint:
         return "v2/custom_fields/"
 
     async def all(
-        self,
-        *,
-        field_id: int | None = None,
-        label: str | None = None,
-        slug_id: int | None = None,
-        slug_name: str | None = None,
-        **kwargs,
+            self,
+            *,
+            field_id: int | None = None,
+            label: str | None = None,
+            slug_id: int | None = None,
+            slug_name: str | None = None,
+            **kwargs,
     ) -> list[models.CustomField]:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v2-custom-fields-fields
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v2-custom-fields-fields."""
         params: dict[str, str | int] = {}
         if field_id is not None:
             params["field_id"] = field_id
@@ -463,29 +370,23 @@ class CustomFieldsEndpoint:
         ]
 
     async def create(self, **kwargs) -> models.CustomField:
-        """
-        Implements https://apidoc.factorialhr.com/reference/post_v2-custom-fields-fields
-        """
+        """Implement https://apidoc.factorialhr.com/reference/post_v2-custom-fields-fields."""
         return models.CustomField(**await self.api.post(f"{self._endpoint}/fields", **kwargs))
 
     async def delete(self, *, field_id: int, **kwargs) -> models.CustomField:
-        """
-        Implements https://apidoc.factorialhr.com/reference/delete_v2-custom-fields-fields-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/delete_v2-custom-fields-fields-id."""
         return models.CustomField(**await self.api.delete(f"{self._endpoint}/fields/{field_id}", **kwargs))
 
     async def get_values(
-        self,
-        *,
-        field_id: int,
-        label: str | None = None,
-        slug_id: int | None = None,
-        slug_name: str | None = None,
-        **kwargs,
+            self,
+            *,
+            field_id: int,
+            label: str | None = None,
+            slug_id: int | None = None,
+            slug_name: str | None = None,
+            **kwargs,
     ) -> list[models.CustomFieldValue]:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v2-custom-fields-values
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v2-custom-fields-values."""
         params: dict[str, str | int] = {}
         if field_id is not None:
             params["field_id"] = field_id
@@ -501,9 +402,7 @@ class CustomFieldsEndpoint:
         ]
 
     async def update_value(self, **kwargs) -> models.CustomField:
-        """
-        Implements https://apidoc.factorialhr.com/reference/put_v2-custom-fields-values
-        """
+        """Implement https://apidoc.factorialhr.com/reference/put_v2-custom-fields-values."""
         return models.CustomField(**await self.api.put(self._endpoint, **kwargs))
 
 
@@ -516,33 +415,23 @@ class PostsEndpoint:
         return "v1/posts"
 
     async def all(self, **kwargs) -> list[models.Post]:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-posts
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-posts."""
         return [models.Post(**p) for p in await self.api.get(self._endpoint, **kwargs)]
 
     async def create(self, **kwargs) -> models.Post:
-        """
-        Implements https://apidoc.factorialhr.com/reference/post_v1-posts
-        """
+        """Implement https://apidoc.factorialhr.com/reference/post_v1-posts."""
         return models.Post(**await self.api.post(self._endpoint, **kwargs))
 
     async def get(self, *, post_id: int, **kwargs) -> models.Post:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-posts-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-posts-id."""
         return models.Post(**await self.api.post(f"{self._endpoint}/{post_id}", **kwargs))
 
     async def update(self, *, post_id: int, **kwargs) -> models.Post:
-        """
-        Implements https://apidoc.factorialhr.com/reference/put_v1-posts-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/put_v1-posts-id."""
         return models.Post(**await self.api.put(f"{self._endpoint}/{post_id}", **kwargs))
 
     async def delete(self, *, post_id: int, **kwargs) -> models.Post:
-        """
-        Implements https://apidoc.factorialhr.com/reference/delete_v1-posts-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/delete_v1-posts-id."""
         return models.Post(**await self.api.delete(f"{self._endpoint}/{post_id}", **kwargs))
 
 
@@ -555,21 +444,15 @@ class BulkEndpoint:
         return "v2/core/bulk"
 
     async def employees(self, **kwargs) -> list[models.Employee]:
-        """
-        Implements https://apidoc.factorialhr.com/reference/post_v2-core-bulk-employee
-        """
+        """Implement https://apidoc.factorialhr.com/reference/post_v2-core-bulk-employee."""
         return [models.Employee(**e) for e in await self.api.post(f"{self._endpoint}/employees", **kwargs)]
 
     async def attendance(self, **kwargs) -> list[models.Attendance]:
-        """
-        Implements https://apidoc.factorialhr.com/reference/post_v2-core-bulk-attendance
-        """
+        """Implement https://apidoc.factorialhr.com/reference/post_v2-core-bulk-attendance."""
         return [models.Attendance(**a) for a in await self.api.post(f"{self._endpoint}/attendance", **kwargs)]
 
     async def contract_versions(self, **kwargs) -> list[models.ContractVersion]:
-        """
-        Implements https://apidoc.factorialhr.com/reference/post_v2-core-bulk-contract-version
-        """
+        """Implement https://apidoc.factorialhr.com/reference/post_v2-core-bulk-contract-version."""
         return [
             models.ContractVersion(**a) for a in await self.api.post(f"{self._endpoint}/contract_version", **kwargs)
         ]
@@ -584,49 +467,35 @@ class CustomTablesEndpoint:
         return "v1/core/custom/tables"
 
     async def all(self, *, topic_name: str | None = None, **kwargs) -> list[models.CustomTable]:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-core-custom-tables
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-core-custom-tables."""
         params = {"topic_name": topic_name} if topic_name else {}
         return [models.CustomTable(**ct) for ct in await self.api.get(self._endpoint, params=params, **kwargs)]
 
     async def create(self, **kwargs) -> models.CustomTable:
-        """
-        Implements https://apidoc.factorialhr.com/reference/post_v1-core-custom-tables
-        """
+        """Implement https://apidoc.factorialhr.com/reference/post_v1-core-custom-tables."""
         return models.CustomTable(**await self.api.post(self._endpoint, **kwargs))
 
     async def get(self, *, table_id: int, **kwargs) -> models.CustomTable:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-core-custom-tables-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-core-custom-tables-id."""
         return models.CustomTable(**await self.api.get(f"{self._endpoint}/{table_id}", **kwargs))
 
     async def get_fields(self, *, table_id: int, **kwargs) -> list[models.CustomTableField]:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-core-custom-tables-id-fields
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-core-custom-tables-id-fields."""
         return [
             models.CustomTableField(**ctf)
             for ctf in await self.api.get(f"{self._endpoint}/{table_id}/fields", **kwargs)
         ]
 
     async def create_field(self, *, table_id: int, **kwargs) -> models.CustomField:
-        """
-        Implements https://apidoc.factorialhr.com/reference/post_v1-core-custom-tables-id-fields
-        """
+        """Implement https://apidoc.factorialhr.com/reference/post_v1-core-custom-tables-id-fields."""
         return models.CustomField(**await self.api.post(f"{self._endpoint}/{table_id}/fields", **kwargs))
 
     async def get_employee_fields(self, *, table_id: int, employee_id: int, **kwargs):
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-core-custom-tables-id-values-employee-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-core-custom-tables-id-values-employee-id."""
         raise NotImplementedError("Not implemented because of lacking documentation")
 
     async def create_employee_fields(self, *, table_id: int, employee_id: int, **kwargs):
-        """
-        Implements https://apidoc.factorialhr.com/reference/post_v1-core-custom-tables-id-values-employee-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/post_v1-core-custom-tables-id-values-employee-id."""
         raise NotImplementedError("Not implemented because of lacking documentation")
 
 
@@ -639,9 +508,7 @@ class EventsEndpoint:
         return "v1/core/events"
 
     async def get_triggered(self, **kwargs) -> list[models.Event]:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-core-events
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-core-events."""
         return [models.Event(**e) for e in await self.api.get(self._endpoint, **kwargs)]
 
 
@@ -654,33 +521,23 @@ class WorkplacesEndpoint:
         return "v2/core/workplaces"
 
     async def all(self, **kwargs) -> list[models.Workplace]:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v2-core-workplaces
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v2-core-workplaces."""
         return [models.Workplace(**w) for w in await self.api.get(self._endpoint, **kwargs)]
 
     async def create(self, **kwargs) -> models.Workplace:
-        """
-        Implements https://apidoc.factorialhr.com/reference/post_v2-core-workplaces
-        """
+        """Implement https://apidoc.factorialhr.com/reference/post_v2-core-workplaces."""
         return models.Workplace(**await self.api.post(self._endpoint, **kwargs))
 
     async def get(self, *, workplace_id: int, **kwargs) -> models.Workplace:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v2-core-workplaces-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v2-core-workplaces-id."""
         return models.Workplace(**await self.api.get(f"{self._endpoint}/{workplace_id}", **kwargs))
 
     async def update(self, *, workplace_id: int, **kwargs) -> models.Workplace:
-        """
-        Implements https://apidoc.factorialhr.com/reference/put_v2-core-workplaces-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/put_v2-core-workplaces-id."""
         return models.Workplace(**await self.api.put(f"{self._endpoint}/{workplace_id}", **kwargs))
 
     async def delete(self, *, workplace_id: int, **kwargs) -> models.Workplace:
-        """
-        Implements https://apidoc.factorialhr.com/reference/delete_v2-core-workplaces-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/delete_v2-core-workplaces-id."""
         return models.Workplace(**await self.api.delete(f"{self._endpoint}/{workplace_id}", **kwargs))
 
 
@@ -693,15 +550,13 @@ class AttendanceEndpoint:
         return "v2/time/attendance"
 
     async def all(
-        self,
-        employee_ids: list[int] | None = None,
-        date_from: datetime.date | None = None,
-        date_to: datetime.date | None = None,
-        **kwargs,
+            self,
+            employee_ids: list[int] | None = None,
+            date_from: datetime.date | None = None,
+            date_to: datetime.date | None = None,
+            **kwargs,
     ) -> list[models.Attendance]:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v2-time-attendance
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v2-time-attendance."""
         params: list[tuple[str, str]] = []
         if employee_ids is not None:
             params = [("employee_ids[]", str(e_id)) for e_id in employee_ids]
@@ -712,9 +567,7 @@ class AttendanceEndpoint:
         return [models.Attendance(**a) for a in await self.api.get(self._endpoint, params=params, **kwargs)]
 
     async def create(self, **kwargs) -> models.Attendance:
-        """
-        Implements https://apidoc.factorialhr.com/reference/post_v2-time-attendance
-        """
+        """Implement https://apidoc.factorialhr.com/reference/post_v2-time-attendance."""
         return models.Attendance(**await self.api.post(self._endpoint, **kwargs))
 
 
@@ -727,21 +580,15 @@ class LeaveTypesEndpoint:
         return "v1/time/leave_types"
 
     async def all(self, **kwargs) -> list[models.LeaveType]:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-time-leave-types
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-time-leave-types."""
         return [models.LeaveType(**lt) for lt in await self.api.get(self._endpoint, **kwargs)]
 
     async def create(self, **kwargs) -> models.LeaveType:
-        """
-        Implements https://apidoc.factorialhr.com/reference/post_v1-time-leave-types
-        """
+        """Implement https://apidoc.factorialhr.com/reference/post_v1-time-leave-types."""
         return models.LeaveType(**await self.api.post(self._endpoint, **kwargs))
 
     async def update(self, *, leave_type_id: int, **kwargs) -> models.LeaveType:
-        """
-        Implements https://apidoc.factorialhr.com/reference/put_v1-time-leave-types-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/put_v1-time-leave-types-id."""
         return models.LeaveType(**await self.api.put(f"{self._endpoint}/{leave_type_id}", **kwargs))
 
 
@@ -754,33 +601,23 @@ class LeavesEndpoint:
         return "v2/time/leaves"
 
     async def all(self, **kwargs) -> list[models.Leave]:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v2-time-leaves
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v2-time-leaves."""
         return [models.Leave(**leave) for leave in await self.api.get(self._endpoint, **kwargs)]
 
     async def create(self, **kwargs) -> models.Leave:
-        """
-        Implements https://apidoc.factorialhr.com/reference/post_v2-time-leaves
-        """
+        """Implement https://apidoc.factorialhr.com/reference/post_v2-time-leaves."""
         return models.Leave(**await self.api.post(self._endpoint, **kwargs))
 
     async def get(self, *, leave_id: int, **kwargs) -> models.Leave:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v2-time-leaves-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v2-time-leaves-id."""
         return models.Leave(**await self.api.get(f"{self._endpoint}/{leave_id}", **kwargs))
 
     async def update(self, *, leave_id: int, **kwargs) -> models.Leave:
-        """
-        Implements https://apidoc.factorialhr.com/reference/put_v2-time-leaves-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/put_v2-time-leaves-id."""
         return models.Leave(**await self.api.put(f"{self._endpoint}/{leave_id}", **kwargs))
 
     async def delete(self, *, leave_id: int, **kwargs) -> models.Leave:
-        """
-        Implements https://apidoc.factorialhr.com/reference/delete_v2-time-leaves-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/delete_v2-time-leaves-id."""
         return models.Leave(**await self.api.delete(f"{self._endpoint}/{leave_id}", **kwargs))
 
 
@@ -803,16 +640,14 @@ class JobPostingsEndpoint:
         return "v1/ats/job_postings"
 
     async def all(
-        self,
-        *,
-        status: models.JobPostingStatus | None = None,
-        team_id: int | None = None,
-        location_id: int | None = None,
-        **kwargs,
+            self,
+            *,
+            status: models.JobPostingStatus | None = None,
+            team_id: int | None = None,
+            location_id: int | None = None,
+            **kwargs,
     ) -> list[models.JobPosting]:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-ats-job-postings
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-ats-job-postings."""
         params: dict[str, int | models.JobPostingStatus] = {}
         if status is not None:
             params["status"] = status
@@ -823,27 +658,19 @@ class JobPostingsEndpoint:
         return [models.JobPosting(**p) for p in await self.api.get(self._endpoint, params=params, **kwargs)]
 
     async def create(self, **kwargs) -> models.JobPosting:
-        """
-        Implements https://apidoc.factorialhr.com/reference/post_v1-ats-job-postings
-        """
+        """Implement https://apidoc.factorialhr.com/reference/post_v1-ats-job-postings."""
         return models.JobPosting(**await self.api.post(self._endpoint, **kwargs))
 
     async def update(self, *, job_id: int, **kwargs) -> models.JobPosting:
-        """
-        Implements https://apidoc.factorialhr.com/reference/put_v1-ats-job-postings-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/put_v1-ats-job-postings-id."""
         return models.JobPosting(**await self.api.put(f"{self._endpoint}/{job_id}", **kwargs))
 
     async def delete(self, *, job_id: int, **kwargs) -> models.JobPosting:
-        """
-        Implements https://apidoc.factorialhr.com/reference/delete_v1-ats-job-postings-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/delete_v1-ats-job-postings-id."""
         return models.JobPosting(**await self.api.delete(f"{self._endpoint}/{job_id}", **kwargs))
 
     async def duplicate(self, *, job_id: int, **kwargs) -> models.JobPosting:
-        """
-        Implements https://apidoc.factorialhr.com/reference/post_v1-ats-job-postings-id-duplicate
-        """
+        """Implement https://apidoc.factorialhr.com/reference/post_v1-ats-job-postings-id-duplicate."""
         return models.JobPosting(**await self.api.post(f"{self._endpoint}/{job_id}", **kwargs))
 
 
@@ -856,28 +683,22 @@ class CandidatesEndpoint:
         return "v1/ats/job_postings"
 
     async def all(self, **kwargs) -> list[models.Candidate]:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-ats-candidates
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-ats-candidates."""
         return [models.Candidate(**p) for p in await self.api.get(self._endpoint, **kwargs)]
 
     async def create(self, **kwargs) -> models.Candidate:
-        """
-        Implements https://apidoc.factorialhr.com/reference/post_v1-ats-candidates
-        """
+        """Implement https://apidoc.factorialhr.com/reference/post_v1-ats-candidates."""
         return models.Candidate(**await self.api.post(self._endpoint, **kwargs))
 
     async def update(self, *, candidate_id: int, **kwargs) -> models.Candidate:
-        """
-        Implements https://apidoc.factorialhr.com/reference/put_v1-ats-candidates-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/put_v1-ats-candidates-id."""
         return models.Candidate(**await self.api.put(f"{self._endpoint}/{candidate_id}", **kwargs))
 
 
 class ContractVersionsEndpoint:
     def __init__(self, api: NetworkHandler):
         self.api = api
-        raise NotImplementedError()
+        raise NotImplementedError
 
     @property
     def _endpoint(self) -> str:
@@ -887,7 +708,7 @@ class ContractVersionsEndpoint:
 class SupplementsEndpoint:
     def __init__(self, api: NetworkHandler):
         self.api = api
-        raise NotImplementedError()
+        raise NotImplementedError
 
     @property
     def _endpoint(self) -> str:
@@ -897,7 +718,7 @@ class SupplementsEndpoint:
 class ShiftManagementEndpoint:
     def __init__(self, api: NetworkHandler):
         self.api = api
-        raise NotImplementedError()
+        raise NotImplementedError
 
     @property
     def _endpoint(self) -> str:
@@ -908,7 +729,7 @@ class BreaksEndpoint:
     def __init__(self, api: NetworkHandler):
         self.api = api
         # TODO: oauth2 only
-        raise NotImplementedError()
+        raise NotImplementedError
 
     @property
     def _endpoint(self) -> str:
@@ -918,7 +739,7 @@ class BreaksEndpoint:
 class ApplicationEndpoint:
     def __init__(self, api: NetworkHandler):
         self.api = api
-        raise NotImplementedError()
+        raise NotImplementedError
 
     @property
     def _endpoint(self) -> str:
@@ -928,7 +749,7 @@ class ApplicationEndpoint:
 class ATSMessagesEndpoint:
     def __init__(self, api: NetworkHandler):
         self.api = api
-        raise NotImplementedError()
+        raise NotImplementedError
 
     @property
     def _endpoint(self) -> str:
@@ -944,15 +765,11 @@ class TimeOffPoliciesEndpoint:
         return "v1/time/policies"
 
     async def all(self, **kwargs) -> list[models.TimeOffPolicy]:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-time-policies
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-time-policies."""
         return [models.TimeOffPolicy(**top) for top in await self.api.get(self._endpoint, **kwargs)]
 
     async def get(self, *, policy_id: int, **kwargs) -> models.TimeOffPolicy:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-time-policies-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-time-policies-id."""
         return models.TimeOffPolicy(**await self.api.get(f"{self._endpoint}/{policy_id}", **kwargs))
 
 
@@ -960,7 +777,7 @@ class ExpensesEndpoint:
     def __init__(self, api: NetworkHandler):
         self.api = api
         # TODO: oauth2 only
-        raise NotImplementedError()
+        raise NotImplementedError
 
     @property
     def _endpoint(self) -> str:
@@ -976,33 +793,23 @@ class CompensationsEndpoint:
         return "v1/payroll/compensations"
 
     async def all(self, **kwargs) -> list[models.Compensation]:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-payroll-compensations
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-payroll-compensations."""
         return [models.Compensation(**top) for top in await self.api.get(self._endpoint, **kwargs)]
 
     async def create(self, **kwargs) -> models.Compensation:
-        """
-        Implements https://apidoc.factorialhr.com/reference/post_v1-payroll-compensations
-        """
+        """Implement https://apidoc.factorialhr.com/reference/post_v1-payroll-compensations."""
         return models.Compensation(**await self.api.post(self._endpoint, **kwargs))
 
     async def get(self, *, compensation_id: int, **kwargs) -> models.Compensation:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-payroll-compensations-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-payroll-compensations-id."""
         return models.Compensation(**await self.api.get(f"{self._endpoint}/{compensation_id}", **kwargs))
 
     async def update(self, *, compensation_id: int, **kwargs) -> models.Compensation:
-        """
-        Implements https://apidoc.factorialhr.com/reference/put_v1-payroll-compensations-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/put_v1-payroll-compensations-id."""
         return models.Compensation(**await self.api.put(f"{self._endpoint}/{compensation_id}", **kwargs))
 
     async def delete(self, *, compensation_id: int, **kwargs) -> models.Compensation:
-        """
-        Implements https://apidoc.factorialhr.com/reference/delete_v1-payroll-compensations-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/delete_v1-payroll-compensations-id."""
         return models.Compensation(**await self.api.delete(f"{self._endpoint}/{compensation_id}", **kwargs))
 
 
@@ -1015,13 +822,9 @@ class TaxonomiesEndpoint:
         return "v1/payroll/taxonomies"
 
     async def all(self, **kwargs) -> list[models.Taxonomy]:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-payroll-taxonomies
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-payroll-taxonomies."""
         return [models.Taxonomy(**top) for top in await self.api.get(self._endpoint, **kwargs)]
 
     async def get(self, *, taxonomy_id: int, **kwargs) -> models.Taxonomy:
-        """
-        Implements https://apidoc.factorialhr.com/reference/get_v1-payroll-taxonomies-id
-        """
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-payroll-taxonomies-id."""
         return models.Taxonomy(**await self.api.get(f"{self._endpoint}/{taxonomy_id}", **kwargs))

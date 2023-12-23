@@ -1,9 +1,10 @@
 name: Lint package
 
-on: workflow_call
+on:
+  workflow_call:
 
 jobs:
-  linters:
+  lint:
     name: Run linters
     runs-on: ubuntu-latest
 
@@ -20,17 +21,11 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install Python dependencies
-        run: pip install ".[lint]"
-
-      - name: Run Black
-        run: black --check factorialhr
-
-      - name: Run isort
-        run: isort factorialhr -c
-
-      - name: Run flake8
-        run: flake8 factorialhr
+      - uses: chartboost/ruff-action@v1
 
       - name: Run mypy
-        run: mypy factorialhr
+        uses: sasanquaneuf/mypy-github-action@releases/v1
+        with:
+          checkName: 'lint'   # NOTE: this needs to be the same as the job name
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
