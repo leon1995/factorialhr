@@ -37,7 +37,7 @@ async with endpoints.NetworkHandler('<api_key>') as api:
 ## TODO
 
 - [ ] tests
-- [ ] oauth2 support
+- [x] oauth2 support
 - [ ] [Family situation endpoint](https://apidoc.factorialhr.com/reference/get_v1-payroll-family-situation)
 - [ ] [Contract versions endpoint](https://apidoc.factorialhr.com/reference/get_v1-payroll-contract-versions)
 - [ ] [Supplements endpoint](https://apidoc.factorialhr.com/reference/get_v1-payroll-supplements)
