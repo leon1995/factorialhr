@@ -1,6 +1,6 @@
 [build-system]
-requires = ["flit_core >=3.2"]
-build-backend = "flit_core.buildapi"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
 name = "factorialhr"
@@ -8,7 +8,7 @@ dynamic = ["version"]
 authors = [
     { name = "Leon Budnick", email = "y6q6ea9w@mail-proxy.org" },
 ]
-description = "Python package for the api of FactorialHR "
+description = "Python package for the api of FactorialHR"
 readme = "README.md"
 requires-python = ">=3.11"
 classifiers = [
@@ -34,23 +34,114 @@ dependencies = [
 [project.urls]
 "Homepage" = "https://github.com/leon1995/factorialhr"
 "Bug Tracker" = "https://github.com/leon1995/factorialhr/issues"
+
 [project.optional-dependencies]
 lint = [
-    'black',
-    'flake8',
+    "ruff",
     'mypy',
-    'isort'
 ]
 
-[tool.pytest.ini_options]
-testpaths = "tests/"
-#addopts = "--cov=fwtv --cov-report term-missing --cov-fail-under=95"
+[tool.hatch.build.targets.sdist]
+include = [
+    "src/factorialhr/**/*",
+    "LICENSE",
+    "README.md",
+    "pyproject.toml",
+    "CHANGELOG.md"
+]
+support-legacy = false
 
-[tool.black]
-line-length = 120
+[tool.hatch.build.targets.wheel]
+packages = ["src/factorialhr"]
 
-[isort]
-force_single_line = 1
-known_localfolder = "factorialhr"
-force_alphabetical_sort_within_sections = 1
-profile = "black"
+[tool.hatch.version]
+path = "src/factorialhr/__init__.py"
+
+[tool.ruff]
+extend-select = [# https://beta.ruff.rs/docs/settings/#extend-select
+    "A", # https://beta.ruff.rs/docs/rules/#flake8-builtins-a
+    "ANN", # https://beta.ruff.rs/docs/rules/#flake8-annotations-ann
+    "ARG", # https://beta.ruff.rs/docs/rules/#flake8-unused-arguments-arg
+    "B", # https://beta.ruff.rs/docs/rules/#flake8-bugbear-b
+    "BLE", # https://beta.ruff.rs/docs/rules/#flake8-blind-except-ble
+    "C4", # https://beta.ruff.rs/docs/rules/#flake8-comprehensions-c4
+    "C90", # https://beta.ruff.rs/docs/rules/#mccabe-c90
+    "COM", # https://beta.ruff.rs/docs/rules/#flake8-commas-com
+    "D", # https://beta.ruff.rs/docs/rules/#pydocstyle-d
+    "ERA", # https://beta.ruff.rs/docs/rules/#eradicate-era
+    "G", # https://beta.ruff.rs/docs/rules/#flake8-logging-format-g
+    "I", # https://beta.ruff.rs/docs/rules/#isort-i
+    "ICN", # https://beta.ruff.rs/docs/rules/#flake8-import-conventions-icn
+    "INP", # https://beta.ruff.rs/docs/rules/#flake8-no-pep420-inp
+    "ISC", # https://beta.ruff.rs/docs/rules/#flake8-implicit-str-concat-isc
+    "ICN", # https://beta.ruff.rs/docs/rules/#flake8-import-conventions-icn
+    "N", # https://beta.ruff.rs/docs/rules/#pep8-naming-n
+    "PGH", # https://beta.ruff.rs/docs/rules/#pygrep-hooks-pgh
+    "PIE", # https://beta.ruff.rs/docs/rules/#flake8-pie-pie
+    "PL", # https://beta.ruff.rs/docs/rules/#pylint-pl
+    # "PT", # https://beta.ruff.rs/docs/rules/#flake8-pytest-style-pt
+    "PTH", # https://beta.ruff.rs/docs/rules/#flake8-use-pathlib-pth
+    "PYI", # https://beta.ruff.rs/docs/rules/#flake8-pyi-pyi
+    "Q", # https://beta.ruff.rs/docs/rules/#flake8-quotes-q
+    "RET", # https://beta.ruff.rs/docs/rules/#flake8-return-ret
+    "RSE", # https://beta.ruff.rs/docs/rules/#flake8-raise-rse
+    "RUF", # https://beta.ruff.rs/docs/rules/#ruff-specific-rules-ruf
+    "S", # https://beta.ruff.rs/docs/rules/#flake8-bandit-s
+    "SIM", # https://beta.ruff.rs/docs/rules/#flake8-simplify-sim
+    "SLF", # https://beta.ruff.rs/docs/rules/#flake8-self-slf
+    "T20", # https://beta.ruff.rs/docs/rules/#flake8-print-t20
+    "TCH", # https://beta.ruff.rs/docs/rules/#flake8-type-checking-tch
+    "TID", # https://beta.ruff.rs/docs/rules/#flake8-tidy-imports-tid
+    "UP", # https://beta.ruff.rs/docs/rules/#pyupgrade-up
+    "YTT"  # https://beta.ruff.rs/docs/rules/#flake8-2020-ytt
+]
+extend-ignore = [# https://beta.ruff.rs/docs/settings/#extend-ignore
+    "ANN101", # https://beta.ruff.rs/docs/rules/missing-type-self/
+    "ANN102", # https://beta.ruff.rs/docs/rules/missing-type-cls/
+    "ANN204", # https://beta.ruff.rs/docs/rules/missing-return-type-special-method/
+    "ANN401", # https://beta.ruff.rs/docs/rules/any-type/
+    "C408", # https://beta.ruff.rs/docs/rules/unnecessary-collection-call/
+    "C409", # https://beta.ruff.rs/docs/rules/unnecessary-literal-within-tuple-call/
+    "D105", # undocumented-magic-method
+    "D107", # undocumented-public-init
+    "D203", # one-blank-line-before-class
+    "D213", # multi-line-summary-second-line
+    "Q000", # https://beta.ruff.rs/docs/rules/bad-quotes-inline-string/
+    "S101", # https://beta.ruff.rs/docs/rules/assert/
+    "S311", # https://beta.ruff.rs/docs/rules/suspicious-non-cryptographic-random-usage/
+    "SIM102", # collapsible-if
+    "T201", # https://beta.ruff.rs/docs/rules/print/
+
+]
+line-length = 120  # https://beta.ruff.rs/docs/settings/#line-length
+target-version = "py311" # https://beta.ruff.rs/docs/settings/#target-version
+# Allow imports relative to the "src" and "test" directories.
+src = ["src", "test"]  # https://beta.ruff.rs/docs/settings/#src
+# In addition to the standard set of exclusions, omit all tutorials and examples
+extend-exclude = ["examples", "tools", "tutorial"] # https://beta.ruff.rs/docs/settings/#extend-exclude
+
+[tool.ruff.flake8-annotations]
+allow-star-arg-any = true # https://beta.ruff.rs/docs/settings/#allow-star-arg-any
+suppress-none-returning = true # https://beta.ruff.rs/docs/settings/#suppress-none-returning
+
+[tool.ruff.flake8-comprehensions]
+allow-dict-calls-with-keyword-arguments = true  # https://beta.ruff.rs/docs/settings/#allow-dict-calls-with-keyword-arguments
+
+[tool.ruff.pycodestyle]
+max-doc-length = 120 # https://beta.ruff.rs/docs/settings/#max-doc-length
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["D104"]
+
+[tool.mypy]
+python_version = "3.9" # https://mypy.readthedocs.io/en/stable/config_file.html#confval-python_version
+strict = true # https://mypy.readthedocs.io/en/stable/config_file.html#confval-strict
+disallow_untyped_calls = true # https://mypy.readthedocs.io/en/stable/config_file.html#confval-disallow_untyped_calls
+disallow_untyped_defs = true # https://mypy.readthedocs.io/en/stable/config_file.html#confval-disallow_untyped_defs
+disallow_any_generics = true # https://mypy.readthedocs.io/en/stable/config_file.html#confval-disallow_any_generics
+disallow_any_unimported = true # https://mypy.readthedocs.io/en/stable/config_file.html#confval-disallow_any_unimported
+warn_redundant_casts = true # https://mypy.readthedocs.io/en/stable/config_file.html#confval-warn_redundant_casts
+check_untyped_defs = true # https://mypy.readthedocs.io/en/stable/config_file.html#confval-check_untyped_defs
+warn_return_any = true # https://mypy.readthedocs.io/en/stable/config_file.html#confval-warn_return_any
+warn_unused_configs = true # https://mypy.readthedocs.io/en/stable/config_file.html#confval-warn_unused_configs
+warn_unused_ignores = true # https://mypy.readthedocs.io/en/stable/config_file.html#confval-warn_unused_ignores
