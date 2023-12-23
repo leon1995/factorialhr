@@ -56,18 +56,27 @@ class Webhook(pydantic.BaseModel):
     company_id: int | None
 
 
+class Me(pydantic.BaseModel):
+    email: str
+    full_name: str
+    first_name: str
+    last_name: str
+    employee_id: int
+    role: str
+
+
 class Location(pydantic.BaseModel):
     id: int
-    name: str | None  # TODO: check which ones are required
-    country: str | None
+    name: str
+    country: str
     phone_number: str | None
     state: str | None
     city: str | None
     address_line_1: str | None
     address_line_2: str | None
     postal_code: str | None
-    timezone: str | None
-    company_holidays_ids: list[int]
+    timezone: str
+    company_holiday_ids: list[int]
 
 
 class CompanyHoliday(pydantic.BaseModel):
