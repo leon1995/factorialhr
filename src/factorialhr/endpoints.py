@@ -122,6 +122,7 @@ class MeEndpoint:
         return "v1/me"
 
     async def get(self, **kwargs) -> models.Me:
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-me."""
         return models.Me(**await self.api.get(self._endpoint, **kwargs))
 
 
