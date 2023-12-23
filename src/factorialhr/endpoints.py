@@ -113,6 +113,19 @@ class Webhook:
         return models.Webhook(**await self.api.delete(f"{self._endpoint}/{webhook_id}", **kwargs))
 
 
+class MeEndpoint:
+    def __init__(self, api: NetworkHandler):
+        self.api = api
+
+    @property
+    def _endpoint(self) -> str:
+        return "v1/me"
+
+    async def get(self, **kwargs) -> models.Me:
+        """Implement https://apidoc.factorialhr.com/reference/get_v1-me."""
+        return models.Me(**await self.api.get(self._endpoint, **kwargs))
+
+
 class LocationsEndpoint:
     def __init__(self, api: NetworkHandler):
         self.api = api
@@ -257,11 +270,11 @@ class LegalEntitiesEndpoint:
 
     async def all(self, **kwargs) -> list[models.LegalEntity]:
         """Implement https://apidoc.factorialhr.com/reference/get_v1-core-legal-entities."""
-        return [models.LegalEntity(**le) for le in await self.api.put(self._endpoint, **kwargs)]
+        return [models.LegalEntity(**le) for le in await self.api.get(self._endpoint, **kwargs)]
 
     async def get(self, *, entity_id: int, **kwargs) -> models.LegalEntity:
         """Implement https://apidoc.factorialhr.com/reference/get_v1-core-legal-entities-id."""
-        return models.LegalEntity(**await self.api.put(f"{self._endpoint}/{entity_id}", **kwargs))
+        return models.LegalEntity(**await self.api.get(f"{self._endpoint}/{entity_id}", **kwargs))
 
 
 class KeysEndpoint:

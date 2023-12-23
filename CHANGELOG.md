@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0)
 
 ## Unreleased
 
+### Added
+
+- oauth2 support
+- me endpoint
+
 ### Changed
 
 - Change repository structure to a src/package style
