@@ -1,3 +1,5 @@
+"""Implements the models."""
+
 import datetime
 import enum
 
