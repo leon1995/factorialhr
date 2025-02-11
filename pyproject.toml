@@ -1,17 +1,9 @@
 [build-system]
-requires = ["hatchling", "versioningit"]
+requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.version]
-source = "versioningit" # https://versioningit.readthedocs.io/en/stable/index.html
-
-[tool.versioningit.vcs]
-# Use the "git" method for the vcs step with no parameters:
-method = "git"
-
-[tool.versioningit.format] # https://versioningit.readthedocs.io/en/stable/index.html#example-configurations
-distance = "{base_version}+{distance}.{vcs}{rev}"
-distance-dirty = "{base_version}+{distance}.{vcs}{rev}.d{build_date:%Y%m%d}"
+path = "src/factorialhr/__init__.py"
 
 [project]
 name = "factorialhr"
