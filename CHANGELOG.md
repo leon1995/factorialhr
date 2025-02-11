@@ -1,5 +1,6 @@
 # Changelog
-All notable changes to fwtv module will be documented in this file.
+
+All notable changes to factorialhr module will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0)
 
@@ -8,10 +9,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0)
 ### Added
 
 - oauth2 support
-- me endpoint
+- api version 2025-01-01
 
 ### Changed
 
+- returning json instead of pydantic models
 - Change repository structure to a src/package style
 - Linter. Use ruff instead of black and isort
 
