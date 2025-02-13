@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0)
 
 - enter `httpx.AsyncClient` on enter of `ApiClient`
 - pass `**kwargs` from `ApiClient` to `httpx.AsyncClient`
+- method to fetch all data from an endpoint
 
 ## [3.0.0] - 2025-02-11
 
