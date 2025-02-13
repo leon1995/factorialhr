@@ -45,15 +45,14 @@ class ApiClient:
             return data
         page_count = math.ceil(meta['total'] / meta['limit'])
         requests = []
-        data = []
         for i in range(page_count):
             query_params = kwargs.get('params', {}).copy()
-            query_params['page'] = i + 1
+            query_params['page'] = i + 2
             kwargs['params'] = query_params
             requests.append(self.get(endpoint, **kwargs))
         for response in await asyncio.gather(*requests):
             data.extend(response['data'])
-        assert meta['total'] == len(data), f'Got only {len(data)} instead of {meta["total"]} items'
+        assert meta['total'] == len(data), f'Got {len(data)} instead of total {meta["total"]} items'
         return data
 
     async def post(self, endpoint: str, **kwargs) -> typing.Any:

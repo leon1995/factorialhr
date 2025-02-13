@@ -41,7 +41,7 @@ async def get_authorization_code(  # noqa: D103
             f'client_id={client_id}&'
             f'redirect_uri={urllib.parse.quote(redirect_uri)}&'
             'response_type=code&'
-            f'{scope}&'
+            f'scope={scope}&'
             f'state={state_secret}',
         )
         return await code_queue.get()
