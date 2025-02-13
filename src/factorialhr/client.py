@@ -6,9 +6,9 @@ import httpx
 class ApiClient:
     """Factorial api class."""
 
-    def __init__(self, authorizer: httpx.Auth, base_url: str = 'https://api.factorialhr.com', *args, **kwargs):
+    def __init__(self, authorizer: httpx.Auth, base_url: str = 'https://api.factorialhr.com', **kwargs):
         headers = {'accept': 'application/json'}
-        self._client = httpx.AsyncClient(base_url=base_url, headers=headers, auth=authorizer, *args, **kwargs)
+        self._client = httpx.AsyncClient(base_url=base_url, headers=headers, auth=authorizer, **kwargs)
 
     async def close(self):
         """Close the client session."""
