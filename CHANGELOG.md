@@ -4,6 +4,13 @@ All notable changes to factorialhr module will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0)
 
+## Unreleased
+
+### Added
+
+- enter `httpx.AsyncClient` on enter of `ApiClient`
+- pass `*args` and `**kwargs` from `ApiClient` to `httpx.AsyncClient`
+
 ## [3.0.0] - 2025-02-11
 
 ### Added
