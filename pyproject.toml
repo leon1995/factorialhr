@@ -33,6 +33,7 @@ keywords = [
 ]
 dependencies = [
     "httpx>=0.28.1",
+    "pydantic>=2.10.6",
 ]
 
 [dependency-groups]
@@ -63,10 +64,13 @@ lint.extend-ignore = [
     "D203",
     "D213",
     "EM101",
+    "FIX002",
     "S101",
     "S311",
     "SIM102",
     "T201",
+    "TD002",
+    "TD003",
     "TRY003",
 ]
 
