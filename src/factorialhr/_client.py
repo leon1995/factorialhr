@@ -24,9 +24,9 @@ class ApiClient:
         return self
 
     @staticmethod
-    def _eval_http_method(response: httpx.Response, **kwargs) -> dict[str, typing.Any]:
+    def _eval_http_method(response: httpx.Response) -> dict[str, typing.Any]:
         response.raise_for_status()
-        return response.json(**kwargs)
+        return response.json()
 
     @staticmethod
     def _get_path(*path: str | int | None) -> str:
@@ -44,7 +44,9 @@ class ApiClient:
         `timeout=httpx.Timeout(...)`.
         More information at https://apidoc.factorialhr.com/docs/how-does-it-work#offset-pagination.
         """
-        result = await self.get(*path, **kwargs)
+        query_params = kwargs.pop('params', {})
+        query_params['page'] = 1  # retrieve first page
+        result = await self.get(*path, params = query_params, **kwargs)
         meta = result['meta']
         data = result['data']
         if not isinstance(data, list):
@@ -55,14 +57,13 @@ class ApiClient:
 
         page_count = math.ceil(meta['total'] / meta['limit'])
         requests = []
-        for i in range(page_count):
-            query_params = kwargs.get('params', {}).copy()
-            query_params['page'] = i + 2
-            kwargs['params'] = query_params
-            requests.append(self.get(*path, **kwargs))
+        for i in range(2, page_count + 1):  # start at 2 because we already got the data of first page
+            query_params = query_params.copy()
+            query_params['page'] = i
+            requests.append(self.get(*path, params=query_params, **kwargs))
         for response in await asyncio.gather(*requests):
             data.extend(response['data'])
-        assert meta['total'] == len(data), f'Got {len(data)} instead of tota-.öl {meta["total"]} items'
+        assert meta['total'] == len(data), f'Got {len(data)} instead of total {meta["total"]} items'
         return data
 
     async def post(self, *path: str | int | None, **kwargs) -> typing.Any:
