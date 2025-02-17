@@ -46,7 +46,7 @@ class ApiClient:
         """
         query_params = kwargs.pop('params', {})
         query_params['page'] = 1  # retrieve first page
-        result = await self.get(*path, params = query_params, **kwargs)
+        result = await self.get(*path, params=query_params, **kwargs)
         meta = result['meta']
         data = result['data']
         if not isinstance(data, list):
