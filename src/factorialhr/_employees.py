@@ -57,7 +57,7 @@ class Employee(pydantic.BaseModel):
     company_identifier: str | None
     age_number: int | None
     contact_name: str | None
-    contact_number: int | None
+    contact_number: str | None  # should be int but api returns string
     personal_email: str | None
     pronouns: str | None
     active: bool | None
