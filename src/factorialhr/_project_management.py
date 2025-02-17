@@ -525,7 +525,7 @@ class ProjectTask(pydantic.BaseModel):
 
 
 class _ProjectTaskRoot(pydantic.RootModel):
-    __root__: list[ProjectTask]
+    root: list[ProjectTask]
 
 
 class ProjectTaskEndpoint(Endpoint):
