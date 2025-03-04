@@ -298,26 +298,96 @@ class _ShiftRoot(pydantic.RootModel):
 class ShiftEndpoint(Endpoint):
     endpoint = '/2025-01-01/resources/attendance/shifts'
 
-    async def all(self, **kwargs) -> list[Shift]:
+    async def all(  # noqa: PLR0913
+        self,
+        *,
+        employee_ids: typing.Sequence[int] | None = None,
+        start_on: datetime.date | None = None,
+        end_on: datetime.date | None = None,
+        ids: typing.Sequence[int] | None = None,
+        half_day: bool | None = None,
+        workable: bool | None = None,
+        latest_shift: bool | None = None,
+        sort_created_at_asc: bool | None = None,
+        breaks_with_time_configuration: bool | None = None,
+        last_working_shift: bool | None = None,
+        **kwargs,
+    ) -> list[Shift]:
         """Implement https://apidoc.factorialhr.com/reference/get_api-2025-01-01-resources-attendance-shifts."""
-        return _ShiftRoot.model_validate(await self.api.get_all(self.endpoint, **kwargs)).root
-
-    @typing.overload
-    async def get(self, *, answer_id: int, **kwargs) -> Shift: ...
-
-    @typing.overload
-    async def get(self, **kwargs) -> tuple[list[Shift], _common.Meta]: ...
-    async def get(self, *, over_time_request_id: int | None = None, **kwargs):
-        """Implement https://apidoc.factorialhr.com/reference/get_api-2025-01-01-resources-attendance-shifts-id."""
-        result = await self.api.get(self.endpoint, over_time_request_id, **kwargs)
-        return (
-            Shift.model_validate(result)
-            if over_time_request_id is not None
-            else (
-                _ShiftRoot.model_validate(result['data']).root,
-                _common.Meta.model_validate(result['meta']),
-            )
+        params = kwargs.get('params', {})
+        params.update(
+            {
+                'employee_ids[]': employee_ids,
+                'start_on': start_on,
+                'end_on': end_on,
+                'ids[]': ids,
+                'half_day': half_day,
+                'workable': workable,
+                'latest_shift': latest_shift,
+                'sort_created_at_asc': sort_created_at_asc,
+                'breaks_with_time_configuration': breaks_with_time_configuration,
+                'last_working_shift': last_working_shift,
+            },
         )
+        return _ShiftRoot.model_validate(
+            await self.api.get_all(self.endpoint, params=_common.build_params(**params), **kwargs),
+        ).root
+
+    @typing.overload
+    async def get(self, *, shift_id: int, **kwargs) -> Shift: ...
+
+    @typing.overload
+    async def get(
+        self,
+        *,
+        employee_ids: typing.Sequence[int] | None = None,
+        start_on: datetime.date | None = None,
+        end_on: datetime.date | None = None,
+        ids: typing.Sequence[int] | None = None,
+        half_day: bool | None = None,
+        workable: bool | None = None,
+        latest_shift: bool | None = None,
+        sort_created_at_asc: bool | None = None,
+        breaks_with_time_configuration: bool | None = None,
+        last_working_shift: bool | None = None,
+        **kwargs,
+    ) -> tuple[list[Shift], _common.Meta]: ...
+    async def get(  # noqa: PLR0913
+        self,
+        *,
+        shift_id: int | None = None,
+        employee_ids: typing.Sequence[int] | None = None,
+        start_on: datetime.date | None = None,
+        end_on: datetime.date | None = None,
+        ids: typing.Sequence[int] | None = None,
+        half_day: bool | None = None,
+        workable: bool | None = None,
+        latest_shift: bool | None = None,
+        sort_created_at_asc: bool | None = None,
+        breaks_with_time_configuration: bool | None = None,
+        last_working_shift: bool | None = None,
+        **kwargs,
+    ):
+        """Implement https://apidoc.factorialhr.com/reference/get_api-2025-01-01-resources-attendance-shifts-id."""
+        if shift_id is not None:
+            return Shift.model_validate(await self.api.get(self.endpoint, shift_id, **kwargs))
+        params = kwargs.get('params', {})
+        params.update(
+            {
+                'employee_ids[]': employee_ids,
+                'start_on': start_on,
+                'end_on': end_on,
+                'ids[]': ids,
+                'half_day': half_day,
+                'workable': workable,
+                'latest_shift': latest_shift,
+                'sort_created_at_asc': sort_created_at_asc,
+                'breaks_with_time_configuration': breaks_with_time_configuration,
+                'last_working_shift': last_working_shift,
+            },
+        )
+        result = await self.api.get(self.endpoint, params=_common.build_params(**params), **kwargs)
+        return _ShiftRoot.model_validate(result['data']).root, _common.Meta.model_validate(result['meta'])
 
 
 class WorkedTimeDayType(enum.StrEnum):

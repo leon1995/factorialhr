@@ -62,8 +62,7 @@ from factorialhr._attendance import (
     WorkedTimeDayType,
     WorkedTimeEndpoint,
 )
-from factorialhr._auth import AccessTokenAuth, ApiKeyAuth, RefreshTokenAuth
-from factorialhr._client import ApiClient
+from factorialhr._client import AccessTokenAuth, ApiClient, ApiKeyAuth, RefreshTokenAuth, RefreshTokenAuthFile
 from factorialhr._common import LocationType, Meta, TimeUnit
 from factorialhr._employees import (
     Employee,
@@ -184,6 +183,7 @@ __all__ = [
     'ProjectWorker',
     'ProjectWorkerEndpoint',
     'RefreshTokenAuth',
+    'RefreshTokenAuthFile',
     'RejectReason',
     'RejectReasonDecisionMaker',
     'RejectReasonEndpoint',

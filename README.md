@@ -44,6 +44,18 @@ async with factorialhr.ApiClient(...) as api:
     response = await api.put(factorialhr.EmployeeEndpoint.endpoint, '<employee_id>', data={ 'first_name': 'Alice', ... })
 ```
 
+## CLI
+
+A commandline interface can be installed with `factorialhr[cli]`. This is especially useful as a uv tool `uv tool install factorialhr[cli]`.
+
+`(uvx) factorialhr --help`
+
+### Login
+
+The cli currently only supports oauth2 as login method. Please create an issue or contribute yourself if you need a different login method.
+
+`(uvx) factorialhr account login`
+
 ## Implemented endpoints for api version 2025-01-01
 
 - [x] ApiPublic

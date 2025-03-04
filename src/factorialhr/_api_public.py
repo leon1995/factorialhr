@@ -39,6 +39,11 @@ class CredentialsEndpoint(Endpoint):
         """Implement https://apidoc.factorialhr.com/reference/get_api-2025-01-01-resources-api-public-credentials."""
         return _CredentialsRoot.model_validate(await self.api.get_all(self.endpoint, **kwargs)).root
 
+    async def get(self, **kwargs) -> tuple[list[Credentials], _common.Meta]:
+        """Implement https://apidoc.factorialhr.com/reference/get_api-2025-01-01-resources-api-public-credentials."""
+        result = await self.api.get(self.endpoint, **kwargs)
+        return _CredentialsRoot.model_validate(result['data']).root, _common.Meta.model_validate(result['meta'])
+
 
 class WebhookSubscription(pydantic.BaseModel):
     id: int
