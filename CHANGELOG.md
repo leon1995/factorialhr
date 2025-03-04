@@ -12,6 +12,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0)
 - pass `**kwargs` from `ApiClient` to `httpx.AsyncClient`
 - method to fetch all data from an endpoint
 
+### Changed
+
+- only get methods predefined
+- return pydantic models
+
 ## [3.0.0] - 2025-02-11
 
 ### Added
