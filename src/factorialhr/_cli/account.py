@@ -96,7 +96,7 @@ SESSION_FILE = APP_DIR.joinpath('session.json')
 @cloup.argument('client_id', type=str)
 @cloup.argument('client_secret', type=str)
 @cloup.option('--demo', help='Whether to use the production or demo api.', is_flag=True)
-@cloup.option('-s', '--scope', help='Oauth2 access scope. Defaults to "read".', default='read')
+@cloup.option('--scope', help='Oauth2 access scope. Defaults to "read".', default='read')
 @cloup.option(
     '--redirect-url',
     help='Where to redirect for oauth2 callback',

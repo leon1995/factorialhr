@@ -1,12 +1,12 @@
-import asyncio
 import datetime
 import json
 import math
 import os
 import pathlib
 import typing
-from collections.abc import AsyncIterator
+from collections.abc import AsyncIterator, Awaitable
 
+import anyio
 import httpx
 import pydantic
 
@@ -191,15 +191,6 @@ class ApiClient:
         `timeout=httpx.Timeout(...)`.
         More information at https://apidoc.factorialhr.com/docs/how-does-it-work#offset-pagination.
         """
-        return [data async for data in self.get_all_iter(*path, **kwargs)]
-
-    async def get_all_iter(self, *path: str | int | None, **kwargs) -> AsyncIterator[dict[str, typing.Any]]:
-        """Get all data from an endpoint via offset pagination.
-
-        Depending on the amount of objects to query, you might want to increase the timeout by using
-        `timeout=httpx.Timeout(...)`.
-        More information at https://apidoc.factorialhr.com/docs/how-does-it-work#offset-pagination.
-        """
         query_params = kwargs.pop('params', {})
         query_params['page'] = 1  # retrieve first page
         result = await self.get(*path, params=query_params, **kwargs)
@@ -208,19 +199,21 @@ class ApiClient:
         if not isinstance(data, list):
             msg = f'Expected list data, got {type(data)}'
             raise TypeError(msg)
-        for d in data:
-            yield d
         if not meta['has_next_page']:
-            return
+            return data
         page_count = math.ceil(meta['total'] / meta['limit'])
-        requests = []
-        for i in range(2, page_count + 1):  # start at 2 because we already got the data of first page
-            query_params = query_params.copy()
-            query_params['page'] = i
-            requests.append(self.get(*path, params=query_params, **kwargs))
-        for response in await asyncio.gather(*requests):
-            for d in response['data']:
-                yield d
+        responses = [None] * (page_count - 1)
+
+        async def runner(index: int, func: Awaitable):
+            responses[index] = (await func)['data']
+
+        async with anyio.create_task_group() as tg:
+            for i in range(2, page_count + 1):  # start at 2 because we already got the data of first page
+                query_params = query_params.copy()
+                query_params['page'] = i
+                tg.start_soon(runner, i - 2, self.get(*path, params=query_params, **kwargs))
+        return data + [x for response in responses for x in response]
+
 
     async def post(self, *path: str | int | None, **kwargs) -> typing.Any:
         """Perform a post request."""
