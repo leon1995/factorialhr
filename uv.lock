@@ -165,6 +165,7 @@ wheels = [
 name = "factorialhr"
 source = { editable = "." }
 dependencies = [
+    { name = "anyio" },
     { name = "httpx" },
     { name = "pydantic" },
 ]
@@ -186,6 +187,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "aiohttp", marker = "extra == 'cli'", specifier = ">=3.11.12" },
+    { name = "anyio", specifier = ">=4.7.0" },
     { name = "cloup", marker = "extra == 'cli'", specifier = ">=3.0.6" },
     { name = "httpx", specifier = ">=0.28.1" },
     { name = "pydantic", specifier = ">=2.10.6" },
