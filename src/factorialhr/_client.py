@@ -4,7 +4,7 @@ import math
 import os
 import pathlib
 import typing
-from collections.abc import AsyncIterator, Awaitable
+from collections.abc import Awaitable
 
 import anyio
 import httpx
@@ -238,9 +238,5 @@ class Endpoint:
     def __init__(self, api: ApiClient):
         self.api = api
 
-    async def all_raw_iter(self, **kwargs) -> AsyncIterator[dict[str, typing.Any]]:
-        async for data in self.api.get_all_iter(self.endpoint, **kwargs):
-            yield data
-
     async def all_raw(self, **kwargs) -> list[dict[str, typing.Any]]:
-        return [data async for data in self.all_raw_iter(**kwargs)]
+        return await self.api.get_all(self.endpoint, **kwargs)
