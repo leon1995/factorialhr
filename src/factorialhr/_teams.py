@@ -41,7 +41,7 @@ class MembershipEndpoint(Endpoint):
             },
         )
         return _MembershipRoot.model_validate(
-            await self.api.get(self.endpoint, params=_common.build_params(**params), **kwargs),
+            await self.api.get_all(self.endpoint, params=_common.build_params(**params), **kwargs),
         ).root
 
     @typing.overload
@@ -105,7 +105,7 @@ class TeamEndpoint(Endpoint):
         params = kwargs.get('params', {})
         params.update({'ids[]': ids})
         return _TeamRoot.model_validate(
-            await self.api.get(self.endpoint, params=_common.build_params(**params), **kwargs),
+            await self.api.get_all(self.endpoint, params=_common.build_params(**params), **kwargs),
         ).root
 
     @typing.overload
