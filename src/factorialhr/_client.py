@@ -214,7 +214,6 @@ class ApiClient:
                 tg.start_soon(runner, i - 2, self.get(*path, params=query_params, **kwargs))
         return data + [x for response in responses for x in response]
 
-
     async def post(self, *path: str | int | None, **kwargs) -> typing.Any:
         """Perform a post request."""
         resp = await self._client.post(self._get_path(*path), **kwargs)
