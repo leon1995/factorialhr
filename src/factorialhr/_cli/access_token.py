@@ -84,3 +84,26 @@ async def get_access_token(  # noqa: PLR0913
         )
     response.raise_for_status()
     return AccessTokenResponse.model_validate(await response.json())
+
+
+async def get_access_token_from_authorization_code(
+    authorization_code: str,
+    target_url: str,
+    client_id: str,
+    client_secret: str,
+    redirect_uri: str,
+) -> AccessTokenResponse:
+    """Obtain an access token."""
+    async with aiohttp.ClientSession() as session:
+        response = await session.post(
+            f'{target_url}/oauth/token',
+            data={
+                'client_id': client_id,
+                'client_secret': client_secret,
+                'code': authorization_code,
+                'grant_type': 'authorization_code',
+                'redirect_uri': redirect_uri,
+            },
+        )
+    response.raise_for_status()
+    return AccessTokenResponse.model_validate(await response.json())

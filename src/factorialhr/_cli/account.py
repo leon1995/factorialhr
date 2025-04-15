@@ -53,22 +53,30 @@ async def _logout():
     SESSION_FILE.unlink()
 
 
-async def _login(client_id: str, client_secret: str, url: str, scope: str, redirect_url: str):
-    try:
-        response = await access_token.get_access_token(
+async def _login(client_id: str, client_secret: str, url: str, scope: str, redirect_url: str, auth_code: str | None):  # noqa: PLR0913
+    if auth_code:
+        response = await access_token.get_access_token_from_authorization_code(
+            authorization_code=auth_code,
             client_id=client_id,
             client_secret=client_secret,
             target_url=url,
             redirect_uri=redirect_url,
-            scope=scope,
-            http_server_timeout=None,
-            ssl_context=None,
         )
-        print(response)
-    except asyncio.CancelledError:
-        raise click.ClickException('Operation cancelled')  # noqa: B904
-    except RuntimeError as e:
-        raise click.ClickException(str(e)) from e
+    else:
+        try:
+            response = await access_token.get_access_token(
+                client_id=client_id,
+                client_secret=client_secret,
+                target_url=url,
+                redirect_uri=redirect_url,
+                scope=scope,
+                http_server_timeout=None,
+                ssl_context=None,
+            )
+        except asyncio.CancelledError:
+            raise click.ClickException('Operation cancelled')  # noqa: B904
+        except RuntimeError as e:
+            raise click.ClickException(str(e)) from e
     auth = RefreshTokenAuthFile(
         file=SESSION_FILE,
         refresh_token=response.refresh_token,
@@ -102,10 +110,18 @@ SESSION_FILE = APP_DIR.joinpath('session.json')
     help='Where to redirect for oauth2 callback',
     default=f'https://redirectmeto.com/http://{access_token.HTTP_SERVER}:{access_token.HTTP_SERVER_PORT}/authorize/authorization_code',
 )
+@cloup.option('--auth-code', help='Authorization code to use for login.')
 @common_cli.to_async
-async def login(client_id: str, client_secret: str, demo: bool, scope: str, redirect_url: str):  # noqa: FBT001
+async def login(client_id: str, client_secret: str, demo: bool, scope: str, redirect_url: str, auth_code: str | None):  # noqa: FBT001, PLR0913
     url = 'https://api.factorialhr.com' if not demo else 'https://api.demo.factorial.dev'
-    await _login(client_id=client_id, client_secret=client_secret, url=url, scope=scope, redirect_url=redirect_url)
+    await _login(
+        client_id=client_id,
+        client_secret=client_secret,
+        url=url,
+        scope=scope,
+        redirect_url=redirect_url,
+        auth_code=auth_code,
+    )
 
 
 @cloup.command(help='Get information about the current session.')
