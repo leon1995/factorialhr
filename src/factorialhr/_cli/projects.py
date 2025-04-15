@@ -42,6 +42,9 @@ def filter_employees(
     all_teams: list[factorialhr.Team],
     teams: tuple[str],
 ) -> list[factorialhr.Employee]:
+    if not employees and not teams:
+        return all_employees
+
     selected_employees = set()
     if teams:
         filtered_teams = [t for t in all_teams if t.name in teams]
@@ -106,8 +109,7 @@ async def imputed_minutes(  # noqa: PLR0913, C901, PLR0912
         all_teams=teams,
         teams=team,
     )
-    employees = [e for e in employees if e.id in selected_employees]
-    employees_by_ids = {e.id: e for e in employees}
+    employees_by_ids = {e.id: e for e in selected_employees}
     projects_by_id = {project.id: project for project in projects}
     project_workers_by_id = {project_worker.id: project_worker for project_worker in project_worker}
 
@@ -130,7 +132,7 @@ async def imputed_minutes(  # noqa: PLR0913, C901, PLR0912
 
     if not include_contributors_only:
         employees_not_contributed = [
-            e.full_name for e in employees if e.full_name not in project_times_by_employee_name
+            e.full_name for e in selected_employees if e.full_name not in project_times_by_employee_name
         ]
         for project_name in contributed_projects:
             for employee_name in employees_not_contributed:
