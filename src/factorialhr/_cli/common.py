@@ -59,6 +59,12 @@ def _set_logging(_: click.Context, __: click.Parameter, value: bool):  # noqa: F
     )
 
 
+file_output = cloup.option(
+    '--output',
+    type=click.Path(dir_okay=False, writable=True),
+    help='Path to csv file to write to.',
+)
+
 generic_options = cloup.option_group(
     'Generic options',
     cloup.option('--less', is_flag=True, help='Print paginated'),
@@ -74,6 +80,11 @@ upper_lower_bounds = (
         default=datetime.datetime.now(tz=datetime.UTC).date(),
         help='Upper included bound date. Defaults to today',
     ),
+)
+
+team_employee_filter = (
+    cloup.option('--employee', multiple=True, help='Name(s) of employees to filter by'),
+    cloup.option('--team', multiple=True, help='Name(s) of teams to filter by'),
 )
 
 

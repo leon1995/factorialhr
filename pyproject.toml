@@ -47,6 +47,7 @@ dev = [
 cli = [
     "cloup>=3.0.6",
     'aiohttp>=3.11.12',
+    'polars>=1.27.1',
     'python-dateutil>=2.9.0',
     'tabulate>=0.9.0',
 ]
