@@ -1,124 +1,104 @@
 import typing
+from collections.abc import Mapping, Sequence
 
 import pydantic
 
-from factorialhr import _common
-from factorialhr._client import Endpoint
+from factorialhr._client import Endpoint, ListApiResponse, MetaApiResponse
 
 
 class Membership(pydantic.BaseModel):
-    id: int
-    company_id: int | None
-    employee_id: int
-    team_id: int
-    lead: bool
+    """Model for teams_membership."""
 
-
-class _MembershipRoot(pydantic.RootModel):
-    root: list[Membership]
-
-
-class MembershipEndpoint(Endpoint):
-    endpoint = '/2025-01-01/resources/teams/memberships'
-
-    async def all(
-        self,
-        *,
-        ids: typing.Sequence[int] | None = None,
-        lead: bool | None = None,
-        team_ids: typing.Sequence[int] | None = None,
-        employee_ids: typing.Sequence[int] | None = None,
-        **kwargs,
-    ) -> list[Membership]:
-        """Implement https://apidoc.factorialhr.com/reference/get_api-2025-01-01-resources-teams-memberships."""
-        params = kwargs.get('params', {})
-        params.update(
-            {
-                'ids[]': ids,
-                'lead': lead,
-                'team_ids[]': team_ids,
-                'employee_ids[]': employee_ids,
-            },
-        )
-        return _MembershipRoot.model_validate(
-            await self.api.get_all(self.endpoint, params=_common.build_params(**params), **kwargs),
-        ).root
-
-    @typing.overload
-    async def get(self, *, membership_id: int, **kwargs) -> Membership: ...
-
-    @typing.overload
-    async def get(
-        self,
-        *,
-        ids: typing.Sequence[int] | None = None,
-        lead: bool | None = None,
-        team_ids: typing.Sequence[int] | None = None,
-        employee_ids: typing.Sequence[int] | None = None,
-        **kwargs,
-    ) -> tuple[list[Membership], _common.Meta]: ...
-    async def get(
-        self,
-        *,
-        membership_id: int | None = None,
-        ids: typing.Sequence[int] | None = None,
-        lead: bool | None = None,
-        team_ids: typing.Sequence[int] | None = None,
-        employee_ids: typing.Sequence[int] | None = None,
-        **kwargs,
-    ):
-        """Implement https://apidoc.factorialhr.com/reference/get_api-2025-01-01-resources-teams-memberships-id."""
-        if membership_id is not None:
-            return Membership.model_validate(await self.api.get(self.endpoint, membership_id, **kwargs))
-        params = kwargs.get('params', {})
-        params.update(
-            {
-                'ids[]': ids,
-                'lead': lead,
-                'team_ids[]': team_ids,
-                'employee_ids[]': employee_ids,
-            },
-        )
-        result = await self.api.get(self.endpoint, params=_common.build_params(**params), **kwargs)
-        return _MembershipRoot.model_validate(result['data']).root, _common.Meta.model_validate(result['meta'])
+    id: int = pydantic.Field(description='Membership ID')
+    company_id: int | None = pydantic.Field(default=None, description='Company ID of the membership')
+    employee_id: int = pydantic.Field(description='Employee ID of the membership')
+    team_id: int = pydantic.Field(description='Team ID of the membership')
+    lead: bool = pydantic.Field(description='Whether the employee is a lead of the team or not')
 
 
 class Team(pydantic.BaseModel):
-    id: int
-    name: str
-    description: str | None
-    avatar: str | None
-    employee_ids: list[int] | None
-    lead_ids: list[int] | None
-    company_id: int
+    """Model for teams_team."""
+
+    id: int = pydantic.Field(description='Team ID')
+    name: str = pydantic.Field(description='Team name')
+    description: str | None = pydantic.Field(default=None, description='Team description')
+    avatar: str | None = pydantic.Field(default=None, description='Team avatar URL')
+    employee_ids: Sequence[int] | None = pydantic.Field(default=None, description='List of employee IDs in the team')
+    lead_ids: Sequence[int] | None = pydantic.Field(default=None, description='List of team lead employee IDs')
+    company_id: int = pydantic.Field(description='Company ID')
 
 
-class _TeamRoot(pydantic.RootModel):
-    root: list[Team]
+class MembershipsEndpoint(Endpoint):
+    """Endpoint for teams/memberships operations."""
+
+    endpoint = 'teams/memberships'
+
+    async def all(self, **kwargs) -> ListApiResponse[Membership]:
+        """Get all memberships records."""
+        data = await self.api.get_all(self.endpoint, **kwargs)
+        return ListApiResponse(raw_data=data)
+
+    async def get(self, **kwargs) -> MetaApiResponse[Membership]:
+        """Get memberships with pagination metadata."""
+        query_params = kwargs.pop('params', {})
+        query_params.setdefault('page', 1)
+        response = await self.api.get(self.endpoint, params=query_params, **kwargs)
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+
+    async def get_by_id(self, membership_id: int | str, **kwargs) -> Membership:
+        """Get a specific team membership by ID."""
+        data = await self.api.get(self.endpoint, membership_id, **kwargs)
+        return pydantic.TypeAdapter(Membership).validate_python(data)
+
+    async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Membership:
+        """Create a new membership."""
+        response = await self.api.post(self.endpoint, json=data, **kwargs)
+        return pydantic.TypeAdapter(Membership).validate_python(response)
+
+    async def update(self, membership_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Membership:
+        """Update a membership."""
+        response = await self.api.put(self.endpoint, membership_id, json=data, **kwargs)
+        return pydantic.TypeAdapter(Membership).validate_python(response)
+
+    async def delete(self, membership_id: int | str, **kwargs) -> Membership:
+        """Delete a membership."""
+        response = await self.api.delete(self.endpoint, membership_id, **kwargs)
+        return pydantic.TypeAdapter(Membership).validate_python(response)
 
 
-class TeamEndpoint(Endpoint):
-    endpoint = '/2025-01-01/resources/teams/teams'
+class TeamsEndpoint(Endpoint):
+    """Endpoint for teams/teams operations."""
 
-    async def all(self, *, ids: typing.Sequence[int] | None = None, **kwargs) -> list[Team]:
-        """Implement https://apidoc.factorialhr.com/reference/get_api-2025-01-01-resources-teams-teams."""
-        params = kwargs.get('params', {})
-        params.update({'ids[]': ids})
-        return _TeamRoot.model_validate(
-            await self.api.get_all(self.endpoint, params=_common.build_params(**params), **kwargs),
-        ).root
+    endpoint = 'teams/teams'
 
-    @typing.overload
-    async def get(self, *, team_id: int, **kwargs) -> Team: ...
+    async def all(self, **kwargs) -> ListApiResponse[Team]:
+        """Get all teams records."""
+        data = await self.api.get_all(self.endpoint, **kwargs)
+        return ListApiResponse(raw_data=data)
 
-    @typing.overload
-    async def get(self, *, ids: typing.Sequence[int] | None = None, **kwargs) -> tuple[list[Team], _common.Meta]: ...
+    async def get(self, **kwargs) -> MetaApiResponse[Team]:
+        """Get teams with pagination metadata."""
+        query_params = kwargs.pop('params', {})
+        query_params.setdefault('page', 1)
+        response = await self.api.get(self.endpoint, params=query_params, **kwargs)
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
 
-    async def get(self, *, team_id: int | None = None, ids: typing.Sequence[int] | None = None, **kwargs):
-        """Implement https://apidoc.factorialhr.com/reference/get_api-2025-01-01-resources-teams-teams-id."""
-        if team_id is not None:
-            return Team.model_validate(await self.api.get(self.endpoint, team_id, **kwargs))
-        params = kwargs.get('params', {})
-        params.update({'ids[]': ids})
-        result = await self.api.get(self.endpoint, params=_common.build_params(**params), **kwargs)
-        return _TeamRoot.model_validate(result['data']).root, _common.Meta.model_validate(result['meta'])
+    async def get_by_id(self, team_id: int | str, **kwargs) -> Team:
+        """Get a specific team by ID."""
+        data = await self.api.get(self.endpoint, team_id, **kwargs)
+        return pydantic.TypeAdapter(Team).validate_python(data)
+
+    async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Team:
+        """Create a new team."""
+        response = await self.api.post(self.endpoint, json=data, **kwargs)
+        return pydantic.TypeAdapter(Team).validate_python(response)
+
+    async def update(self, team_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Team:
+        """Update a team."""
+        response = await self.api.put(self.endpoint, team_id, json=data, **kwargs)
+        return pydantic.TypeAdapter(Team).validate_python(response)
+
+    async def delete(self, team_id: int | str, **kwargs) -> Team:
+        """Delete a team."""
+        response = await self.api.delete(self.endpoint, team_id, **kwargs)
+        return pydantic.TypeAdapter(Team).validate_python(response)

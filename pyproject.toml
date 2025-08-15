@@ -108,7 +108,6 @@ max-doc-length = 120 # https://docs.astral.sh/ruff/settings/#max-doc-length
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["D104"]
-"**/endpoints/*.py" = ["D101"]
 
 [tool.pyright]
 ignore = ["examples/"]

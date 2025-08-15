@@ -1,5 +1,6 @@
 import asyncio
 import pathlib
+import typing
 
 import click
 import cloup
@@ -11,7 +12,13 @@ from factorialhr._cli import common as common_cli
 from factorialhr._client import ApiClient, RefreshTokenAuth, RefreshTokenAuthFile
 
 
-async def _print_account_info(auth: RefreshTokenAuth, url: str):
+async def _print_account_info(
+    auth: RefreshTokenAuth,
+    url: typing.Literal[
+        'https://api.factorialhr.com',
+        'https://api.demo.factorial.dev',
+    ],
+):
     async with ApiClient(auth=auth, base_url=url) as api:
         credentials, _ = await factorialhr.CredentialsEndpoint(api).get()
     if len(credentials) > 1:
@@ -22,7 +29,13 @@ async def _print_account_info(auth: RefreshTokenAuth, url: str):
     )
 
 
-def get_session() -> tuple[RefreshTokenAuthFile, str]:
+def get_session() -> tuple[
+    RefreshTokenAuthFile,
+    typing.Literal[
+        'https://api.factorialhr.com',
+        'https://api.demo.factorial.dev',
+    ],
+]:
     if not SESSION_FILE.exists():
         raise click.ClickException('No session found. Login with "factorialhr account login".')
     auth, url = RefreshTokenAuthFile.from_file(SESSION_FILE)
@@ -53,7 +66,17 @@ async def _logout():
     SESSION_FILE.unlink()
 
 
-async def _login(client_id: str, client_secret: str, url: str, scope: str, redirect_url: str, auth_code: str | None):  # noqa: PLR0913
+async def _login(  # noqa: PLR0913
+    client_id: str,
+    client_secret: str,
+    url: typing.Literal[
+        'https://api.factorialhr.com',
+        'https://api.demo.factorial.dev',
+    ],
+    scope: str,
+    redirect_url: str,
+    auth_code: str | None,
+):
     if auth_code:
         response = await access_token.get_access_token_from_authorization_code(
             authorization_code=auth_code,
@@ -113,11 +136,10 @@ SESSION_FILE = APP_DIR.joinpath('session.json')
 @cloup.option('--auth-code', help='Authorization code to use for login.')
 @common_cli.to_async
 async def login(client_id: str, client_secret: str, demo: bool, scope: str, redirect_url: str, auth_code: str | None):  # noqa: FBT001, PLR0913
-    url = 'https://api.factorialhr.com' if not demo else 'https://api.demo.factorial.dev'
     await _login(
         client_id=client_id,
         client_secret=client_secret,
-        url=url,
+        url='https://api.factorialhr.com' if not demo else 'https://api.demo.factorial.dev',
         scope=scope,
         redirect_url=redirect_url,
         auth_code=auth_code,
