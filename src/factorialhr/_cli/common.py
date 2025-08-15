@@ -35,7 +35,7 @@ def to_async(func: Callable) -> Callable:
 def _set_logging(_: click.Context, __: click.Parameter, value: bool):  # noqa: FBT001
     if not value:
         return
-    import logging.config
+    import logging.config  # noqa: PLC0415
 
     logging.config.dictConfig(
         {
