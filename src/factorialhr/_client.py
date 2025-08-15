@@ -4,11 +4,44 @@ import math
 import os
 import pathlib
 import typing
-from collections.abc import Awaitable
+from collections.abc import Awaitable, Iterable, Mapping, Sequence
 
 import anyio
 import httpx
 import pydantic
+
+T = typing.TypeVar('T')
+
+
+class PaginationMeta(pydantic.BaseModel, frozen=True):
+    """Model for pagination metadata."""
+
+    limit: int | None  # apparently this is can be None sometimes, e.g. when specifying employee_ids[] in shift request
+    total: int
+    has_next_page: bool
+    has_previous_page: bool
+    start_cursor: str | None = pydantic.Field(default=None)
+    end_cursor: str | None = pydantic.Field(default=None)
+
+
+class ListApiResponse(pydantic.BaseModel, typing.Generic[T], frozen=True):
+    """Api response that returned a list of objects."""
+
+    raw_data: Sequence[Mapping[str, typing.Any]]
+
+    def data(self) -> Iterable[T]:
+        for data in self.raw_data:
+            yield pydantic.TypeAdapter(T).validate_python(data)
+
+
+class MetaApiResponse(ListApiResponse[T], frozen=True):
+    """Response model that includes both data and meta."""
+
+    raw_meta: Mapping[str, typing.Any]
+
+    @property
+    def meta(self) -> PaginationMeta:
+        return PaginationMeta.model_validate(self.raw_meta)
 
 
 class ApiKeyAuth(httpx.Auth):
@@ -36,7 +69,7 @@ class AccessTokenAuth(httpx.Auth):
         yield request
 
 
-class AccessTokenResponse(pydantic.BaseModel):
+class AccessTokenResponse(pydantic.BaseModel, frozen=True):
     access_token: str
     token_type: str
     expires_in: datetime.timedelta
@@ -139,7 +172,16 @@ class RefreshTokenAuthFile(RefreshTokenAuth):
         )
 
     @classmethod
-    def from_file(cls, file: pathlib.Path) -> tuple['RefreshTokenAuthFile', str]:
+    def from_file(
+        cls,
+        file: pathlib.Path,
+    ) -> tuple[
+        'RefreshTokenAuthFile',
+        typing.Literal[
+            'https://api.factorialhr.com',
+            'https://api.demo.factorial.dev',
+        ],
+    ]:
         file_content = json.loads(file.read_text())
         return cls(
             file,
@@ -155,9 +197,28 @@ class RefreshTokenAuthFile(RefreshTokenAuth):
 class ApiClient:
     """Factorial api class."""
 
-    def __init__(self, base_url: str = 'https://api.factorialhr.com', *, auth: httpx.Auth, **kwargs):
+    def __init__(
+        self,
+        base_url: typing.Literal[
+            'https://api.factorialhr.com',
+            'https://api.demo.factorial.dev',
+        ] = 'https://api.factorialhr.com',
+        *,
+        auth: httpx.Auth,
+        **kwargs,
+    ):
         headers = {'accept': 'application/json'}
-        self._client = httpx.AsyncClient(base_url=f'{base_url}/api/', headers=headers, auth=auth, **kwargs)
+        self._client = httpx.AsyncClient(
+            base_url=f'{base_url}/api/{self.api_version}/resources/',
+            headers=headers,
+            auth=auth,
+            **kwargs,
+        )
+
+    @property
+    def api_version(self) -> str:
+        """Get the API version."""
+        return '2025-07-01'
 
     async def close(self):
         """Close the client session."""
@@ -184,7 +245,7 @@ class ApiClient:
         resp = await self._client.get(self._get_path(*path), **kwargs)
         return self._eval_http_method(resp)
 
-    async def get_all(self, *path: str | int | None, **kwargs) -> list[dict[str, typing.Any]]:
+    async def get_all(self, *path: str | int | None, **kwargs) -> Sequence[dict[str, typing.Any]]:
         """Get all data from an endpoint via offset pagination.
 
         Depending on the amount of objects to query, you might want to increase the timeout by using
@@ -237,6 +298,3 @@ class Endpoint:
 
     def __init__(self, api: ApiClient):
         self.api = api
-
-    async def all_raw(self, **kwargs) -> list[dict[str, typing.Any]]:
-        return await self.api.get_all(self.endpoint, **kwargs)

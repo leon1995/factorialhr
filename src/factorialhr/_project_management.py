@@ -1,928 +1,611 @@
 import datetime
-import enum
 import typing
+from collections.abc import Mapping
+from enum import StrEnum
 
 import pydantic
 
-from factorialhr import _common
-from factorialhr._client import Endpoint
+from factorialhr._client import Endpoint, ListApiResponse, MetaApiResponse
 
 
 class ExpenseRecord(pydantic.BaseModel):
-    id: int
-    project_worker_id: int
-    expense_id: int
-    subproject_id: int | None
-    original_amount_currency: str | None
-    original_amount_cents: int | None
-    legal_entity_amount_currency: str | None
-    legal_entity_amount_cents: str | None
-    effective_on: datetime.date | None
-    exchange_rate: int | None
-    status: str | None
+    """Model for project_management_expense_record."""
 
-
-class _ExpenseRecordRoot(pydantic.RootModel):
-    root: list[ExpenseRecord]
+    id: int = pydantic.Field(description='Expense record ID')
+    project_worker_id: int = pydantic.Field(description='Project worker ID')
+    expense_id: int = pydantic.Field(description='Expense ID')
+    subproject_id: int | None = pydantic.Field(default=None, description='Subproject ID')
+    original_amount_currency: str | None = pydantic.Field(default=None, description='Original amount currency')
+    original_amount_cents: int | None = pydantic.Field(default=None, description='Original amount in cents')
+    legal_entity_amount_currency: str | None = pydantic.Field(default=None, description='Legal entity amount currency')
+    legal_entity_amount_cents: str | None = pydantic.Field(default=None, description='Legal entity amount in cents')
+    effective_on: datetime.date | None = pydantic.Field(default=None, description='Effective date')
+    exchange_rate: int | None = pydantic.Field(default=None, description='Exchange rate')
+    status: str | None = pydantic.Field(default=None, description='Expense record status')
 
 
 class ExpenseRecordEndpoint(Endpoint):
-    endpoint = '/2025-01-01/resources/project_management/expense_records'
+    endpoint = 'project_management/expense_records'
 
-    async def all(  # noqa: PLR0913
-        self,
-        *,
-        ids: typing.Sequence[int] | None = None,
-        start_date: datetime.date | None = None,
-        end_date: datetime.date | None = None,
-        expenses_ids: typing.Sequence[int] | None = None,
-        project_ids: typing.Sequence[int] | None = None,
-        subproject_ids: typing.Sequence[int] | None = None,
-        updated_after: datetime.date | None = None,
-        employee_user_name_like: str | None = None,
-        project_worker_ids: typing.Sequence[int] | None = None,
-        **kwargs,
-    ) -> list[ExpenseRecord]:
-        """Implement https://apidoc.factorialhr.com/reference/get_api-2025-01-01-resources-project-management-expense-records."""
-        params = kwargs.get('params', {})
-        params.update(
-            {
-                'ids[]': ids,
-                'start_date': start_date,
-                'end_date': end_date,
-                'expenses_ids[]': expenses_ids,
-                'project_ids[]': project_ids,
-                'subproject_ids[]': subproject_ids,
-                'updated_after': updated_after,
-                'employee_user_name_like': employee_user_name_like,
-                'project_worker_ids[]': project_worker_ids,
-            },
-        )
-        return _ExpenseRecordRoot.model_validate(
-            await self.api.get_all(self.endpoint, params=_common.build_params(**params), **kwargs),
-        ).root
+    async def all(self, **kwargs) -> ListApiResponse[ExpenseRecord]:
+        """Get all expense records."""
+        data = await self.api.get_all(self.endpoint, **kwargs)
+        return ListApiResponse(raw_data=data)
 
-    @typing.overload
-    async def get(self, *, expense_record_id: int, **kwargs) -> ExpenseRecord: ...
+    async def get(self, **kwargs) -> MetaApiResponse[ExpenseRecord]:
+        """Get expense records with pagination metadata."""
+        query_params = kwargs.pop('params', {})
+        query_params.setdefault('page', 1)
+        response = await self.api.get(self.endpoint, params=query_params, **kwargs)
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
 
-    @typing.overload
-    async def get(
-        self,
-        *,
-        ids: typing.Sequence[int] | None = None,
-        start_date: datetime.date | None = None,
-        end_date: datetime.date | None = None,
-        expenses_ids: typing.Sequence[int] | None = None,
-        project_ids: typing.Sequence[int] | None = None,
-        subproject_ids: typing.Sequence[int] | None = None,
-        updated_after: datetime.date | None = None,
-        employee_user_name_like: str | None = None,
-        project_worker_ids: typing.Sequence[int] | None = None,
-        **kwargs,
-    ) -> tuple[list[ExpenseRecord], _common.Meta]: ...
+    async def get_by_id(self, expense_id: int | str, **kwargs) -> ExpenseRecord:
+        """Get a specific expense record by ID."""
+        data = await self.api.get(self.endpoint, expense_id, **kwargs)
+        return pydantic.TypeAdapter(ExpenseRecord).validate_python(data['data'])
 
-    async def get(  # noqa: PLR0913
-        self,
-        *,
-        expense_record_id: int | None = None,
-        ids: typing.Sequence[int] | None = None,
-        start_date: datetime.date | None = None,
-        end_date: datetime.date | None = None,
-        expenses_ids: typing.Sequence[int] | None = None,
-        project_ids: typing.Sequence[int] | None = None,
-        subproject_ids: typing.Sequence[int] | None = None,
-        updated_after: datetime.date | None = None,
-        employee_user_name_like: str | None = None,
-        project_worker_ids: typing.Sequence[int] | None = None,
-        **kwargs,
-    ):
-        """Implement https://apidoc.factorialhr.com/reference/get_api-2025-01-01-resources-project-management-expense-records-id."""
-        if expense_record_id is not None:
-            return ExpenseRecord.model_validate(await self.api.get(self.endpoint, expense_record_id, **kwargs))
-        params = kwargs.get('params', {})
-        params.update(
-            {
-                'ids[]': ids,
-                'start_date': start_date,
-                'end_date': end_date,
-                'expenses_ids[]': expenses_ids,
-                'project_ids[]': project_ids,
-                'subproject_ids[]': subproject_ids,
-                'updated_after': updated_after,
-                'employee_user_name_like': employee_user_name_like,
-                'project_worker_ids[]': project_worker_ids,
-            },
-        )
-        result = await self.api.get(self.endpoint, params=_common.build_params(**params), **kwargs)
-        return _ExpenseRecordRoot.model_validate(result['data']).root, _common.Meta.model_validate(result['meta'])
+    async def create(self, data: Mapping[str, typing.Any], **kwargs) -> ExpenseRecord:
+        """Create a new expense record."""
+        response = await self.api.post(self.endpoint, json=data, **kwargs)
+        return pydantic.TypeAdapter(ExpenseRecord).validate_python(response['data'])
+
+    async def update(self, expense_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> ExpenseRecord:
+        """Update an expense record."""
+        response = await self.api.put(self.endpoint, expense_id, json=data, **kwargs)
+        return pydantic.TypeAdapter(ExpenseRecord).validate_python(response['data'])
+
+    async def delete(self, expense_id: int | str, **kwargs) -> None:
+        """Delete an expense record."""
+        await self.api.delete(self.endpoint, expense_id, **kwargs)
 
 
 class ExportableExpense(pydantic.BaseModel):
-    date: datetime.date | None
-    project_name: str | None
-    subproject_name: str | None
-    employee_name: str
-    preferred_name: str | None
-    amount: str | None
-    currency: str | None
-    expense_category: str | None
-    expense_subcategory: str | None
-    expense_status: str | None
-    expense_link: str | None
+    """Model for project_management_exportable_expense."""
 
-
-class _ExportableExpenseRoot(pydantic.RootModel):
-    root: list[ExportableExpense]
+    date: datetime.date | None = pydantic.Field(default=None, description='Expense date')
+    project_name: str | None = pydantic.Field(default=None, description='Project name')
+    subproject_name: str | None = pydantic.Field(default=None, description='Subproject name')
+    employee_name: str = pydantic.Field(description='Employee name')
+    preferred_name: str | None = pydantic.Field(default=None, description='Employee preferred name')
+    amount: str | None = pydantic.Field(default=None, description='Expense amount')
+    currency: str | None = pydantic.Field(default=None, description='Currency')
+    expense_category: str | None = pydantic.Field(default=None, description='Expense category')
+    expense_subcategory: str | None = pydantic.Field(default=None, description='Expense subcategory')
+    expense_status: str | None = pydantic.Field(default=None, description='Expense status')
+    expense_link: str | None = pydantic.Field(default=None, description='Link to expense details')
 
 
 class ExportableExpenseEndpoint(Endpoint):
-    endpoint = '/2025-01-01/resources/project_management/exportable_expenses'
+    endpoint = 'project_management/exportable_expenses'
 
-    async def all(
-        self,
-        *,
-        start_date: datetime.date | None = None,
-        end_date: datetime.date | None = None,
-        project_ids: typing.Sequence[int] | None = None,
-        **kwargs,
-    ) -> list[ExportableExpense]:
-        """Implement https://apidoc.factorialhr.com/reference/get_api-2025-01-01-resources-project-management-exportable-expenses."""
-        params = kwargs.get('params', {})
-        params.update(
-            {
-                'start_date': start_date,
-                'end_date': end_date,
-                'project_ids[]': project_ids,
-            },
-        )
-        return _ExportableExpenseRoot.model_validate(
-            await self.api.get_all(self.endpoint, params=_common.build_params(**params), **kwargs),
-        ).root
+    async def all(self, **kwargs) -> ListApiResponse[ExportableExpense]:
+        """Get all exportable expenses."""
+        data = await self.api.get_all(self.endpoint, **kwargs)
+        return ListApiResponse(raw_data=data)
 
-    async def get(
-        self,
-        *,
-        start_date: datetime.date | None = None,
-        end_date: datetime.date | None = None,
-        project_ids: typing.Sequence[int] | None = None,
-        **kwargs,
-    ) -> tuple[list[ExportableExpense], _common.Meta]:
-        """Implement https://apidoc.factorialhr.com/reference/get_api-2025-01-01-resources-project-management-exportable-expenses."""
-        params = kwargs.get('params', {})
-        params.update(
-            {
-                'start_date': start_date,
-                'end_date': end_date,
-                'project_ids[]': project_ids,
-            },
-        )
-        result = await self.api.get(self.endpoint, params=_common.build_params(**params), **kwargs)
-        return _ExportableExpenseRoot.model_validate(result['data']).root, _common.Meta.model_validate(result['meta'])
+    async def get(self, **kwargs) -> MetaApiResponse[ExportableExpense]:
+        """Get exportable expenses with pagination metadata."""
+        query_params = kwargs.pop('params', {})
+        query_params.setdefault('page', 1)
+        response = await self.api.get(self.endpoint, params=query_params, **kwargs)
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+
+    async def get_by_id(self, expense_id: int | str, **kwargs) -> ExportableExpense:
+        """Get a specific exportable expense by ID."""
+        data = await self.api.get(self.endpoint, expense_id, **kwargs)
+        return pydantic.TypeAdapter(ExportableExpense).validate_python(data['data'])
+
+    async def create(self, data: Mapping[str, typing.Any], **kwargs) -> ExportableExpense:
+        """Create a new exportable expense."""
+        response = await self.api.post(self.endpoint, json=data, **kwargs)
+        return pydantic.TypeAdapter(ExportableExpense).validate_python(response['data'])
+
+    async def update(self, expense_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> ExportableExpense:
+        """Update an exportable expense."""
+        response = await self.api.put(self.endpoint, expense_id, json=data, **kwargs)
+        return pydantic.TypeAdapter(ExportableExpense).validate_python(response['data'])
+
+    async def delete(self, expense_id: int | str, **kwargs) -> None:
+        """Delete an exportable expense."""
+        await self.api.delete(self.endpoint, expense_id, **kwargs)
 
 
 class ExportableProject(pydantic.BaseModel):
-    id: str
-    date: datetime.date | None
-    project_name: str
-    project_code: str | None
-    project_start_date: datetime.date | None
-    project_due_date: datetime.date | None
-    project_status: str
-    subproject_name: str | None
-    employee_name: str | None
-    employee_id: int | None
-    inputed_time: float  # api returns string but can actually be a float
+    """Model for project_management_exportable_project."""
 
-
-class _ExportableProjectRoot(pydantic.RootModel):
-    root: list[ExportableProject]
+    id: str = pydantic.Field(description='Project ID')
+    date: datetime.date | None = pydantic.Field(default=None, description='Project date')
+    project_name: str = pydantic.Field(description='Project name')
+    project_code: str | None = pydantic.Field(default=None, description='Project code')
+    project_start_date: datetime.date | None = pydantic.Field(default=None, description='Project start date')
+    project_due_date: datetime.date | None = pydantic.Field(default=None, description='Project due date')
+    project_status: str = pydantic.Field(description='Project status')
+    subproject_name: str | None = pydantic.Field(default=None, description='Subproject name')
+    employee_name: str | None = pydantic.Field(default=None, description='Employee name')
+    employee_id: int | None = pydantic.Field(default=None, description='Employee ID')
+    inputed_time: float = pydantic.Field(description='Inputted time (API returns string but can be float)')
 
 
 class ExportableProjectEndpoint(Endpoint):
-    endpoint = '/2025-01-01/resources/project_management/exportable_projects'
+    endpoint = 'project_management/exportable_projects'
 
-    async def all(
-        self,
-        *,
-        start_date: datetime.date | None = None,
-        end_date: datetime.date | None = None,
-        project_ids: typing.Sequence[int] | None = None,
-        time_format: str | None = None,
-        include_date: bool | None = None,
-        **kwargs,
-    ) -> list[ExportableProject]:
-        """Implement https://apidoc.factorialhr.com/reference/get_api-2025-01-01-resources-project-management-exportable-projects."""
-        params = kwargs.get('params', {})
-        params.update(
-            {
-                'start_date': start_date,
-                'end_date': end_date,
-                'project_ids[]': project_ids,
-                'time_format': time_format,
-                'include_date': include_date,
-            },
-        )
-        return _ExportableProjectRoot.model_validate(
-            await self.api.get_all(self.endpoint, params=_common.build_params(**params), **kwargs),
-        ).root
+    async def all(self, **kwargs) -> ListApiResponse[ExportableProject]:
+        """Get all exportable projects."""
+        data = await self.api.get_all(self.endpoint, **kwargs)
+        return ListApiResponse(raw_data=data)
 
-    async def get(
-        self,
-        *,
-        start_date: datetime.date | None = None,
-        end_date: datetime.date | None = None,
-        project_ids: typing.Sequence[int] | None = None,
-        time_format: str | None = None,
-        include_date: bool | None = None,
-        **kwargs,
-    ) -> tuple[list[ExportableProject], _common.Meta]:
-        """Implement https://apidoc.factorialhr.com/reference/get_api-2025-01-01-resources-project-management-exportable-projects."""
-        params = kwargs.get('params', {})
-        params.update(
-            {
-                'start_date': start_date,
-                'end_date': end_date,
-                'project_ids[]': project_ids,
-                'time_format': time_format,
-                'include_date': include_date,
-            },
-        )
-        result = await self.api.get(self.endpoint, params=_common.build_params(**params), **kwargs)
-        return _ExportableProjectRoot.model_validate(result['data']).root, _common.Meta.model_validate(result['meta'])
+    async def get(self, **kwargs) -> MetaApiResponse[ExportableProject]:
+        """Get exportable projects with pagination metadata."""
+        query_params = kwargs.pop('params', {})
+        query_params.setdefault('page', 1)
+        response = await self.api.get(self.endpoint, params=query_params, **kwargs)
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+
+    async def get_by_id(self, project_id: int | str, **kwargs) -> ExportableProject:
+        """Get a specific exportable project by ID."""
+        data = await self.api.get(self.endpoint, project_id, **kwargs)
+        return pydantic.TypeAdapter(ExportableProject).validate_python(data['data'])
+
+    async def create(self, data: Mapping[str, typing.Any], **kwargs) -> ExportableProject:
+        """Create a new exportable project."""
+        response = await self.api.post(self.endpoint, json=data, **kwargs)
+        return pydantic.TypeAdapter(ExportableProject).validate_python(response['data'])
+
+    async def update(self, project_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> ExportableProject:
+        """Update an exportable project."""
+        response = await self.api.put(self.endpoint, project_id, json=data, **kwargs)
+        return pydantic.TypeAdapter(ExportableProject).validate_python(response['data'])
+
+    async def delete(self, project_id: int | str, **kwargs) -> None:
+        """Delete an exportable project."""
+        await self.api.delete(self.endpoint, project_id, **kwargs)
 
 
 class FlexibleTimeRecord(pydantic.BaseModel):
-    id: int
-    date: datetime.date
-    imputed_minutes: int
-    project_worker_id: int
-    subproject_id: int | None
+    """Model for project_management_flexible_time_record."""
 
-
-class _FlexibleTimeRecordRoot(pydantic.RootModel):
-    root: list[FlexibleTimeRecord]
+    id: int = pydantic.Field(description='Flexible time record ID')
+    date: datetime.date = pydantic.Field(description='Record date')
+    imputed_minutes: int = pydantic.Field(description='Imputed minutes')
+    project_worker_id: int = pydantic.Field(description='Project worker ID')
+    subproject_id: int | None = pydantic.Field(default=None, description='Subproject ID')
 
 
 class FlexibleTimeRecordEndpoint(Endpoint):
-    endpoint = '/2025-01-01/resources/project_management/flexible_time_records'
+    endpoint = 'project_management/flexible_time_records'
 
-    async def all(
-        self,
-        *,
-        ids: typing.Sequence[int] | None = None,  # documentation says it's required but it's not
-        project_worker_ids: typing.Sequence[int] | None = None,  # documentation says it's required but it's not
-        starts_on: datetime.date | None = None,
-        ends_on: datetime.date | None = None,
-        updated_after: str | None = None,  # last time I checked it seems to have no effect
-        **kwargs,
-    ) -> list[FlexibleTimeRecord]:
-        """Implement https://apidoc.factorialhr.com/reference/get_api-2025-01-01-resources-project-management-flexible-time-records."""
-        params = kwargs.get('params', {})
-        params.update(
-            {
-                'ids[]': ids,
-                'project_worker_ids[]': project_worker_ids,
-                'starts_on': starts_on,
-                'ends_on': ends_on,
-                'updated_after': updated_after,
-            },
-        )
-        return _FlexibleTimeRecordRoot.model_validate(
-            await self.api.get_all(self.endpoint, params=_common.build_params(**params), **kwargs),
-        ).root
+    async def all(self, **kwargs) -> ListApiResponse[FlexibleTimeRecord]:
+        """Get all flexible time records."""
+        data = await self.api.get_all(self.endpoint, **kwargs)
+        return ListApiResponse(raw_data=data)
 
-    @typing.overload
-    async def get(self, *, flexible_time_record_id: int, **kwargs) -> FlexibleTimeRecord: ...
+    async def get(self, **kwargs) -> MetaApiResponse[FlexibleTimeRecord]:
+        """Get flexible time records with pagination metadata."""
+        query_params = kwargs.pop('params', {})
+        query_params.setdefault('page', 1)
+        response = await self.api.get(self.endpoint, params=query_params, **kwargs)
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
 
-    @typing.overload
-    async def get(
-        self,
-        *,
-        ids: typing.Sequence[int] | None = None,
-        project_worker_ids: typing.Sequence[int] | None = None,
-        starts_on: datetime.date | None = None,
-        ends_on: datetime.date | None = None,
-        updated_after: str | None = None,
-        **kwargs,
-    ) -> tuple[list[FlexibleTimeRecord], _common.Meta]: ...
+    async def get_by_id(self, record_id: int | str, **kwargs) -> FlexibleTimeRecord:
+        """Get a specific flexible time record by ID."""
+        data = await self.api.get(self.endpoint, record_id, **kwargs)
+        return pydantic.TypeAdapter(FlexibleTimeRecord).validate_python(data['data'])
 
-    async def get(  # noqa: PLR0913
-        self,
-        *,
-        flexible_time_record_id: int | None = None,
-        ids: typing.Sequence[int] | None = None,
-        project_worker_ids: typing.Sequence[int] | None = None,
-        starts_on: datetime.date | None = None,
-        ends_on: datetime.date | None = None,
-        updated_after: str | None = None,
-        **kwargs,
-    ):
-        """Implement https://apidoc.factorialhr.com/reference/get_api-2025-01-01-resources-project-management-flexible-time-records-id."""
-        if flexible_time_record_id is not None:
-            return FlexibleTimeRecord.model_validate(
-                await self.api.get(self.endpoint, flexible_time_record_id, **kwargs),
-            )
+    async def create(self, data: Mapping[str, typing.Any], **kwargs) -> FlexibleTimeRecord:
+        """Create a new flexible time record."""
+        response = await self.api.post(self.endpoint, json=data, **kwargs)
+        return pydantic.TypeAdapter(FlexibleTimeRecord).validate_python(response['data'])
 
-        params = kwargs.get('params', {})
-        params.update(
-            {
-                'ids[]': ids,
-                'project_worker_ids[]': project_worker_ids,
-                'starts_on': starts_on,
-                'ends_on': ends_on,
-                'updated_after': updated_after,
-            },
-        )
-        result = await self.api.get(self.endpoint, params=_common.build_params(**params), **kwargs)
-        return (
-            _FlexibleTimeRecordRoot.model_validate(result['data']).root,
-            _common.Meta.model_validate(result['meta']),
-        )
+    async def update(self, record_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> FlexibleTimeRecord:
+        """Update a flexible time record."""
+        response = await self.api.put(self.endpoint, record_id, json=data, **kwargs)
+        return pydantic.TypeAdapter(FlexibleTimeRecord).validate_python(response['data'])
+
+    async def delete(self, record_id: int | str, **kwargs) -> FlexibleTimeRecord:
+        """Delete a flexible time record."""
+        response = await self.api.delete(self.endpoint, record_id, **kwargs)
+        return pydantic.TypeAdapter(FlexibleTimeRecord).validate_python(response)
 
 
 class FlexibleTimeRecordComment(pydantic.BaseModel):
-    id: int
-    content: str
-    flexible_time_record_id: int
+    """Model for project_management_flexible_time_record_comment."""
 
-
-class _FlexibleTimeRecordCommentRoot(pydantic.RootModel):
-    root: list[FlexibleTimeRecordComment]
+    id: int = pydantic.Field(description='Comment ID')
+    content: str = pydantic.Field(description='Comment content')
+    flexible_time_record_id: int = pydantic.Field(description='Flexible time record ID')
 
 
 class FlexibleTimeRecordCommentEndpoint(Endpoint):
-    endpoint = '/2025-01-01/resources/project_management/flexible_time_record_comments'
+    endpoint = 'project_management/flexible_time_record_comments'
 
-    async def all(self, **kwargs) -> list[FlexibleTimeRecordComment]:
-        """Implement https://apidoc.factorialhr.com/reference/get_api-2025-01-01-resources-project-management-flexible-time-record-comments."""
-        return _FlexibleTimeRecordCommentRoot.model_validate(await self.api.get_all(self.endpoint, **kwargs)).root
+    async def all(self, **kwargs) -> ListApiResponse[FlexibleTimeRecordComment]:
+        """Get all flexible time record comments."""
+        data = await self.api.get_all(self.endpoint, **kwargs)
+        return ListApiResponse(raw_data=data)
 
-    @typing.overload
-    async def get(self, *, flexible_time_record_comment_id: int, **kwargs) -> FlexibleTimeRecordComment: ...
+    async def get(self, **kwargs) -> MetaApiResponse[FlexibleTimeRecordComment]:
+        """Get flexible time record comments with pagination metadata."""
+        query_params = kwargs.pop('params', {})
+        query_params.setdefault('page', 1)
+        response = await self.api.get(self.endpoint, params=query_params, **kwargs)
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
 
-    @typing.overload
-    async def get(
+    async def get_by_id(self, comment_id: int | str, **kwargs) -> FlexibleTimeRecordComment:
+        """Get a specific flexible time record comment by ID."""
+        data = await self.api.get(self.endpoint, comment_id, **kwargs)
+        return pydantic.TypeAdapter(FlexibleTimeRecordComment).validate_python(data['data'])
+
+    async def create(self, data: Mapping[str, typing.Any], **kwargs) -> FlexibleTimeRecordComment:
+        """Create a new flexible time record comment."""
+        response = await self.api.post(self.endpoint, json=data, **kwargs)
+        return pydantic.TypeAdapter(FlexibleTimeRecordComment).validate_python(response['data'])
+
+    async def update(
         self,
-        *,
-        ids: typing.Sequence[int] | None = None,
-        flexible_time_record_id: int | None = None,
+        comment_id: int | str,
+        data: Mapping[str, typing.Any],
         **kwargs,
-    ) -> tuple[list[FlexibleTimeRecordComment], _common.Meta]: ...
+    ) -> FlexibleTimeRecordComment:
+        """Update a flexible time record comment."""
+        response = await self.api.put(self.endpoint, comment_id, json=data, **kwargs)
+        return pydantic.TypeAdapter(FlexibleTimeRecordComment).validate_python(response['data'])
 
-    async def get(
+    async def delete(self, comment_id: int | str, **kwargs) -> FlexibleTimeRecordComment:
+        """Delete a flexible time record comment."""
+        response = await self.api.delete(self.endpoint, comment_id, **kwargs)
+        return pydantic.TypeAdapter(FlexibleTimeRecordComment).validate_python(response)
+
+    async def delete_by_flexible_time_record(
         self,
-        *,
-        flexible_time_record_comment_id: int | None = None,
-        ids: typing.Sequence[int] | None = None,
-        flexible_time_record_id: int | None = None,
+        data: Mapping[str, typing.Any],
         **kwargs,
-    ):
-        """Implement https://apidoc.factorialhr.com/reference/get_api-2025-01-01-resources-project-management-flexible-time-record-comments-id."""
-        if flexible_time_record_comment_id is not None:
-            return FlexibleTimeRecordComment.model_validate(
-                await self.api.get(self.endpoint, flexible_time_record_comment_id, **kwargs),
-            )
+    ) -> FlexibleTimeRecordComment:
+        """Delete a flexible time record comment by flexible time record ID."""
+        response = await self.api.post(self.endpoint, 'delete_by_flexible_time_record', json=data, **kwargs)
+        return pydantic.TypeAdapter(FlexibleTimeRecordComment).validate_python(response)
 
-        params = kwargs.get('params', {})
-        params.update(
-            {
-                'ids[]': ids,
-                'flexible_time_record_id': flexible_time_record_id,
-            },
-        )
-        result = await self.api.get(self.endpoint, params=_common.build_params(**params), **kwargs)
-        return _FlexibleTimeRecordCommentRoot.model_validate(result['data']).root, _common.Meta.model_validate(
-            result['meta'],
-        )
+    async def update_by_flexible_time_record(
+        self,
+        data: Mapping[str, typing.Any],
+        **kwargs,
+    ) -> FlexibleTimeRecordComment:
+        """Update a flexible time record comment by flexible time record ID."""
+        response = await self.api.post(self.endpoint, 'update_by_flexible_time_record', json=data, **kwargs)
+        return pydantic.TypeAdapter(FlexibleTimeRecordComment).validate_python(response)
 
 
-class ProjectStatus(enum.StrEnum):
-    active = 'active'
-    closed = 'closed'
-    processing = 'processing'
+class ProjectStatus(StrEnum):
+    """Enum for project status."""
+
+    ACTIVE = 'active'
+    CLOSED = 'closed'
+    DRAFT = 'draft'
+    PROCESSING = 'processing'
 
 
-class ProjectEmployeeAssignment(enum.StrEnum):
-    manual = 'manual'
-    company = 'company'
+class ProjectEmployeeAssignment(StrEnum):
+    """Enum for project employee assignment types."""
+
+    MANUAL = 'manual'
+    COMPANY = 'company'
 
 
 class Project(pydantic.BaseModel):
-    id: int
-    name: str
-    code: str | None
-    start_date: datetime.date | None
-    due_date: datetime.date | None
-    status: ProjectStatus
-    employees_assignment: ProjectEmployeeAssignment
-    inputed_minutes: int | None
-    is_billable: bool
-    fixed_cost_cents: int | None
-    labor_cost_cents: int | None
-    legal_entity_id: int
-    spending_cost_cents: int | None
-    client_id: int | None
-    total_cost_cents: int | None
+    """Model for project_management_project."""
 
-
-class _ProjectRoot(pydantic.RootModel):
-    root: list[Project]
+    id: int = pydantic.Field(description='Project ID')
+    name: str = pydantic.Field(description='Project name')
+    code: str | None = pydantic.Field(default=None, description='Project code')
+    start_date: datetime.date | None = pydantic.Field(default=None, description='Project start date')
+    due_date: datetime.date | None = pydantic.Field(default=None, description='Project due date')
+    status: ProjectStatus = pydantic.Field(description='Project status')
+    employees_assignment: ProjectEmployeeAssignment = pydantic.Field(description='Employee assignment type')
+    inputed_minutes: int | None = pydantic.Field(default=None, description='Total inputted minutes')
+    is_billable: bool = pydantic.Field(description='Whether the project is billable')
+    fixed_cost_cents: int | None = pydantic.Field(default=None, description='Fixed cost in cents')
+    labor_cost_cents: int | None = pydantic.Field(default=None, description='Labor cost in cents')
+    legal_entity_id: int = pydantic.Field(description='Legal entity ID')
+    spending_cost_cents: int | None = pydantic.Field(default=None, description='Spending cost in cents')
+    client_id: int | None = pydantic.Field(default=None, description='Client ID')
+    total_cost_cents: int | None = pydantic.Field(default=None, description='Total cost in cents')
 
 
 class ProjectEndpoint(Endpoint):
-    endpoint = '/2025-01-01/resources/project_management/projects'
+    endpoint = 'project_management/projects'
 
-    async def all(  # noqa: PLR0913
-        self,
-        *,
-        ids: typing.Sequence[int] | None = None,
-        name: str | None = None,
-        name_or_code: str | None = None,
-        include_inputed_minutes: bool | None = None,
-        updated_after: datetime.date | None = None,
-        legal_entity_id: int | None = None,
-        no_clients: bool | None = None,
-        total_currency: str | None = None,
-        **kwargs,
-    ) -> list[Project]:
-        """Implement https://apidoc.factorialhr.com/reference/get_api-2025-01-01-resources-project-management-projects."""
-        params = kwargs.get('params', {})
-        params.update(
-            {
-                'ids[]': ids,
-                'name': name,
-                'name_or_code': name_or_code,
-                'include_inputed_minutes': include_inputed_minutes,
-                'updated_after': updated_after,
-                'legal_entity_id': legal_entity_id,
-                'no_clients': no_clients,
-                'total_currency': total_currency,
-            },
-        )
-        return _ProjectRoot.model_validate(
-            await self.api.get_all(self.endpoint, params=_common.build_params(**params), **kwargs),
-        ).root
+    async def all(self, **kwargs) -> ListApiResponse[Project]:
+        """Get all projects."""
+        data = await self.api.get_all(self.endpoint, **kwargs)
+        return ListApiResponse(raw_data=data)
 
-    @typing.overload
-    async def get(self, *, project_id: int, **kwargs) -> Project: ...
+    async def get(self, **kwargs) -> MetaApiResponse[Project]:
+        """Get projects with pagination metadata."""
+        query_params = kwargs.pop('params', {})
+        query_params.setdefault('page', 1)
+        response = await self.api.get(self.endpoint, params=query_params, **kwargs)
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
 
-    @typing.overload
-    async def get(
-        self,
-        *,
-        ids: typing.Sequence[int] | None = None,
-        name: str | None = None,
-        name_or_code: str | None = None,
-        include_inputed_minutes: bool | None = None,
-        updated_after: datetime.date | None = None,
-        legal_entity_id: int | None = None,
-        no_clients: bool | None = None,
-        total_currency: str | None = None,
-        **kwargs,
-    ) -> tuple[list[Project], _common.Meta]: ...
+    async def get_by_id(self, project_id: int | str, **kwargs) -> Project:
+        """Get a specific project by ID."""
+        data = await self.api.get(self.endpoint, project_id, **kwargs)
+        return pydantic.TypeAdapter(Project).validate_python(data['data'])
 
-    async def get(  # noqa: PLR0913
-        self,
-        *,
-        project_id: int | None = None,
-        ids: typing.Sequence[int] | None = None,
-        name: str | None = None,
-        name_or_code: str | None = None,
-        include_inputed_minutes: bool | None = None,
-        updated_after: datetime.date | None = None,
-        legal_entity_id: int | None = None,
-        no_clients: bool | None = None,
-        total_currency: str | None = None,
-        **kwargs,
-    ):
-        """Implement https://apidoc.factorialhr.com/reference/get_api-2025-01-01-resources-project-management-projects-id."""
-        if project_id is not None:
-            return Project.model_validate(await self.api.get(self.endpoint, project_id, **kwargs))
+    async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Project:
+        """Create a new project."""
+        response = await self.api.post(self.endpoint, json=data, **kwargs)
+        return pydantic.TypeAdapter(Project).validate_python(response['data'])
 
-        params = kwargs.get('params', {})
-        params.update(
-            {
-                'ids[]': ids,
-                'name': name,
-                'name_or_code': name_or_code,
-                'include_inputed_minutes': include_inputed_minutes,
-                'updated_after': updated_after,
-                'legal_entity_id': legal_entity_id,
-                'no_clients': no_clients,
-                'total_currency': total_currency,
-            },
-        )
-        result = await self.api.get(self.endpoint, params=_common.build_params(**params), **kwargs)
-        return _ProjectRoot.model_validate(result['data']).root, _common.Meta.model_validate(result['meta'])
+    async def update(self, project_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Project:
+        """Update a project."""
+        response = await self.api.put(self.endpoint, project_id, json=data, **kwargs)
+        return pydantic.TypeAdapter(Project).validate_python(response['data'])
+
+    async def delete(self, project_id: int | str, **kwargs) -> Project:
+        """Delete a project."""
+        response = await self.api.delete(self.endpoint, project_id, **kwargs)
+        return pydantic.TypeAdapter(Project).validate_python(response)
+
+    async def activate(self, data: Mapping[str, typing.Any], **kwargs) -> Project:
+        """Activate a project."""
+        response = await self.api.post(self.endpoint, 'activate', json=data, **kwargs)
+        return pydantic.TypeAdapter(Project).validate_python(response)
+
+    async def change_assignment(self, data: Mapping[str, typing.Any], **kwargs) -> Project:
+        """Change assignment of a project."""
+        response = await self.api.post(self.endpoint, 'change_assignment', json=data, **kwargs)
+        return pydantic.TypeAdapter(Project).validate_python(response)
+
+    async def change_status(self, data: Mapping[str, typing.Any], **kwargs) -> Project:
+        """Change status of a project."""
+        response = await self.api.post(self.endpoint, 'change_status', json=data, **kwargs)
+        return pydantic.TypeAdapter(Project).validate_python(response)
+
+    async def close(self, data: Mapping[str, typing.Any], **kwargs) -> Project:
+        """Close a project."""
+        response = await self.api.post(self.endpoint, 'close', json=data, **kwargs)
+        return pydantic.TypeAdapter(Project).validate_python(response)
+
+    async def soft_delete(self, data: Mapping[str, typing.Any], **kwargs) -> Project:
+        """Soft delete a project."""
+        response = await self.api.post(self.endpoint, 'soft_delete', json=data, **kwargs)
+        return pydantic.TypeAdapter(Project).validate_python(response)
 
 
 class ProjectTask(pydantic.BaseModel):
-    id: int
-    project_id: int
-    subproject_id: int
-    task_id: int
-    follow_up: bool
+    """Model for project_management_project_task."""
 
-
-class _ProjectTaskRoot(pydantic.RootModel):
-    root: list[ProjectTask]
+    id: int = pydantic.Field(description='Project task ID')
+    project_id: int = pydantic.Field(description='Project ID')
+    subproject_id: int = pydantic.Field(description='Subproject ID')
+    task_id: int = pydantic.Field(description='Task ID')
+    follow_up: bool = pydantic.Field(description='Whether this is a follow-up task')
 
 
 class ProjectTaskEndpoint(Endpoint):
-    endpoint = '/2025-01-01/resources/project_management/project_tasks'
+    endpoint = 'project_management/project_tasks'
 
-    async def all(  # noqa: PLR0913
-        self,
-        *,
-        ids: typing.Sequence[int] | None = None,
-        project_ids: typing.Sequence[int] | None = None,
-        subproject_ids: typing.Sequence[int] | None = None,
-        task_ids: typing.Sequence[int] | None = None,
-        completed: bool | None = None,
-        overdue: bool | None = None,
-        search: str | None = None,
-        due_status: str | None = None,
-        client_ids: typing.Sequence[int] | None = None,
-        **kwargs,
-    ) -> list[ProjectTask]:
-        """Implement https://apidoc.factorialhr.com/reference/get_api-2025-01-01-resources-project-management-project-tasks."""
-        params = kwargs.get('params', {})
-        params.update(
-            {
-                'ids[]': ids,
-                'project_ids[]': project_ids,
-                'subproject_ids[]': subproject_ids,
-                'task_ids[]': task_ids,
-                'completed': completed,
-                'overdue': overdue,
-                'search': search,
-                'due_status': due_status,
-                'client_ids[]': client_ids,
-            },
-        )
-        return _ProjectTaskRoot.model_validate(
-            await self.api.get_all(self.endpoint, params=_common.build_params(**params), **kwargs),
-        ).root
+    async def all(self, **kwargs) -> ListApiResponse[ProjectTask]:
+        """Get all project tasks."""
+        data = await self.api.get_all(self.endpoint, **kwargs)
+        return ListApiResponse(raw_data=data)
 
-    @typing.overload
-    async def get(self, *, project_task_id: int, **kwargs) -> ProjectTask: ...
+    async def get(self, **kwargs) -> MetaApiResponse[ProjectTask]:
+        """Get project tasks with pagination metadata."""
+        query_params = kwargs.pop('params', {})
+        query_params.setdefault('page', 1)
+        response = await self.api.get(self.endpoint, params=query_params, **kwargs)
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
 
-    @typing.overload
-    async def get(
-        self,
-        *,
-        ids: typing.Sequence[int] | None = None,
-        project_ids: typing.Sequence[int] | None = None,
-        subproject_ids: typing.Sequence[int] | None = None,
-        task_ids: typing.Sequence[int] | None = None,
-        completed: bool | None = None,
-        overdue: bool | None = None,
-        search: str | None = None,
-        due_status: str | None = None,
-        client_ids: typing.Sequence[int] | None = None,
-        **kwargs,
-    ) -> tuple[list[ProjectTask], _common.Meta]: ...
+    async def get_by_id(self, task_id: int | str, **kwargs) -> ProjectTask:
+        """Get a specific project task by ID."""
+        data = await self.api.get(self.endpoint, task_id, **kwargs)
+        return pydantic.TypeAdapter(ProjectTask).validate_python(data['data'])
 
-    async def get(  # noqa: PLR0913
-        self,
-        *,
-        project_task_id: int | None = None,
-        ids: typing.Sequence[int] | None = None,
-        project_ids: typing.Sequence[int] | None = None,
-        subproject_ids: typing.Sequence[int] | None = None,
-        task_ids: typing.Sequence[int] | None = None,
-        completed: bool | None = None,
-        overdue: bool | None = None,
-        search: str | None = None,
-        due_status: str | None = None,
-        client_ids: typing.Sequence[int] | None = None,
-        **kwargs,
-    ):
-        """Implement https://apidoc.factorialhr.com/reference/get_api-2025-01-01-resources-project-management-project-tasks-id."""
-        if project_task_id is not None:
-            return ProjectTask.model_validate(await self.api.get(self.endpoint, project_task_id, **kwargs))
-        params = kwargs.get('params', {})
-        params.update(
-            {
-                'ids[]': ids,
-                'project_ids[]': project_ids,
-                'subproject_ids[]': subproject_ids,
-                'task_ids[]': task_ids,
-                'completed': completed,
-                'overdue': overdue,
-                'search': search,
-                'due_status': due_status,
-                'client_ids[]': client_ids,
-            },
-        )
-        result = await self.api.get(self.endpoint, params=_common.build_params(**params), **kwargs)
-        return _ProjectTaskRoot.model_validate(result['data']).root, _common.Meta.model_validate(result['meta'])
+    async def create(self, data: Mapping[str, typing.Any], **kwargs) -> ProjectTask:
+        """Create a new project task."""
+        response = await self.api.post(self.endpoint, json=data, **kwargs)
+        return pydantic.TypeAdapter(ProjectTask).validate_python(response['data'])
+
+    async def update(self, task_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> ProjectTask:
+        """Update a project task."""
+        response = await self.api.put(self.endpoint, task_id, json=data, **kwargs)
+        return pydantic.TypeAdapter(ProjectTask).validate_python(response['data'])
+
+    async def delete(self, task_id: int | str, **kwargs) -> ProjectTask:
+        """Delete a project task."""
+        response = await self.api.delete(self.endpoint, task_id, **kwargs)
+        return pydantic.TypeAdapter(ProjectTask).validate_python(response)
+
+    async def bulk_destroy(self, data: Mapping[str, typing.Any], **kwargs) -> list[ProjectTask]:
+        """Bulk destroy project tasks."""
+        response = await self.api.post(self.endpoint, 'bulk_destroy', json=data, **kwargs)
+        return pydantic.TypeAdapter(list[ProjectTask]).validate_python(response)
+
+    async def bulk_duplicate(self, data: Mapping[str, typing.Any], **kwargs) -> list[ProjectTask]:
+        """Bulk duplicate project tasks."""
+        response = await self.api.post(self.endpoint, 'bulk_duplicate', json=data, **kwargs)
+        return pydantic.TypeAdapter(list[ProjectTask]).validate_python(response)
 
 
 class ProjectWorker(pydantic.BaseModel):
-    id: int
-    project_id: int
-    employee_id: int
-    assigned: bool
-    inputed_minutes: int | None
-    labor_cost_cents: int | None
-    spending_cost_cents: int | None
+    """Model for project_management_project_worker."""
 
-
-class _ProjectWorkerRoot(pydantic.RootModel):
-    root: list[ProjectWorker]
+    id: int = pydantic.Field(description='Project worker ID')
+    project_id: int = pydantic.Field(description='Project ID')
+    employee_id: int = pydantic.Field(description='Employee ID')
+    assigned: bool = pydantic.Field(description='Whether the worker is assigned to the project')
+    inputed_minutes: int | None = pydantic.Field(default=None, description='Total inputted minutes')
+    labor_cost_cents: int | None = pydantic.Field(default=None, description='Labor cost in cents')
+    spending_cost_cents: int | None = pydantic.Field(default=None, description='Spending cost in cents')
 
 
 class ProjectWorkerEndpoint(Endpoint):
-    endpoint = '/2025-01-01/resources/project_management/project_workers'
+    endpoint = 'project_management/project_workers'
 
-    async def all(  # noqa: PLR0913
-        self,
-        *,
-        ids: typing.Sequence[int] | None = None,
-        project_ids: typing.Sequence[int] | None = None,
-        subproject_ids: typing.Sequence[int] | None = None,
-        no_subproject: bool | None = None,
-        employee_ids: typing.Sequence[int] | None = None,
-        assigned: bool | None = None,
-        project_active: bool | None = None,
-        employee_name: str | None = None,
-        include_inputed_minuted: bool | None = None,
-        include_cost: bool | None = None,
-        updated_after: datetime.date | None = None,
-        include_labor_cost: bool | None = None,
-        **kwargs,
-    ) -> list[ProjectWorker]:
-        """Implement https://apidoc.factorialhr.com/reference/get_api-2025-01-01-resources-project-management-project-workers."""
-        params = kwargs.get('params', {})
-        params.update(
-            {
-                'ids[]': ids,
-                'project_ids[]': project_ids,
-                'subproject_ids[]': subproject_ids,
-                'no_subproject': no_subproject,
-                'employee_ids[]': employee_ids,
-                'assigned': assigned,
-                'project_active': project_active,
-                'employee_name': employee_name,
-                'include_inputed_minutes': include_inputed_minuted,
-                'include_cost': include_cost,
-                'updated_after': updated_after,
-                'include_labor_cost': include_labor_cost,
-            },
-        )
-        return _ProjectWorkerRoot.model_validate(
-            await self.api.get_all(self.endpoint, params=_common.build_params(**params), **kwargs),
-        ).root
+    async def all(self, **kwargs) -> ListApiResponse[ProjectWorker]:
+        """Get all project workers."""
+        data = await self.api.get_all(self.endpoint, **kwargs)
+        return ListApiResponse(raw_data=data)
 
-    @typing.overload
-    async def get(self, *, project_worker_id: int, **kwargs) -> ProjectWorker: ...
+    async def get(self, **kwargs) -> MetaApiResponse[ProjectWorker]:
+        """Get project workers with pagination metadata."""
+        query_params = kwargs.pop('params', {})
+        query_params.setdefault('page', 1)
+        response = await self.api.get(self.endpoint, params=query_params, **kwargs)
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
 
-    @typing.overload
-    async def get(
-        self,
-        *,
-        ids: typing.Sequence[int] | None = None,
-        project_ids: typing.Sequence[int] | None = None,
-        subproject_ids: typing.Sequence[int] | None = None,
-        no_subproject: bool | None = None,
-        employee_ids: typing.Sequence[int] | None = None,
-        assigned: bool | None = None,
-        project_active: bool | None = None,
-        employee_name: str | None = None,
-        include_inputed_minuted: bool | None = None,
-        include_cost: bool | None = None,
-        updated_after: datetime.date | None = None,
-        include_labor_cost: bool | None = None,
-        **kwargs,
-    ) -> tuple[list[ProjectWorker], _common.Meta]: ...
+    async def get_by_id(self, worker_id: int | str, **kwargs) -> ProjectWorker:
+        """Get a specific project worker by ID."""
+        data = await self.api.get(self.endpoint, worker_id, **kwargs)
+        return pydantic.TypeAdapter(ProjectWorker).validate_python(data['data'])
 
-    async def get(  # noqa: PLR0913
-        self,
-        *,
-        project_worker_id: int | None = None,
-        ids: typing.Sequence[int] | None = None,
-        project_ids: typing.Sequence[int] | None = None,
-        subproject_ids: typing.Sequence[int] | None = None,
-        no_subproject: bool | None = None,
-        employee_ids: typing.Sequence[int] | None = None,
-        assigned: bool | None = None,
-        project_active: bool | None = None,
-        employee_name: str | None = None,
-        include_inputed_minuted: bool | None = None,
-        include_cost: bool | None = None,
-        updated_after: datetime.date | None = None,
-        include_labor_cost: bool | None = None,
-        **kwargs,
-    ):
-        """Implement https://apidoc.factorialhr.com/reference/get_api-2025-01-01-resources-project-management-project-workers-id."""
-        if project_worker_id is not None:
-            return ProjectWorker.model_validate(await self.api.get(self.endpoint, project_worker_id, **kwargs))
-        params = kwargs.get('params', {})
-        params.update(
-            {
-                'ids[]': ids,
-                'project_ids[]': project_ids,
-                'subproject_ids[]': subproject_ids,
-                'no_subproject': no_subproject,
-                'employee_ids[]': employee_ids,
-                'assigned': assigned,
-                'project_active': project_active,
-                'employee_name': employee_name,
-                'include_inputed_minutes': include_inputed_minuted,
-                'include_cost': include_cost,
-                'updated_after': updated_after,
-                'include_labor_cost': include_labor_cost,
-            },
-        )
-        result = await self.api.get(self.endpoint, params=_common.build_params(**params), **kwargs)
-        return _ProjectWorkerRoot.model_validate(result['data']).root, _common.Meta.model_validate(result['meta'])
+    async def create(self, data: Mapping[str, typing.Any], **kwargs) -> ProjectWorker:
+        """Create a new project worker."""
+        response = await self.api.post(self.endpoint, json=data, **kwargs)
+        return pydantic.TypeAdapter(ProjectWorker).validate_python(response['data'])
+
+    async def update(self, worker_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> ProjectWorker:
+        """Update a project worker."""
+        response = await self.api.put(self.endpoint, worker_id, json=data, **kwargs)
+        return pydantic.TypeAdapter(ProjectWorker).validate_python(response['data'])
+
+    async def delete(self, worker_id: int | str, **kwargs) -> ProjectWorker:
+        """Delete a project worker."""
+        response = await self.api.delete(self.endpoint, worker_id, **kwargs)
+        return pydantic.TypeAdapter(ProjectWorker).validate_python(response)
+
+    async def bulk_assign(self, data: Mapping[str, typing.Any], **kwargs) -> list[ProjectWorker]:
+        """Bulk assign project workers."""
+        response = await self.api.post(self.endpoint, 'bulk_assign', json=data, **kwargs)
+        return pydantic.TypeAdapter(list[ProjectWorker]).validate_python(response)
+
+    async def bulk_create(self, data: Mapping[str, typing.Any], **kwargs) -> list[ProjectWorker]:
+        """Bulk create project workers."""
+        response = await self.api.post(self.endpoint, 'bulk_create', json=data, **kwargs)
+        return pydantic.TypeAdapter(list[ProjectWorker]).validate_python(response)
+
+    async def unassign(self, data: Mapping[str, typing.Any], **kwargs) -> ProjectWorker:
+        """Unassign a project worker."""
+        response = await self.api.post(self.endpoint, 'unassign', json=data, **kwargs)
+        return pydantic.TypeAdapter(ProjectWorker).validate_python(response)
 
 
 class Subproject(pydantic.BaseModel):
-    id: int | None
-    name: str
-    project_id: int
-    inputed_minutes: int | None
-    labor_cost_cents: int | None
+    """Model for project_management_subproject."""
 
-
-class _SubprojectRoot(pydantic.RootModel):
-    root: list[Subproject]
+    id: int | None = pydantic.Field(default=None, description='Subproject ID')
+    name: str = pydantic.Field(description='Subproject name')
+    project_id: int = pydantic.Field(description='Project ID')
+    inputed_minutes: int | None = pydantic.Field(default=None, description='Total inputted minutes')
+    labor_cost_cents: int | None = pydantic.Field(default=None, description='Labor cost in cents')
 
 
 class SubprojectEndpoint(Endpoint):
-    endpoint = '/2025-01-01/resources/project_management/subprojects'
+    endpoint = 'project_management/subprojects'
 
-    async def all(  # noqa: PLR0913
-        self,
-        *,
-        ids: typing.Sequence[int] | None = None,
-        project_ids: typing.Sequence[int] | None = None,
-        name: str | None = None,
-        include_no_subproject: bool | None = None,
-        include_inputed_minuted: bool | None = None,
-        include_cost: bool | None = None,
-        updated_after: datetime.date | None = None,
-        **kwargs,
-    ) -> list[Subproject]:
-        """Implement https://apidoc.factorialhr.com/reference/get_api-2025-01-01-resources-project-management-subprojects."""
-        params = kwargs.get('params', {})
-        params.update(
-            {
-                'ids[]': ids,
-                'project_ids[]': project_ids,
-                'name': name,
-                'include_no_subproject': include_no_subproject,
-                'include_inputed_minutes': include_inputed_minuted,
-                'include_cost': include_cost,
-                'updated_after': updated_after,
-            },
-        )
-        return _SubprojectRoot.model_validate(
-            await self.api.get_all(self.endpoint, params=_common.build_params(**params), **kwargs),
-        ).root
+    async def all(self, **kwargs) -> ListApiResponse[Subproject]:
+        """Get all subprojects."""
+        data = await self.api.get_all(self.endpoint, **kwargs)
+        return ListApiResponse(raw_data=data)
 
-    @typing.overload
-    async def get(self, *, subproject_id: int, **kwargs) -> Subproject: ...
+    async def get(self, **kwargs) -> MetaApiResponse[Subproject]:
+        """Get subprojects with pagination metadata."""
+        query_params = kwargs.pop('params', {})
+        query_params.setdefault('page', 1)
+        response = await self.api.get(self.endpoint, params=query_params, **kwargs)
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
 
-    @typing.overload
-    async def get(
-        self,
-        *,
-        ids: typing.Sequence[int] | None = None,
-        project_ids: typing.Sequence[int] | None = None,
-        name: str | None = None,
-        include_no_subproject: bool | None = None,
-        include_inputed_minuted: bool | None = None,
-        include_cost: bool | None = None,
-        updated_after: datetime.date | None = None,
-        **kwargs,
-    ) -> tuple[list[Subproject], _common.Meta]: ...
+    async def get_by_id(self, subproject_id: int | str, **kwargs) -> Subproject:
+        """Get a specific subproject by ID."""
+        data = await self.api.get(self.endpoint, subproject_id, **kwargs)
+        return pydantic.TypeAdapter(Subproject).validate_python(data['data'])
 
-    async def get(  # noqa: PLR0913
-        self,
-        *,
-        subproject_id: int | None = None,
-        ids: typing.Sequence[int] | None = None,
-        project_ids: typing.Sequence[int] | None = None,
-        name: str | None = None,
-        include_no_subproject: bool | None = None,
-        include_inputed_minuted: bool | None = None,
-        include_cost: bool | None = None,
-        updated_after: datetime.date | None = None,
-        **kwargs,
-    ):
-        """Implement https://apidoc.factorialhr.com/reference/get_api-2025-01-01-resources-project-management-subprojects-id."""
-        if subproject_id is not None:
-            return Subproject.model_validate(await self.api.get(self.endpoint, subproject_id, **kwargs))
-        params = kwargs.get('params', {})
-        params.update(
-            {
-                'ids[]': ids,
-                'project_ids[]': project_ids,
-                'name': name,
-                'include_no_subproject': include_no_subproject,
-                'include_inputed_minutes': include_inputed_minuted,
-                'include_cost': include_cost,
-                'updated_after': updated_after,
-            },
-        )
-        result = await self.api.get(self.endpoint, params=_common.build_params(**params), **kwargs)
-        return _SubprojectRoot.model_validate(result['data']).root, _common.Meta.model_validate(result['meta'])
+    async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Subproject:
+        """Create a new subproject."""
+        response = await self.api.post(self.endpoint, json=data, **kwargs)
+        return pydantic.TypeAdapter(Subproject).validate_python(response['data'])
+
+    async def update(self, subproject_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Subproject:
+        """Update a subproject."""
+        response = await self.api.put(self.endpoint, subproject_id, json=data, **kwargs)
+        return pydantic.TypeAdapter(Subproject).validate_python(response['data'])
+
+    async def delete(self, subproject_id: int | str, **kwargs) -> Subproject:
+        """Delete a subproject."""
+        response = await self.api.delete(self.endpoint, subproject_id, **kwargs)
+        return pydantic.TypeAdapter(Subproject).validate_python(response)
+
+    async def rename(self, data: Mapping[str, typing.Any], **kwargs) -> Subproject:
+        """Rename a subproject."""
+        response = await self.api.post(self.endpoint, 'rename', json=data, **kwargs)
+        return pydantic.TypeAdapter(Subproject).validate_python(response)
 
 
 class TimeRecord(pydantic.BaseModel):
-    id: int
-    project_worker_id: int
-    attendance_shift_id: int
-    subproject_id: int | None
-    date: datetime.date | None
-    imputed_minutes: int | None
-    clock_in: datetime.datetime | None  # date will always be 2000-01-01, only use for .time()
-    clock_out: datetime.datetime | None  # date will always be 2000-01-01, only use for .time()
+    """Model for project_management_time_record."""
 
-
-class _TimeRecordRoot(pydantic.RootModel):
-    root: list[TimeRecord]
+    id: int = pydantic.Field(description='Time record ID')
+    project_worker_id: int = pydantic.Field(description='Project worker ID')
+    attendance_shift_id: int = pydantic.Field(description='Attendance shift ID')
+    subproject_id: int | None = pydantic.Field(default=None, description='Subproject ID')
+    date: datetime.date | None = pydantic.Field(default=None, description='Record date')
+    imputed_minutes: int | None = pydantic.Field(default=None, description='Imputed minutes')
+    clock_in: datetime.datetime | None = pydantic.Field(
+        default=None,
+        description='Clock in time (date will always be 2000-01-01, only use for .time())',
+    )
+    clock_out: datetime.datetime | None = pydantic.Field(
+        default=None,
+        description='Clock out time (date will always be 2000-01-01, only use for .time())',
+    )
 
 
 class TimeRecordEndpoint(Endpoint):
-    endpoint = '/2025-01-01/resources/project_management/time_records'
+    endpoint = 'project_management/time_records'
 
-    async def all(  # noqa: PLR0913
-        self,
-        *,
-        ids: typing.Sequence[int] | None = None,
-        project_worker_ids: typing.Sequence[int] | None = None,
-        subproject_ids: typing.Sequence[int] | None = None,
-        attendance_shift_ids: typing.Sequence[int] | None = None,
-        month: int | None = None,
-        year: int | None = None,
-        updated_after: datetime.date | None = None,
-        **kwargs,
-    ) -> list[TimeRecord]:
-        """Implement https://apidoc.factorialhr.com/reference/get_api-2025-01-01-resources-project-management-time-records."""
-        params = kwargs.get('params', {})
-        params.update(
-            {
-                'ids[]': ids,
-                'project_worker_ids[]': project_worker_ids,
-                'subproject_ids[]': subproject_ids,
-                'attendance_shift_ids[]': attendance_shift_ids,
-                'month': month,
-                'year': year,
-                'updated_after': updated_after,
-            },
-        )
-        return _TimeRecordRoot.model_validate(
-            await self.api.get_all(self.endpoint, params=_common.build_params(**params), **kwargs),
-        ).root
+    async def all(self, **kwargs) -> ListApiResponse[TimeRecord]:
+        """Get all time records."""
+        data = await self.api.get_all(self.endpoint, **kwargs)
+        return ListApiResponse(raw_data=data)
 
-    @typing.overload
-    async def get(self, *, time_record_id: int, **kwargs) -> TimeRecord: ...
+    async def get(self, **kwargs) -> MetaApiResponse[TimeRecord]:
+        """Get time records with pagination metadata."""
+        query_params = kwargs.pop('params', {})
+        query_params.setdefault('page', 1)
+        response = await self.api.get(self.endpoint, params=query_params, **kwargs)
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
 
-    @typing.overload
-    async def get(
-        self,
-        *,
-        ids: typing.Sequence[int] | None = None,
-        project_worker_ids: typing.Sequence[int] | None = None,
-        subproject_ids: typing.Sequence[int] | None = None,
-        attendance_shift_ids: typing.Sequence[int] | None = None,
-        month: int | None = None,
-        year: int | None = None,
-        updated_after: datetime.date | None = None,
-        **kwargs,
-    ) -> tuple[list[TimeRecord], _common.Meta]: ...
+    async def get_by_id(self, record_id: int | str, **kwargs) -> TimeRecord:
+        """Get a specific time record by ID."""
+        data = await self.api.get(self.endpoint, record_id, **kwargs)
+        return pydantic.TypeAdapter(TimeRecord).validate_python(data['data'])
 
-    async def get(  # noqa: PLR0913
-        self,
-        *,
-        time_record_id: int | None = None,
-        ids: typing.Sequence[int] | None = None,
-        project_worker_ids: typing.Sequence[int] | None = None,
-        subproject_ids: typing.Sequence[int] | None = None,
-        attendance_shift_ids: typing.Sequence[int] | None = None,
-        month: int | None = None,
-        year: int | None = None,
-        updated_after: datetime.date | None = None,
-        **kwargs,
-    ):
-        """Implement https://apidoc.factorialhr.com/reference/get_api-2025-01-01-resources-project-management-time-records-id."""
-        if time_record_id is not None:
-            return TimeRecord.model_validate(await self.api.get(self.endpoint, time_record_id, **kwargs))
-        params = kwargs.get('params', {})
-        params.update(
-            {
-                'ids[]': ids,
-                'project_worker_ids[]': project_worker_ids,
-                'subproject_ids[]': subproject_ids,
-                'attendance_shift_ids[]': attendance_shift_ids,
-                'month': month,
-                'year': year,
-                'updated_after': updated_after,
-            },
-        )
-        result = await self.api.get(self.endpoint, params=_common.build_params(**params), **kwargs)
-        return _TimeRecordRoot.model_validate(result['data']).root, _common.Meta.model_validate(result['meta'])
+    async def create(self, data: Mapping[str, typing.Any], **kwargs) -> TimeRecord:
+        """Create a new time record."""
+        response = await self.api.post(self.endpoint, json=data, **kwargs)
+        return pydantic.TypeAdapter(TimeRecord).validate_python(response['data'])
+
+    async def update(self, record_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> TimeRecord:
+        """Update a time record."""
+        response = await self.api.put(self.endpoint, record_id, json=data, **kwargs)
+        return pydantic.TypeAdapter(TimeRecord).validate_python(response['data'])
+
+    async def delete(self, record_id: int | str, **kwargs) -> TimeRecord:
+        """Delete a time record."""
+        response = await self.api.delete(self.endpoint, record_id, **kwargs)
+        return pydantic.TypeAdapter(TimeRecord).validate_python(response)
+
+    async def bulk_delete(self, data: Mapping[str, typing.Any], **kwargs) -> list[TimeRecord]:
+        """Bulk delete time records."""
+        response = await self.api.post(self.endpoint, 'bulk_delete', json=data, **kwargs)
+        return pydantic.TypeAdapter(list[TimeRecord]).validate_python(response)
+
+    async def bulk_process(self, data: Mapping[str, typing.Any], **kwargs) -> list[TimeRecord]:
+        """Bulk process time records."""
+        response = await self.api.post(self.endpoint, 'bulk_process', json=data, **kwargs)
+        return pydantic.TypeAdapter(list[TimeRecord]).validate_python(response)
+
+    async def update_project_worker(self, data: Mapping[str, typing.Any], **kwargs) -> TimeRecord:
+        """Update project worker for a time record."""
+        response = await self.api.post(self.endpoint, 'update_project_worker', json=data, **kwargs)
+        return pydantic.TypeAdapter(TimeRecord).validate_python(response)

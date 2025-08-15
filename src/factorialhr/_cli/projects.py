@@ -1,6 +1,7 @@
 import asyncio
 import collections
 import datetime
+from collections.abc import Sequence
 
 import click
 import cloup
@@ -16,7 +17,7 @@ async def get_time_records(
     client: factorialhr.ApiClient,
     start: datetime.date | None,
     end: datetime.date,
-) -> list[factorialhr.TimeRecord]:
+) -> Sequence[factorialhr.TimeRecord]:
     if start is not None:
         time_records = [
             x
@@ -26,22 +27,22 @@ async def get_time_records(
                     for date in common_cli.get_months_in(start, end)
                 ),
             )
-            for x in xs
+            for x in xs.data()
         ]
         return [
             time_record
             for time_record in time_records
             if time_record.date is not None and start <= time_record.date <= end
         ]
-    return await factorialhr.TimeRecordEndpoint(client).all()
+    return list((await factorialhr.TimeRecordEndpoint(client).all()).data())
 
 
 def filter_employees(
-    all_employees: list[factorialhr.Employee],
+    all_employees: Sequence[factorialhr.Employee],
     employees: tuple[str],
-    all_teams: list[factorialhr.Team],
+    all_teams: Sequence[factorialhr.Team],
     teams: tuple[str],
-) -> list[factorialhr.Employee]:
+) -> Sequence[factorialhr.Employee]:
     if not employees and not teams:
         return all_employees
 
@@ -94,24 +95,23 @@ async def imputed_minutes(  # noqa: PLR0913, C901, PLR0912
             get_time_records(client, start, end),
             factorialhr.ProjectEndpoint(client).all(),
             factorialhr.ProjectWorkerEndpoint(client).all(),
-            factorialhr.EmployeeEndpoint(client).all(),
-            factorialhr.TeamEndpoint(client).all(),
+            factorialhr.EmployeesEndpoint(client).all(),
+            factorialhr.TeamsEndpoint(client).all(),
         )
     if not time_records:
         raise click.ClickException('No project time records found')
     if not projects:
         raise click.ClickException('No projects found')
-    if project:
-        projects = [p for p in projects if p.name in project]
+    filtered_projects = [p for p in projects.data() if p.name in project] if project else list(projects.data())
     selected_employees = filter_employees(
-        all_employees=employees,
+        all_employees=list(employees.data()),
         employees=employee,
-        all_teams=teams,
+        all_teams=list(teams.data()),
         teams=team,
     )
     employees_by_ids = {e.id: e for e in selected_employees}
-    projects_by_id = {project.id: project for project in projects}
-    project_workers_by_id = {project_worker.id: project_worker for project_worker in project_worker}
+    projects_by_id = {project.id: project for project in filtered_projects}
+    project_workers_by_id = {project_worker.id: project_worker for project_worker in project_worker.data()}
 
     project_times_by_employee_name = collections.defaultdict(lambda: collections.defaultdict(int))
     contributed_projects = set(project)  # ensure that the selected projects are always shown
@@ -142,7 +142,7 @@ async def imputed_minutes(  # noqa: PLR0913, C901, PLR0912
     for project_times in project_times_by_employee_name.values():
         for project_name, minutes in project_times.items():
             project_times_sum_by_project_name[project_name] += minutes
-    minutes_by_project_name = collections.defaultdict(list[int])
+    minutes_by_project_name = collections.defaultdict(list)
     for project_name, minutes in project_times_sum_by_project_name.items():
         minutes_by_project_name[project_name].append(minutes)
     employee_names = []
@@ -190,25 +190,25 @@ async def unrelated_minutes(  # noqa: PLR0913
     async with factorialhr.ApiClient(auth=auth, base_url=url, timeout=http_timeout) as client:
         shifts, time_records, employees, teams = await asyncio.gather(
             # get raw data as its not worth parsing because it can take very long time
-            factorialhr.ShiftEndpoint(client).all_raw(params={'start_on': start, 'end_on': end}),
+            factorialhr.ShiftsEndpoint(client).all(params={'start_on': start, 'end_on': end}),
             get_time_records(client, start, end),
-            factorialhr.EmployeeEndpoint(client).all(),
-            factorialhr.TeamEndpoint(client).all(),
+            factorialhr.EmployeesEndpoint(client).all(),
+            factorialhr.TeamsEndpoint(client).all(),
         )
     if not shifts:
         raise click.ClickException('No shifts found')
     if not time_records:
         raise click.ClickException('No project time records found')
     selected_employees = filter_employees(
-        all_employees=employees,
+        all_employees=list(employees.data()),
         employees=employee,
-        all_teams=teams,
+        all_teams=list(teams.data()),
         teams=team,
     )
     employees_by_id = {employee.id: employee.full_name for employee in selected_employees}
     records_by_shift_id = {record.attendance_shift_id: record for record in time_records}
     unrelated_shifts_by_employee_id = collections.defaultdict(list)
-    for shift in shifts:
+    for shift in shifts.raw_data:
         if shift['id'] not in records_by_shift_id and shift['employee_id'] in employees_by_id:
             unrelated_shifts_by_employee_id[shift['employee_id']].append(shift)
 
