@@ -411,14 +411,14 @@ class AccountsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Account]:
         """Get all accounts."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=Account)
 
     async def get(self, **kwargs) -> MetaApiResponse[Account]:
         """Get accounts with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=Account)
 
     async def get_by_id(self, account_id: int | str, **kwargs) -> Account:
         """Get a specific account by ID."""
@@ -444,14 +444,14 @@ class AccountingSettingsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[AccountingSetting]:
         """Get all accounting settings."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=AccountingSetting)
 
     async def get(self, **kwargs) -> MetaApiResponse[AccountingSetting]:
         """Get accounting settings with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=AccountingSetting)
 
     async def get_by_id(self, setting_id: int | str, **kwargs) -> AccountingSetting:
         """Get a specific accounting setting by ID."""
@@ -472,14 +472,14 @@ class ContactsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Contact]:
         """Get all contacts."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=Contact)
 
     async def get(self, **kwargs) -> MetaApiResponse[Contact]:
         """Get contacts with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=Contact)
 
     async def get_by_id(self, contact_id: int | str, **kwargs) -> Contact:
         """Get a specific contact by ID."""
@@ -505,14 +505,14 @@ class CostCentersEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[CostCenter]:
         """Get all cost centers."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=CostCenter)
 
     async def get(self, **kwargs) -> MetaApiResponse[CostCenter]:
         """Get cost centers with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=CostCenter)
 
     async def get_by_id(self, cost_center_id: int | str, **kwargs) -> CostCenter:
         """Get a specific cost center by ID."""
@@ -543,14 +543,14 @@ class CostCenterMembershipsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[CostCenterMembership]:
         """Get all cost center memberships."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=CostCenterMembership)
 
     async def get(self, **kwargs) -> MetaApiResponse[CostCenterMembership]:
         """Get cost center memberships with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=CostCenterMembership)
 
     async def bulk_create_update(self, data: Mapping[str, typing.Any], **kwargs) -> list[CostCenterMembership]:
         """Bulk create/update cost center memberships."""
@@ -566,14 +566,14 @@ class FinancialDocumentsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[FinancialDocument]:
         """Get all financial documents."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=FinancialDocument)
 
     async def get(self, **kwargs) -> MetaApiResponse[FinancialDocument]:
         """Get financial documents with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=FinancialDocument)
 
     async def get_by_id(self, document_id: int | str, **kwargs) -> FinancialDocument:
         """Get a specific financial document by ID."""
@@ -589,14 +589,14 @@ class JournalEntriesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[JournalEntry]:
         """Get all journal entries."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=JournalEntry)
 
     async def get(self, **kwargs) -> MetaApiResponse[JournalEntry]:
         """Get journal entries with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=JournalEntry)
 
     async def get_by_id(self, entry_id: int | str, **kwargs) -> JournalEntry:
         """Get a specific journal entry by ID."""
@@ -617,14 +617,14 @@ class JournalLinesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[JournalLine]:
         """Get all journal lines."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=JournalLine)
 
     async def get(self, **kwargs) -> MetaApiResponse[JournalLine]:
         """Get journal lines with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=JournalLine)
 
     async def get_by_id(self, line_id: int | str, **kwargs) -> JournalLine:
         """Get a specific journal line by ID."""
@@ -640,14 +640,14 @@ class LedgerAccountResourcesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[LedgerAccountResource]:
         """Get all ledger account resources."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=LedgerAccountResource)
 
     async def get(self, **kwargs) -> MetaApiResponse[LedgerAccountResource]:
         """Get ledger account resources with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=LedgerAccountResource)
 
     async def get_by_id(self, resource_id: int | str, **kwargs) -> LedgerAccountResource:
         """Get a specific ledger account resource by ID."""
@@ -668,14 +668,14 @@ class TaxRatesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[TaxRate]:
         """Get all tax rates."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=TaxRate)
 
     async def get(self, **kwargs) -> MetaApiResponse[TaxRate]:
         """Get tax rates with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=TaxRate)
 
     async def get_by_id(self, rate_id: int | str, **kwargs) -> TaxRate:
         """Get a specific tax rate by ID."""
@@ -701,14 +701,14 @@ class TaxTypesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[TaxType]:
         """Get all tax types."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=TaxType)
 
     async def get(self, **kwargs) -> MetaApiResponse[TaxType]:
         """Get tax types with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=TaxType)
 
     async def get_by_id(self, type_id: int | str, **kwargs) -> TaxType:
         """Get a specific tax type by ID."""

@@ -35,14 +35,14 @@ class CompanyHolidaysEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[CompanyHoliday]:
         """Get all company holidays records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=CompanyHoliday, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[CompanyHoliday]:
         """Get company holidays with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=CompanyHoliday, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, holiday_id: int | str, **kwargs) -> CompanyHoliday:
         """Get a specific company holiday by ID."""

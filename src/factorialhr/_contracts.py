@@ -291,14 +291,14 @@ class CompensationsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Compensation]:
         """Get all compensations."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=Compensation, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[Compensation]:
         """Get compensations with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=Compensation, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, compensation_id: int | str, **kwargs) -> Compensation:
         """Get a specific compensation by ID."""
@@ -328,14 +328,14 @@ class ContractTemplatesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[ContractTemplate]:
         """Get all contract templates."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=ContractTemplate, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[ContractTemplate]:
         """Get contract templates with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=ContractTemplate, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, template_id: int | str, **kwargs) -> ContractTemplate:
         """Get a specific contract template by ID."""
@@ -351,14 +351,14 @@ class ContractVersionsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[ContractVersion]:
         """Get all contract versions."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=ContractVersion, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[ContractVersion]:
         """Get contract versions with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=ContractVersion, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, version_id: int | str, **kwargs) -> ContractVersion:
         """Get a specific contract version by ID."""
@@ -388,14 +388,14 @@ class SpanishContractTypesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[SpanishContractType]:
         """Get all Spanish contract types."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=SpanishContractType, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[SpanishContractType]:
         """Get Spanish contract types with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=SpanishContractType, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, type_id: int | str, **kwargs) -> SpanishContractType:
         """Get a specific Spanish contract type by ID."""
@@ -416,14 +416,14 @@ class FrenchContractTypesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[FrenchContractType]:
         """Get all French contract types."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=FrenchContractType, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[FrenchContractType]:
         """Get French contract types with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=FrenchContractType, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, type_id: int | str, **kwargs) -> FrenchContractType:
         """Get a specific French contract type by ID."""
@@ -439,14 +439,14 @@ class GermanContractTypesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[GermanContractType]:
         """Get all German contract types."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=GermanContractType, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[GermanContractType]:
         """Get German contract types with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=GermanContractType, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, type_id: int | str, **kwargs) -> GermanContractType:
         """Get a specific German contract type by ID."""
@@ -462,14 +462,14 @@ class PortugueseContractTypesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[PortugueseContractType]:
         """Get all Portuguese contract types."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=PortugueseContractType, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[PortugueseContractType]:
         """Get Portuguese contract types with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=PortugueseContractType, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, type_id: int | str, **kwargs) -> PortugueseContractType:
         """Get a specific Portuguese contract type by ID."""
@@ -485,14 +485,14 @@ class ReferenceContractsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[ContractVersion]:
         """Get all reference contracts."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=ContractVersion, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[ContractVersion]:
         """Get reference contracts with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=ContractVersion, raw_meta=response['meta'], raw_data=response['data'])
 
 
 class SpanishEducationLevelsEndpoint(Endpoint):
@@ -503,14 +503,14 @@ class SpanishEducationLevelsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[SpanishEducationLevel]:
         """Get all Spanish education levels."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=SpanishEducationLevel, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[SpanishEducationLevel]:
         """Get Spanish education levels with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=SpanishEducationLevel, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, level_id: int | str, **kwargs) -> SpanishEducationLevel:
         """Get a specific Spanish education level by ID."""
@@ -531,14 +531,18 @@ class SpanishProfessionalCategoriesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[SpanishProfessionalCategory]:
         """Get all Spanish professional categories."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=SpanishProfessionalCategory, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[SpanishProfessionalCategory]:
         """Get Spanish professional categories with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(
+            model_type=SpanishProfessionalCategory,
+            raw_meta=response['meta'],
+            raw_data=response['data'],
+        )
 
     async def get_by_id(self, category_id: int | str, **kwargs) -> SpanishProfessionalCategory:
         """Get a specific Spanish professional category by ID."""
@@ -559,14 +563,14 @@ class SpanishWorkingDayTypesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[SpanishWorkingDayType]:
         """Get all Spanish working day types."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=SpanishWorkingDayType, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[SpanishWorkingDayType]:
         """Get Spanish working day types with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=SpanishWorkingDayType, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, type_id: int | str, **kwargs) -> SpanishWorkingDayType:
         """Get a specific Spanish working day type by ID."""
@@ -587,14 +591,14 @@ class TaxonomiesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Taxonomy]:
         """Get all taxonomies."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=Taxonomy, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[Taxonomy]:
         """Get taxonomies with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=Taxonomy, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, taxonomy_id: int | str, **kwargs) -> Taxonomy:
         """Get a specific taxonomy by ID."""

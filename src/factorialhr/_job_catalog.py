@@ -38,14 +38,14 @@ class LevelsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Jobcataloglevel]:
         """Get all job catalog levels records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=Jobcataloglevel, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[Jobcataloglevel]:
         """Get job catalog levels with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=Jobcataloglevel, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, level_id: int | str, **kwargs) -> Jobcataloglevel:
         """Get a specific job catalog level by ID."""
@@ -61,14 +61,14 @@ class RolesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Jobcatalogrole]:
         """Get all job catalog roles records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=Jobcatalogrole, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[Jobcatalogrole]:
         """Get job catalog roles with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=Jobcatalogrole, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, role_id: int | str, **kwargs) -> Jobcatalogrole:
         """Get a specific job catalog role by ID."""

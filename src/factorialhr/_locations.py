@@ -44,14 +44,14 @@ class LocationsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Location]:
         """Get all locations records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=Location, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[Location]:
         """Get locations with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=Location, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, location_id: int | str, **kwargs) -> Location:
         """Get a specific location by ID."""
@@ -82,14 +82,14 @@ class WorkAreasEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[WorkArea]:
         """Get all work areas records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=WorkArea, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[WorkArea]:
         """Get work areas with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=WorkArea, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, work_area_id: int | str, **kwargs) -> WorkArea:
         """Get a specific work area by ID."""

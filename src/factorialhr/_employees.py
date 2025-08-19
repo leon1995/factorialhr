@@ -131,14 +131,14 @@ class EmployeesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Employee]:
         """Get all employees records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=Employee, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[Employee]:
         """Get employees with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=Employee, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, employee_id: int | str, **kwargs) -> Employee:
         """Get a specific employee by ID."""

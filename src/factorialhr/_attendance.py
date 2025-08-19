@@ -6,7 +6,18 @@ from enum import StrEnum
 import pydantic
 
 from factorialhr._client import Endpoint, ListApiResponse, MetaApiResponse
-from factorialhr._common import LocationType, TimeUnit
+
+
+class LocationType(StrEnum):
+    office = 'office'
+    business_trip = 'business_trip'
+    work_from_home = 'work_from_home'
+
+
+class TimeUnit(StrEnum):
+    minute = 'minute'
+    half_day = 'half_day'
+    none = 'none'
 
 
 class RequestType(StrEnum):
@@ -71,14 +82,14 @@ class BreakConfigurationsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[BreakConfiguration]:
         """Get all break configurations records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=BreakConfiguration, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[BreakConfiguration]:
         """Get break configurations with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=BreakConfiguration, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, break_configuration_id: int | str, **kwargs) -> BreakConfiguration:
         """Get a specific break configuration by ID."""
@@ -131,14 +142,14 @@ class EditTimesheetRequestsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[EditTimesheetRequest]:
         """Get all edit timesheet requests records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=EditTimesheetRequest, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[EditTimesheetRequest]:
         """Get edit timesheet requests with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=EditTimesheetRequest, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, edit_timesheet_request_id: int | str, **kwargs) -> EditTimesheetRequest:
         """Get a specific edit timesheet request by ID."""
@@ -305,12 +316,12 @@ class EstimatedTimesEndpoint(Endpoint):
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=EstimatedTime, raw_meta=response['meta'], raw_data=response['data'])
 
     async def all(self, **kwargs) -> ListApiResponse[EstimatedTime]:
         """Get all estimated times records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=EstimatedTime, raw_data=data)
 
 
 class OpenShiftsEndpoint(Endpoint):
@@ -323,12 +334,12 @@ class OpenShiftsEndpoint(Endpoint):
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=OpenShift, raw_meta=response['meta'], raw_data=response['data'])
 
     async def all(self, **kwargs) -> ListApiResponse[OpenShift]:
         """Get all open shifts records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=OpenShift, raw_data=data)
 
 
 class OvertimeRequestsEndpoint(Endpoint):
@@ -339,14 +350,14 @@ class OvertimeRequestsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[OvertimeRequest]:
         """Get all overtime requests records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=OvertimeRequest, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[OvertimeRequest]:
         """Get overtime requests with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=OvertimeRequest, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, overtime_request_id: int | str, **kwargs) -> OvertimeRequest:
         """Get a specific overtime request by ID."""
@@ -392,14 +403,14 @@ class ShiftsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[AttendanceShift]:
         """Get all shifts records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=AttendanceShift)
 
     async def get(self, **kwargs) -> MetaApiResponse[AttendanceShift]:
         """Get shifts with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=AttendanceShift)
 
     async def get_by_id(self, shift_id: int | str, **kwargs) -> AttendanceShift:
         """Get a specific shift by ID."""
@@ -467,9 +478,9 @@ class WorkedTimesEndpoint(Endpoint):
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=WorkedTime, raw_meta=response['meta'], raw_data=response['data'])
 
     async def all(self, **kwargs) -> ListApiResponse[WorkedTime]:
         """Get all worked times records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=WorkedTime, raw_data=data)

@@ -51,14 +51,18 @@ class DayConfigurationEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[WorkScheduleDayConfiguration]:
         """Get all day configuration records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=WorkScheduleDayConfiguration)
 
     async def get(self, **kwargs) -> MetaApiResponse[WorkScheduleDayConfiguration]:
         """Get day configurations with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(
+            raw_meta=response['meta'],
+            raw_data=response['data'],
+            model_type=WorkScheduleDayConfiguration,
+        )
 
     async def get_by_id(self, day_config_id: int | str, **kwargs) -> WorkScheduleDayConfiguration:
         """Get a specific day configuration by ID."""
@@ -79,14 +83,18 @@ class OverlapPeriodEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[WorkScheduleOverlapPeriod]:
         """Get all overlap period records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=WorkScheduleOverlapPeriod)
 
     async def get(self, **kwargs) -> MetaApiResponse[WorkScheduleOverlapPeriod]:
         """Get overlap periods with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(
+            raw_meta=response['meta'],
+            raw_data=response['data'],
+            model_type=WorkScheduleOverlapPeriod,
+        )
 
     async def get_by_id(self, overlap_period_id: int | str, **kwargs) -> WorkScheduleOverlapPeriod:
         """Get a specific overlap period by ID."""
@@ -122,14 +130,14 @@ class ScheduleEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[WorkScheduleSchedule]:
         """Get all schedule records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=WorkScheduleSchedule)
 
     async def get(self, **kwargs) -> MetaApiResponse[WorkScheduleSchedule]:
         """Get schedules with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=WorkScheduleSchedule)
 
     async def get_by_id(self, schedule_id: int | str, **kwargs) -> WorkScheduleSchedule:
         """Get a specific schedule by ID."""

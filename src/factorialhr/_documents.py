@@ -95,14 +95,14 @@ class DocumentsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Document]:
         """Get all documents records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=Document)
 
     async def get(self, **kwargs) -> MetaApiResponse[Document]:
         """Get documents with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=Document)
 
     async def get_by_id(self, document_id: int | str, **kwargs) -> Document:
         """Get a specific document by ID."""
@@ -164,14 +164,14 @@ class FoldersEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Folder]:
         """Get all folders records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=Folder)
 
     async def get(self, **kwargs) -> MetaApiResponse[Folder]:
         """Get folders with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=Folder)
 
     async def get_by_id(self, folder_id: int | str, **kwargs) -> Folder:
         """Get a specific folder by ID."""

@@ -62,14 +62,14 @@ class CommentsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Comment]:
         """Get all comments records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=Comment, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[Comment]:
         """Get comments with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=Comment, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, comment_id: int | str, **kwargs) -> Comment:
         """Get a specific comment by ID."""
@@ -100,14 +100,14 @@ class GroupsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Group]:
         """Get all groups records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=Group, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[Group]:
         """Get groups with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=Group, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, group_id: int | str, **kwargs) -> Group:
         """Get a specific group by ID."""
@@ -143,14 +143,14 @@ class PostsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Post]:
         """Get all posts records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=Post, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[Post]:
         """Get posts with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=Post, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, post_id: int | str, **kwargs) -> Post:
         """Get a specific post by ID."""

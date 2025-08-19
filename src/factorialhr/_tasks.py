@@ -55,14 +55,14 @@ class TasksEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Task]:
         """Get all tasks records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=Task, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[Task]:
         """Get tasks with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=Task, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, task_id: int | str, **kwargs) -> Task:
         """Get a specific task by ID."""
@@ -118,14 +118,14 @@ class TaskFilesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[TaskFile]:
         """Get all task files records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=TaskFile, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[TaskFile]:
         """Get task files with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=TaskFile, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, file_id: int | str, **kwargs) -> TaskFile:
         """Get a specific task file by ID."""

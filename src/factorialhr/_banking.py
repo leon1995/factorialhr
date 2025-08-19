@@ -158,14 +158,14 @@ class BankAccountsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[BankAccount]:
         """Get all bank accounts records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=BankAccount, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[BankAccount]:
         """Get bank accounts with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=BankAccount, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, bank_account_id: int | str, **kwargs) -> BankAccount:
         """Get a specific bank account by ID."""
@@ -186,14 +186,14 @@ class CardPaymentsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[CardPayment]:
         """Get all card payments records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=CardPayment, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[CardPayment]:
         """Get card payments with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=CardPayment, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, card_payment_id: int | str, **kwargs) -> CardPayment:
         """Get a specific card payment by ID."""
@@ -209,14 +209,14 @@ class TransactionsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Transaction]:
         """Get all transactions records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=Transaction, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[Transaction]:
         """Get transactions with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=Transaction, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, transaction_id: int | str, **kwargs) -> Transaction:
         """Get a specific transaction by ID."""
