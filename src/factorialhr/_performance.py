@@ -417,7 +417,9 @@ class CompanyEmployeeScoreScalesEndpoint(Endpoint):
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
         return MetaApiResponse(
-            model_type=CompanyEmployeeScoreScale, raw_meta=response['meta'], raw_data=response['data'],
+            model_type=CompanyEmployeeScoreScale,
+            raw_meta=response['meta'],
+            raw_data=response['data'],
         )
 
     async def get_by_id(self, scale_id: int | str, **kwargs) -> CompanyEmployeeScoreScale:
@@ -694,7 +696,9 @@ class ReviewProcessCustomTemplatesEndpoint(Endpoint):
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
         return MetaApiResponse(
-            model_type=ReviewProcessCustomTemplate, raw_meta=response['meta'], raw_data=response['data'],
+            model_type=ReviewProcessCustomTemplate,
+            raw_meta=response['meta'],
+            raw_data=response['data'],
         )
 
     async def get_by_id(self, template_id: int | str, **kwargs) -> ReviewProcessCustomTemplate:
@@ -719,7 +723,9 @@ class ReviewProcessEstimatedTargetsEndpoint(Endpoint):
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
         return MetaApiResponse(
-            model_type=ReviewProcessEstimatedTarget, raw_meta=response['meta'], raw_data=response['data'],
+            model_type=ReviewProcessEstimatedTarget,
+            raw_meta=response['meta'],
+            raw_data=response['data'],
         )
 
 
@@ -782,7 +788,9 @@ class ReviewQuestionnaireByStrategiesEndpoint(Endpoint):
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
         return MetaApiResponse(
-            model_type=ReviewQuestionnairesByStrategy, raw_meta=response['meta'], raw_data=response['data'],
+            model_type=ReviewQuestionnairesByStrategy,
+            raw_meta=response['meta'],
+            raw_data=response['data'],
         )
 
     async def get_by_id(self, questionnaire_id: int | str, **kwargs) -> ReviewQuestionnairesByStrategy:

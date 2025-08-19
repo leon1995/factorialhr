@@ -59,7 +59,9 @@ class DayConfigurationEndpoint(Endpoint):
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
         return MetaApiResponse(
-            raw_meta=response['meta'], raw_data=response['data'], model_type=WorkScheduleDayConfiguration,
+            raw_meta=response['meta'],
+            raw_data=response['data'],
+            model_type=WorkScheduleDayConfiguration,
         )
 
     async def get_by_id(self, day_config_id: int | str, **kwargs) -> WorkScheduleDayConfiguration:
@@ -89,7 +91,9 @@ class OverlapPeriodEndpoint(Endpoint):
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
         return MetaApiResponse(
-            raw_meta=response['meta'], raw_data=response['data'], model_type=WorkScheduleOverlapPeriod,
+            raw_meta=response['meta'],
+            raw_data=response['data'],
+            model_type=WorkScheduleOverlapPeriod,
         )
 
     async def get_by_id(self, overlap_period_id: int | str, **kwargs) -> WorkScheduleOverlapPeriod:

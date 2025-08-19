@@ -229,7 +229,9 @@ class FlexibleTimeRecordCommentEndpoint(Endpoint):
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
         return MetaApiResponse(
-            model_type=FlexibleTimeRecordComment, raw_meta=response['meta'], raw_data=response['data'],
+            model_type=FlexibleTimeRecordComment,
+            raw_meta=response['meta'],
+            raw_data=response['data'],
         )
 
     async def get_by_id(self, comment_id: int | str, **kwargs) -> FlexibleTimeRecordComment:
