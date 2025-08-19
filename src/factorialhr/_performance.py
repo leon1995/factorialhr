@@ -376,14 +376,14 @@ class AgreementsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Agreement]:
         """Get all agreements."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=Agreement, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[Agreement]:
         """Get agreements with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=Agreement, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, agreement_id: int | str, **kwargs) -> Agreement:
         """Get a specific agreement by ID."""
@@ -409,14 +409,16 @@ class CompanyEmployeeScoreScalesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[CompanyEmployeeScoreScale]:
         """Get all company employee score scales."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=CompanyEmployeeScoreScale, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[CompanyEmployeeScoreScale]:
         """Get company employee score scales with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(
+            model_type=CompanyEmployeeScoreScale, raw_meta=response['meta'], raw_data=response['data'],
+        )
 
     async def get_by_id(self, scale_id: int | str, **kwargs) -> CompanyEmployeeScoreScale:
         """Get a specific company employee score scale by ID."""
@@ -437,14 +439,14 @@ class EmployeeScoreScalesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[EmployeeScoreScale]:
         """Get all employee score scales."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=EmployeeScoreScale, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[EmployeeScoreScale]:
         """Get employee score scales with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=EmployeeScoreScale, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, scale_id: int | str, **kwargs) -> EmployeeScoreScale:
         """Get a specific employee score scale by ID."""
@@ -460,14 +462,14 @@ class ReviewEmployeeScoresEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[ReviewEmployeeScore]:
         """Get all review employee scores."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=ReviewEmployeeScore, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[ReviewEmployeeScore]:
         """Get review employee scores with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=ReviewEmployeeScore, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, score_id: int | str, **kwargs) -> ReviewEmployeeScore:
         """Get a specific review employee score by ID."""
@@ -483,14 +485,14 @@ class ReviewEvaluationsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[ReviewEvaluation]:
         """Get all review evaluations."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=ReviewEvaluation, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[ReviewEvaluation]:
         """Get review evaluations with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=ReviewEvaluation, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, evaluation_id: int | str, **kwargs) -> ReviewEvaluation:
         """Get a specific review evaluation by ID."""
@@ -511,14 +513,14 @@ class ReviewEvaluationAnswersEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[ReviewEvaluationAnswer]:
         """Get all review evaluation answers."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=ReviewEvaluationAnswer, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[ReviewEvaluationAnswer]:
         """Get review evaluation answers with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=ReviewEvaluationAnswer, raw_meta=response['meta'], raw_data=response['data'])
 
 
 class ReviewOwnersEndpoint(Endpoint):
@@ -529,14 +531,14 @@ class ReviewOwnersEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[ReviewOwner]:
         """Get all review owners."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=ReviewOwner, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[ReviewOwner]:
         """Get review owners with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=ReviewOwner, raw_meta=response['meta'], raw_data=response['data'])
 
     async def delete(self, owner_id: int | str, **kwargs) -> ReviewOwner:
         """Delete a review owner."""
@@ -557,14 +559,14 @@ class ReviewProcessesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[ReviewProcess]:
         """Get all review processes."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=ReviewProcess, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[ReviewProcess]:
         """Get review processes with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=ReviewProcess, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, process_id: int | str, **kwargs) -> ReviewProcess:
         """Get a specific review process by ID."""
@@ -684,14 +686,16 @@ class ReviewProcessCustomTemplatesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[ReviewProcessCustomTemplate]:
         """Get all review process custom templates."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=ReviewProcessCustomTemplate, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[ReviewProcessCustomTemplate]:
         """Get review process custom templates with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(
+            model_type=ReviewProcessCustomTemplate, raw_meta=response['meta'], raw_data=response['data'],
+        )
 
     async def get_by_id(self, template_id: int | str, **kwargs) -> ReviewProcessCustomTemplate:
         """Get a specific review process custom template by ID."""
@@ -707,14 +711,16 @@ class ReviewProcessEstimatedTargetsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[ReviewProcessEstimatedTarget]:
         """Get all review process estimated targets."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=ReviewProcessEstimatedTarget, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[ReviewProcessEstimatedTarget]:
         """Get review process estimated targets with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(
+            model_type=ReviewProcessEstimatedTarget, raw_meta=response['meta'], raw_data=response['data'],
+        )
 
 
 class ReviewProcessTargetsEndpoint(Endpoint):
@@ -725,14 +731,14 @@ class ReviewProcessTargetsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[ReviewProcessTarget]:
         """Get all review process targets."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=ReviewProcessTarget, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[ReviewProcessTarget]:
         """Get review process targets with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=ReviewProcessTarget, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, target_id: str, **kwargs) -> ReviewProcessTarget:
         """Get a specific review process target by ID."""
@@ -768,14 +774,16 @@ class ReviewQuestionnaireByStrategiesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[ReviewQuestionnairesByStrategy]:
         """Get all review questionnaires by strategies."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=ReviewQuestionnairesByStrategy, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[ReviewQuestionnairesByStrategy]:
         """Get review questionnaires by strategies with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(
+            model_type=ReviewQuestionnairesByStrategy, raw_meta=response['meta'], raw_data=response['data'],
+        )
 
     async def get_by_id(self, questionnaire_id: int | str, **kwargs) -> ReviewQuestionnairesByStrategy:
         """Get a specific review questionnaire by strategy by ID."""
@@ -814,14 +822,14 @@ class ReviewVisibilitySettingsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[ReviewVisibilitySetting]:
         """Get all review visibility settings."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=ReviewVisibilitySetting, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[ReviewVisibilitySetting]:
         """Get review visibility settings with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=ReviewVisibilitySetting, raw_meta=response['meta'], raw_data=response['data'])
 
     async def update(self, setting_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> ReviewVisibilitySetting:
         """Update the visibility settings of a review process."""
@@ -837,14 +845,14 @@ class TargetManagersEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[TargetManager]:
         """Get all target managers."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=TargetManager, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[TargetManager]:
         """Get target managers with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=TargetManager, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, manager_id: int | str, **kwargs) -> TargetManager:
         """Get a specific target manager by ID."""

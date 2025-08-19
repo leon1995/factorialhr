@@ -7,7 +7,7 @@ import pydantic
 from factorialhr._client import Endpoint, ListApiResponse, MetaApiResponse
 
 
-class Bookkeepersmanagementincidence(pydantic.BaseModel):
+class BookkeepersManagementIncidence(pydantic.BaseModel):
     """Model for bookkeepers_management_incidence."""
 
     id: int = pydantic.Field(description='Identifier of the incidence (aka employee update)')
@@ -69,29 +69,31 @@ class BookkeepersManagementEndpoint(Endpoint):
 
     endpoint = '/bookkeepers_management/incidences'
 
-    async def all(self, **kwargs) -> ListApiResponse[Bookkeepersmanagementincidence]:
+    async def all(self, **kwargs) -> ListApiResponse[BookkeepersManagementIncidence]:
         """Get all incidences records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=BookkeepersManagementIncidence, raw_data=data)
 
-    async def get(self, **kwargs) -> MetaApiResponse[Bookkeepersmanagementincidence]:
+    async def get(self, **kwargs) -> MetaApiResponse[BookkeepersManagementIncidence]:
         """Get incidences with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(
+            model_type=BookkeepersManagementIncidence, raw_meta=response['meta'], raw_data=response['data'],
+        )
 
-    async def get_by_id(self, incidence_id: int | str, **kwargs) -> Bookkeepersmanagementincidence:
+    async def get_by_id(self, incidence_id: int | str, **kwargs) -> BookkeepersManagementIncidence:
         """Get a specific incidence by ID."""
         data = await self.api.get(self.endpoint, incidence_id, **kwargs)
-        return pydantic.TypeAdapter(Bookkeepersmanagementincidence).validate_python(data)
+        return pydantic.TypeAdapter(BookkeepersManagementIncidence).validate_python(data)
 
     async def update(
         self,
         incidence_id: int | str,
         data: Mapping[str, typing.Any],
         **kwargs,
-    ) -> Bookkeepersmanagementincidence:
+    ) -> BookkeepersManagementIncidence:
         """Update an incidence."""
         response = await self.api.put(self.endpoint, incidence_id, json=data, **kwargs)
-        return pydantic.TypeAdapter(Bookkeepersmanagementincidence).validate_python(response)
+        return pydantic.TypeAdapter(BookkeepersManagementIncidence).validate_python(response)

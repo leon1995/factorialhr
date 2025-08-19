@@ -73,14 +73,14 @@ class CustomResourcesSchemasEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Schema]:
         """Get all schemas records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=Schema)
 
     async def get(self, **kwargs) -> MetaApiResponse[Schema]:
         """Get schemas with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=Schema)
 
     async def get_by_id(self, schema_id: int | str, **kwargs) -> Schema:
         """Get a specific schema by ID."""
@@ -101,14 +101,14 @@ class CustomResourcesValuesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[CustomResourcesValue]:
         """Get all values records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=CustomResourcesValue)
 
     async def get(self, **kwargs) -> MetaApiResponse[CustomResourcesValue]:
         """Get values with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=CustomResourcesValue)
 
     async def get_by_id(self, value_id: int | str, **kwargs) -> CustomResourcesValue:
         """Get a specific value by ID."""

@@ -36,14 +36,16 @@ class IdentifiersEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Payrollemployeesidentifier]:
         """Get all payroll employee identifiers records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=Payrollemployeesidentifier, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[Payrollemployeesidentifier]:
         """Get payroll employee identifiers with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(
+            model_type=Payrollemployeesidentifier, raw_meta=response['meta'], raw_data=response['data'],
+        )
 
     async def get_by_id(self, identifier_id: int | str, **kwargs) -> Payrollemployeesidentifier:
         """Get a specific payroll employee identifier by ID."""

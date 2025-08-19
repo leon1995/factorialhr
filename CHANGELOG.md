@@ -4,7 +4,9 @@ All notable changes to factorialhr module will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0)
 
-## Unreleased
+## [Unreleased]
+
+## [4.0.0] - 2025-08-19
 
 ### Added
 
@@ -12,11 +14,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0)
 - pass `**kwargs` from `ApiClient` to `httpx.AsyncClient`
 - method to fetch all data from an endpoint
 - `anyio` dependency
+- nearly all endpoints now supported
 
 ### Changed
 
-- only get methods predefined
-- return pydantic models
+- return wrapper around pydantic models for list requests, otherwise pydantic model
 - use `anyio` instead of `asyncio` to optionally support trio
 
 ## [3.0.0] - 2025-02-11

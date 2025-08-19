@@ -26,11 +26,11 @@ class InstallationSettingsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[InstallationSettings]:
         """Get all installation settings records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=InstallationSettings, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[InstallationSettings]:
         """Get installation settings with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=InstallationSettings, raw_meta=response['meta'], raw_data=response['data'])

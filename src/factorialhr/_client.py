@@ -10,11 +10,13 @@ import anyio
 import httpx
 import pydantic
 
-T = typing.TypeVar('T')
+T = typing.TypeVar('T', bound=pydantic.BaseModel)
 
 
-class PaginationMeta(pydantic.BaseModel, frozen=True):
+class PaginationMeta(pydantic.BaseModel):
     """Model for pagination metadata."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     limit: int | None  # apparently this is can be None sometimes, e.g. when specifying employee_ids[] in shift request
     total: int
@@ -24,18 +26,22 @@ class PaginationMeta(pydantic.BaseModel, frozen=True):
     end_cursor: str | None = pydantic.Field(default=None)
 
 
-class ListApiResponse(pydantic.BaseModel, typing.Generic[T], frozen=True):
+class ListApiResponse(pydantic.BaseModel, typing.Generic[T]):
     """Api response that returned a list of objects."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
     raw_data: Sequence[Mapping[str, typing.Any]]
+    model_type: type[T]
 
     def data(self) -> Iterable[T]:
         for data in self.raw_data:
-            yield pydantic.TypeAdapter(T).validate_python(data)
+            yield pydantic.TypeAdapter(self.model_type).validate_python(data)
 
 
-class MetaApiResponse(ListApiResponse[T], frozen=True):
+class MetaApiResponse(ListApiResponse[T]):
     """Response model that includes both data and meta."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     raw_meta: Mapping[str, typing.Any]
 
@@ -69,7 +75,10 @@ class AccessTokenAuth(httpx.Auth):
         yield request
 
 
-class AccessTokenResponse(pydantic.BaseModel, frozen=True):
+class AccessTokenResponse(pydantic.BaseModel):
+    """Access token response model."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
     access_token: str
     token_type: str
     expires_in: datetime.timedelta
@@ -227,7 +236,7 @@ class ApiClient:
     async def __aexit__(self, *_, **__):
         await self.close()
 
-    async def __aenter__(self) -> 'ApiClient':
+    async def __aenter__(self) -> typing.Self:
         await self._client.__aenter__()
         return self
 
@@ -245,7 +254,7 @@ class ApiClient:
         resp = await self._client.get(self._get_path(*path), **kwargs)
         return self._eval_http_method(resp)
 
-    async def get_all(self, *path: str | int | None, **kwargs) -> Sequence[dict[str, typing.Any]]:
+    async def get_all(self, *path: str | int | None, **kwargs) -> Sequence[Mapping[str, typing.Any]]:
         """Get all data from an endpoint via offset pagination.
 
         Depending on the amount of objects to query, you might want to increase the timeout by using
@@ -256,16 +265,16 @@ class ApiClient:
         query_params['page'] = 1  # retrieve first page
         result = await self.get(*path, params=query_params, **kwargs)
         meta = result['meta']
-        data = result['data']
+        data: list[Mapping[str, typing.Any]] = result['data']
         if not isinstance(data, list):
             msg = f'Expected list data, got {type(data)}'
             raise TypeError(msg)
         if not meta['has_next_page']:
             return data
         page_count = math.ceil(meta['total'] / meta['limit'])
-        responses = [None] * (page_count - 1)
+        responses: list[list[Mapping[str, typing.Any]]] = [[]] * (page_count - 1)
 
-        async def runner(index: int, func: Awaitable):
+        async def runner(index: int, func: Awaitable[Mapping[str, list[Mapping[str, typing.Any]]]]) -> None:
             responses[index] = (await func)['data']
 
         async with anyio.create_task_group() as tg:

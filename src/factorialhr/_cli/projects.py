@@ -1,7 +1,8 @@
 import asyncio
 import collections
 import datetime
-from collections.abc import Sequence
+import typing
+from collections.abc import Mapping, Sequence
 
 import click
 import cloup
@@ -46,7 +47,7 @@ def filter_employees(
     if not employees and not teams:
         return all_employees
 
-    selected_employees = set()
+    selected_employees: set[int] = set()
     if teams:
         filtered_teams = [t for t in all_teams if t.name in teams]
         employee_ids_contained_in_team = {eid for t in filtered_teams for eid in t.employee_ids or []}
@@ -91,7 +92,7 @@ async def imputed_minutes(  # noqa: PLR0913, C901, PLR0912
 ):
     auth, url = account.get_session()
     async with factorialhr.ApiClient(auth=auth, base_url=url, timeout=http_timeout) as client:
-        time_records, projects, project_worker, employees, teams = await asyncio.gather(
+        time_records, projects, project_workers, employees, teams = await asyncio.gather(
             get_time_records(client, start, end),
             factorialhr.ProjectEndpoint(client).all(),
             factorialhr.ProjectWorkerEndpoint(client).all(),
@@ -111,10 +112,12 @@ async def imputed_minutes(  # noqa: PLR0913, C901, PLR0912
     )
     employees_by_ids = {e.id: e for e in selected_employees}
     projects_by_id = {project.id: project for project in filtered_projects}
-    project_workers_by_id = {project_worker.id: project_worker for project_worker in project_worker.data()}
+    project_workers_by_id = {project_worker.id: project_worker for project_worker in project_workers.data()}
 
-    project_times_by_employee_name = collections.defaultdict(lambda: collections.defaultdict(int))
-    contributed_projects = set(project)  # ensure that the selected projects are always shown
+    project_times_by_employee_name: collections.defaultdict[str, collections.defaultdict[str, int]] = (
+        collections.defaultdict(lambda: collections.defaultdict(int))
+    )
+    contributed_projects: set[str] = set(project)  # ensure that the selected projects are always shown
     for record in time_records:
         project_worker = project_workers_by_id[record.project_worker_id]
         if project_worker.project_id in projects_by_id and project_worker.employee_id in employees_by_ids:
@@ -138,14 +141,14 @@ async def imputed_minutes(  # noqa: PLR0913, C901, PLR0912
             for employee_name in employees_not_contributed:
                 project_times_by_employee_name[employee_name][project_name] = 0
 
-    project_times_sum_by_project_name = collections.defaultdict(int)
+    project_times_sum_by_project_name: collections.defaultdict[str, int] = collections.defaultdict(int)
     for project_times in project_times_by_employee_name.values():
         for project_name, minutes in project_times.items():
             project_times_sum_by_project_name[project_name] += minutes
-    minutes_by_project_name = collections.defaultdict(list)
+    minutes_by_project_name: collections.defaultdict[str, list[int]] = collections.defaultdict(list)
     for project_name, minutes in project_times_sum_by_project_name.items():
         minutes_by_project_name[project_name].append(minutes)
-    employee_names = []
+    employee_names: list[str] = []
     for employee_name, project_times in project_times_by_employee_name.items():
         employee_names.append(employee_name)
         for project_name in project_times_sum_by_project_name:
@@ -207,14 +210,16 @@ async def unrelated_minutes(  # noqa: PLR0913
     )
     employees_by_id = {employee.id: employee.full_name for employee in selected_employees}
     records_by_shift_id = {record.attendance_shift_id: record for record in time_records}
-    unrelated_shifts_by_employee_id = collections.defaultdict(list)
+    unrelated_shifts_by_employee_id: collections.defaultdict[int, list[Mapping[str, typing.Any]]] = (
+        collections.defaultdict(list)
+    )
     for shift in shifts.raw_data:
         if shift['id'] not in records_by_shift_id and shift['employee_id'] in employees_by_id:
             unrelated_shifts_by_employee_id[shift['employee_id']].append(shift)
 
     pairing = []
-    for eid, shifts in unrelated_shifts_by_employee_id.items():
-        pairing.append((employees_by_id[eid], sum(s['minutes'] for s in shifts)))
+    for eid, shifts_ in unrelated_shifts_by_employee_id.items():
+        pairing.append((employees_by_id[eid], sum(s['minutes'] for s in shifts_)))
 
     if output:
         pl.DataFrame(

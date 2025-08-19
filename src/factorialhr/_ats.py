@@ -174,13 +174,13 @@ class AnswersEndpoint(Endpoint):
 
     async def all(self, **kwargs) -> ListApiResponse[Answer]:
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=Answer, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[Answer]:
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=Answer)
 
     async def get_by_id(self, answer_id: int | str, **kwargs) -> Answer:
         data = await self.api.get(self.endpoint, answer_id, **kwargs)
@@ -216,13 +216,13 @@ class ApplicationsEndpoint(Endpoint):
 
     async def all(self, **kwargs) -> ListApiResponse[Application]:
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=Application)
 
     async def get(self, **kwargs) -> MetaApiResponse[Application]:
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=Application)
 
     async def get_by_id(self, application_id: int | str, **kwargs) -> Application:
         data = await self.api.get(self.endpoint, application_id, **kwargs)
@@ -264,13 +264,13 @@ class ApplicationPhasesEndpoint(Endpoint):
 
     async def all(self, **kwargs) -> ListApiResponse[ApplicationPhase]:
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=ApplicationPhase)
 
     async def get(self, **kwargs) -> MetaApiResponse[ApplicationPhase]:
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=ApplicationPhase)
 
     async def get_by_id(self, application_phase_id: int | str, **kwargs) -> ApplicationPhase:
         data = await self.api.get(self.endpoint, application_phase_id, **kwargs)
@@ -328,13 +328,13 @@ class CandidatesEndpoint(Endpoint):
 
     async def all(self, **kwargs) -> ListApiResponse[Candidate]:
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=Candidate)
 
     async def get(self, **kwargs) -> MetaApiResponse[Candidate]:
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=Candidate)
 
     async def get_by_id(self, candidate_id: int | str, **kwargs) -> Candidate:
         data = await self.api.get(self.endpoint, candidate_id, **kwargs)
@@ -370,13 +370,13 @@ class CandidateSourcesEndpoint(Endpoint):
 
     async def all(self, **kwargs) -> ListApiResponse[CandidateSource]:
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=CandidateSource)
 
     async def get(self, **kwargs) -> MetaApiResponse[CandidateSource]:
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=CandidateSource)
 
     async def get_by_id(self, candidate_source_id: int | str, **kwargs) -> CandidateSource:
         data = await self.api.get(self.endpoint, candidate_source_id, **kwargs)
@@ -409,13 +409,13 @@ class EvaluationFormsEndpoint(Endpoint):
 
     async def all(self, **kwargs) -> ListApiResponse[EvaluationForm]:
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=EvaluationForm)
 
     async def get(self, **kwargs) -> MetaApiResponse[EvaluationForm]:
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=EvaluationForm)
 
     async def get_by_id(self, evaluation_form_id: int | str, **kwargs) -> EvaluationForm:
         data = await self.api.get(self.endpoint, evaluation_form_id, **kwargs)
@@ -462,13 +462,13 @@ class FeedbacksEndpoint(Endpoint):
 
     async def all(self, **kwargs) -> ListApiResponse[Feedback]:
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=Feedback)
 
     async def get(self, **kwargs) -> MetaApiResponse[Feedback]:
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=Feedback)
 
     async def get_by_id(self, feedback_id: int | str, **kwargs) -> Feedback:
         data = await self.api.get(self.endpoint, feedback_id, **kwargs)
@@ -502,13 +502,13 @@ class HiringStagesEndpoint(Endpoint):
 
     async def all(self, **kwargs) -> ListApiResponse[HiringStage]:
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=HiringStage)
 
     async def get(self, **kwargs) -> MetaApiResponse[HiringStage]:
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=HiringStage)
 
     async def get_by_id(self, hiring_stage_id: int | str, **kwargs) -> HiringStage:
         data = await self.api.get(self.endpoint, hiring_stage_id, **kwargs)
@@ -580,13 +580,13 @@ class JobPostingsEndpoint(Endpoint):
 
     async def all(self, **kwargs) -> ListApiResponse[JobPosting]:
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=JobPosting)
 
     async def get(self, **kwargs) -> MetaApiResponse[JobPosting]:
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=JobPosting)
 
     async def get_by_id(self, job_posting_id: int | str, **kwargs) -> JobPosting:
         data = await self.api.get(self.endpoint, job_posting_id, **kwargs)
@@ -632,13 +632,13 @@ class MessagesEndpoint(Endpoint):
 
     async def all(self, **kwargs) -> ListApiResponse[Message]:
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=Message)
 
     async def get(self, **kwargs) -> MetaApiResponse[Message]:
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=Message)
 
     async def get_by_id(self, message_id: int | str, **kwargs) -> Message:
         data = await self.api.get(self.endpoint, message_id, **kwargs)
@@ -671,13 +671,13 @@ class QuestionsEndpoint(Endpoint):
 
     async def all(self, **kwargs) -> ListApiResponse[Question]:
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=Question)
 
     async def get(self, **kwargs) -> MetaApiResponse[Question]:
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=Question)
 
     async def get_by_id(self, question_id: int | str, **kwargs) -> Question:
         data = await self.api.get(self.endpoint, question_id, **kwargs)
@@ -712,13 +712,13 @@ class RejectionReasonsEndpoint(Endpoint):
 
     async def all(self, **kwargs) -> ListApiResponse[RejectionReason]:
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=RejectionReason)
 
     async def get(self, **kwargs) -> MetaApiResponse[RejectionReason]:
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=RejectionReason)
 
     async def get_by_id(self, rejection_reason_id: int | str, **kwargs) -> RejectionReason:
         data = await self.api.get(self.endpoint, rejection_reason_id, **kwargs)

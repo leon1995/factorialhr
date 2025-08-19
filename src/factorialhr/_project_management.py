@@ -30,14 +30,14 @@ class ExpenseRecordEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[ExpenseRecord]:
         """Get all expense records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=ExpenseRecord, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[ExpenseRecord]:
         """Get expense records with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=ExpenseRecord, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, expense_id: int | str, **kwargs) -> ExpenseRecord:
         """Get a specific expense record by ID."""
@@ -81,14 +81,14 @@ class ExportableExpenseEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[ExportableExpense]:
         """Get all exportable expenses."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=ExportableExpense, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[ExportableExpense]:
         """Get exportable expenses with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=ExportableExpense, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, expense_id: int | str, **kwargs) -> ExportableExpense:
         """Get a specific exportable expense by ID."""
@@ -132,14 +132,14 @@ class ExportableProjectEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[ExportableProject]:
         """Get all exportable projects."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=ExportableProject, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[ExportableProject]:
         """Get exportable projects with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=ExportableProject, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, project_id: int | str, **kwargs) -> ExportableProject:
         """Get a specific exportable project by ID."""
@@ -177,14 +177,14 @@ class FlexibleTimeRecordEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[FlexibleTimeRecord]:
         """Get all flexible time records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=FlexibleTimeRecord, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[FlexibleTimeRecord]:
         """Get flexible time records with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=FlexibleTimeRecord, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, record_id: int | str, **kwargs) -> FlexibleTimeRecord:
         """Get a specific flexible time record by ID."""
@@ -221,14 +221,16 @@ class FlexibleTimeRecordCommentEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[FlexibleTimeRecordComment]:
         """Get all flexible time record comments."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=FlexibleTimeRecordComment, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[FlexibleTimeRecordComment]:
         """Get flexible time record comments with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(
+            model_type=FlexibleTimeRecordComment, raw_meta=response['meta'], raw_data=response['data'],
+        )
 
     async def get_by_id(self, comment_id: int | str, **kwargs) -> FlexibleTimeRecordComment:
         """Get a specific flexible time record comment by ID."""
@@ -316,14 +318,14 @@ class ProjectEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Project]:
         """Get all projects."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=Project, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[Project]:
         """Get projects with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=Project, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, project_id: int | str, **kwargs) -> Project:
         """Get a specific project by ID."""
@@ -387,14 +389,14 @@ class ProjectTaskEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[ProjectTask]:
         """Get all project tasks."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=ProjectTask, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[ProjectTask]:
         """Get project tasks with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=ProjectTask, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, task_id: int | str, **kwargs) -> ProjectTask:
         """Get a specific project task by ID."""
@@ -445,14 +447,14 @@ class ProjectWorkerEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[ProjectWorker]:
         """Get all project workers."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=ProjectWorker, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[ProjectWorker]:
         """Get project workers with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=ProjectWorker, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, worker_id: int | str, **kwargs) -> ProjectWorker:
         """Get a specific project worker by ID."""
@@ -506,14 +508,14 @@ class SubprojectEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Subproject]:
         """Get all subprojects."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=Subproject, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[Subproject]:
         """Get subprojects with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=Subproject, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, subproject_id: int | str, **kwargs) -> Subproject:
         """Get a specific subproject by ID."""
@@ -566,14 +568,14 @@ class TimeRecordEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[TimeRecord]:
         """Get all time records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=TimeRecord, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[TimeRecord]:
         """Get time records with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=TimeRecord, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, record_id: int | str, **kwargs) -> TimeRecord:
         """Get a specific time record by ID."""

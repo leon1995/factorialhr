@@ -356,14 +356,14 @@ class AllowancesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Allowance]:
         """Get all allowances records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=Allowance, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[Allowance]:
         """Get allowances with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=Allowance, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, allowance_id: int | str, **kwargs) -> Allowance:
         """Get a specific allowance by ID."""
@@ -399,14 +399,14 @@ class AllowanceIncidencesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[AllowanceIncidence]:
         """Get all allowance incidences records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=AllowanceIncidence, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[AllowanceIncidence]:
         """Get allowance incidences with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=AllowanceIncidence, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, incidence_id: int | str, **kwargs) -> AllowanceIncidence:
         """Get a specific allowance incidence by ID."""
@@ -437,14 +437,14 @@ class AllowanceStatsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[AllowanceStatsNew]:
         """Get all allowance stats records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=AllowanceStatsNew, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[AllowanceStatsNew]:
         """Get allowance stats with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=AllowanceStatsNew, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, stat_id: int | str, **kwargs) -> AllowanceStatsNew:
         """Get a specific allowance stat by ID."""
@@ -460,14 +460,14 @@ class BlockedPeriodsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[BlockedPeriod]:
         """Get all blocked periods records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=BlockedPeriod, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[BlockedPeriod]:
         """Get blocked periods with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=BlockedPeriod, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, period_id: int | str, **kwargs) -> BlockedPeriod:
         """Get a specific blocked period by ID."""
@@ -498,14 +498,14 @@ class LeavesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Leave]:
         """Get all leaves records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=Leave, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[Leave]:
         """Get leaves with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=Leave, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, leave_id: int | str, **kwargs) -> Leave:
         """Get a specific leave by ID."""
@@ -551,14 +551,14 @@ class LeaveTypesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[LeaveType]:
         """Get all leave types records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=LeaveType, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[LeaveType]:
         """Get leave types with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=LeaveType, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, leave_type_id: int | str, **kwargs) -> LeaveType:
         """Get a specific leave type by ID."""
@@ -584,14 +584,14 @@ class PoliciesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Policy]:
         """Get all policies records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=Policy, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[Policy]:
         """Get policies with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=Policy, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, policy_id: int | str, **kwargs) -> Policy:
         """Get a specific policy by ID."""
@@ -622,14 +622,14 @@ class PolicyAssignmentsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[PolicyAssignment]:
         """Get all policy assignments records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=PolicyAssignment, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[PolicyAssignment]:
         """Get policy assignments with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=PolicyAssignment, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, assignment_id: int | str, **kwargs) -> PolicyAssignment:
         """Get a specific policy assignment by ID."""
@@ -660,11 +660,11 @@ class PolicyTimelinesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[PolicyTimeline]:
         """Get all policy timelines records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=PolicyTimeline, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[PolicyTimeline]:
         """Get policy timelines with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=PolicyTimeline, raw_meta=response['meta'], raw_data=response['data'])

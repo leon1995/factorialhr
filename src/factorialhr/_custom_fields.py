@@ -84,14 +84,14 @@ class FieldsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Field]:
         """Get all custom fields."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=Field)
 
     async def get(self, **kwargs) -> MetaApiResponse[Field]:
         """Get custom fields with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=Field)
 
     async def get_by_id(self, field_id: int | str, **kwargs) -> Field:
         """Get a specific custom field by ID."""
@@ -116,14 +116,14 @@ class OptionsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Option]:
         """Get all custom field options."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=Option)
 
     async def get(self, **kwargs) -> MetaApiResponse[Option]:
         """Get custom field options with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=Option)
 
     async def get_by_id(self, option_id: int | str, **kwargs) -> Option:
         """Get a specific custom field option by ID."""
@@ -144,14 +144,14 @@ class ResourceFieldsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[ResourceField]:
         """Get all custom resource fields."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=ResourceField)
 
     async def get(self, **kwargs) -> MetaApiResponse[ResourceField]:
         """Get custom resource fields with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=ResourceField)
 
     async def get_by_id(self, resource_field_id: int | str, **kwargs) -> ResourceField:
         """Get a specific custom resource field by ID."""
@@ -172,14 +172,14 @@ class CustomFieldsValuesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[CustomFieldValue]:
         """Get all custom field values."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=CustomFieldValue)
 
     async def get(self, **kwargs) -> MetaApiResponse[CustomFieldValue]:
         """Get custom field values with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=CustomFieldValue)
 
     async def get_by_id(self, value_id: int | str, **kwargs) -> CustomFieldValue:
         """Get a specific custom field value by ID."""

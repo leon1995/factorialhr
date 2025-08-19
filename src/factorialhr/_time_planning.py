@@ -61,14 +61,14 @@ class PlannedBreakEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[PlannedBreak]:
         """Get all planned breaks."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=PlannedBreak, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[PlannedBreak]:
         """Get planned breaks with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=PlannedBreak, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, break_id: int | str, **kwargs) -> PlannedBreak:
         """Get a specific planned break by ID."""
@@ -89,14 +89,14 @@ class PlanningVersionEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[PlanningVersion]:
         """Get all planning versions."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=PlanningVersion, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[PlanningVersion]:
         """Get planning versions with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=PlanningVersion, raw_meta=response['meta'], raw_data=response['data'])
 
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> PlanningVersion:
         """Create a new planning version."""

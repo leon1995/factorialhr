@@ -197,14 +197,14 @@ class CategoriesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Category]:
         """Get all training categories."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=Category, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[Category]:
         """Get training categories with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=Category, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, category_id: int | str, **kwargs) -> Category:
         """Get a specific training category by ID."""
@@ -230,14 +230,14 @@ class SessionsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Session]:
         """Get all training sessions."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=Session, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[Session]:
         """Get training sessions with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=Session, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, session_id: int | str, **kwargs) -> Session:
         """Get a specific training session by ID."""
@@ -268,14 +268,14 @@ class SessionAccessMembershipsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[SessionAccessMembership]:
         """Get all session access memberships."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=SessionAccessMembership, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[SessionAccessMembership]:
         """Get session access memberships with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=SessionAccessMembership, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, membership_id: int | str, **kwargs) -> SessionAccessMembership:
         """Get a specific session access membership by ID."""
@@ -301,14 +301,14 @@ class SessionAttendancesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[SessionAttendance]:
         """Get all session attendances."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=SessionAttendance, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[SessionAttendance]:
         """Get session attendances with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=SessionAttendance, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, attendance_id: int | str, **kwargs) -> SessionAttendance:
         """Get a specific session attendance by ID."""
@@ -329,14 +329,14 @@ class TrainingsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Training]:
         """Get all trainings."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=Training, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[Training]:
         """Get trainings with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=Training, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, training_id: int | str, **kwargs) -> Training:
         """Get a specific training by ID."""
@@ -382,14 +382,14 @@ class TrainingClassesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[TrainingClass]:
         """Get all training classes."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=TrainingClass, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[TrainingClass]:
         """Get training classes with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=TrainingClass, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, class_id: int | str, **kwargs) -> TrainingClass:
         """Get a specific training class by ID."""
@@ -420,14 +420,14 @@ class TrainingMembershipsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[TrainingMembership]:
         """Get all training memberships."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=TrainingMembership, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[TrainingMembership]:
         """Get training memberships with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=TrainingMembership, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, membership_id: int | str, **kwargs) -> TrainingMembership:
         """Get a specific training membership by ID."""

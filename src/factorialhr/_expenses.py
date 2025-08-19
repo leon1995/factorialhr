@@ -306,14 +306,14 @@ class ExpensablesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Expensable]:
         """Get all expensables records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=Expensable)
 
     async def get(self, **kwargs) -> MetaApiResponse[Expensable]:
         """Get expensables with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=Expensable)
 
     async def get_by_id(self, expensable_id: int | str, **kwargs) -> Expensable:
         """Get a specific expensable by ID."""
@@ -329,14 +329,14 @@ class ExpensesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Expense]:
         """Get all expenses records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=Expense)
 
     async def get(self, **kwargs) -> MetaApiResponse[Expense]:
         """Get expenses with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=Expense)
 
     async def get_by_id(self, expense_id: int | str, **kwargs) -> Expense:
         """Get a specific expense by ID."""
@@ -352,14 +352,14 @@ class MileagesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Mileage]:
         """Get all mileages records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=Mileage)
 
     async def get(self, **kwargs) -> MetaApiResponse[Mileage]:
         """Get mileages with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=Mileage)
 
     async def get_by_id(self, mileage_id: int | str, **kwargs) -> Mileage:
         """Get a specific mileage by ID."""
@@ -375,14 +375,14 @@ class PerDiemsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[PerDiem]:
         """Get all per diems records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=PerDiem)
 
     async def get(self, **kwargs) -> MetaApiResponse[PerDiem]:
         """Get per diems with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=PerDiem)
 
     async def get_by_id(self, per_diem_id: int | str, **kwargs) -> PerDiem:
         """Get a specific per diem by ID."""

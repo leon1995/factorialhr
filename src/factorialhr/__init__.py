@@ -39,11 +39,13 @@ from factorialhr._attendance import (
     EditTimesheetRequestsEndpoint,
     EstimatedTime,
     EstimatedTimesEndpoint,
+    LocationType,
     OpenShift,
     OpenShiftsEndpoint,
     OvertimeRequest,
     OvertimeRequestsEndpoint,
     ShiftsEndpoint,
+    TimeUnit,
     WorkedTime,
     WorkedTimesEndpoint,
 )
@@ -56,9 +58,8 @@ from factorialhr._banking import (
     Transaction,
     TransactionsEndpoint,
 )
-from factorialhr._bookkeepers_management import BookkeepersManagementEndpoint, Bookkeepersmanagementincidence
+from factorialhr._bookkeepers_management import BookkeepersManagementEndpoint, BookkeepersManagementIncidence
 from factorialhr._client import AccessTokenAuth, ApiClient, ApiKeyAuth, RefreshTokenAuth, RefreshTokenAuthFile
-from factorialhr._common import LocationType, TimeUnit
 from factorialhr._companies import LegalEntitiesEndpoint, LegalEntity
 from factorialhr._contracts import (
     Compensation,
@@ -310,7 +311,7 @@ __all__ = [
     'BlockedPeriod',
     'BlockedPeriodsEndpoint',
     'BookkeepersManagementEndpoint',
-    'Bookkeepersmanagementincidence',
+    'BookkeepersManagementIncidence',
     'BreakConfiguration',
     'BreakConfigurationEndpoint',
     'BreakConfigurationsEndpoint',

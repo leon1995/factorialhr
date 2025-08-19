@@ -178,14 +178,14 @@ class FamilySituationsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[FamilySituation]:
         """Get all family situations records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=FamilySituation, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[FamilySituation]:
         """Get family situations with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=FamilySituation, raw_meta=response['meta'], raw_data=response['data'])
 
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> FamilySituation:
         """Create a new family situation."""
@@ -217,14 +217,14 @@ class SupplementsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Supplement]:
         """Get all supplements records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(model_type=Supplement, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[Supplement]:
         """Get supplements with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=Supplement, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, supplement_id: int | str, **kwargs) -> Supplement:
         """Get a specific supplement by ID."""

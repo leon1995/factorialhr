@@ -293,14 +293,14 @@ class AbsencesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[EmployeeAbsence]:
         """Get all absences records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=EmployeeAbsence)
 
     async def get(self, **kwargs) -> MetaApiResponse[EmployeeAbsence]:
         """Get absences with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=EmployeeAbsence)
 
     async def get_by_id(self, absence_id: int | str, **kwargs) -> EmployeeAbsence:
         """Get a specific absence by ID."""
@@ -316,14 +316,14 @@ class ContractChangesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[EmployeeContractChange]:
         """Get all contract changes records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=EmployeeContractChange)
 
     async def get(self, **kwargs) -> MetaApiResponse[EmployeeContractChange]:
         """Get contract changes with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=EmployeeContractChange)
 
     async def get_by_id(self, contract_change_id: int | str, **kwargs) -> EmployeeContractChange:
         """Get a specific contract change by ID."""
@@ -339,14 +339,14 @@ class NewHiresEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[EmployeeNewHire]:
         """Get all new hires records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=EmployeeNewHire)
 
     async def get(self, **kwargs) -> MetaApiResponse[EmployeeNewHire]:
         """Get new hires with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=EmployeeNewHire)
 
     async def get_by_id(self, new_hire_id: int | str, **kwargs) -> EmployeeNewHire:
         """Get a specific new hire by ID."""
@@ -362,14 +362,14 @@ class PersonalChangesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[EmployeePersonalChange]:
         """Get all personal changes records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=EmployeePersonalChange)
 
     async def get(self, **kwargs) -> MetaApiResponse[EmployeePersonalChange]:
         """Get personal changes with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=EmployeePersonalChange)
 
     async def get_by_id(self, personal_change_id: int | str, **kwargs) -> EmployeePersonalChange:
         """Get a specific personal change by ID."""
@@ -385,14 +385,14 @@ class SummariesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[EmployeeSummary]:
         """Get all summaries records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=EmployeeSummary)
 
     async def get(self, **kwargs) -> MetaApiResponse[EmployeeSummary]:
         """Get summaries with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=EmployeeSummary)
 
     async def get_by_id(self, summary_id: int | str, **kwargs) -> EmployeeSummary:
         """Get a specific summary by ID."""
@@ -408,14 +408,14 @@ class TerminationsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[EmployeeTermination]:
         """Get all terminations records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=EmployeeTermination)
 
     async def get(self, **kwargs) -> MetaApiResponse[EmployeeTermination]:
         """Get terminations with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=EmployeeTermination)
 
     async def get_by_id(self, termination_id: int | str, **kwargs) -> EmployeeTermination:
         """Get a specific termination by ID."""
@@ -431,14 +431,14 @@ class EmployeeUpdatesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[EmployeeAbsence]:
         """Get all employee_updates records."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(raw_data=data)
+        return ListApiResponse(raw_data=data, model_type=EmployeeAbsence)
 
     async def get(self, **kwargs) -> MetaApiResponse[EmployeeAbsence]:
         """Get employee_updates with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=EmployeeAbsence)
 
     async def get_by_id(self, employee_update_id: int | str, **kwargs) -> EmployeeAbsence:
         """Get a specific employee_updates by ID."""
