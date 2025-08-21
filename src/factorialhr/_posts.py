@@ -10,6 +10,8 @@ from factorialhr._client import Endpoint, ListApiResponse, MetaApiResponse
 class Comment(pydantic.BaseModel):
     """Model for posts_comment."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Identifier of the comment')
     post_id: int = pydantic.Field(description='Identifier of the post')
     author_id: int = pydantic.Field(
@@ -22,6 +24,8 @@ class Comment(pydantic.BaseModel):
 class Group(pydantic.BaseModel):
     """Model for posts_group."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Identifier of the group')
     title: str = pydantic.Field(description='Title of the group')
     description: str = pydantic.Field(description='Description of the group')
@@ -33,6 +37,8 @@ class Group(pydantic.BaseModel):
 
 class Post(pydantic.BaseModel):
     """Model for posts_post."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Identifier of the post')
     title: str = pydantic.Field(description='Title of the post')

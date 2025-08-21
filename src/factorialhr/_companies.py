@@ -9,6 +9,8 @@ from factorialhr._client import Endpoint, ListApiResponse, MetaApiResponse
 class LegalEntity(pydantic.BaseModel):
     """Model for companies_legal_entity."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Identifier of the legal entity')
     company_id: int = pydantic.Field(description='Company identifier')
     country: str = pydantic.Field(description='Country code of the legal entity')

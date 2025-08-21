@@ -58,6 +58,8 @@ class Integration(StrEnum):
 class FamilySituation(pydantic.BaseModel):
     """Model for payroll_family_situation."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='ID of the family situation')
     employee_id: int = pydantic.Field(description='Employee id of the family situation')
     civil_status: CivilStatus | None = pydantic.Field(default=None, description='Civil status of the employee')
@@ -66,6 +68,8 @@ class FamilySituation(pydantic.BaseModel):
 
 class PolicyPeriod(pydantic.BaseModel):
     """Model for payroll_policy_period."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Policy period id')
     name: str | None = pydantic.Field(default=None, description='Policy name with start and end date')
@@ -84,6 +88,8 @@ class PolicyPeriod(pydantic.BaseModel):
 
 class Supplement(pydantic.BaseModel):
     """Model for payroll_supplement."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='The identifier of the supplement')
     employee_id: int = pydantic.Field(description='The identifier of the employee associated with the supplement')
@@ -144,6 +150,8 @@ class Supplement(pydantic.BaseModel):
 class EmployeesIdentifier(pydantic.BaseModel):
     """Model for payroll_employees_identifier."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Payroll employee identifier')
     employee_id: int = pydantic.Field(description='Identifier of the employee')
     social_security_number: str | None = pydantic.Field(
@@ -156,6 +164,8 @@ class EmployeesIdentifier(pydantic.BaseModel):
 
 class IntegrationsBaseCode(pydantic.BaseModel):
     """Model for payroll_integrations_base_code."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Code identifier')
     company_id: int = pydantic.Field(description='Company ID where the code belongs to')

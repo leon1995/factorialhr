@@ -19,6 +19,8 @@ class ShiftState(StrEnum):
 class ShiftManagementShift(pydantic.BaseModel):
     """Model for shift_management_shift."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Shift identifier')
     company_id: int = pydantic.Field(description='Company identifier')
     name: str | None = pydantic.Field(

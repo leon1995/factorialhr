@@ -16,6 +16,8 @@ class HalfDay(StrEnum):
 class CompanyHoliday(pydantic.BaseModel):
     """Model for holidays_company_holiday."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Company holiday id')
     location_id: int = pydantic.Field(description='Related location id')
     summary: str | None = pydantic.Field(default=None, description='Company holiday summary')

@@ -109,6 +109,8 @@ class HalfDay(StrEnum):
 class Allowance(pydantic.BaseModel):
     """Model for timeoff_allowance."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Unique identifier of the allowance')
     accrued_denominator_in_cents: int | None = pydantic.Field(
         default=None,
@@ -215,6 +217,8 @@ class Allowance(pydantic.BaseModel):
 class AllowanceIncidence(pydantic.BaseModel):
     """Model for timeoff_allowance_incidence."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int  # Unique identifier of the allowance incidence
     employee_id: int  # Employee id of the affected employee
     description: str | None = None  # Optional comment regarding the incidence
@@ -230,6 +234,8 @@ class AllowanceIncidence(pydantic.BaseModel):
 
 class AllowanceStatsNew(pydantic.BaseModel):
     """Model for timeoff_allowance_stats_new."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: str
     allowance_id: int
@@ -254,6 +260,8 @@ class AllowanceStatsNew(pydantic.BaseModel):
 class BlockedPeriod(pydantic.BaseModel):
     """Model for timeoff_blocked_periods_policy."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int  # Unique identifier of the blocked period
     company_id: int  # Company id of the blocked period
     name: str  # Name of the blocked period.
@@ -270,6 +278,8 @@ class BlockedPeriod(pydantic.BaseModel):
 
 class Leave(pydantic.BaseModel):
     """Model for timeoff_leave."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int  # Identifier of the Leave
     company_id: int  # Company identifier of the employee of the leave
@@ -291,6 +301,8 @@ class Leave(pydantic.BaseModel):
 
 class LeaveType(pydantic.BaseModel):
     """Model for timeoff_leave_type."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int  # Identifier of the leave type
     name: str  # Name of the leave type
@@ -320,6 +332,8 @@ class LeaveType(pydantic.BaseModel):
 class Policy(pydantic.BaseModel):
     """Model for timeoff_policy."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int  # The policy id.
     name: str  # Policy name.
     main: bool | None = (
@@ -332,6 +346,8 @@ class Policy(pydantic.BaseModel):
 class PolicyAssignment(pydantic.BaseModel):
     """Model for timeoff_policy_assignment."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int | None = None  # Unique identifier of the policy assignment
     timeoff_policy_id: int  # The time off policy id
     employee_id: int  # The employee id
@@ -340,6 +356,8 @@ class PolicyAssignment(pydantic.BaseModel):
 
 class PolicyTimeline(pydantic.BaseModel):
     """Model for timeoff_policy_timeline."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     employee_id: int
     start_limit_date: datetime.date

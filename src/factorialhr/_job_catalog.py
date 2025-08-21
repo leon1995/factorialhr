@@ -8,6 +8,8 @@ from factorialhr._client import Endpoint, ListApiResponse, MetaApiResponse
 class Jobcataloglevel(pydantic.BaseModel):
     """Model for job_catalog_level."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Identifier for the job catalog level')
     role_id: int = pydantic.Field(description='Identifier for the job catalog role')
     name: str = pydantic.Field(description='Level name')
@@ -19,6 +21,8 @@ class Jobcataloglevel(pydantic.BaseModel):
 
 class Jobcatalogrole(pydantic.BaseModel):
     """Model for job_catalog_role."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Identifier for the job catalog role')
     company_id: int = pydantic.Field(description='Identifier for the company')

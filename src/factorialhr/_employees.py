@@ -22,6 +22,8 @@ class BankNumberFormat(StrEnum):
 class Employee(pydantic.BaseModel):
     """Model for employees_employee."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Id of the employee')
     access_id: int = pydantic.Field(description='Access_id associated to the employee')
     first_name: str = pydantic.Field(description='Name of the employee')

@@ -58,6 +58,8 @@ class PaymentType(StrEnum):
 class Expensable(pydantic.BaseModel):
     """Model for expenses_expensable."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Unique identifier for the expensable')
     type: ExpensableType = pydantic.Field(description='Type of the expensable')
     company_id: int = pydantic.Field(description='The ID of the company that owns the expensable')
@@ -128,6 +130,8 @@ class Expensable(pydantic.BaseModel):
 class Expense(pydantic.BaseModel):
     """Model for expenses_expense."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int | None = pydantic.Field(default=None, description='The id of the expense')
     employee_id: int | None = pydantic.Field(default=None, description="The id of the expense's owner")
     company_id: int = pydantic.Field(description="The id of the expense's company")
@@ -195,6 +199,8 @@ class Expense(pydantic.BaseModel):
 class Mileage(pydantic.BaseModel):
     """Model for expenses_mileage."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Mileage identifier')
     employee_id: int | None = pydantic.Field(default=None, description='Employee identifier')
     company_id: int = pydantic.Field(description='Company identifier')
@@ -250,6 +256,8 @@ class Mileage(pydantic.BaseModel):
 
 class PerDiem(pydantic.BaseModel):
     """Model for expenses_per_diem."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='The ID of the per diem')
     employee_id: int | None = pydantic.Field(default=None, description='The ID of the employee the per diem is for')

@@ -45,6 +45,8 @@ class TrainingAttendanceStatus(StrEnum):
 class Category(pydantic.BaseModel):
     """Model for trainings_category."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Category ID')
     name: str = pydantic.Field(description='Category name')
     company_id: int = pydantic.Field(description='Company ID')
@@ -54,6 +56,8 @@ class Category(pydantic.BaseModel):
 
 class Session(pydantic.BaseModel):
     """Model for trainings_session."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Session ID')
     name: str = pydantic.Field(description='Session name')
@@ -90,6 +94,8 @@ class Session(pydantic.BaseModel):
 class SessionAccessMembership(pydantic.BaseModel):
     """Model for trainings_session_access_membership."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='ID of this membership')
     access_id: int = pydantic.Field(description='ID of the access associated with this membership')
     employee_id: int | None = pydantic.Field(
@@ -114,6 +120,8 @@ class SessionAccessMembership(pydantic.BaseModel):
 class SessionAttendance(pydantic.BaseModel):
     """Model for trainings_session_attendance."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Session attendance ID')
     status: str = pydantic.Field(description='Attendance status')
     session_access_membership_id: int = pydantic.Field(description='Session access membership ID')
@@ -123,6 +131,8 @@ class SessionAttendance(pydantic.BaseModel):
 
 class Training(pydantic.BaseModel):
     """Model for trainings_training."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int  # Identifier of the course
     company_id: int  # Company identifier
@@ -164,6 +174,8 @@ class Training(pydantic.BaseModel):
 class TrainingClass(pydantic.BaseModel):
     """Model for trainings_training_class."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: str  # Identifier of the training to which the class belongs to
     training_id: int  # Identifier of the course
     name: str  # Class name
@@ -178,6 +190,8 @@ class TrainingClass(pydantic.BaseModel):
 
 class TrainingMembership(pydantic.BaseModel):
     """Model for trainings_training_membership."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int  # Unique identifier for the training membership.
     access_id: int  # Access_id associated to the employee, refers to employees/employees endpoint.
