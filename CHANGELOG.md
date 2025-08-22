@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0)
 
 ## [Unreleased]
 
+## [4.1.0] - 2025-08-22
+
+### Added
+
+- fixed some missed exports
+- made api models frozen
+
 ## [4.0.0] - 2025-08-19
 
 ### Added
