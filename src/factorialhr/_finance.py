@@ -108,6 +108,8 @@ class TaxTypeCategory(StrEnum):
 class Account(pydantic.BaseModel):
     """Model for finance_account."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Unique identifier in factorial for the ledger account')
     name: str | None = pydantic.Field(default=None, description='Name of the ledger account')
     legal_entity_id: int = pydantic.Field(description='Legal entity ID of the ledger account')
@@ -123,6 +125,8 @@ class Account(pydantic.BaseModel):
 
 class AccountingSetting(pydantic.BaseModel):
     """Model for finance_accounting_setting."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Identifier for the AccountingSetting')
     external_id: str | None = pydantic.Field(default=None, description='External ID for the accounting setting')
@@ -167,6 +171,8 @@ class AccountingSetting(pydantic.BaseModel):
 class Contact(pydantic.BaseModel):
     """Model for finance_contact."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Unique identifier for the Contact')
     name: str = pydantic.Field(description='The commercial name of the Contact')
     legal_name: str | None = pydantic.Field(default=None, description='The official or legal name of the Contact')
@@ -188,6 +194,8 @@ class Contact(pydantic.BaseModel):
 class CostCenter(pydantic.BaseModel):
     """Model for finance_cost_center."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Unique identifier for the cost center')
     name: str = pydantic.Field(description='Name of the cost center')
     company_id: int = pydantic.Field(description='Company identifier')
@@ -206,6 +214,8 @@ class CostCenter(pydantic.BaseModel):
 class CostCenterMembership(pydantic.BaseModel):
     """Model for finance_cost_center_membership."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='The unique identifier of the cost center membership')
     employee_id: int = pydantic.Field(description='The identifier of the associated employee')
     cost_center_id: int = pydantic.Field(description='The identifier of the associated cost center')
@@ -221,6 +231,8 @@ class CostCenterMembership(pydantic.BaseModel):
 
 class FinancialDocument(pydantic.BaseModel):
     """Model for finance_financial_document."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Factorial unique identifier')
     net_amount_cents: int | None = pydantic.Field(default=None, description='Net amount in cents')
@@ -326,6 +338,8 @@ class FinancialDocument(pydantic.BaseModel):
 class JournalEntry(pydantic.BaseModel):
     """Model for finance_journal_entry."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Journal entry ID')
     number: int = pydantic.Field(description='Incremental number assigned to the journal entry')
     published_at: datetime.datetime = pydantic.Field(description='Timestamp when the journal entry was published')
@@ -346,6 +360,8 @@ class JournalEntry(pydantic.BaseModel):
 class JournalLine(pydantic.BaseModel):
     """Model for finance_journal_line."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Factorial id')
     number: int = pydantic.Field(description='Sequential number assigned to the line')
     debit_amount_cents: int = pydantic.Field(description='The debit amount in cents')
@@ -362,6 +378,8 @@ class JournalLine(pydantic.BaseModel):
 
 class LedgerAccountResource(pydantic.BaseModel):
     """Model for finance_ledger_account_resource."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Factorial unique identifier')
     resource_type: ResourceType = pydantic.Field(description='Ledger account resource type')
@@ -381,6 +399,8 @@ class LedgerAccountResource(pydantic.BaseModel):
 class TaxRate(pydantic.BaseModel):
     """Model for finance_tax_rate."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Factorial id')
     rate: float = pydantic.Field(description='Specifies the numerical percentage for the tax rate between -1 and 1')
     description: str | None = pydantic.Field(
@@ -394,6 +414,8 @@ class TaxRate(pydantic.BaseModel):
 
 class TaxType(pydantic.BaseModel):
     """Model for finance_tax_type."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Factorial id')
     name: str = pydantic.Field(description='The name assigned to the tax type')

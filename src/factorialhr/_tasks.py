@@ -20,6 +20,8 @@ class TaskStatus(StrEnum):
 class Task(pydantic.BaseModel):
     """Model for tasks_task."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Identifier of the task')
     name: str = pydantic.Field(description='Name of the task')
     company_id: int = pydantic.Field(description='Company identifier of the author of the task')
@@ -38,6 +40,8 @@ class Task(pydantic.BaseModel):
 
 class TaskFile(pydantic.BaseModel):
     """Model for tasks_task_file."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Identifier of the file')
     task_id: int = pydantic.Field(description='Identifier of the task')

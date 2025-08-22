@@ -11,6 +11,8 @@ from factorialhr._client import Endpoint, ListApiResponse, MetaApiResponse
 class ExpenseRecord(pydantic.BaseModel):
     """Model for project_management_expense_record."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Expense record ID')
     project_worker_id: int = pydantic.Field(description='Project worker ID')
     expense_id: int = pydantic.Field(description='Expense ID')
@@ -61,6 +63,8 @@ class ExpenseRecordEndpoint(Endpoint):
 
 class ExportableExpense(pydantic.BaseModel):
     """Model for project_management_exportable_expense."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     date: datetime.date | None = pydantic.Field(default=None, description='Expense date')
     project_name: str | None = pydantic.Field(default=None, description='Project name')
@@ -113,6 +117,8 @@ class ExportableExpenseEndpoint(Endpoint):
 class ExportableProject(pydantic.BaseModel):
     """Model for project_management_exportable_project."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: str = pydantic.Field(description='Project ID')
     date: datetime.date | None = pydantic.Field(default=None, description='Project date')
     project_name: str = pydantic.Field(description='Project name')
@@ -164,6 +170,8 @@ class ExportableProjectEndpoint(Endpoint):
 class FlexibleTimeRecord(pydantic.BaseModel):
     """Model for project_management_flexible_time_record."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Flexible time record ID')
     date: datetime.date = pydantic.Field(description='Record date')
     imputed_minutes: int = pydantic.Field(description='Imputed minutes')
@@ -209,6 +217,8 @@ class FlexibleTimeRecordEndpoint(Endpoint):
 
 class FlexibleTimeRecordComment(pydantic.BaseModel):
     """Model for project_management_flexible_time_record_comment."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Comment ID')
     content: str = pydantic.Field(description='Comment content')
@@ -297,6 +307,8 @@ class ProjectEmployeeAssignment(StrEnum):
 class Project(pydantic.BaseModel):
     """Model for project_management_project."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Project ID')
     name: str = pydantic.Field(description='Project name')
     code: str | None = pydantic.Field(default=None, description='Project code')
@@ -378,6 +390,8 @@ class ProjectEndpoint(Endpoint):
 class ProjectTask(pydantic.BaseModel):
     """Model for project_management_project_task."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Project task ID')
     project_id: int = pydantic.Field(description='Project ID')
     subproject_id: int = pydantic.Field(description='Subproject ID')
@@ -433,6 +447,8 @@ class ProjectTaskEndpoint(Endpoint):
 
 class ProjectWorker(pydantic.BaseModel):
     """Model for project_management_project_worker."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Project worker ID')
     project_id: int = pydantic.Field(description='Project ID')
@@ -497,6 +513,8 @@ class ProjectWorkerEndpoint(Endpoint):
 class Subproject(pydantic.BaseModel):
     """Model for project_management_subproject."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int | None = pydantic.Field(default=None, description='Subproject ID')
     name: str = pydantic.Field(description='Subproject name')
     project_id: int = pydantic.Field(description='Project ID')
@@ -547,6 +565,8 @@ class SubprojectEndpoint(Endpoint):
 
 class TimeRecord(pydantic.BaseModel):
     """Model for project_management_time_record."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Time record ID')
     project_worker_id: int = pydantic.Field(description='Project worker ID')

@@ -18,6 +18,8 @@ class CountryCode(StrEnum):
 class Payrollemployeesidentifier(pydantic.BaseModel):
     """Model for payroll_employees_identifier."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Payroll employee identifier')
     employee_id: int = pydantic.Field(description='Identifier of the employee')
     social_security_number: str | None = pydantic.Field(

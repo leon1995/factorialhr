@@ -9,6 +9,8 @@ from factorialhr._client import Endpoint, ListApiResponse, MetaApiResponse
 class Membership(pydantic.BaseModel):
     """Model for teams_membership."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Membership ID')
     company_id: int | None = pydantic.Field(default=None, description='Company ID of the membership')
     employee_id: int = pydantic.Field(description='Employee ID of the membership')
@@ -18,6 +20,8 @@ class Membership(pydantic.BaseModel):
 
 class Team(pydantic.BaseModel):
     """Model for teams_team."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Team ID')
     name: str = pydantic.Field(description='Team name')

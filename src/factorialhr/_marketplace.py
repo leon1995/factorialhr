@@ -9,6 +9,8 @@ from factorialhr._client import Endpoint, ListApiResponse, MetaApiResponse
 class InstallationSettings(pydantic.BaseModel):
     """Model for marketplace_installation_settings."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     leave_types: Sequence[typing.Any] = pydantic.Field(description='List of leave types')
     additional_compensation_types: Sequence[typing.Any] = pydantic.Field(
         description='List of additional compensation types',

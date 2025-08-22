@@ -9,6 +9,8 @@ from factorialhr._client import Endpoint, ListApiResponse, MetaApiResponse
 class BreakConfiguration(pydantic.BaseModel):
     """Model for time_settings_break_configuration."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Break configuration ID')
     name: str = pydantic.Field(description='Name of the break configuration')
     paid: bool = pydantic.Field(description='Whether the break is paid')

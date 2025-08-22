@@ -66,6 +66,8 @@ class StartValidationError(StrEnum):
 class Agreement(pydantic.BaseModel):
     """Model for performance_agreement."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: str = pydantic.Field(description='Action plan ID')
     process_id: int = pydantic.Field(description='Review process ID')
     target_id: str = pydantic.Field(description='Review process target ID')
@@ -104,6 +106,8 @@ class Agreement(pydantic.BaseModel):
 class CompanyEmployeeScoreScale(pydantic.BaseModel):
     """Model for performance_company_employee_score_scale."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Company ID')
     scale_id: int = pydantic.Field(description='Employee score scale ID')
     is_default: bool = pydantic.Field(description='Default employee score scale')
@@ -112,6 +116,8 @@ class CompanyEmployeeScoreScale(pydantic.BaseModel):
 class EmployeeScoreScale(pydantic.BaseModel):
     """Model for performance_employee_score_scale."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Employee score scale ID')
     scale: Sequence[typing.Any] = pydantic.Field(description='Scale to be used when scoring the employee performance')
     is_default: bool = pydantic.Field(description='Whether this is the default score scale')
@@ -119,6 +125,8 @@ class EmployeeScoreScale(pydantic.BaseModel):
 
 class ReviewEmployeeScore(pydantic.BaseModel):
     """Model for performance_review_employee_score."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Review employee score ID')
     review_process_id: int = pydantic.Field(description='Review process ID')
@@ -148,6 +156,8 @@ class ReviewEmployeeScore(pydantic.BaseModel):
 class ReviewEvaluation(pydantic.BaseModel):
     """Model for performance_review_evaluation."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Evaluation ID')
     performance_review_process_id: int | None = pydantic.Field(default=None, description='Review process ID')
     target_access_id: int | None = pydantic.Field(default=None, description='Participant access ID')
@@ -164,6 +174,8 @@ class ReviewEvaluation(pydantic.BaseModel):
 
 class ReviewEvaluationAnswer(pydantic.BaseModel):
     """Model for performance_review_evaluation_answer."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Review evaluation ID')
     performance_review_evaluation_id: int = pydantic.Field(description='Review evaluation ID')
@@ -183,6 +195,8 @@ class ReviewEvaluationAnswer(pydantic.BaseModel):
 class ReviewOwner(pydantic.BaseModel):
     """Model for performance_review_owner."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Review owner ID')
     access_id: int = pydantic.Field(description='Review owner access ID')
     performance_review_process_id: int = pydantic.Field(description='Review process ID')
@@ -190,6 +204,8 @@ class ReviewOwner(pydantic.BaseModel):
 
 class ReviewProcess(pydantic.BaseModel):
     """Model for performance_review_process."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Review process ID')
     company_id: int = pydantic.Field(description='Company ID')
@@ -240,6 +256,8 @@ class ReviewProcess(pydantic.BaseModel):
 
 class ReviewProcessCustomTemplate(pydantic.BaseModel):
     """Model for performance_review_process_custom_template."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Review process template ID')
     author_id: int | None = pydantic.Field(default=None, description='Author of the custom template')
@@ -292,6 +310,8 @@ class ReviewProcessCustomTemplate(pydantic.BaseModel):
 class ReviewProcessEstimatedTarget(pydantic.BaseModel):
     """Model for performance_review_process_estimated_target."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: str = pydantic.Field(description='Process target ID')
     performance_review_process_id: int = pydantic.Field(description='Review process ID')
     access_id: int = pydantic.Field(description='Access ID')
@@ -301,6 +321,8 @@ class ReviewProcessEstimatedTarget(pydantic.BaseModel):
 class ReviewProcessTarget(pydantic.BaseModel):
     """Model for performance_review_process_target."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: str = pydantic.Field(description='Review process target ID')
     access_id: int = pydantic.Field(description='Participant access ID')
     performance_review_process_id: int = pydantic.Field(description='Review process ID')
@@ -309,6 +331,8 @@ class ReviewProcessTarget(pydantic.BaseModel):
 
 class ReviewQuestionnairesByStrategy(pydantic.BaseModel):
     """Model for performance_review_questionnaires_by_strategy."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Review process ID')
     performance_review_process_id: int = pydantic.Field(description='Review process ID')
@@ -346,6 +370,8 @@ class ReviewQuestionnairesByStrategy(pydantic.BaseModel):
 class ReviewVisibilitySetting(pydantic.BaseModel):
     """Model for performance_review_visibility_setting."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Review process ID')
     performance_review_process_id: int = pydantic.Field(description='Review process ID')
     restrict_answers_visibility_to_reportees: bool = pydantic.Field(
@@ -361,6 +387,8 @@ class ReviewVisibilitySetting(pydantic.BaseModel):
 
 class TargetManager(pydantic.BaseModel):
     """Model for performance_target_manager."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: str = pydantic.Field(description='Manager employee ID')
     performance_review_process_id: int = pydantic.Field(description='Review process ID')

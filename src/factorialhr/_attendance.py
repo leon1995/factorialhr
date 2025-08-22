@@ -64,6 +64,8 @@ class DayType(StrEnum):
 class BreakConfiguration(pydantic.BaseModel):
     """Model for attendance_break_configuration."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Break configuration identifier')
     attendance_employees_setting_id: int = pydantic.Field(description='Id of the attendance employee setting')
     time_settings_break_configuration_id: int = pydantic.Field(
@@ -114,6 +116,8 @@ class BreakConfigurationsEndpoint(Endpoint):
 
 class EditTimesheetRequest(pydantic.BaseModel):
     """Model for attendance_edit_timesheet_request."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Unique identifier for the edit timesheet request')
     approved: bool | None = pydantic.Field(default=None, description='Status of the edit timesheet request')
@@ -180,6 +184,8 @@ class EditTimesheetRequestsEndpoint(Endpoint):
 class EstimatedTime(pydantic.BaseModel):
     """Model for attendance_estimated_time."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     date: datetime.date = pydantic.Field(description='Date of the estimated time')
     company_id: int = pydantic.Field(description='Company identifier')
     employee_id: int = pydantic.Field(description='Employee identifier')
@@ -206,6 +212,8 @@ class EstimatedTime(pydantic.BaseModel):
 
 class OpenShift(pydantic.BaseModel):
     """Model for attendance_open_shift."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Open Shift identifier')
     employee_id: int = pydantic.Field(description='Employee identifier from the open shift')
@@ -236,6 +244,8 @@ class OpenShift(pydantic.BaseModel):
 class OvertimeRequest(pydantic.BaseModel):
     """Model for attendance_overtime_request."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Overtime request identifier')
     employee_id: int = pydantic.Field(description='Employee identifier')
     approver_id: int | None = pydantic.Field(default=None, description='Approver identifier')
@@ -256,6 +266,8 @@ class OvertimeRequest(pydantic.BaseModel):
 
 class AttendanceShift(pydantic.BaseModel):
     """Model for attendance_shift."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Unique identifier for the shift')
     employee_id: int = pydantic.Field(description='Identifier for the employee assigned to the shift')
@@ -292,6 +304,8 @@ class AttendanceShift(pydantic.BaseModel):
 
 class WorkedTime(pydantic.BaseModel):
     """Model for attendance_worked_time."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     employee_id: int = pydantic.Field(description='Employee identifier')
     date: datetime.date = pydantic.Field(description='Date of the worked time')

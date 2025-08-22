@@ -28,6 +28,8 @@ class PlanningTool(StrEnum):
 class PlannedBreak(pydantic.BaseModel):
     """Represents a planned break in time planning."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Identifier of the planned break')
     start_at: datetime.datetime | None = pydantic.Field(default=None, description='Start date of the break')
     end_at: datetime.datetime | None = pydantic.Field(default=None, description='End date of the break')
@@ -44,6 +46,8 @@ class PlannedBreak(pydantic.BaseModel):
 
 class PlanningVersion(pydantic.BaseModel):
     """Model for time_planning_planning_version."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int | None = pydantic.Field(default=None, description='Planning version ID')
     effective_at: datetime.date = pydantic.Field(description='Effective date of the planning version')

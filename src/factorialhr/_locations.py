@@ -9,6 +9,8 @@ from factorialhr._client import Endpoint, ListApiResponse, MetaApiResponse
 class Location(pydantic.BaseModel):
     """Model for locations_location."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Identifier of the location')
     company_id: int = pydantic.Field(description='Company identifier')
     name: str = pydantic.Field(description='Name of the location')
@@ -29,6 +31,8 @@ class Location(pydantic.BaseModel):
 
 class WorkArea(pydantic.BaseModel):
     """Model for locations_work_area."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Work area identifier')
     location_id: int = pydantic.Field(description='Location identifier')

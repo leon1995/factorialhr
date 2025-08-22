@@ -9,6 +9,8 @@ from factorialhr._client import Endpoint, ListApiResponse, MetaApiResponse
 class Credentials(pydantic.BaseModel):
     """Model for api_public_credential."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     company_id: int = pydantic.Field(description='Company id for all kind of accesses')
     id: str = pydantic.Field(description='Id of the credential prefixed by the type of credential')
     email: str | None = pydantic.Field(default=None, description='Only for Access Oauth token')
@@ -54,6 +56,8 @@ class CredentialsEndpoint(Endpoint):
 
 class WebhookSubscription(pydantic.BaseModel):
     """Model for api_public_webhook_subscription."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Identifier of the webhook subscription')
     target_url: str = pydantic.Field(description='URL where the webhook payload will be sent')

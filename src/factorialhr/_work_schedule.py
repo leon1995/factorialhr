@@ -10,6 +10,8 @@ from factorialhr._client import Endpoint, ListApiResponse, MetaApiResponse
 class WorkScheduleDayConfiguration(pydantic.BaseModel):
     """Model for work_schedule_day_configuration."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Day configuration ID')
     overlap_period_id: int = pydantic.Field(description='Overlap period ID')
     weekday: str = pydantic.Field(description='Day of the week')
@@ -19,6 +21,8 @@ class WorkScheduleDayConfiguration(pydantic.BaseModel):
 
 class WorkScheduleOverlapPeriod(pydantic.BaseModel):
     """Model for work_schedule_overlap_period."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Overlap period ID')
     default: bool = pydantic.Field(description='Whether this is the default period')
@@ -32,6 +36,8 @@ class WorkScheduleOverlapPeriod(pydantic.BaseModel):
 
 class WorkScheduleSchedule(pydantic.BaseModel):
     """Model for work_schedule_schedule."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Schedule ID')
     name: str = pydantic.Field(description='Schedule name')

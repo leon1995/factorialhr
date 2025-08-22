@@ -25,6 +25,8 @@ class FieldType(StrEnum):
 class Field(pydantic.BaseModel):
     """Model for custom_fields_field."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Field identifier')
     field_type: FieldType = pydantic.Field(description="The type of the field's value")
     label_text: str = pydantic.Field(description='Field label')
@@ -43,6 +45,8 @@ class Field(pydantic.BaseModel):
 class Option(pydantic.BaseModel):
     """Model for custom_fields_option."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Option identifier')
     label: str | None = pydantic.Field(default=None, description='Title for option')
     value: str | None = pydantic.Field(default=None, description='Option value')
@@ -53,12 +57,16 @@ class Option(pydantic.BaseModel):
 class ResourceField(pydantic.BaseModel):
     """Model for custom_fields_resource_field."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Resource field identifier')
     field_id: int | None = pydantic.Field(default=None, description='Custom Field identifier')
 
 
 class CustomFieldValue(pydantic.BaseModel):
     """Model for custom_fields_value."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Unique identifier for the custom field value')
     value: bool | None = pydantic.Field(default=None, description='Custom Fields value')

@@ -10,6 +10,8 @@ from factorialhr._client import Endpoint, ListApiResponse, MetaApiResponse
 class EmployeeAbsence(pydantic.BaseModel):
     """Model for employee_updates_absence."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Identifier of the absence employee update')
     status: str = pydantic.Field(description='The status of the employee update')
     employee_id: int | None = pydantic.Field(default=None, description='Employee id of the absence')
@@ -34,6 +36,8 @@ class EmployeeAbsence(pydantic.BaseModel):
 
 class EmployeeContractChange(pydantic.BaseModel):
     """Model for employee_updates_contract_change."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='The id of the contract change incidence')
     status: str = pydantic.Field(description='The status of the contract change incidence')
@@ -167,6 +171,8 @@ class EmployeeContractChange(pydantic.BaseModel):
 class EmployeeNewHire(pydantic.BaseModel):
     """Model for employee_updates_new_hire."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='The id of the new hire incidence')
     status: str = pydantic.Field(description='The status of the new hire incidence')
     employee_id: int = pydantic.Field(description='The employee id of the new hire')
@@ -217,6 +223,8 @@ class EmployeeNewHire(pydantic.BaseModel):
 class EmployeePersonalChange(pydantic.BaseModel):
     """Model for employee_updates_personal_change."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='The id of the personal change incidence')
     status: str = pydantic.Field(description='The status of the personal change incidence')
     employee_id: int = pydantic.Field(description='The employee id of the personal change')
@@ -254,6 +262,8 @@ class EmployeePersonalChange(pydantic.BaseModel):
 class EmployeeSummary(pydantic.BaseModel):
     """Model for employee_updates_summary."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Unique identifier for the employee update summary')
     employee_id: int | None = pydantic.Field(default=None, description='Employee identifier')
     legal_entity_id: int = pydantic.Field(description='Legal entity identifier')
@@ -266,6 +276,8 @@ class EmployeeSummary(pydantic.BaseModel):
 
 class EmployeeTermination(pydantic.BaseModel):
     """Model for employee_updates_termination."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Unique identifier for the termination update')
     status: str = pydantic.Field(description='Status of the termination update')

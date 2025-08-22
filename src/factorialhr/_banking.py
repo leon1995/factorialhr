@@ -75,6 +75,8 @@ class TransactionType(StrEnum):
 class BankAccount(pydantic.BaseModel):
     """Model for banking_bank_account."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Factorial unique identifier')
     external_id: str = pydantic.Field(description='External ID for the bank account')
     currency: str = pydantic.Field(description='Currency')
@@ -100,6 +102,8 @@ class BankAccount(pydantic.BaseModel):
 
 class CardPayment(pydantic.BaseModel):
     """Model for banking_card_payment."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='The ID of the card payment')
     card_id: int = pydantic.Field(description='The ID of the card')
@@ -127,6 +131,8 @@ class CardPayment(pydantic.BaseModel):
 class Transaction(pydantic.BaseModel):
     """Model for banking_transaction."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Factorial unique identifier')
     bank_account_id: int = pydantic.Field(description='Factorial Banking Bank Account unique identifier')
     amount_cents: int = pydantic.Field(description='Amount in cents')
@@ -142,6 +148,8 @@ class Transaction(pydantic.BaseModel):
 
 class BankAccountNumber(pydantic.BaseModel):
     """Model for banking_bank_account_number."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: str  # Employee id.
     company_id: int  # Company identifier

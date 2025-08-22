@@ -24,6 +24,8 @@ class SignatureStatus(StrEnum):
 class Document(pydantic.BaseModel):
     """Model for documents_document."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     author_id: int | None = pydantic.Field(
         default=None,
         description='Access identifier of the author, refers to /employees/employees endpoint',
@@ -70,12 +72,16 @@ class Document(pydantic.BaseModel):
 class DownloadUrl(pydantic.BaseModel):
     """Model for documents_download_url."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Document identifier')
     url: str = pydantic.Field(description='Temporal document url')
 
 
 class Folder(pydantic.BaseModel):
     """Model for documents_folder."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     active: bool = pydantic.Field(description='Whether the folder is active or not')
     company_id: int | None = pydantic.Field(default=None, description='Company ID of the folder')

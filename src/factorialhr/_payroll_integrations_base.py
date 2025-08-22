@@ -27,6 +27,8 @@ class Integration(StrEnum):
 class Payrollintegrationsbasecode(pydantic.BaseModel):
     """Model for payroll_integrations_base_code."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Code identifier')
     company_id: int = pydantic.Field(description='Company ID where the code belongs to')
     code: str = pydantic.Field(description='Code value')

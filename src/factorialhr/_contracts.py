@@ -33,6 +33,8 @@ class AnnualWorkingTimeDistribution(StrEnum):
 class Compensation(pydantic.BaseModel):
     """Model for contracts_compensation."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Compensation ID')
     contract_version_id: int = pydantic.Field(description='Contract version ID')
     contracts_taxonomy_id: int = pydantic.Field(description='Contracts taxonomy ID')
@@ -71,6 +73,8 @@ class Compensation(pydantic.BaseModel):
 class ContractTemplate(pydantic.BaseModel):
     """Model for contracts_contract_template."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Unique identifier for the contract template')
     company_id: int | None = pydantic.Field(default=None, description='ID of the company this template belongs to')
     contract_version_type: str | None = pydantic.Field(
@@ -81,6 +85,8 @@ class ContractTemplate(pydantic.BaseModel):
 
 class ContractVersion(pydantic.BaseModel):
     """Model for contracts_contract_version."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int | None = pydantic.Field(default=None, description='Identifier for the contract version')
     company_id: int = pydantic.Field(description='Identifier for company')
@@ -203,12 +209,16 @@ class ContractVersion(pydantic.BaseModel):
 class FrenchContractType(pydantic.BaseModel):
     """Model for contracts_french_contract_type."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Identifier for the contract type')
     name: str = pydantic.Field(description='Contract type name')
 
 
 class GermanContractType(pydantic.BaseModel):
     """Model for contracts_german_contract_type."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Identifier for the contract type')
     name: str = pydantic.Field(description='Contract type name')
@@ -217,12 +227,16 @@ class GermanContractType(pydantic.BaseModel):
 class PortugueseContractType(pydantic.BaseModel):
     """Model for contracts_portuguese_contract_type."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Identifier for the contract type')
     name: str = pydantic.Field(description='Contract type name')
 
 
 class SpanishContractType(pydantic.BaseModel):
     """Model for contracts_spanish_contract_type."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Identifier for the contract type')
     name: str = pydantic.Field(description='The name of the contract type')
@@ -236,6 +250,8 @@ class SpanishContractType(pydantic.BaseModel):
 class SpanishEducationLevel(pydantic.BaseModel):
     """Model for contracts_spanish_education_level."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Education level identifier')
     name: str = pydantic.Field(description='Education level name')
     default: bool | None = pydantic.Field(default=None, description='Whether the education level is a predefined value')
@@ -246,6 +262,8 @@ class SpanishEducationLevel(pydantic.BaseModel):
 
 class SpanishProfessionalCategory(pydantic.BaseModel):
     """Model for contracts_spanish_professional_category."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Professional category identifier')
     name: str = pydantic.Field(description='Professional category name')
@@ -261,6 +279,8 @@ class SpanishProfessionalCategory(pydantic.BaseModel):
 class SpanishWorkingDayType(pydantic.BaseModel):
     """Model for contracts_spanish_working_day_type."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Working day type identifier')
     name: str = pydantic.Field(description='Working day type name')
     default: bool | None = pydantic.Field(
@@ -275,6 +295,8 @@ class SpanishWorkingDayType(pydantic.BaseModel):
 
 class Taxonomy(pydantic.BaseModel):
     """Model for contracts_taxonomy."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Taxonomy identifier')
     name: str = pydantic.Field(description='Taxonomy name')

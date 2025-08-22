@@ -59,7 +59,16 @@ from factorialhr._banking import (
     TransactionsEndpoint,
 )
 from factorialhr._bookkeepers_management import BookkeepersManagementEndpoint, BookkeepersManagementIncidence
-from factorialhr._client import AccessTokenAuth, ApiClient, ApiKeyAuth, RefreshTokenAuth, RefreshTokenAuthFile
+from factorialhr._client import (
+    AccessTokenAuth,
+    ApiClient,
+    ApiKeyAuth,
+    ListApiResponse,
+    MetaApiResponse,
+    PaginationMeta,
+    RefreshTokenAuth,
+    RefreshTokenAuthFile,
+)
 from factorialhr._companies import LegalEntitiesEndpoint, LegalEntity
 from factorialhr._contracts import (
     Compensation,
@@ -426,6 +435,7 @@ __all__ = [
     'LegalEntitiesEndpoint',
     'LegalEntity',
     'LevelsEndpoint',
+    'ListApiResponse',
     'Location',
     'LocationType',
     'LocationsEndpoint',
@@ -433,6 +443,7 @@ __all__ = [
     'MembershipsEndpoint',
     'Message',
     'MessagesEndpoint',
+    'MetaApiResponse',
     'Mileage',
     'MileagesEndpoint',
     'NewHiresEndpoint',
@@ -443,6 +454,7 @@ __all__ = [
     'OverlapPeriodEndpoint',
     'OvertimeRequest',
     'OvertimeRequestsEndpoint',
+    'PaginationMeta',
     'Payrollemployeesidentifier',
     'Payrollintegrationsbasecode',
     'PerDiem',

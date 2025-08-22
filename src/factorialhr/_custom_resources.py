@@ -10,6 +10,8 @@ from factorialhr._client import Endpoint, ListApiResponse, MetaApiResponse
 class Schema(pydantic.BaseModel):
     """Model for custom_resources_schema."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Schema identifier')
     name: str = pydantic.Field(description='Schema name')
     company_id: int = pydantic.Field(description='Company identifier where this schema belongs')
@@ -19,6 +21,8 @@ class Schema(pydantic.BaseModel):
 
 class CustomResourcesValue(pydantic.BaseModel):
     """Model for custom_resources_value."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Value identifier')
     field_id: int = pydantic.Field(description='Identifier of the field this value belongs to')

@@ -17,7 +17,7 @@ import factorialhr
 
 authorizer = factorialhr.ApiKeyAuth('<api_key>')  # checkout other authorization methods
 async with factorialhr.ApiClient(auth=authorizer) as api:
-    all_employees = factorialhr.EmployeesEndpoint(api).all()  # fetches all employees. on big companies you might want to increase the timeout by using timeout=...
+    all_employees = await factorialhr.EmployeesEndpoint(api).all()  # fetches all employees. on big companies you might want to increase the timeout by using timeout=...
 ```
 Get a dictionary with team id as key and a list of member as value
 ```python

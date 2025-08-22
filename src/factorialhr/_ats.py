@@ -159,6 +159,8 @@ class DecisionMaker(StrEnum):
 class Answer(pydantic.BaseModel):
     """Model for ats_answer."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Identifier of the answer')
     ats_question_id: int | None = pydantic.Field(default=None, description='Identifier of the question')
     ats_application_id: int = pydantic.Field(description='Identifier of the application')
@@ -193,6 +195,8 @@ class AnswersEndpoint(Endpoint):
 
 class Application(pydantic.BaseModel):
     """Model for ats_application."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Id of the application')
     company_id: int = pydantic.Field(description='Company id of the application')
@@ -248,6 +252,8 @@ class ApplicationsEndpoint(Endpoint):
 class ApplicationPhase(pydantic.BaseModel):
     """Model for ats_application_phase."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Identifier of the application Phase')
     ats_job_posting_id: int = pydantic.Field(description='Job posting of the application phase')
     name: str = pydantic.Field(description='Name of the application phase')
@@ -279,6 +285,8 @@ class ApplicationPhasesEndpoint(Endpoint):
 
 class Candidate(pydantic.BaseModel):
     """Model for ats_candidate."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Identifier of the candidate')
     company_id: int | None = pydantic.Field(default=None, description='Company identifier')
@@ -356,6 +364,8 @@ class CandidatesEndpoint(Endpoint):
 class CandidateSource(pydantic.BaseModel):
     """Model for ats_candidate_source."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Identifier of the source')
     company_id: int = pydantic.Field(description='Identifier of the company')
     category: CandidateSourceCategory = pydantic.Field(description='Category of the source')
@@ -385,6 +395,8 @@ class CandidateSourcesEndpoint(Endpoint):
 
 class EvaluationForm(pydantic.BaseModel):
     """Model for ats_evaluation_form."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Id of the evaluation form')
     company_id: int = pydantic.Field(description='Id of the company that the evaluation form belongs to')
@@ -428,6 +440,8 @@ class EvaluationFormsEndpoint(Endpoint):
 
 class Feedback(pydantic.BaseModel):
     """Model for ats_feedback."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='The ID of the feedback entry')
     rating: int | None = pydantic.Field(
@@ -490,6 +504,8 @@ class FeedbacksEndpoint(Endpoint):
 class HiringStage(pydantic.BaseModel):
     """Model for ats_hiring_stage."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Identifier of the hiring stage')
     name: HiringStageName = pydantic.Field(description='Name of the hiring stage')
     label: str = pydantic.Field(description='Label of the hiring stage')
@@ -517,6 +533,8 @@ class HiringStagesEndpoint(Endpoint):
 
 class JobPosting(pydantic.BaseModel):
     """Model for ats_job_posting."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Unique identifier for the job posting')
     company_id: int = pydantic.Field(description='Company identifier')
@@ -612,6 +630,8 @@ class JobPostingsEndpoint(Endpoint):
 class Message(pydantic.BaseModel):
     """Model for ats_message."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Message identifier')
     content: str = pydantic.Field(description='Message content')
     ats_conversation_id: int = pydantic.Field(description='Conversation identifier')
@@ -651,6 +671,8 @@ class MessagesEndpoint(Endpoint):
 
 class Question(pydantic.BaseModel):
     """Model for ats_question."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Question identifier')
     ats_job_posting_id: int = pydantic.Field(description='Job posting identifier')
@@ -698,6 +720,8 @@ class QuestionsEndpoint(Endpoint):
 
 class RejectionReason(pydantic.BaseModel):
     """Model for ats_rejection_reason."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Rejection reason identifier')
     company_id: int = pydantic.Field(description='Company identifier of the rejection reason')

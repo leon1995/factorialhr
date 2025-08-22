@@ -10,6 +10,8 @@ from factorialhr._client import Endpoint, ListApiResponse, MetaApiResponse
 class BookkeepersManagementIncidence(pydantic.BaseModel):
     """Model for bookkeepers_management_incidence."""
 
+    model_config = pydantic.ConfigDict(frozen=True)
+
     id: int = pydantic.Field(description='Identifier of the incidence (aka employee update)')
     employee_id: int | None = pydantic.Field(default=None, description='Identifier of employee related')
     legal_entity_id: int = pydantic.Field(description='Identifier of legal entity related')
