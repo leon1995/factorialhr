@@ -189,14 +189,16 @@ class EstimatedTime(pydantic.BaseModel):
     date: datetime.date = pydantic.Field(description='Date of the estimated time')
     company_id: int = pydantic.Field(description='Company identifier')
     employee_id: int = pydantic.Field(description='Employee identifier')
-    expected_minutes: float = pydantic.Field(
+    expected_minutes: datetime.timedelta = pydantic.Field(
         description=(
             'Amount of minutes the employee has to work without taking into '
             'consideration time off leaves and bank holidays'
         ),
     )
-    regular_minutes: float = pydantic.Field(description='Amount of regular minutes the employee has to work')
-    overtime_minutes: float = pydantic.Field(
+    regular_minutes: datetime.timedelta = pydantic.Field(
+        description='Amount of regular minutes the employee has to work',
+    )
+    overtime_minutes: datetime.timedelta = pydantic.Field(
         description='Amount of overtime minutes the employee has to work (only available with Shift Management)',
     )
     breaks: Sequence[typing.Any] = pydantic.Field(description='List of breaks')
@@ -207,7 +209,14 @@ class EstimatedTime(pydantic.BaseModel):
         description="Source of the estimated time. Could be employee's contract, work schedule or shift management",
     )
     id: str = pydantic.Field(description='ID to specify the estimation time it includes the employee_id and date')
-    minutes: float = pydantic.Field(description='Amount of minutes the employee has to work')
+    minutes: datetime.timedelta = pydantic.Field(description='Amount of minutes the employee has to work')
+
+    @pydantic.field_validator('expected_minutes', 'regular_minutes', 'overtime_minutes', 'minutes', mode='before')
+    def cast_minutes_to_timedelta(cls, v: typing.Any) -> typing.Any:  # noqa: N805
+        """Cast minutes as timedelta."""
+        if isinstance(v, int):
+            return datetime.timedelta(minutes=v)
+        return v
 
 
 class OpenShift(pydantic.BaseModel):
@@ -298,8 +307,15 @@ class AttendanceShift(pydantic.BaseModel):
     )
     company_id: int = pydantic.Field(description='Identifier for the company')
     updated_at: datetime.datetime = pydantic.Field(description='Timestamp when the shift record was updated')
-    minutes: int = pydantic.Field(description='Number in minutes of the shift')
+    minutes: datetime.timedelta = pydantic.Field(description='Number in minutes of the shift')
     clock_in_with_seconds: datetime.time | None = pydantic.Field(default=None, description='Clock in time with seconds')
+
+    @pydantic.field_validator('minutes', mode='before')
+    def cast_minutes_to_timedelta(cls, v: typing.Any) -> typing.Any:  # noqa: N805
+        """Cast minutes as timedelta."""
+        if isinstance(v, int):
+            return datetime.timedelta(minutes=v)
+        return v
 
 
 class WorkedTime(pydantic.BaseModel):
@@ -313,11 +329,18 @@ class WorkedTime(pydantic.BaseModel):
     tracked_minutes: int = pydantic.Field(description='Number of tracked minutes')
     multiplied_minutes: int = pydantic.Field(description='Number of multiplied minutes')
     pending_minutes: int = pydantic.Field(description='Number of pending minutes')
-    minutes: int = pydantic.Field(description='Total number of minutes')
+    minutes: datetime.timedelta = pydantic.Field(description='Total number of minutes')
     time_unit: TimeUnit = pydantic.Field(description='Time unit for the worked time')
     worked_time_blocks: Sequence[typing.Any] = pydantic.Field(description='List of worked time blocks')
     day_type: DayType = pydantic.Field(description='Type of day')
     id: str = pydantic.Field(description='ID to specify the worked time it includes the employee_id and date')
+
+    @pydantic.field_validator('minutes', mode='before')
+    def cast_minutes_to_timedelta(cls, v: typing.Any) -> typing.Any:  # noqa: N805
+        """Cast minutes as timedelta."""
+        if isinstance(v, int):
+            return datetime.timedelta(minutes=v)
+        return v
 
 
 class EstimatedTimesEndpoint(Endpoint):

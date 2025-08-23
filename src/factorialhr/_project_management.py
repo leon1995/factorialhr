@@ -174,9 +174,16 @@ class FlexibleTimeRecord(pydantic.BaseModel):
 
     id: int = pydantic.Field(description='Flexible time record ID')
     date: datetime.date = pydantic.Field(description='Record date')
-    imputed_minutes: int = pydantic.Field(description='Imputed minutes')
+    imputed_minutes: datetime.timedelta = pydantic.Field(description='Imputed minutes')
     project_worker_id: int = pydantic.Field(description='Project worker ID')
     subproject_id: int | None = pydantic.Field(default=None, description='Subproject ID')
+
+    @pydantic.field_validator('imputed_minutes', mode='before')
+    def cast_minutes_to_timedelta(cls, v: typing.Any) -> typing.Any:  # noqa: N805
+        """Cast minutes as timedelta."""
+        if isinstance(v, int):
+            return datetime.timedelta(minutes=v)
+        return v
 
 
 class FlexibleTimeRecordEndpoint(Endpoint):
@@ -316,7 +323,7 @@ class Project(pydantic.BaseModel):
     due_date: datetime.date | None = pydantic.Field(default=None, description='Project due date')
     status: ProjectStatus = pydantic.Field(description='Project status')
     employees_assignment: ProjectEmployeeAssignment = pydantic.Field(description='Employee assignment type')
-    inputed_minutes: int | None = pydantic.Field(default=None, description='Total inputted minutes')
+    inputed_minutes: datetime.timedelta | None = pydantic.Field(default=None, description='Total inputted minutes')
     is_billable: bool = pydantic.Field(description='Whether the project is billable')
     fixed_cost_cents: int | None = pydantic.Field(default=None, description='Fixed cost in cents')
     labor_cost_cents: int | None = pydantic.Field(default=None, description='Labor cost in cents')
@@ -324,6 +331,13 @@ class Project(pydantic.BaseModel):
     spending_cost_cents: int | None = pydantic.Field(default=None, description='Spending cost in cents')
     client_id: int | None = pydantic.Field(default=None, description='Client ID')
     total_cost_cents: int | None = pydantic.Field(default=None, description='Total cost in cents')
+
+    @pydantic.field_validator('inputed_minutes', mode='before')
+    def cast_minutes_to_timedelta(cls, v: typing.Any) -> typing.Any:  # noqa: N805
+        """Cast minutes as timedelta."""
+        if isinstance(v, int):
+            return datetime.timedelta(minutes=v)
+        return v
 
 
 class ProjectEndpoint(Endpoint):
@@ -454,9 +468,16 @@ class ProjectWorker(pydantic.BaseModel):
     project_id: int = pydantic.Field(description='Project ID')
     employee_id: int = pydantic.Field(description='Employee ID')
     assigned: bool = pydantic.Field(description='Whether the worker is assigned to the project')
-    inputed_minutes: int | None = pydantic.Field(default=None, description='Total inputted minutes')
+    inputed_minutes: datetime.timedelta | None = pydantic.Field(default=None, description='Total inputted minutes')
     labor_cost_cents: int | None = pydantic.Field(default=None, description='Labor cost in cents')
     spending_cost_cents: int | None = pydantic.Field(default=None, description='Spending cost in cents')
+
+    @pydantic.field_validator('inputed_minutes', mode='before')
+    def cast_minutes_to_timedelta(cls, v: typing.Any) -> typing.Any:  # noqa: N805
+        """Cast minutes as timedelta."""
+        if isinstance(v, int):
+            return datetime.timedelta(minutes=v)
+        return v
 
 
 class ProjectWorkerEndpoint(Endpoint):
@@ -518,8 +539,15 @@ class Subproject(pydantic.BaseModel):
     id: int | None = pydantic.Field(default=None, description='Subproject ID')
     name: str = pydantic.Field(description='Subproject name')
     project_id: int = pydantic.Field(description='Project ID')
-    inputed_minutes: int | None = pydantic.Field(default=None, description='Total inputted minutes')
+    inputed_minutes: datetime.timedelta | None = pydantic.Field(default=None, description='Total inputted minutes')
     labor_cost_cents: int | None = pydantic.Field(default=None, description='Labor cost in cents')
+
+    @pydantic.field_validator('inputed_minutes', mode='before')
+    def cast_minutes_to_timedelta(cls, v: typing.Any) -> typing.Any:  # noqa: N805
+        """Cast minutes as timedelta."""
+        if isinstance(v, int):
+            return datetime.timedelta(minutes=v)
+        return v
 
 
 class SubprojectEndpoint(Endpoint):
@@ -573,7 +601,7 @@ class TimeRecord(pydantic.BaseModel):
     attendance_shift_id: int = pydantic.Field(description='Attendance shift ID')
     subproject_id: int | None = pydantic.Field(default=None, description='Subproject ID')
     date: datetime.date | None = pydantic.Field(default=None, description='Record date')
-    imputed_minutes: int | None = pydantic.Field(default=None, description='Imputed minutes')
+    imputed_minutes: datetime.timedelta | None = pydantic.Field(default=None, description='Imputed minutes')
     clock_in: datetime.datetime | None = pydantic.Field(
         default=None,
         description='Clock in time (date will always be 2000-01-01, only use for .time())',
@@ -582,6 +610,13 @@ class TimeRecord(pydantic.BaseModel):
         default=None,
         description='Clock out time (date will always be 2000-01-01, only use for .time())',
     )
+
+    @pydantic.field_validator('imputed_minutes', mode='before')
+    def cast_minutes_to_timedelta(cls, v: typing.Any) -> typing.Any:  # noqa: N805
+        """Cast minutes as timedelta."""
+        if isinstance(v, int):
+            return datetime.timedelta(minutes=v)
+        return v
 
 
 class TimeRecordEndpoint(Endpoint):
