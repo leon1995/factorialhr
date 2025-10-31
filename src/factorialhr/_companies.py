@@ -27,7 +27,7 @@ class LegalEntity(pydantic.BaseModel):
 class LegalEntitiesEndpoint(Endpoint):
     """Endpoint for legal entities."""
 
-    endpoint = '/companies/legal_entities'
+    endpoint = 'companies/legal_entities'
 
     async def all(self, **kwargs) -> ListApiResponse[LegalEntity]:
         """Get all companies records."""

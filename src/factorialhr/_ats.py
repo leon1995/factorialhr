@@ -172,7 +172,7 @@ class Answer(pydantic.BaseModel):
 
 
 class AnswersEndpoint(Endpoint):
-    endpoint = '/ats/answers'
+    endpoint = 'ats/answers'
 
     async def all(self, **kwargs) -> ListApiResponse[Answer]:
         data = await self.api.get_all(self.endpoint, **kwargs)
@@ -216,7 +216,7 @@ class Application(pydantic.BaseModel):
 
 
 class ApplicationsEndpoint(Endpoint):
-    endpoint = '/ats/applications'
+    endpoint = 'ats/applications'
 
     async def all(self, **kwargs) -> ListApiResponse[Application]:
         data = await self.api.get_all(self.endpoint, **kwargs)
@@ -266,7 +266,7 @@ class ApplicationPhase(pydantic.BaseModel):
 
 
 class ApplicationPhasesEndpoint(Endpoint):
-    endpoint = '/ats/application_phases'
+    endpoint = 'ats/application_phases'
 
     async def all(self, **kwargs) -> ListApiResponse[ApplicationPhase]:
         data = await self.api.get_all(self.endpoint, **kwargs)
@@ -332,7 +332,7 @@ class Candidate(pydantic.BaseModel):
 
 
 class CandidatesEndpoint(Endpoint):
-    endpoint = '/ats/candidates'
+    endpoint = 'ats/candidates'
 
     async def all(self, **kwargs) -> ListApiResponse[Candidate]:
         data = await self.api.get_all(self.endpoint, **kwargs)
@@ -376,7 +376,7 @@ class CandidateSource(pydantic.BaseModel):
 
 
 class CandidateSourcesEndpoint(Endpoint):
-    endpoint = '/ats/candidate_sources'
+    endpoint = 'ats/candidate_sources'
 
     async def all(self, **kwargs) -> ListApiResponse[CandidateSource]:
         data = await self.api.get_all(self.endpoint, **kwargs)
@@ -417,7 +417,7 @@ class EvaluationForm(pydantic.BaseModel):
 
 
 class EvaluationFormsEndpoint(Endpoint):
-    endpoint = '/ats/evaluation_forms'
+    endpoint = 'ats/evaluation_forms'
 
     async def all(self, **kwargs) -> ListApiResponse[EvaluationForm]:
         data = await self.api.get_all(self.endpoint, **kwargs)
@@ -472,7 +472,7 @@ class Feedback(pydantic.BaseModel):
 
 
 class FeedbacksEndpoint(Endpoint):
-    endpoint = '/ats/feedbacks'
+    endpoint = 'ats/feedbacks'
 
     async def all(self, **kwargs) -> ListApiResponse[Feedback]:
         data = await self.api.get_all(self.endpoint, **kwargs)
@@ -514,7 +514,7 @@ class HiringStage(pydantic.BaseModel):
 
 
 class HiringStagesEndpoint(Endpoint):
-    endpoint = '/ats/hiring_stages'
+    endpoint = 'ats/hiring_stages'
 
     async def all(self, **kwargs) -> ListApiResponse[HiringStage]:
         data = await self.api.get_all(self.endpoint, **kwargs)
@@ -594,7 +594,7 @@ class JobPosting(pydantic.BaseModel):
 
 
 class JobPostingsEndpoint(Endpoint):
-    endpoint = '/ats/job_postings'
+    endpoint = 'ats/job_postings'
 
     async def all(self, **kwargs) -> ListApiResponse[JobPosting]:
         data = await self.api.get_all(self.endpoint, **kwargs)
@@ -648,7 +648,7 @@ class Message(pydantic.BaseModel):
 
 
 class MessagesEndpoint(Endpoint):
-    endpoint = '/ats/messages'
+    endpoint = 'ats/messages'
 
     async def all(self, **kwargs) -> ListApiResponse[Message]:
         data = await self.api.get_all(self.endpoint, **kwargs)
@@ -689,7 +689,7 @@ class Question(pydantic.BaseModel):
 
 
 class QuestionsEndpoint(Endpoint):
-    endpoint = '/ats/questions'
+    endpoint = 'ats/questions'
 
     async def all(self, **kwargs) -> ListApiResponse[Question]:
         data = await self.api.get_all(self.endpoint, **kwargs)
@@ -732,7 +732,7 @@ class RejectionReason(pydantic.BaseModel):
 
 
 class RejectionReasonsEndpoint(Endpoint):
-    endpoint = '/ats/rejection_reasons'
+    endpoint = 'ats/rejection_reasons'
 
     async def all(self, **kwargs) -> ListApiResponse[RejectionReason]:
         data = await self.api.get_all(self.endpoint, **kwargs)

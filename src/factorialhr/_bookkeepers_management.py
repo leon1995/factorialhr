@@ -69,7 +69,7 @@ class BookkeepersManagementIncidence(pydantic.BaseModel):
 class BookkeepersManagementEndpoint(Endpoint):
     """Endpoint for bookkeepers management incidences operations."""
 
-    endpoint = '/bookkeepers_management/incidences'
+    endpoint = 'bookkeepers_management/incidences'
 
     async def all(self, **kwargs) -> ListApiResponse[BookkeepersManagementIncidence]:
         """Get all incidences records."""

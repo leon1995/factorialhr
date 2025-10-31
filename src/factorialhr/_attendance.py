@@ -79,7 +79,7 @@ class BreakConfiguration(pydantic.BaseModel):
 class BreakConfigurationsEndpoint(Endpoint):
     """Endpoint for break configurations operations."""
 
-    endpoint = '/attendance/break_configurations'
+    endpoint = 'attendance/break_configurations'
 
     async def all(self, **kwargs) -> ListApiResponse[BreakConfiguration]:
         """Get all break configurations records."""
@@ -141,7 +141,7 @@ class EditTimesheetRequest(pydantic.BaseModel):
 class EditTimesheetRequestsEndpoint(Endpoint):
     """Endpoint for edit timesheet requests operations."""
 
-    endpoint = '/attendance/edit_timesheet_requests'
+    endpoint = 'attendance/edit_timesheet_requests'
 
     async def all(self, **kwargs) -> ListApiResponse[EditTimesheetRequest]:
         """Get all edit timesheet requests records."""
@@ -323,7 +323,7 @@ class WorkedTime(pydantic.BaseModel):
 class EstimatedTimesEndpoint(Endpoint):
     """Endpoint for estimated times operations."""
 
-    endpoint = '/attendance/estimated_times'
+    endpoint = 'attendance/estimated_times'
 
     async def get(self, **kwargs) -> MetaApiResponse[EstimatedTime]:
         """Get estimated times with pagination metadata."""
@@ -341,7 +341,7 @@ class EstimatedTimesEndpoint(Endpoint):
 class OpenShiftsEndpoint(Endpoint):
     """Endpoint for open shifts operations."""
 
-    endpoint = '/attendance/open_shifts'
+    endpoint = 'attendance/open_shifts'
 
     async def get(self, **kwargs) -> MetaApiResponse[OpenShift]:
         """Get open shifts with pagination metadata."""
@@ -359,7 +359,7 @@ class OpenShiftsEndpoint(Endpoint):
 class OvertimeRequestsEndpoint(Endpoint):
     """Endpoint for overtime requests operations."""
 
-    endpoint = '/attendance/overtime_requests'
+    endpoint = 'attendance/overtime_requests'
 
     async def all(self, **kwargs) -> ListApiResponse[OvertimeRequest]:
         """Get all overtime requests records."""
@@ -412,7 +412,7 @@ class OvertimeRequestsEndpoint(Endpoint):
 class ShiftsEndpoint(Endpoint):
     """Endpoint for shifts operations."""
 
-    endpoint = '/attendance/shifts'
+    endpoint = 'attendance/shifts'
 
     async def all(self, **kwargs) -> ListApiResponse[AttendanceShift]:
         """Get all shifts records."""
@@ -498,7 +498,7 @@ class Review(pydantic.BaseModel):
 class ReviewsEndpoint(Endpoint):
     """Endpoint for attendance reviews operations."""
 
-    endpoint = '/attendance/reviews'
+    endpoint = 'attendance/reviews'
 
     async def all(self, **kwargs) -> ListApiResponse[Review]:
         """Get all reviews records."""
@@ -531,7 +531,7 @@ class ReviewsEndpoint(Endpoint):
 class WorkedTimesEndpoint(Endpoint):
     """Endpoint for worked times operations."""
 
-    endpoint = '/attendance/worked_times'
+    endpoint = 'attendance/worked_times'
 
     async def get(self, **kwargs) -> MetaApiResponse[WorkedTime]:
         """Get worked times with pagination metadata."""

@@ -161,7 +161,7 @@ class BankAccountNumber(pydantic.BaseModel):
 class BankAccountsEndpoint(Endpoint):
     """Endpoint for bank accounts operations."""
 
-    endpoint = '/banking/bank_accounts'
+    endpoint = 'banking/bank_accounts'
 
     async def all(self, **kwargs) -> ListApiResponse[BankAccount]:
         """Get all bank accounts records."""
@@ -189,7 +189,7 @@ class BankAccountsEndpoint(Endpoint):
 class CardPaymentsEndpoint(Endpoint):
     """Endpoint for card payments operations."""
 
-    endpoint = '/banking/card_payments'
+    endpoint = 'banking/card_payments'
 
     async def all(self, **kwargs) -> ListApiResponse[CardPayment]:
         """Get all card payments records."""
@@ -212,7 +212,7 @@ class CardPaymentsEndpoint(Endpoint):
 class TransactionsEndpoint(Endpoint):
     """Endpoint for transactions operations."""
 
-    endpoint = '/banking/transactions'
+    endpoint = 'banking/transactions'
 
     async def all(self, **kwargs) -> ListApiResponse[Transaction]:
         """Get all transactions records."""

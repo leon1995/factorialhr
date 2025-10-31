@@ -87,7 +87,7 @@ class CustomFieldValue(pydantic.BaseModel):
 class FieldsEndpoint(Endpoint):
     """Endpoint for custom fields fields."""
 
-    endpoint = '/custom_fields/fields'
+    endpoint = 'custom_fields/fields'
 
     async def all(self, **kwargs) -> ListApiResponse[Field]:
         """Get all custom fields."""
@@ -119,7 +119,7 @@ class FieldsEndpoint(Endpoint):
 class OptionsEndpoint(Endpoint):
     """Endpoint for custom fields options."""
 
-    endpoint = '/custom_fields/options'
+    endpoint = 'custom_fields/options'
 
     async def all(self, **kwargs) -> ListApiResponse[Option]:
         """Get all custom field options."""
@@ -147,7 +147,7 @@ class OptionsEndpoint(Endpoint):
 class ResourceFieldsEndpoint(Endpoint):
     """Endpoint for custom fields resource fields."""
 
-    endpoint = '/custom_fields/resource_fields'
+    endpoint = 'custom_fields/resource_fields'
 
     async def all(self, **kwargs) -> ListApiResponse[ResourceField]:
         """Get all custom resource fields."""
@@ -175,7 +175,7 @@ class ResourceFieldsEndpoint(Endpoint):
 class CustomFieldsValuesEndpoint(Endpoint):
     """Endpoint for custom fields values."""
 
-    endpoint = '/custom_fields/values'
+    endpoint = 'custom_fields/values'
 
     async def all(self, **kwargs) -> ListApiResponse[CustomFieldValue]:
         """Get all custom field values."""
