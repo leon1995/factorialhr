@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0)
 
 ## [Unreleased]
 
+## [5.0.1] - 2025-10-31
+
+### Fixed
+
+- fixed typing in `ApiClient.base_url` to `str` intead of `Literal` as the old demo server is deprecated. 
+
 ## [5.0.0] - 2025-10-31
 
 ### Changed

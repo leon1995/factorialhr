@@ -185,11 +185,8 @@ class RefreshTokenAuthFile(RefreshTokenAuth):
         cls,
         file: pathlib.Path,
     ) -> tuple[
-        'RefreshTokenAuthFile',
-        typing.Literal[
-            'https://api.factorialhr.com',
-            'https://api.demo.factorial.dev',
-        ],
+        typing.Self,
+        str,
     ]:
         file_content = json.loads(file.read_text())
         return cls(
@@ -208,10 +205,7 @@ class ApiClient:
 
     def __init__(
         self,
-        base_url: typing.Literal[
-            'https://api.factorialhr.com',
-            'https://api.demo.factorial.dev',
-        ] = 'https://api.factorialhr.com',
+        base_url: str = 'https://api.factorialhr.com',
         *,
         auth: httpx.Auth,
         **kwargs,
