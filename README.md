@@ -33,12 +33,6 @@ async with factorialhr.ApiClient(auth=authorizer) as api:
         employees_by_team_id = {team.id: [employee for employee in all_employees.data() if employee.id in team.employee_ids] for team in all_teams.data()}
 ```
 
-### Login
-
-The cli currently only supports oauth2 as login method. Please create an issue or contribute yourself if you need a different login method.
-
-`(uvx) factorialhr account login`
-
 ## Contribute
 
 Feel free to contribute! Please fork this repository, install the development dependencies with `uv sync --dev`
