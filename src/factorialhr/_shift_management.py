@@ -1,6 +1,6 @@
 import datetime
 import typing
-from collections.abc import Mapping
+from collections.abc import Mapping, Sequence
 from enum import StrEnum
 
 import pydantic
@@ -78,12 +78,12 @@ class ShiftManagementEndpoint(Endpoint):
         response = await self.api.delete(self.endpoint, shift_id, **kwargs)
         return pydantic.TypeAdapter(ShiftManagementShift).validate_python(response)
 
-    async def bulk_create(self, data: Mapping[str, typing.Any], **kwargs) -> list[ShiftManagementShift]:
+    async def bulk_create(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[ShiftManagementShift]:
         """Bulk create shifts."""
         response = await self.api.post(self.endpoint, 'bulk_create', json=data, **kwargs)
         return pydantic.TypeAdapter(list[ShiftManagementShift]).validate_python(response)
 
-    async def bulk_delete(self, data: Mapping[str, typing.Any], **kwargs) -> list[ShiftManagementShift]:
+    async def bulk_delete(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[ShiftManagementShift]:
         """Bulk delete shifts."""
         response = await self.api.post(self.endpoint, 'bulk_delete', json=data, **kwargs)
         return pydantic.TypeAdapter(list[ShiftManagementShift]).validate_python(response)

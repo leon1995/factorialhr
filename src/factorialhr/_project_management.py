@@ -1,6 +1,6 @@
 import datetime
 import typing
-from collections.abc import Mapping
+from collections.abc import Mapping, Sequence
 from enum import StrEnum
 
 import pydantic
@@ -323,6 +323,7 @@ class Project(pydantic.BaseModel):
     legal_entity_id: int = pydantic.Field(description='Legal entity ID')
     spending_cost_cents: int | None = pydantic.Field(default=None, description='Spending cost in cents')
     client_id: int | None = pydantic.Field(default=None, description='Client ID')
+    billable_rate_type: str | None = pydantic.Field(default=None, description='Billable rate type')
     total_cost_cents: int | None = pydantic.Field(default=None, description='Total cost in cents')
 
 
@@ -434,12 +435,12 @@ class ProjectTaskEndpoint(Endpoint):
         response = await self.api.delete(self.endpoint, task_id, **kwargs)
         return pydantic.TypeAdapter(ProjectTask).validate_python(response)
 
-    async def bulk_destroy(self, data: Mapping[str, typing.Any], **kwargs) -> list[ProjectTask]:
+    async def bulk_destroy(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[ProjectTask]:
         """Bulk destroy project tasks."""
         response = await self.api.post(self.endpoint, 'bulk_destroy', json=data, **kwargs)
         return pydantic.TypeAdapter(list[ProjectTask]).validate_python(response)
 
-    async def bulk_duplicate(self, data: Mapping[str, typing.Any], **kwargs) -> list[ProjectTask]:
+    async def bulk_duplicate(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[ProjectTask]:
         """Bulk duplicate project tasks."""
         response = await self.api.post(self.endpoint, 'bulk_duplicate', json=data, **kwargs)
         return pydantic.TypeAdapter(list[ProjectTask]).validate_python(response)
@@ -494,12 +495,12 @@ class ProjectWorkerEndpoint(Endpoint):
         response = await self.api.delete(self.endpoint, worker_id, **kwargs)
         return pydantic.TypeAdapter(ProjectWorker).validate_python(response)
 
-    async def bulk_assign(self, data: Mapping[str, typing.Any], **kwargs) -> list[ProjectWorker]:
+    async def bulk_assign(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[ProjectWorker]:
         """Bulk assign project workers."""
         response = await self.api.post(self.endpoint, 'bulk_assign', json=data, **kwargs)
         return pydantic.TypeAdapter(list[ProjectWorker]).validate_python(response)
 
-    async def bulk_create(self, data: Mapping[str, typing.Any], **kwargs) -> list[ProjectWorker]:
+    async def bulk_create(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[ProjectWorker]:
         """Bulk create project workers."""
         response = await self.api.post(self.endpoint, 'bulk_create', json=data, **kwargs)
         return pydantic.TypeAdapter(list[ProjectWorker]).validate_python(response)
@@ -619,12 +620,12 @@ class TimeRecordEndpoint(Endpoint):
         response = await self.api.delete(self.endpoint, record_id, **kwargs)
         return pydantic.TypeAdapter(TimeRecord).validate_python(response)
 
-    async def bulk_delete(self, data: Mapping[str, typing.Any], **kwargs) -> list[TimeRecord]:
+    async def bulk_delete(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[TimeRecord]:
         """Bulk delete time records."""
         response = await self.api.post(self.endpoint, 'bulk_delete', json=data, **kwargs)
         return pydantic.TypeAdapter(list[TimeRecord]).validate_python(response)
 
-    async def bulk_process(self, data: Mapping[str, typing.Any], **kwargs) -> list[TimeRecord]:
+    async def bulk_process(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[TimeRecord]:
         """Bulk process time records."""
         response = await self.api.post(self.endpoint, 'bulk_process', json=data, **kwargs)
         return pydantic.TypeAdapter(list[TimeRecord]).validate_python(response)

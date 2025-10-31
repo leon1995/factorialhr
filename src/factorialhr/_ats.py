@@ -409,7 +409,7 @@ class EvaluationForm(pydantic.BaseModel):
         default=None,
         description='Id of the evaluation form that this evaluation form is related',
     )
-    questions: Sequence[typing.Any] = pydantic.Field(description='List of questions in the evaluation form')
+    questions: Sequence[typing.Any] = pydantic.Field(description='Proc: List of questions in the evaluation form')
     created_at: datetime.datetime = pydantic.Field(description='Date and time when the evaluation form was created')
     updated_at: datetime.datetime = pydantic.Field(
         description='Date and time when the evaluation form was last updated',

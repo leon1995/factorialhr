@@ -1,6 +1,6 @@
 import datetime
 import typing
-from collections.abc import Mapping
+from collections.abc import Mapping, Sequence
 from enum import StrEnum
 
 import pydantic
@@ -79,7 +79,7 @@ class PlannedBreakEndpoint(Endpoint):
         data = await self.api.get(self.endpoint, break_id, **kwargs)
         return pydantic.TypeAdapter(PlannedBreak).validate_python(data)
 
-    async def bulk_create(self, data: Mapping[str, typing.Any], **kwargs) -> list[PlannedBreak]:
+    async def bulk_create(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[PlannedBreak]:
         """Bulk create planned breaks."""
         response = await self.api.post(self.endpoint, 'bulk_create', json=data, **kwargs)
         return pydantic.TypeAdapter(list[PlannedBreak]).validate_python(response)
@@ -117,7 +117,7 @@ class PlanningVersionEndpoint(Endpoint):
         response = await self.api.delete(self.endpoint, version_id, **kwargs)
         return pydantic.TypeAdapter(PlanningVersion).validate_python(response)
 
-    async def bulk_create(self, data: Mapping[str, typing.Any], **kwargs) -> list[PlanningVersion]:
+    async def bulk_create(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[PlanningVersion]:
         """Bulk create planning versions."""
         response = await self.api.post(self.endpoint, 'bulk_create', json=data, **kwargs)
         return pydantic.TypeAdapter(list[PlanningVersion]).validate_python(response)
