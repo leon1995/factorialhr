@@ -1,6 +1,5 @@
 import datetime
 import typing
-import warnings
 from collections.abc import Mapping
 from enum import StrEnum
 
@@ -183,13 +182,6 @@ class BankAccountsEndpoint(Endpoint):
 
     async def create_manual(self, data: Mapping[str, typing.Any], **kwargs) -> BankAccount:
         """Create a manual bank account."""
-        if 'bank_account_membership_access_ids' in data:
-            warnings.warn(
-                'bank_account_membership_access_ids parameter is deprecated and will be removed in a future version. '
-                'Use bank_account_membership_employee_ids instead.',
-                DeprecationWarning,
-                stacklevel=2,
-            )
         response = await self.api.post(self.endpoint, 'create_manual', json=data, **kwargs)
         return pydantic.TypeAdapter(BankAccount).validate_python(response)
 
