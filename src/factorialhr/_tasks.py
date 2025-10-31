@@ -88,17 +88,17 @@ class TasksEndpoint(Endpoint):
         response = await self.api.delete(self.endpoint, task_id, **kwargs)
         return pydantic.TypeAdapter(Task).validate_python(response)
 
-    async def bulk_create(self, data: Mapping[str, typing.Any], **kwargs) -> list[Task]:
+    async def bulk_create(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[Task]:
         """Bulk create tasks."""
         response = await self.api.post(self.endpoint, 'bulk_create', json=data, **kwargs)
         return pydantic.TypeAdapter(list[Task]).validate_python(response)
 
-    async def bulk_delete(self, data: Mapping[str, typing.Any], **kwargs) -> list[Task]:
+    async def bulk_delete(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[Task]:
         """Bulk delete tasks."""
         response = await self.api.post(self.endpoint, 'bulk_delete', json=data, **kwargs)
         return pydantic.TypeAdapter(list[Task]).validate_python(response)
 
-    async def bulk_update(self, data: Mapping[str, typing.Any], **kwargs) -> list[Task]:
+    async def bulk_update(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[Task]:
         """Bulk update tasks."""
         response = await self.api.post(self.endpoint, 'bulk_update', json=data, **kwargs)
         return pydantic.TypeAdapter(list[Task]).validate_python(response)

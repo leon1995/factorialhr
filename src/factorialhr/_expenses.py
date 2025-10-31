@@ -328,6 +328,11 @@ class ExpensablesEndpoint(Endpoint):
         data = await self.api.get(self.endpoint, expensable_id, **kwargs)
         return pydantic.TypeAdapter(Expensable).validate_python(data)
 
+    async def bulk_set_to_paid(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[Expensable]:
+        """Bulk set expensables to paid status."""
+        response = await self.api.post(self.endpoint, 'bulk_set_to_paid', json=data, **kwargs)
+        return pydantic.TypeAdapter(list[Expensable]).validate_python(response)
+
 
 class ExpensesEndpoint(Endpoint):
     """Endpoint for expenses/expenses operations."""

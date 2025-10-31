@@ -39,7 +39,7 @@ class Credentials(pydantic.BaseModel):
 
 
 class CredentialsEndpoint(Endpoint):
-    endpoint = '/api_public/credentials'
+    endpoint = 'api_public/credentials'
 
     async def all(self, **kwargs) -> ListApiResponse[Credentials]:
         """Get all credentials."""
@@ -72,7 +72,7 @@ class WebhookSubscription(pydantic.BaseModel):
 
 
 class WebhookSubscriptionEndpoint(Endpoint):
-    endpoint = '/api_public/webhook_subscriptions'
+    endpoint = 'api_public/webhook_subscriptions'
 
     async def all(self, **kwargs) -> ListApiResponse[WebhookSubscription]:
         """Get all webhooks."""

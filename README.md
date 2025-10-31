@@ -2,7 +2,7 @@
 
 This package provides a python wrapper to the [api of FactorialHR](https://apidoc.factorialhr.com/docs).
 
-The package currently supports the api version 2025-07-01. You can find the openapi specification [here](https://apidoc.factorialhr.com/openapi/67e137b5e9907d003ce15082).
+The package currently supports the api version [2025-10-01](https://apidoc.factorialhr.com/v2025-10-01/docs/getting-started).
 **I derived some types from the examples given. They might be incorrect. If you encounter any problems, please create an issue and/or contribute a fix.**
 
 ## Disclaimer
@@ -32,12 +32,6 @@ async with factorialhr.ApiClient(auth=authorizer) as api:
         all_employees, all_teams = await asyncio.gather(employees_endpoint.all(), teams_endpoint.all())  # remember to increase the timeout if you have a lot of employees or teams
         employees_by_team_id = {team.id: [employee for employee in all_employees.data() if employee.id in team.employee_ids] for team in all_teams.data()}
 ```
-
-## CLI
-
-A commandline interface can be installed with `factorialhr[cli]`. This is especially useful as a uv tool `uv tool install factorialhr[cli]`.
-
-`(uvx) factorialhr --help`
 
 ### Login
 

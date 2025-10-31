@@ -42,7 +42,7 @@ class TrainingAttendanceStatus(StrEnum):
     COMPLETED = 'completed'
 
 
-class Category(pydantic.BaseModel):
+class TrainingCategory(pydantic.BaseModel):
     """Model for trainings_category."""
 
     model_config = pydantic.ConfigDict(frozen=True)
@@ -195,6 +195,7 @@ class TrainingMembership(pydantic.BaseModel):
 
     id: int  # Unique identifier for the training membership.
     access_id: int  # Access_id associated to the employee, refers to employees/employees endpoint.
+    employee_id: int  # Employee identifier associated with the training membership.
     training_id: int  # This field is used to filter those trainings memberships that belongs to this training.
     status: str  # This field is used to filter those trainings memberships whose attendance status is the given.
     training_due_date: datetime.date | None = None  # This field is used for those trainings with an expiry date.
@@ -203,37 +204,37 @@ class TrainingMembership(pydantic.BaseModel):
     )
 
 
-class CategoriesEndpoint(Endpoint):
+class TrainingCategoriesEndpoint(Endpoint):
     """Endpoint for trainings/categories operations."""
 
     endpoint = 'trainings/categories'
 
-    async def all(self, **kwargs) -> ListApiResponse[Category]:
+    async def all(self, **kwargs) -> ListApiResponse[TrainingCategory]:
         """Get all training categories."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(model_type=Category, raw_data=data)
+        return ListApiResponse(model_type=TrainingCategory, raw_data=data)
 
-    async def get(self, **kwargs) -> MetaApiResponse[Category]:
+    async def get(self, **kwargs) -> MetaApiResponse[TrainingCategory]:
         """Get training categories with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(model_type=Category, raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=TrainingCategory, raw_meta=response['meta'], raw_data=response['data'])
 
-    async def get_by_id(self, category_id: int | str, **kwargs) -> Category:
+    async def get_by_id(self, category_id: int | str, **kwargs) -> TrainingCategory:
         """Get a specific training category by ID."""
         data = await self.api.get(self.endpoint, category_id, **kwargs)
-        return pydantic.TypeAdapter(Category).validate_python(data)
+        return pydantic.TypeAdapter(TrainingCategory).validate_python(data)
 
-    async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Category:
+    async def create(self, data: Mapping[str, typing.Any], **kwargs) -> TrainingCategory:
         """Create a new training category."""
         response = await self.api.post(self.endpoint, json=data, **kwargs)
-        return pydantic.TypeAdapter(Category).validate_python(response)
+        return pydantic.TypeAdapter(TrainingCategory).validate_python(response)
 
-    async def delete(self, category_id: int | str, **kwargs) -> Category:
+    async def delete(self, category_id: int | str, **kwargs) -> TrainingCategory:
         """Delete a training category."""
         response = await self.api.delete(self.endpoint, category_id, **kwargs)
-        return pydantic.TypeAdapter(Category).validate_python(response)
+        return pydantic.TypeAdapter(TrainingCategory).validate_python(response)
 
 
 class SessionsEndpoint(Endpoint):
@@ -296,12 +297,12 @@ class SessionAccessMembershipsEndpoint(Endpoint):
         data = await self.api.get(self.endpoint, membership_id, **kwargs)
         return pydantic.TypeAdapter(SessionAccessMembership).validate_python(data)
 
-    async def bulk_create(self, data: Mapping[str, typing.Any], **kwargs) -> list[SessionAccessMembership]:
+    async def bulk_create(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[SessionAccessMembership]:
         """Bulk create session access memberships."""
         response = await self.api.post(self.endpoint, 'bulk_create', json=data, **kwargs)
         return pydantic.TypeAdapter(list[SessionAccessMembership]).validate_python(response)
 
-    async def bulk_destroy(self, data: Mapping[str, typing.Any], **kwargs) -> list[SessionAccessMembership]:
+    async def bulk_destroy(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[SessionAccessMembership]:
         """Bulk destroy session access memberships."""
         response = await self.api.post(self.endpoint, 'bulk_destroy', json=data, **kwargs)
         return pydantic.TypeAdapter(list[SessionAccessMembership]).validate_python(response)
@@ -329,7 +330,7 @@ class SessionAttendancesEndpoint(Endpoint):
         data = await self.api.get(self.endpoint, attendance_id, **kwargs)
         return pydantic.TypeAdapter(SessionAttendance).validate_python(data)
 
-    async def bulk_update(self, data: Mapping[str, typing.Any], **kwargs) -> list[SessionAttendance]:
+    async def bulk_update(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[SessionAttendance]:
         """Bulk update session attendances."""
         response = await self.api.post(self.endpoint, 'bulk_update', json=data, **kwargs)
         return pydantic.TypeAdapter(list[SessionAttendance]).validate_python(response)
@@ -372,12 +373,12 @@ class TrainingsEndpoint(Endpoint):
         response = await self.api.delete(self.endpoint, training_id, **kwargs)
         return pydantic.TypeAdapter(Training).validate_python(response)
 
-    async def bulk_delete(self, data: Mapping[str, typing.Any], **kwargs) -> list[Training]:
+    async def bulk_delete(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[Training]:
         """Bulk delete trainings."""
         response = await self.api.post(self.endpoint, 'bulk_delete', json=data, **kwargs)
         return pydantic.TypeAdapter(list[Training]).validate_python(response)
 
-    async def bulk_update_catalog(self, data: Mapping[str, typing.Any], **kwargs) -> list[Training]:
+    async def bulk_update_catalog(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[Training]:
         """Bulk update catalog visibility for trainings."""
         response = await self.api.post(self.endpoint, 'bulk_update_catalog', json=data, **kwargs)
         return pydantic.TypeAdapter(list[Training]).validate_python(response)
@@ -453,12 +454,12 @@ class TrainingMembershipsEndpoint(Endpoint):
         response = await self.api.put(self.endpoint, membership_id, json=data, **kwargs)
         return pydantic.TypeAdapter(TrainingMembership).validate_python(response)
 
-    async def bulk_create(self, data: Mapping[str, typing.Any], **kwargs) -> list[TrainingMembership]:
+    async def bulk_create(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[TrainingMembership]:
         """Bulk create training memberships."""
         response = await self.api.post(self.endpoint, 'bulk_create', json=data, **kwargs)
         return pydantic.TypeAdapter(list[TrainingMembership]).validate_python(response)
 
-    async def bulk_destroy(self, data: Mapping[str, typing.Any], **kwargs) -> list[TrainingMembership]:
+    async def bulk_destroy(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[TrainingMembership]:
         """Bulk destroy training memberships."""
         response = await self.api.post(self.endpoint, 'bulk_destroy', json=data, **kwargs)
         return pydantic.TypeAdapter(list[TrainingMembership]).validate_python(response)

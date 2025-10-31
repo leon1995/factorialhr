@@ -204,6 +204,10 @@ class ContractVersion(pydantic.BaseModel):
     fr_work_type_id: int | None = pydantic.Field(default=None, description='Work type identifier')
     de_contract_type_id: int | None = pydantic.Field(default=None, description='Contract type identifier')
     pt_contract_type_id: int | None = pydantic.Field(default=None, description='Contract type identifier')
+    job_catalog_role_id: int | None = pydantic.Field(
+        default=None,
+        description='The role id of the employee in the job catalog',
+    )
 
 
 class FrenchContractType(pydantic.BaseModel):
@@ -213,6 +217,7 @@ class FrenchContractType(pydantic.BaseModel):
 
     id: int = pydantic.Field(description='Identifier for the contract type')
     name: str = pydantic.Field(description='Contract type name')
+    archived: bool | None = pydantic.Field(default=None, description='Whether to show archived types or not')
 
 
 class GermanContractType(pydantic.BaseModel):
@@ -222,6 +227,7 @@ class GermanContractType(pydantic.BaseModel):
 
     id: int = pydantic.Field(description='Identifier for the contract type')
     name: str = pydantic.Field(description='Contract type name')
+    archived: bool | None = pydantic.Field(default=None, description='Whether to show archived types or not')
 
 
 class PortugueseContractType(pydantic.BaseModel):
@@ -231,6 +237,7 @@ class PortugueseContractType(pydantic.BaseModel):
 
     id: int = pydantic.Field(description='Identifier for the contract type')
     name: str = pydantic.Field(description='Contract type name')
+    archived: bool | None = pydantic.Field(default=None, description='Whether to show archived types or not')
 
 
 class SpanishContractType(pydantic.BaseModel):
@@ -308,7 +315,7 @@ class Taxonomy(pydantic.BaseModel):
 class CompensationsEndpoint(Endpoint):
     """Endpoint for contract compensations."""
 
-    endpoint = '/contracts/compensations'
+    endpoint = 'contracts/compensations'
 
     async def all(self, **kwargs) -> ListApiResponse[Compensation]:
         """Get all compensations."""
@@ -345,7 +352,7 @@ class CompensationsEndpoint(Endpoint):
 class ContractTemplatesEndpoint(Endpoint):
     """Endpoint for contract templates."""
 
-    endpoint = '/contracts/contract_templates'
+    endpoint = 'contracts/contract_templates'
 
     async def all(self, **kwargs) -> ListApiResponse[ContractTemplate]:
         """Get all contract templates."""
@@ -368,7 +375,7 @@ class ContractTemplatesEndpoint(Endpoint):
 class ContractVersionsEndpoint(Endpoint):
     """Endpoint for contract versions."""
 
-    endpoint = '/contracts/contract_versions'
+    endpoint = 'contracts/contract_versions'
 
     async def all(self, **kwargs) -> ListApiResponse[ContractVersion]:
         """Get all contract versions."""
@@ -405,7 +412,7 @@ class ContractVersionsEndpoint(Endpoint):
 class SpanishContractTypesEndpoint(Endpoint):
     """Endpoint for Spanish contract types."""
 
-    endpoint = '/contracts/spanish_contract_types'
+    endpoint = 'contracts/spanish_contract_types'
 
     async def all(self, **kwargs) -> ListApiResponse[SpanishContractType]:
         """Get all Spanish contract types."""
@@ -433,7 +440,7 @@ class SpanishContractTypesEndpoint(Endpoint):
 class FrenchContractTypesEndpoint(Endpoint):
     """Endpoint for French contract types."""
 
-    endpoint = '/contracts/french_contract_types'
+    endpoint = 'contracts/french_contract_types'
 
     async def all(self, **kwargs) -> ListApiResponse[FrenchContractType]:
         """Get all French contract types."""
@@ -456,7 +463,7 @@ class FrenchContractTypesEndpoint(Endpoint):
 class GermanContractTypesEndpoint(Endpoint):
     """Endpoint for German contract types."""
 
-    endpoint = '/contracts/german_contract_types'
+    endpoint = 'contracts/german_contract_types'
 
     async def all(self, **kwargs) -> ListApiResponse[GermanContractType]:
         """Get all German contract types."""
@@ -479,7 +486,7 @@ class GermanContractTypesEndpoint(Endpoint):
 class PortugueseContractTypesEndpoint(Endpoint):
     """Endpoint for Portuguese contract types."""
 
-    endpoint = '/contracts/portuguese_contract_types'
+    endpoint = 'contracts/portuguese_contract_types'
 
     async def all(self, **kwargs) -> ListApiResponse[PortugueseContractType]:
         """Get all Portuguese contract types."""
@@ -502,7 +509,7 @@ class PortugueseContractTypesEndpoint(Endpoint):
 class ReferenceContractsEndpoint(Endpoint):
     """Endpoint for reference contracts."""
 
-    endpoint = '/contracts/reference_contracts'
+    endpoint = 'contracts/reference_contracts'
 
     async def all(self, **kwargs) -> ListApiResponse[ContractVersion]:
         """Get all reference contracts."""
@@ -520,7 +527,7 @@ class ReferenceContractsEndpoint(Endpoint):
 class SpanishEducationLevelsEndpoint(Endpoint):
     """Endpoint for Spanish education levels."""
 
-    endpoint = '/contracts/spanish_education_levels'
+    endpoint = 'contracts/spanish_education_levels'
 
     async def all(self, **kwargs) -> ListApiResponse[SpanishEducationLevel]:
         """Get all Spanish education levels."""
@@ -548,7 +555,7 @@ class SpanishEducationLevelsEndpoint(Endpoint):
 class SpanishProfessionalCategoriesEndpoint(Endpoint):
     """Endpoint for Spanish professional categories."""
 
-    endpoint = '/contracts/spanish_professional_categories'
+    endpoint = 'contracts/spanish_professional_categories'
 
     async def all(self, **kwargs) -> ListApiResponse[SpanishProfessionalCategory]:
         """Get all Spanish professional categories."""
@@ -580,7 +587,7 @@ class SpanishProfessionalCategoriesEndpoint(Endpoint):
 class SpanishWorkingDayTypesEndpoint(Endpoint):
     """Endpoint for Spanish working day types."""
 
-    endpoint = '/contracts/spanish_working_day_types'
+    endpoint = 'contracts/spanish_working_day_types'
 
     async def all(self, **kwargs) -> ListApiResponse[SpanishWorkingDayType]:
         """Get all Spanish working day types."""
@@ -605,10 +612,85 @@ class SpanishWorkingDayTypesEndpoint(Endpoint):
         return pydantic.TypeAdapter(SpanishWorkingDayType).validate_python(response['data'])
 
 
+class ContractVersionHistory(pydantic.BaseModel):
+    """Model for contracts_contract_version_history."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
+
+    id: int = pydantic.Field(description='Contract version history identifier')
+    contract_version_id: int = pydantic.Field(description='Contract version identifier')
+    changes: str = pydantic.Field(description='Description of changes made')
+    created_at: datetime.datetime = pydantic.Field(description='Creation date')
+    updated_at: datetime.datetime = pydantic.Field(description='Last update date')
+
+
+class ContractVersionMetaDatum(pydantic.BaseModel):
+    """Model for contracts_contract_version_meta_datum."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
+
+    id: int = pydantic.Field(description='Contract version meta datum identifier')
+    contract_version_id: int = pydantic.Field(description='Contract version identifier')
+    key: str = pydantic.Field(description='Meta data key')
+    value: str = pydantic.Field(description='Meta data value')
+    created_at: datetime.datetime = pydantic.Field(description='Creation date')
+    updated_at: datetime.datetime = pydantic.Field(description='Last update date')
+
+
+class ContractVersionHistoriesEndpoint(Endpoint):
+    """Endpoint for contract version histories."""
+
+    endpoint = 'contracts/contract_version_histories'
+
+    async def all(self, **kwargs) -> ListApiResponse[ContractVersionHistory]:
+        """Get all contract version histories."""
+        data = await self.api.get_all(self.endpoint, **kwargs)
+        return ListApiResponse(model_type=ContractVersionHistory, raw_data=data)
+
+    async def get(self, **kwargs) -> MetaApiResponse[ContractVersionHistory]:
+        """Get contract version histories with pagination metadata."""
+        query_params = kwargs.pop('params', {})
+        query_params.setdefault('page', 1)
+        response = await self.api.get(self.endpoint, params=query_params, **kwargs)
+        return MetaApiResponse(model_type=ContractVersionHistory, raw_meta=response['meta'], raw_data=response['data'])
+
+    async def get_by_id(self, history_id: int | str, **kwargs) -> ContractVersionHistory:
+        """Get a specific contract version history by ID."""
+        data = await self.api.get(self.endpoint, history_id, **kwargs)
+        return pydantic.TypeAdapter(ContractVersionHistory).validate_python(data['data'])
+
+
+class ContractVersionMetaDataEndpoint(Endpoint):
+    """Endpoint for contract version meta data."""
+
+    endpoint = 'contracts/contract_version_meta_data'
+
+    async def all(self, **kwargs) -> ListApiResponse[ContractVersionMetaDatum]:
+        """Get all contract version meta data."""
+        data = await self.api.get_all(self.endpoint, **kwargs)
+        return ListApiResponse(model_type=ContractVersionMetaDatum, raw_data=data)
+
+    async def get(self, **kwargs) -> MetaApiResponse[ContractVersionMetaDatum]:
+        """Get contract version meta data with pagination metadata."""
+        query_params = kwargs.pop('params', {})
+        query_params.setdefault('page', 1)
+        response = await self.api.get(self.endpoint, params=query_params, **kwargs)
+        return MetaApiResponse(
+            model_type=ContractVersionMetaDatum,
+            raw_meta=response['meta'],
+            raw_data=response['data'],
+        )
+
+    async def get_by_id(self, meta_datum_id: int | str, **kwargs) -> ContractVersionMetaDatum:
+        """Get a specific contract version meta datum by ID."""
+        data = await self.api.get(self.endpoint, meta_datum_id, **kwargs)
+        return pydantic.TypeAdapter(ContractVersionMetaDatum).validate_python(data['data'])
+
+
 class TaxonomiesEndpoint(Endpoint):
     """Endpoint for contract taxonomies."""
 
-    endpoint = '/contracts/taxonomies'
+    endpoint = 'contracts/taxonomies'
 
     async def all(self, **kwargs) -> ListApiResponse[Taxonomy]:
         """Get all taxonomies."""

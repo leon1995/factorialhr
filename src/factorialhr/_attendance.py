@@ -79,7 +79,7 @@ class BreakConfiguration(pydantic.BaseModel):
 class BreakConfigurationsEndpoint(Endpoint):
     """Endpoint for break configurations operations."""
 
-    endpoint = '/attendance/break_configurations'
+    endpoint = 'attendance/break_configurations'
 
     async def all(self, **kwargs) -> ListApiResponse[BreakConfiguration]:
         """Get all break configurations records."""
@@ -141,7 +141,7 @@ class EditTimesheetRequest(pydantic.BaseModel):
 class EditTimesheetRequestsEndpoint(Endpoint):
     """Endpoint for edit timesheet requests operations."""
 
-    endpoint = '/attendance/edit_timesheet_requests'
+    endpoint = 'attendance/edit_timesheet_requests'
 
     async def all(self, **kwargs) -> ListApiResponse[EditTimesheetRequest]:
         """Get all edit timesheet requests records."""
@@ -323,7 +323,7 @@ class WorkedTime(pydantic.BaseModel):
 class EstimatedTimesEndpoint(Endpoint):
     """Endpoint for estimated times operations."""
 
-    endpoint = '/attendance/estimated_times'
+    endpoint = 'attendance/estimated_times'
 
     async def get(self, **kwargs) -> MetaApiResponse[EstimatedTime]:
         """Get estimated times with pagination metadata."""
@@ -341,7 +341,7 @@ class EstimatedTimesEndpoint(Endpoint):
 class OpenShiftsEndpoint(Endpoint):
     """Endpoint for open shifts operations."""
 
-    endpoint = '/attendance/open_shifts'
+    endpoint = 'attendance/open_shifts'
 
     async def get(self, **kwargs) -> MetaApiResponse[OpenShift]:
         """Get open shifts with pagination metadata."""
@@ -359,7 +359,7 @@ class OpenShiftsEndpoint(Endpoint):
 class OvertimeRequestsEndpoint(Endpoint):
     """Endpoint for overtime requests operations."""
 
-    endpoint = '/attendance/overtime_requests'
+    endpoint = 'attendance/overtime_requests'
 
     async def all(self, **kwargs) -> ListApiResponse[OvertimeRequest]:
         """Get all overtime requests records."""
@@ -412,7 +412,7 @@ class OvertimeRequestsEndpoint(Endpoint):
 class ShiftsEndpoint(Endpoint):
     """Endpoint for shifts operations."""
 
-    endpoint = '/attendance/shifts'
+    endpoint = 'attendance/shifts'
 
     async def all(self, **kwargs) -> ListApiResponse[AttendanceShift]:
         """Get all shifts records."""
@@ -451,7 +451,7 @@ class ShiftsEndpoint(Endpoint):
         response = await self.api.delete(self.endpoint, shift_id, **kwargs)
         return pydantic.TypeAdapter(AttendanceShift).validate_python(response)
 
-    async def autofill(self, data: Mapping[str, typing.Any], **kwargs) -> list[AttendanceShift]:
+    async def autofill(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[AttendanceShift]:
         """Autofill shifts."""
         response = await self.api.post(self.endpoint, 'autofill', json=data, **kwargs)
         return pydantic.TypeAdapter(list[AttendanceShift]).validate_python(response)
@@ -482,10 +482,56 @@ class ShiftsEndpoint(Endpoint):
         return pydantic.TypeAdapter(AttendanceShift).validate_python(response)
 
 
+class Review(pydantic.BaseModel):
+    """Model for attendance_review."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
+
+    id: int = pydantic.Field(description='Review identifier')
+    employee_id: int = pydantic.Field(description='Employee identifier')
+    date: datetime.date = pydantic.Field(description='Review date')
+    approved: bool = pydantic.Field(description='Whether the review is approved')
+    created_at: datetime.datetime = pydantic.Field(description='Creation date')
+    updated_at: datetime.datetime = pydantic.Field(description='Last update date')
+
+
+class ReviewsEndpoint(Endpoint):
+    """Endpoint for attendance reviews operations."""
+
+    endpoint = 'attendance/reviews'
+
+    async def all(self, **kwargs) -> ListApiResponse[Review]:
+        """Get all reviews records."""
+        data = await self.api.get_all(self.endpoint, **kwargs)
+        return ListApiResponse(model_type=Review, raw_data=data)
+
+    async def get(self, **kwargs) -> MetaApiResponse[Review]:
+        """Get reviews with pagination metadata."""
+        query_params = kwargs.pop('params', {})
+        query_params.setdefault('page', 1)
+        response = await self.api.get(self.endpoint, params=query_params, **kwargs)
+        return MetaApiResponse(model_type=Review, raw_meta=response['meta'], raw_data=response['data'])
+
+    async def get_by_id(self, review_id: int | str, **kwargs) -> Review:
+        """Get a specific review by ID."""
+        data = await self.api.get(self.endpoint, review_id, **kwargs)
+        return pydantic.TypeAdapter(Review).validate_python(data)
+
+    async def bulk_create(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[Review]:
+        """Bulk create reviews."""
+        response = await self.api.post(self.endpoint, 'bulk_create', json=data, **kwargs)
+        return pydantic.TypeAdapter(list[Review]).validate_python(response)
+
+    async def bulk_destroy(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[Review]:
+        """Bulk destroy reviews."""
+        response = await self.api.post(self.endpoint, 'bulk_destroy', json=data, **kwargs)
+        return pydantic.TypeAdapter(list[Review]).validate_python(response)
+
+
 class WorkedTimesEndpoint(Endpoint):
     """Endpoint for worked times operations."""
 
-    endpoint = '/attendance/worked_times'
+    endpoint = 'attendance/worked_times'
 
     async def get(self, **kwargs) -> MetaApiResponse[WorkedTime]:
         """Get worked times with pagination metadata."""

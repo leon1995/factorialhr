@@ -1,4 +1,5 @@
 import datetime
+from collections.abc import Sequence
 from enum import StrEnum
 
 import pydantic
@@ -19,7 +20,9 @@ class CompanyHoliday(pydantic.BaseModel):
     model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Company holiday id')
-    location_id: int = pydantic.Field(description='Related location id')
+    location_ids: Sequence[int] | None = pydantic.Field(default=None, description='Related location ids')
+    team_ids: Sequence[int] | None = pydantic.Field(default=None, description='Related team ids')
+    employee_ids: Sequence[int] | None = pydantic.Field(default=None, description='Related employee ids')
     summary: str | None = pydantic.Field(default=None, description='Company holiday summary')
     description: str | None = pydantic.Field(default=None, description='Company holiday description')
     date: datetime.date = pydantic.Field(description='Company holiday date')

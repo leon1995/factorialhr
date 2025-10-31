@@ -168,6 +168,18 @@ class AccountingSetting(pydantic.BaseModel):
     )
 
 
+class FinanceCategory(pydantic.BaseModel):
+    """Model for finance_category."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
+
+    id: int = pydantic.Field(description='Category identifier')
+    name: str = pydantic.Field(description='Category name')
+    company_id: int = pydantic.Field(description='Company identifier')
+    created_at: datetime.datetime = pydantic.Field(description='Creation date')
+    updated_at: datetime.datetime = pydantic.Field(description='Last update date')
+
+
 class Contact(pydantic.BaseModel):
     """Model for finance_contact."""
 
@@ -179,6 +191,9 @@ class Contact(pydantic.BaseModel):
     tax_id: str | None = pydantic.Field(default=None, description='Tax identification number assigned to the Contact')
     address: Mapping[str, typing.Any] = pydantic.Field(description='The address object containing street, city, etc.')
     external_id: str | None = pydantic.Field(default=None, description='The external id of the contact')
+    email: str | None = pydantic.Field(default=None, description='Contact email')
+    website: str | None = pydantic.Field(default=None, description='Contact website')
+    phone_number: str | None = pydantic.Field(default=None, description='Contact phone number')
     updated_at: datetime.datetime = pydantic.Field(description='Timestamp when the Contact was last updated')
     iban: str | None = pydantic.Field(default=None, description='International Bank Account Number if provided')
     bank_code: str | None = pydantic.Field(
@@ -486,6 +501,29 @@ class AccountingSettingsEndpoint(Endpoint):
         return pydantic.TypeAdapter(AccountingSetting).validate_python(response)
 
 
+class FinanceCategoriesEndpoint(Endpoint):
+    """Endpoint for finance/categories operations."""
+
+    endpoint = 'finance/categories'
+
+    async def all(self, **kwargs) -> ListApiResponse[FinanceCategory]:
+        """Get all categories records."""
+        data = await self.api.get_all(self.endpoint, **kwargs)
+        return ListApiResponse(raw_data=data, model_type=FinanceCategory)
+
+    async def get(self, **kwargs) -> MetaApiResponse[FinanceCategory]:
+        """Get categories with pagination metadata."""
+        query_params = kwargs.pop('params', {})
+        query_params.setdefault('page', 1)
+        response = await self.api.get(self.endpoint, params=query_params, **kwargs)
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=FinanceCategory)
+
+    async def get_by_id(self, category_id: int | str, **kwargs) -> FinanceCategory:
+        """Get a specific category by ID."""
+        data = await self.api.get(self.endpoint, category_id, **kwargs)
+        return pydantic.TypeAdapter(FinanceCategory).validate_python(data)
+
+
 class ContactsEndpoint(Endpoint):
     """Endpoint for finance/contacts operations."""
 
@@ -574,7 +612,7 @@ class CostCenterMembershipsEndpoint(Endpoint):
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
         return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=CostCenterMembership)
 
-    async def bulk_create_update(self, data: Mapping[str, typing.Any], **kwargs) -> list[CostCenterMembership]:
+    async def bulk_create_update(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[CostCenterMembership]:
         """Bulk create/update cost center memberships."""
         response = await self.api.post(self.endpoint, 'bulk_create_update', json=data, **kwargs)
         return pydantic.TypeAdapter(list[CostCenterMembership]).validate_python(response)

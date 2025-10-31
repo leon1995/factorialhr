@@ -123,34 +123,16 @@ class EmployeeScoreScale(pydantic.BaseModel):
     is_default: bool = pydantic.Field(description='Whether this is the default score scale')
 
 
-class ReviewEmployeeScore(pydantic.BaseModel):
-    """Model for performance_review_employee_score."""
+class ReviewEvaluationScore(pydantic.BaseModel):
+    """Model for performance_review_evaluation_score."""
 
     model_config = pydantic.ConfigDict(frozen=True)
 
-    id: int = pydantic.Field(description='Review employee score ID')
-    review_process_id: int = pydantic.Field(description='Review process ID')
-    review_evaluation_id: int = pydantic.Field(description='Review evaluation ID')
-    target_access_id: int = pydantic.Field(description='Employee access ID')
-    company_id: int = pydantic.Field(description='Company identifier of the review employee score')
-    reviewer_strategy: ReviewerStrategy = pydantic.Field(description='Who scored the employee')
-    review_process_target_id: str = pydantic.Field(
-        description='Review process target ID (composed with review_process_id and target_access_id)',
-    )
-    potential_score: int | None = pydantic.Field(
-        default=None,
-        description='Employee potential score within the min and max scale',
-    )
-    normalized_potential_score: float | None = pydantic.Field(
-        default=None,
-        description='Employee potential score in percentage (0% to 100%)',
-    )
-    score: float = pydantic.Field(description='Employee score within the min and max scale')
-    scale_min: int = pydantic.Field(description='Minimum score in the scale')
-    scale_max: int = pydantic.Field(description='Maximum score in the scale')
-    normalized_score: float = pydantic.Field(description='Employee score in percentage (0% to 100%)')
-    comment: str | None = pydantic.Field(default=None, description='Comment about the employee score')
-    published_at: datetime.datetime = pydantic.Field(description='Date and time when the employee score was published')
+    id: int = pydantic.Field(description='Review evaluation score identifier')
+    review_evaluation_id: int = pydantic.Field(description='Review evaluation identifier')
+    score: float = pydantic.Field(description='Evaluation score')
+    created_at: datetime.datetime = pydantic.Field(description='Creation date')
+    updated_at: datetime.datetime = pydantic.Field(description='Last update date')
 
 
 class ReviewEvaluation(pydantic.BaseModel):
@@ -418,7 +400,7 @@ class AgreementsEndpoint(Endpoint):
         data = await self.api.get(self.endpoint, agreement_id, **kwargs)
         return pydantic.TypeAdapter(Agreement).validate_python(data)
 
-    async def bulk_initiate(self, data: Mapping[str, typing.Any], **kwargs) -> list[Agreement]:
+    async def bulk_initiate(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[Agreement]:
         """Initiate action plans for all direct reports in a review process."""
         response = await self.api.post(self.endpoint, 'bulk_initiate', json=data, **kwargs)
         return [pydantic.TypeAdapter(Agreement).validate_python(item) for item in response]
@@ -484,27 +466,27 @@ class EmployeeScoreScalesEndpoint(Endpoint):
         return pydantic.TypeAdapter(EmployeeScoreScale).validate_python(data)
 
 
-class ReviewEmployeeScoresEndpoint(Endpoint):
-    """Endpoint for performance/review_employee_scores operations."""
+class ReviewEvaluationScoresEndpoint(Endpoint):
+    """Endpoint for performance/review_evaluation_scores operations."""
 
-    endpoint = 'performance/review_employee_scores'
+    endpoint = 'performance/review_evaluation_scores'
 
-    async def all(self, **kwargs) -> ListApiResponse[ReviewEmployeeScore]:
-        """Get all review employee scores."""
+    async def all(self, **kwargs) -> ListApiResponse[ReviewEvaluationScore]:
+        """Get all review evaluation scores."""
         data = await self.api.get_all(self.endpoint, **kwargs)
-        return ListApiResponse(model_type=ReviewEmployeeScore, raw_data=data)
+        return ListApiResponse(model_type=ReviewEvaluationScore, raw_data=data)
 
-    async def get(self, **kwargs) -> MetaApiResponse[ReviewEmployeeScore]:
-        """Get review employee scores with pagination metadata."""
+    async def get(self, **kwargs) -> MetaApiResponse[ReviewEvaluationScore]:
+        """Get review evaluation scores with pagination metadata."""
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
-        return MetaApiResponse(model_type=ReviewEmployeeScore, raw_meta=response['meta'], raw_data=response['data'])
+        return MetaApiResponse(model_type=ReviewEvaluationScore, raw_meta=response['meta'], raw_data=response['data'])
 
-    async def get_by_id(self, score_id: int | str, **kwargs) -> ReviewEmployeeScore:
-        """Get a specific review employee score by ID."""
+    async def get_by_id(self, score_id: int | str, **kwargs) -> ReviewEvaluationScore:
+        """Get a specific review evaluation score by ID."""
         data = await self.api.get(self.endpoint, score_id, **kwargs)
-        return pydantic.TypeAdapter(ReviewEmployeeScore).validate_python(data)
+        return pydantic.TypeAdapter(ReviewEvaluationScore).validate_python(data)
 
 
 class ReviewEvaluationsEndpoint(Endpoint):
@@ -575,7 +557,7 @@ class ReviewOwnersEndpoint(Endpoint):
         response = await self.api.delete(self.endpoint, owner_id, **kwargs)
         return pydantic.TypeAdapter(ReviewOwner).validate_python(response)
 
-    async def bulk_create(self, data: Mapping[str, typing.Any], **kwargs) -> list[ReviewOwner]:
+    async def bulk_create(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[ReviewOwner]:
         """Add multiple owners to a review process."""
         response = await self.api.post(self.endpoint, 'bulk_create', json=data, **kwargs)
         return [pydantic.TypeAdapter(ReviewOwner).validate_python(item) for item in response]
@@ -789,7 +771,7 @@ class ReviewProcessTargetsEndpoint(Endpoint):
         response = await self.api.post(self.endpoint, 'add_peers', json=data, **kwargs)
         return pydantic.TypeAdapter(ReviewProcessTarget).validate_python(response)
 
-    async def bulk_create(self, data: Mapping[str, typing.Any], **kwargs) -> list[ReviewProcessTarget]:
+    async def bulk_create(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[ReviewProcessTarget]:
         """Add multiple participants to the active review process."""
         response = await self.api.post(self.endpoint, 'bulk_create', json=data, **kwargs)
         return [pydantic.TypeAdapter(ReviewProcessTarget).validate_python(item) for item in response]

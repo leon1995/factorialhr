@@ -295,6 +295,8 @@ class Leave(pydantic.BaseModel):
     employee_full_name: str | None = None  # The full name of the employee taking the leave
     start_time: str | None = None  # The start time of the leave
     hours_amount_in_cents: int | None = None  # The total number of hours taken for the leave, represented in cents
+    duration_attributes: Mapping[str, typing.Any] | None = None  # Duration attributes for the leave
+    deleted_at: datetime.datetime | None = None  # Deletion timestamp of the leave
     updated_at: datetime.datetime  # The updated at date of the leave
     created_at: datetime.datetime | None = None  # The created at date of the leave
 

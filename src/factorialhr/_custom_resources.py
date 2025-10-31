@@ -19,6 +19,18 @@ class Schema(pydantic.BaseModel):
     position: int | None = pydantic.Field(default=None, description='Schema position within employee profile')
 
 
+class Resource(pydantic.BaseModel):
+    """Model for custom_resources_resource."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
+
+    id: int = pydantic.Field(description='Resource identifier')
+    name: str = pydantic.Field(description='Resource name')
+    company_id: int = pydantic.Field(description='Company identifier')
+    created_at: datetime.datetime = pydantic.Field(description='Creation date')
+    updated_at: datetime.datetime = pydantic.Field(description='Last update date')
+
+
 class CustomResourcesValue(pydantic.BaseModel):
     """Model for custom_resources_value."""
 
@@ -26,6 +38,10 @@ class CustomResourcesValue(pydantic.BaseModel):
 
     id: int = pydantic.Field(description='Value identifier')
     field_id: int = pydantic.Field(description='Identifier of the field this value belongs to')
+    attachable_id: int | None = pydantic.Field(
+        default=None,
+        description='The id of the attached resource like an employee',
+    )
     long_text_value: str | None = pydantic.Field(
         default=None,
         description="When the field's type is long_text_value, value for schema long_text_value custom field",
@@ -95,6 +111,29 @@ class CustomResourcesSchemasEndpoint(Endpoint):
         """Create a new schema."""
         response = await self.api.post(self.endpoint, json=data, **kwargs)
         return pydantic.TypeAdapter(Schema).validate_python(response)
+
+
+class ResourcesEndpoint(Endpoint):
+    """Endpoint for custom_resources/resources operations."""
+
+    endpoint = 'custom_resources/resources'
+
+    async def all(self, **kwargs) -> ListApiResponse[Resource]:
+        """Get all resources records."""
+        data = await self.api.get_all(self.endpoint, **kwargs)
+        return ListApiResponse(raw_data=data, model_type=Resource)
+
+    async def get(self, **kwargs) -> MetaApiResponse[Resource]:
+        """Get resources with pagination metadata."""
+        query_params = kwargs.pop('params', {})
+        query_params.setdefault('page', 1)
+        response = await self.api.get(self.endpoint, params=query_params, **kwargs)
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=Resource)
+
+    async def get_by_id(self, resource_id: int | str, **kwargs) -> Resource:
+        """Get a specific resource by ID."""
+        data = await self.api.get(self.endpoint, resource_id, **kwargs)
+        return pydantic.TypeAdapter(Resource).validate_python(data)
 
 
 class CustomResourcesValuesEndpoint(Endpoint):
