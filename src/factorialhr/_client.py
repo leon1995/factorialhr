@@ -205,7 +205,7 @@ class ApiClient:
 
     def __init__(
         self,
-        base_url: str,
+        base_url: str = 'https://api.factorialhr.com',
         *,
         auth: httpx.Auth,
         **kwargs,
