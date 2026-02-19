@@ -22,7 +22,7 @@ jobs:
       - uses: astral-sh/ruff-action@v3
       - run: ruff check
       - run: ruff format --check
-      - run: uv run pyright
+      - run: uv run ty check
 
   build:
     needs: lint
