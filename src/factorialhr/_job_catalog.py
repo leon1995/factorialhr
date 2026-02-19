@@ -93,11 +93,13 @@ class NodeAttribute(pydantic.BaseModel):
     attribute_id: int = pydantic.Field(description='Attribute identifier')
     value_competency: typing.Any | None = pydantic.Field(default=None, description='Value when type is competency')
     value_it_management_asset: typing.Any | None = pydantic.Field(
-        default=None, description='Value when type is it_management_asset',
+        default=None,
+        description='Value when type is it_management_asset',
     )
     value_salary_range: typing.Any | None = pydantic.Field(default=None, description='Value when type is salary_range')
     value_working_conditions: typing.Any | None = pydantic.Field(
-        default=None, description='Value when type is working_conditions',
+        default=None,
+        description='Value when type is working_conditions',
     )
 
 
@@ -142,7 +144,8 @@ class JobCatalogNode(pydantic.BaseModel):
     created_at: datetime.datetime = pydantic.Field(description='Creation date')
     updated_at: datetime.datetime = pydantic.Field(description='Last update date')
     full_path_to_root: Sequence[str] | None = pydantic.Field(
-        default=None, description='Full path from root to this node',
+        default=None,
+        description='Full path from root to this node',
     )
     job_catalog_title: str | None = pydantic.Field(
         default=None,

@@ -5,6 +5,7 @@ import contextlib
 import ssl
 import uuid
 from collections.abc import Awaitable, Callable
+from typing import Self
 
 from aiohttp import web
 
@@ -30,7 +31,7 @@ class HttpServer:
         self._server_close_request = asyncio.Event()
         self.state_secret = uuid.uuid4().hex
 
-    async def __aenter__(self) -> 'HttpServer':
+    async def __aenter__(self) -> Self:
         await self.start()
         return self
 

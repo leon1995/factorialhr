@@ -39,7 +39,8 @@ class PurchaseOrder(pydantic.BaseModel):
         description='Formatted purchase order number with prefix (e.g., PO-00001)',
     )
     vendor_id: int | None = pydantic.Field(
-        default=None, description='Identifier of the vendor (contact) associated with this purchase order',
+        default=None,
+        description='Identifier of the vendor (contact) associated with this purchase order',
     )
 
 
@@ -89,16 +90,20 @@ class PurchaseRequest(pydantic.BaseModel):
     requester_employee_id: int = pydantic.Field(description='Identifier of the employee who requested this purchase')
     status: PurchaseRequestStatus = pydantic.Field(description='Current status of the purchase request')
     company_id: int | None = pydantic.Field(
-        default=None, description='Identifier of the company that owns this purchase request',
+        default=None,
+        description='Identifier of the company that owns this purchase request',
     )
     vendor_id: int | None = pydantic.Field(
-        default=None, description='Identifier of the vendor (contact) associated with this purchase request',
+        default=None,
+        description='Identifier of the vendor (contact) associated with this purchase request',
     )
     url: str | None = pydantic.Field(
-        default=None, description='URL related to the purchase request (e.g., product link)',
+        default=None,
+        description='URL related to the purchase request (e.g., product link)',
     )
     additional_information: str | None = pydantic.Field(
-        default=None, description='Additional information or notes about the purchase request',
+        default=None,
+        description='Additional information or notes about the purchase request',
     )
     deadline: datetime.date | None = pydantic.Field(default=None, description='Deadline date for the purchase request')
 
@@ -137,7 +142,8 @@ class ProcurementType(pydantic.BaseModel):
     created_at: datetime.datetime = pydantic.Field(description='Time the procurement type was created')
     updated_at: datetime.datetime = pydantic.Field(description='Time the procurement type was last updated')
     author_id: int | None = pydantic.Field(
-        default=None, description='Employee ID who created this type (null for system types)',
+        default=None,
+        description='Employee ID who created this type (null for system types)',
     )
     description: str | None = pydantic.Field(default=None, description='Description of the procurement type')
     enabled: bool | None = pydantic.Field(default=None, description='Defines if a type is enabled')
