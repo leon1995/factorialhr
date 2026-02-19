@@ -221,7 +221,7 @@ class ApiClient:
     @property
     def api_version(self) -> str:
         """Get the API version."""
-        return '2025-10-01'
+        return '2026-01-01'
 
     async def close(self):
         """Close the client session."""

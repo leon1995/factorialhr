@@ -169,6 +169,16 @@ class Training(pydantic.BaseModel):
     valid_for: int | None = None  # Number of years this course is valid for
     objectives: str | None = None  # Objectives of the course
     number_of_expired_participants: int | None = None  # Number of participants with expired/expiring courses
+    thumbnail: str | None = pydantic.Field(
+        default=None,
+        description='The training thumbnail',
+    )
+    is_mandatory: bool = pydantic.Field(
+        description='This field is used to define if the training is mandatory or not',
+    )
+    total_duration: float = pydantic.Field(
+        description='The total duration in hours and minutes of the course',
+    )
 
 
 class TrainingClass(pydantic.BaseModel):
@@ -186,6 +196,12 @@ class TrainingClass(pydantic.BaseModel):
     indirect_cost: str  # General business expenses related to training, such as utilities and administrative fees.
     salary_cost: str  # Cost of all employees' time spent on the course.
     subsidized_cost: str  # Amount of training expenses covered by financial aid or grants for this group.
+    completed_attendances_count: int = pydantic.Field(
+        description='Number of completed session attendances in this group.',
+    )
+    total_attendances_count: int = pydantic.Field(
+        description='Total number of session attendances expected in this group.',
+    )
 
 
 class TrainingMembership(pydantic.BaseModel):

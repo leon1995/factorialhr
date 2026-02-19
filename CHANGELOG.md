@@ -6,6 +6,33 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0)
 
 ## [Unreleased]
 
+### Changed
+
+- support api version `2026-01-01`. Checkout full [changelog](https://apidoc.factorialhr.com/changelog/changelog_2026-01-01)
+
+### Added
+
+- `EmployeesEndpoint.set_regular_access_start_date()` method
+- `ProcurementType`, `ProcurementTypesEndpoint`, `PurchaseOrder`, `PurchaseOrdersEndpoint`, `PurchaseRequest`, `PurchaseRequestsEndpoint` classes for procurement management
+- `PlannedRecord`, `PlannedRecordsEndpoint` classes for project management planned records
+- `budget_id`, `project_id`, `cost_center_ids` fields to `Expensable`, `Expense`, `Mileage`, and `PerDiem` models
+- `updated_at` field to `CustomFieldValue` model
+- `resource_id` field to `CustomResourcesValue` model (removed deprecated value fields)
+- `job_catalog_tree_node_uuid` and `is_reference` fields to `ContractVersion` model
+- `job_catalog_tree_node_uuid` field to `ContractVersionHistory` model
+- `syncable_type` field to `SyncableItem` model
+- `days_taken` field to `Leave` model
+- `thumbnail`, `is_mandatory`, `total_duration` fields to `Training` model
+- `completed_attendances_count`, `total_attendances_count` fields to `TrainingClass` model
+- `description`, `status`, `code`, `start_date`, `due_date`, `is_billable` fields to `Subproject` model
+- `BudgetOption`, `BudgetOptionsEndpoint` for finance budget options (Reads all / Reads a single)
+- `ItAsset`, `ItAssetsEndpoint` and `ItAssetModel`, `ItAssetModelsEndpoint` for IT management
+- `NodeAttribute`, `NodeAttributesEndpoint`, `JobCatalogNode`, `TreeNodesEndpoint` for job catalog (node attributes and tree nodes with `job_catalog_title`)
+
+### Note
+
+- New query parameters (e.g. `updated_at_gteq`, `company_identifier`, `job_catalog_tree_node_uuids[]`, `search`, `category`, `type_is_payable`, `is_mandatory`, `with_current_training_classes`) and request body fields (e.g. `time_settings_break_configuration_id`, `approved`, `skip_notifications`, `legal_entity_id`) are supported by passing them via `params` or the request `data` to the existing endpoint methods.
+
 ## [5.0.1] - 2025-10-31
 
 ### Fixed

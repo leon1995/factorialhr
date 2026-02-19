@@ -440,6 +440,41 @@ class TaxType(pydantic.BaseModel):
     updated_at: datetime.datetime = pydantic.Field(description='Last update date of the tax type')
 
 
+class BudgetOption(pydantic.BaseModel):
+    """Model for finance_budget_option. Budget with limited information for general viewing (e.g. reporting an expense)."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
+
+    id: int = pydantic.Field(description='Budget option identifier')
+    name: str = pydantic.Field(description='Name of the budget')
+    description: str | None = pydantic.Field(default=None, description='Description of the budget')
+    currency: str = pydantic.Field(description='Currency code')
+    legal_entity_id: int = pydantic.Field(description='Legal entity identifier')
+
+
+class BudgetOptionsEndpoint(Endpoint):
+    """Endpoint for finance/budget_options operations."""
+
+    endpoint = 'finance/budget_options'
+
+    async def all(self, **kwargs) -> ListApiResponse[BudgetOption]:
+        """Get all budget options."""
+        data = await self.api.get_all(self.endpoint, **kwargs)
+        return ListApiResponse(raw_data=data, model_type=BudgetOption)
+
+    async def get(self, **kwargs) -> MetaApiResponse[BudgetOption]:
+        """Get budget options with pagination metadata."""
+        query_params = kwargs.pop('params', {})
+        query_params.setdefault('page', 1)
+        response = await self.api.get(self.endpoint, params=query_params, **kwargs)
+        return MetaApiResponse(raw_meta=response['meta'], raw_data=response['data'], model_type=BudgetOption)
+
+    async def get_by_id(self, budget_option_id: int | str, **kwargs) -> BudgetOption:
+        """Get a specific budget option by ID."""
+        data = await self.api.get(self.endpoint, budget_option_id, **kwargs)
+        return pydantic.TypeAdapter(BudgetOption).validate_python(data)
+
+
 class AccountsEndpoint(Endpoint):
     """Endpoint for finance/accounts operations."""
 

@@ -164,6 +164,8 @@ from factorialhr._finance import (
     AccountingSetting,
     AccountingSettingsEndpoint,
     AccountsEndpoint,
+    BudgetOption,
+    BudgetOptionsEndpoint,
     Contact,
     ContactsEndpoint,
     CostCenter,
@@ -187,12 +189,29 @@ from factorialhr._finance import (
 )
 from factorialhr._holidays import CompanyHoliday, CompanyHolidaysEndpoint
 from factorialhr._integrations import (
+    SyncableType,
     SyncableItem,
     SyncableItemsEndpoint,
     SyncableSyncRun,
     SyncableSyncRunsEndpoint,
 )
-from factorialhr._job_catalog import Jobcataloglevel, Jobcatalogrole, LevelsEndpoint, RolesEndpoint
+from factorialhr._it_management import (
+    ItAsset,
+    ItAssetModel,
+    ItAssetModelsEndpoint,
+    ItAssetsEndpoint,
+)
+from factorialhr._job_catalog import (
+    JobCatalogNode,
+    JobCatalogNodeType,
+    Jobcataloglevel,
+    Jobcatalogrole,
+    LevelsEndpoint,
+    NodeAttribute,
+    NodeAttributesEndpoint,
+    RolesEndpoint,
+    TreeNodesEndpoint,
+)
 from factorialhr._locations import Location, LocationsEndpoint, WorkArea, WorkAreasEndpoint
 from factorialhr._marketplace import (
     Installation,
@@ -243,6 +262,16 @@ from factorialhr._performance import (
     TargetManagersEndpoint,
 )
 from factorialhr._posts import Comment, CommentsEndpoint, Group, GroupsEndpoint, Post, PostsEndpoint
+from factorialhr._procurement import (
+    PurchaseOrderStatus,
+    ProcurementType,
+    ProcurementTypesEndpoint,
+    PurchaseOrder,
+    PurchaseOrdersEndpoint,
+    PurchaseRequestStatus,
+    PurchaseRequest,
+    PurchaseRequestsEndpoint,
+)
 from factorialhr._project_management import (
     ExpenseRecord,
     ExpenseRecordEndpoint,
@@ -254,6 +283,8 @@ from factorialhr._project_management import (
     FlexibleTimeRecordComment,
     FlexibleTimeRecordCommentEndpoint,
     FlexibleTimeRecordEndpoint,
+    PlannedRecord,
+    PlannedRecordsEndpoint,
     Project,
     ProjectEmployeeAssignment,
     ProjectEndpoint,
@@ -347,6 +378,8 @@ __all__ = [
     'BlockedPeriod',
     'BlockedPeriodsEndpoint',
     'BookkeepersManagementEndpoint',
+    'BudgetOption',
+    'BudgetOptionsEndpoint',
     'BookkeepersManagementIncidence',
     'BreakConfiguration',
     'BreakConfigurationEndpoint',
@@ -456,6 +489,8 @@ __all__ = [
     'IntegrationsBaseCode',
     'JobPosting',
     'JobPostingsEndpoint',
+    'JobCatalogNode',
+    'JobCatalogNodeType',
     'Jobcataloglevel',
     'Jobcatalogrole',
     'JournalEntriesEndpoint',
@@ -483,6 +518,8 @@ __all__ = [
     'Mileage',
     'MileagesEndpoint',
     'NewHiresEndpoint',
+    'NodeAttribute',
+    'NodeAttributesEndpoint',
     'OpenShift',
     'OpenShiftsEndpoint',
     'Option',
@@ -512,6 +549,11 @@ __all__ = [
     'PortugueseContractTypesEndpoint',
     'Post',
     'PostsEndpoint',
+    'PlannedRecord',
+    'PlannedRecordsEndpoint',
+    'PurchaseStatus',
+    'ProcurementType',
+    'ProcurementTypesEndpoint',
     'Project',
     'ProjectEmployeeAssignment',
     'ProjectEndpoint',
@@ -520,6 +562,12 @@ __all__ = [
     'ProjectTaskEndpoint',
     'ProjectWorker',
     'ProjectWorkerEndpoint',
+    'PurchaseOrderStatus',
+    'PurchaseOrder',
+    'PurchaseOrdersEndpoint',
+    'PurchaseRequestStatus',
+    'PurchaseRequest',
+    'PurchaseRequestsEndpoint',
     'Question',
     'QuestionsEndpoint',
     'ReferenceContractsEndpoint',
@@ -578,6 +626,7 @@ __all__ = [
     'SummariesEndpoint',
     'Supplement',
     'SupplementsEndpoint',
+    'SyncableType',
     'SyncableItem',
     'SyncableItemsEndpoint',
     'SyncableSyncRun',
@@ -596,6 +645,7 @@ __all__ = [
     'Taxonomy',
     'Team',
     'TeamsEndpoint',
+    'TreeNodesEndpoint',
     'TerminationsEndpoint',
     'TimeRecord',
     'TimeRecordEndpoint',

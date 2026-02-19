@@ -82,6 +82,10 @@ class CustomFieldValue(pydantic.BaseModel):
     required: bool | None = pydantic.Field(default=None, description='Whether field is required')
     usage_group_id: int | None = pydantic.Field(default=None, description='Usage group identifier')
     usage_group_slug: str | None = pydantic.Field(default=None, description='Usage group slug')
+    updated_at: datetime.datetime | None = pydantic.Field(
+        default=None,
+        description='The date and time the custom field value was last updated',
+    )
 
 
 class FieldsEndpoint(Endpoint):

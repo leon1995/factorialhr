@@ -521,6 +521,12 @@ class Subproject(pydantic.BaseModel):
     project_id: int = pydantic.Field(description='Project ID')
     inputed_minutes: int | None = pydantic.Field(default=None, description='Total inputted minutes')
     labor_cost_cents: int | None = pydantic.Field(default=None, description='Labor cost in cents')
+    description: str | None = pydantic.Field(default=None, description='The description of the subproject')
+    status: str | None = pydantic.Field(default=None, description='The status of the subproject')
+    code: str | None = pydantic.Field(default=None, description='The code of the subproject')
+    start_date: datetime.date | None = pydantic.Field(default=None, description='The start date of the subproject')
+    due_date: datetime.date | None = pydantic.Field(default=None, description='The due date of the subproject')
+    is_billable: bool | None = pydantic.Field(default=None, description='Whether the subproject is billable')
 
 
 class SubprojectEndpoint(Endpoint):
@@ -634,3 +640,55 @@ class TimeRecordEndpoint(Endpoint):
         """Update project worker for a time record."""
         response = await self.api.post(self.endpoint, 'update_project_worker', json=data, **kwargs)
         return pydantic.TypeAdapter(TimeRecord).validate_python(response)
+
+
+class PlannedRecord(pydantic.BaseModel):
+    """Model for project_management_planned_record."""
+
+    model_config = pydantic.ConfigDict(frozen=True)
+
+    id: int = pydantic.Field(description='The id of the planned record')
+    daily_minutes: int = pydantic.Field(description='The daily minutes of the planned record')
+    start_date: datetime.date = pydantic.Field(description='The start date of the planned record')
+    end_date: datetime.date = pydantic.Field(description='The end date of the planned record')
+    project_worker_id: int = pydantic.Field(description='The project worker id of the planned record')
+    week_days: Sequence[int] = pydantic.Field(description='The week days of the planned record, start in Sunday 0 and end in Saturday 6')
+    subproject_id: int | None = pydantic.Field(default=None, description='The subproject id of the planned record')
+
+
+class PlannedRecordsEndpoint(Endpoint):
+    """Endpoint for project_management/planned_records operations."""
+
+    endpoint = 'project_management/planned_records'
+
+    async def all(self, **kwargs) -> ListApiResponse[PlannedRecord]:
+        """Get all planned records."""
+        data = await self.api.get_all(self.endpoint, **kwargs)
+        return ListApiResponse(model_type=PlannedRecord, raw_data=data)
+
+    async def get(self, **kwargs) -> MetaApiResponse[PlannedRecord]:
+        """Get planned records with pagination metadata."""
+        query_params = kwargs.pop('params', {})
+        query_params.setdefault('page', 1)
+        response = await self.api.get(self.endpoint, params=query_params, **kwargs)
+        return MetaApiResponse(model_type=PlannedRecord, raw_meta=response['meta'], raw_data=response['data'])
+
+    async def get_by_id(self, planned_record_id: int | str, **kwargs) -> PlannedRecord:
+        """Get a specific planned record by ID."""
+        data = await self.api.get(self.endpoint, planned_record_id, **kwargs)
+        return pydantic.TypeAdapter(PlannedRecord).validate_python(data['data'])
+
+    async def update(self, planned_record_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> PlannedRecord:
+        """Update a planned record."""
+        response = await self.api.put(self.endpoint, planned_record_id, json=data, **kwargs)
+        return pydantic.TypeAdapter(PlannedRecord).validate_python(response['data'])
+
+    async def delete(self, planned_record_id: int | str, **kwargs) -> PlannedRecord:
+        """Delete a planned record."""
+        response = await self.api.delete(self.endpoint, planned_record_id, **kwargs)
+        return pydantic.TypeAdapter(PlannedRecord).validate_python(response)
+
+    async def bulk_create(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[PlannedRecord]:
+        """Bulk create planned records."""
+        response = await self.api.post(self.endpoint, 'bulk_create', json=data, **kwargs)
+        return pydantic.TypeAdapter(list[PlannedRecord]).validate_python(response)

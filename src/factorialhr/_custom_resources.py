@@ -37,51 +37,12 @@ class CustomResourcesValue(pydantic.BaseModel):
     model_config = pydantic.ConfigDict(frozen=True)
 
     id: int = pydantic.Field(description='Value identifier')
-    field_id: int = pydantic.Field(description='Identifier of the field this value belongs to')
+    resource_id: int = pydantic.Field(
+        description='The identifier of the resource that owns the resource value',
+    )
     attachable_id: int | None = pydantic.Field(
         default=None,
         description='The id of the attached resource like an employee',
-    )
-    long_text_value: str | None = pydantic.Field(
-        default=None,
-        description="When the field's type is long_text_value, value for schema long_text_value custom field",
-    )
-    date_value: datetime.date | None = pydantic.Field(
-        default=None,
-        description="When the field's type is date_value, value for schema date_value custom field",
-    )
-    text_value: str | None = pydantic.Field(
-        default=None,
-        description="When the field's type is text_value, value for schema text_value custom field",
-    )
-    number_value: int | None = pydantic.Field(
-        default=None,
-        description="When the field's type is number_value, value for schema number_value custom field",
-    )
-    option_value: str | None = pydantic.Field(
-        default=None,
-        description="When the field's type is option_value, selected value for schema option_value custom field",
-    )
-    cents_value: int | None = pydantic.Field(
-        default=None,
-        description="When the field's type is cents_value, value for schema cents_value custom field",
-    )
-    boolean_value: bool | None = pydantic.Field(
-        default=None,
-        description="When the field's type is boolean_value, value for schema boolean_value custom field",
-    )
-    single_choice_value: str | None = pydantic.Field(
-        default=None,
-        description=(
-            "When the field's type is single_choice_value, selected value for schema single_choice_value custom field"
-        ),
-    )
-    multiple_choice_value: Sequence[str] | None = pydantic.Field(
-        default=None,
-        description=(
-            "When the field's type is multiple_choice_value, "
-            'selected values for schema multiple_choice_value custom field'
-        ),
     )
 
 

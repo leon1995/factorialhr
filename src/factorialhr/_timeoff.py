@@ -299,6 +299,10 @@ class Leave(pydantic.BaseModel):
     deleted_at: datetime.datetime | None = None  # Deletion timestamp of the leave
     updated_at: datetime.datetime  # The updated at date of the leave
     created_at: datetime.datetime | None = None  # The created at date of the leave
+    days_taken: int | None = pydantic.Field(
+        default=None,
+        description='Number of days taken for paid leave',
+    )
 
 
 class LeaveType(pydantic.BaseModel):

@@ -171,3 +171,8 @@ class EmployeesEndpoint(Endpoint):
         """Unterminate an employee."""
         response = await self.api.post(self.endpoint, 'unterminate', json=data, **kwargs)
         return pydantic.TypeAdapter(Employee).validate_python(response)
+
+    async def set_regular_access_start_date(self, data: Mapping[str, typing.Any], **kwargs) -> Employee:
+        """Set regular access start date for an employee."""
+        response = await self.api.post(self.endpoint, 'set_regular_access_start_date', json=data, **kwargs)
+        return pydantic.TypeAdapter(Employee).validate_python(response)

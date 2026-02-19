@@ -1,3 +1,4 @@
+from enum import StrEnum
 import datetime
 import typing
 from collections.abc import Mapping
@@ -5,6 +6,13 @@ from collections.abc import Mapping
 import pydantic
 
 from factorialhr._client import Endpoint, ListApiResponse, MetaApiResponse
+
+
+class SyncableType(StrEnum):
+    """Enum for syncable item types."""
+
+    COMPENSATION = 'compensations/compensation'
+    EXPENSE = 'expenses/expense'
 
 
 class SyncableItem(pydantic.BaseModel):
@@ -17,6 +25,7 @@ class SyncableItem(pydantic.BaseModel):
     item_type: str = pydantic.Field(description='Type of the syncable item')
     item_id: int = pydantic.Field(description='Identifier of the item')
     status: str = pydantic.Field(description='Status of the syncable item')
+    syncable_type: SyncableType = pydantic.Field(description='Type of the syncable item')
     created_at: datetime.datetime = pydantic.Field(description='Creation date')
     updated_at: datetime.datetime = pydantic.Field(description='Last update date')
 

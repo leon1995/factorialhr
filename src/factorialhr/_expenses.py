@@ -125,6 +125,12 @@ class Expensable(pydantic.BaseModel):
         default=None,
         description='The optional ID of the per_diem that the expensable belongs to',
     )
+    budget_id: int | None = pydantic.Field(default=None, description='The id of the budget')
+    project_id: int | None = pydantic.Field(default=None, description='The id of the project')
+    cost_center_ids: Sequence[int] | None = pydantic.Field(
+        default=None,
+        description='The ids of the cost centers',
+    )
 
 
 class Expense(pydantic.BaseModel):
@@ -194,6 +200,18 @@ class Expense(pydantic.BaseModel):
     taxes: Sequence[typing.Any] = pydantic.Field(description='The taxes of the expense')
     category_id: int | None = pydantic.Field(default=None, description='The id of the category')
     ledger_account_id: int | None = pydantic.Field(default=None, description='The id of the ledger account')
+    budget_id: int | None = pydantic.Field(
+        default=None,
+        description='The id of the budget associated with this expense',
+    )
+    project_id: int | None = pydantic.Field(
+        default=None,
+        description='The id of the project associated with this expense',
+    )
+    cost_center_ids: Sequence[int] | None = pydantic.Field(
+        default=None,
+        description='Array of cost center ids associated with this expense',
+    )
 
 
 class Mileage(pydantic.BaseModel):
@@ -252,6 +270,18 @@ class Mileage(pydantic.BaseModel):
         default=None,
         description='The calculated mileage between origin and destination in decameters/10-milers',
     )
+    budget_id: int | None = pydantic.Field(
+        default=None,
+        description='The id of the budget associated with this mileage',
+    )
+    project_id: int | None = pydantic.Field(
+        default=None,
+        description='The id of the project associated with this mileage',
+    )
+    cost_center_ids: Sequence[int] | None = pydantic.Field(
+        default=None,
+        description='Array of cost center ids associated with this mileage',
+    )
 
 
 class PerDiem(pydantic.BaseModel):
@@ -300,6 +330,18 @@ class PerDiem(pydantic.BaseModel):
         description='The date the per diem is effective on',
     )
     description: str | None = pydantic.Field(default=None, description='The description of the per diem')
+    budget_id: int | None = pydantic.Field(
+        default=None,
+        description='The id of the budget associated with this per diem',
+    )
+    project_id: int | None = pydantic.Field(
+        default=None,
+        description='The id of the project associated with this per diem',
+    )
+    cost_center_ids: Sequence[int] | None = pydantic.Field(
+        default=None,
+        description='Array of cost center ids associated with this per diem',
+    )
     category: Mapping[str, typing.Any] | None = pydantic.Field(default=None, description='The category of the per diem')
     subcategory: str | None = pydantic.Field(default=None, description='The subcategory of the per diem')
     status: ExpenseStatus = pydantic.Field(description='The status of the per diem')
