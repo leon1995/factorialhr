@@ -130,3 +130,5 @@ dmypy.json
 
 # intelli j / pycharm
 .idea/
+
+uv.lock
