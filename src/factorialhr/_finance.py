@@ -441,7 +441,7 @@ class TaxType(pydantic.BaseModel):
 
 
 class BudgetOption(pydantic.BaseModel):
-    """Model for finance_budget_option. Budget with limited information for general viewing (e.g. reporting an expense)."""
+    """Model for finance_budget_option. Budget with limited information for general viewing."""
 
     model_config = pydantic.ConfigDict(frozen=True)
 

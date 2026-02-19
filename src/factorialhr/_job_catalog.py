@@ -1,7 +1,7 @@
-from enum import StrEnum
 import datetime
 import typing
 from collections.abc import Sequence
+from enum import StrEnum
 
 import pydantic
 
@@ -92,9 +92,13 @@ class NodeAttribute(pydantic.BaseModel):
     type: str = pydantic.Field(description='Type of the attribute')
     attribute_id: int = pydantic.Field(description='Attribute identifier')
     value_competency: typing.Any | None = pydantic.Field(default=None, description='Value when type is competency')
-    value_it_management_asset: typing.Any | None = pydantic.Field(default=None, description='Value when type is it_management_asset')
+    value_it_management_asset: typing.Any | None = pydantic.Field(
+        default=None, description='Value when type is it_management_asset',
+    )
     value_salary_range: typing.Any | None = pydantic.Field(default=None, description='Value when type is salary_range')
-    value_working_conditions: typing.Any | None = pydantic.Field(default=None, description='Value when type is working_conditions')
+    value_working_conditions: typing.Any | None = pydantic.Field(
+        default=None, description='Value when type is working_conditions',
+    )
 
 
 class NodeAttributesEndpoint(Endpoint):
@@ -124,6 +128,7 @@ class JobCatalogNodeType(StrEnum):
     ROLE = 'jobcatalog_treerole'
     LEVEL = 'jobcatalog_treelevel'
 
+
 class JobCatalogNode(pydantic.BaseModel):
     """Model for job_catalog_node. JobCatalog Tree Node."""
 
@@ -136,7 +141,9 @@ class JobCatalogNode(pydantic.BaseModel):
     description: str | None = pydantic.Field(default=None, description='Description')
     created_at: datetime.datetime = pydantic.Field(description='Creation date')
     updated_at: datetime.datetime = pydantic.Field(description='Last update date')
-    full_path_to_root: Sequence[str] | None = pydantic.Field(default=None, description='Full path from root to this node')
+    full_path_to_root: Sequence[str] | None = pydantic.Field(
+        default=None, description='Full path from root to this node',
+    )
     job_catalog_title: str | None = pydantic.Field(
         default=None,
         description='Full title that represents the job position',

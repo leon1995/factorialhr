@@ -212,13 +212,14 @@ class ContractVersion(pydantic.BaseModel):
         default=None,
         description=(
             'The uuid node in the job catalog tree. For now it only supports level nodes. '
-            'From this point in the job catalog tree you can get the full ancestor path to the root node including the role. '
-            'Refer to job_catalog/tree_nodes endpoint.'
+            'From this point in the job catalog tree you can get the full ancestor path to the root node including the '
+            'role. Refer to job_catalog/tree_nodes endpoint.'
         ),
     )
     is_reference: bool | None = pydantic.Field(
         default=None,
-        description='Whether it is the reference contract today or not. It is important to remark that reference contract does not mean active',
+        description='Whether it is the reference contract today or not. It is important to remark that '
+        'reference contract does not mean active',
     )
 
 
@@ -636,8 +637,8 @@ class ContractVersionHistory(pydantic.BaseModel):
         default=None,
         description=(
             'The uuid node in the job catalog tree. For now it only supports level nodes. '
-            'From this point in the job catalog tree you can get the full ancestor path to the root node including the role. '
-            'Refer to job_catalog/tree_nodes endpoint.'
+            'From this point in the job catalog tree you can get the full ancestor path to the root node including the '
+            'role. Refer to job_catalog/tree_nodes endpoint.'
         ),
     )
     created_at: datetime.datetime = pydantic.Field(description='Creation date')

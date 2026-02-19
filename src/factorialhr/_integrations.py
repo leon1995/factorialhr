@@ -1,7 +1,7 @@
-from enum import StrEnum
 import datetime
 import typing
 from collections.abc import Mapping
+from enum import StrEnum
 
 import pydantic
 

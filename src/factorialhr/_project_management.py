@@ -652,7 +652,9 @@ class PlannedRecord(pydantic.BaseModel):
     start_date: datetime.date = pydantic.Field(description='The start date of the planned record')
     end_date: datetime.date = pydantic.Field(description='The end date of the planned record')
     project_worker_id: int = pydantic.Field(description='The project worker id of the planned record')
-    week_days: Sequence[int] = pydantic.Field(description='The week days of the planned record, start in Sunday 0 and end in Saturday 6')
+    week_days: Sequence[int] = pydantic.Field(
+        description='The week days of the planned record, start in Sunday 0 and end in Saturday 6',
+    )
     subproject_id: int | None = pydantic.Field(default=None, description='The subproject id of the planned record')
 
 

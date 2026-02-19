@@ -1,7 +1,7 @@
-from enum import StrEnum
 import datetime
 import typing
 from collections.abc import Mapping
+from enum import StrEnum
 
 import pydantic
 
@@ -30,11 +30,17 @@ class PurchaseOrder(pydantic.BaseModel):
     status: PurchaseOrderStatus = pydantic.Field(description='Current status of the purchase order')
     cost: Mapping[str, typing.Any] = pydantic.Field(description='Total cost of the purchase order')
     date: str = pydantic.Field(description='Date when the purchase order was created')
-    purchase_request_id: int = pydantic.Field(description='Identifier of the purchase request that generated this purchase order')
+    purchase_request_id: int = pydantic.Field(
+        description='Identifier of the purchase request that generated this purchase order',
+    )
     legal_entity_id: int = pydantic.Field(description='Identifier of the legal entity that owns this purchase order')
     company_id: int = pydantic.Field(description='Identifier of the company that owns this purchase order')
-    formatted_po_number: str = pydantic.Field(description='Formatted purchase order number with prefix (e.g., PO-00001)')
-    vendor_id: int | None = pydantic.Field(default=None, description='Identifier of the vendor (contact) associated with this purchase order')
+    formatted_po_number: str = pydantic.Field(
+        description='Formatted purchase order number with prefix (e.g., PO-00001)',
+    )
+    vendor_id: int | None = pydantic.Field(
+        default=None, description='Identifier of the vendor (contact) associated with this purchase order',
+    )
 
 
 class PurchaseOrdersEndpoint(Endpoint):
@@ -59,6 +65,7 @@ class PurchaseOrdersEndpoint(Endpoint):
         data = await self.api.get(self.endpoint, purchase_order_id, **kwargs)
         return pydantic.TypeAdapter(PurchaseOrder).validate_python(data['data'])
 
+
 class PurchaseRequestStatus(StrEnum):
     """Enum for purchase request statuses."""
 
@@ -81,10 +88,18 @@ class PurchaseRequest(pydantic.BaseModel):
     date: str = pydantic.Field(description='Date when the purchase request was created')
     requester_employee_id: int = pydantic.Field(description='Identifier of the employee who requested this purchase')
     status: PurchaseRequestStatus = pydantic.Field(description='Current status of the purchase request')
-    company_id: int | None = pydantic.Field(default=None, description='Identifier of the company that owns this purchase request')
-    vendor_id: int | None = pydantic.Field(default=None, description='Identifier of the vendor (contact) associated with this purchase request')
-    url: str | None = pydantic.Field(default=None, description='URL related to the purchase request (e.g., product link)')
-    additional_information: str | None = pydantic.Field(default=None, description='Additional information or notes about the purchase request')
+    company_id: int | None = pydantic.Field(
+        default=None, description='Identifier of the company that owns this purchase request',
+    )
+    vendor_id: int | None = pydantic.Field(
+        default=None, description='Identifier of the vendor (contact) associated with this purchase request',
+    )
+    url: str | None = pydantic.Field(
+        default=None, description='URL related to the purchase request (e.g., product link)',
+    )
+    additional_information: str | None = pydantic.Field(
+        default=None, description='Additional information or notes about the purchase request',
+    )
     deadline: datetime.date | None = pydantic.Field(default=None, description='Deadline date for the purchase request')
 
 
@@ -121,7 +136,9 @@ class ProcurementType(pydantic.BaseModel):
     name: str = pydantic.Field(description='Name of the procurement type')
     created_at: datetime.datetime = pydantic.Field(description='Time the procurement type was created')
     updated_at: datetime.datetime = pydantic.Field(description='Time the procurement type was last updated')
-    author_id: int | None = pydantic.Field(default=None, description='Employee ID who created this type (null for system types)')
+    author_id: int | None = pydantic.Field(
+        default=None, description='Employee ID who created this type (null for system types)',
+    )
     description: str | None = pydantic.Field(default=None, description='Description of the procurement type')
     enabled: bool | None = pydantic.Field(default=None, description='Defines if a type is enabled')
     identifier: str | None = pydantic.Field(default=None, description='System identifier for default types')

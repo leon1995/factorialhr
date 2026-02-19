@@ -1,6 +1,6 @@
 import datetime
 import typing
-from collections.abc import Mapping, Sequence
+from collections.abc import Mapping
 
 import pydantic
 
