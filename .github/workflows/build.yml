@@ -41,13 +41,10 @@ jobs:
 
       - run: uv venv
 
-      - name: Setup hatch
-        run: uv pip install hatch
-
       - name: Set new version
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
-          uv run hatch version ${GITHUB_REF/refs\/tags\/v/}
+          uv version ${GITHUB_REF/refs\/tags\/v/}
 
       - name: Build package
         run: uv build

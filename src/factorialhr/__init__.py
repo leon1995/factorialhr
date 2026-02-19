@@ -1,5 +1,3 @@
-__version__ = '0.0.0'
-
 from factorialhr._api_public import (
     Credentials,
     CredentialsEndpoint,

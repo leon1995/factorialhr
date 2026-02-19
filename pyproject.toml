@@ -1,13 +1,10 @@
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
-
-[tool.hatch.version]
-path = "src/factorialhr/__init__.py"
+requires = ["uv_build>=0.9.22,<0.10.0"]
+build-backend = "uv_build"
 
 [project]
 name = "factorialhr"
-dynamic = ["version"]
+version = "0.0.0"
 authors = [
     { name = "Leon Budnick", email = "y6q6ea9w@mail-proxy.org" },
 ]
@@ -46,9 +43,6 @@ dev = [
 [project.urls]
 "Repository" = "https://github.com/leon1995/factorialhr"
 "Bug Tracker" = "https://github.com/leon1995/factorialhr/issues"
-
-[tool.hatch.build.targets.sdist]
-packages = ["src/factorialhr"]
 
 [tool.ruff]
 lint.select = ["ALL"]
