@@ -595,7 +595,6 @@ __all__ = [
     'PurchaseRequest',
     'PurchaseRequestStatus',
     'PurchaseRequestsEndpoint',
-    'PurchaseStatus',
     'Question',
     'QuestionsEndpoint',
     'ReferenceContractsEndpoint',

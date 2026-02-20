@@ -794,7 +794,7 @@ class EvaluationFormsEndpoint(Endpoint):
     async def save_as_template(self, data: Mapping[str, typing.Any], **kwargs) -> EvaluationForm:
         """Save the evaluation form as a template.
 
-        Official documentation: `ats/evaluation_forms <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-evaluation-forms>`_
+        Official documentation: `ats/evaluation_forms <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-ats-evaluation-forms-save-as-template>`_
 
         :param data: Payload for saving as template (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -804,7 +804,7 @@ class EvaluationFormsEndpoint(Endpoint):
         :return: The evaluation form record saved as template.
         :rtype: EvaluationForm
         """
-        response = await self.api.post(self.endpoint, json=data, **kwargs)
+        response = await self.api.post(self.endpoint, 'save_as_template', json=data, **kwargs)
         return pydantic.TypeAdapter(EvaluationForm).validate_python(response)
 
 
@@ -1207,7 +1207,7 @@ class JobPostingsEndpoint(Endpoint):
     async def duplicate(self, data: Mapping[str, typing.Any], **kwargs) -> JobPosting:
         """Duplicate a job posting.
 
-        Official documentation: `ats/job_postings <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-job-postings>`_
+        Official documentation: `ats/job_postings <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-ats-job-postings-duplicate>`_
 
         :param data: Payload for the duplicate action (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1217,7 +1217,7 @@ class JobPostingsEndpoint(Endpoint):
         :return: The duplicated job posting record.
         :rtype: JobPosting
         """
-        response = await self.api.post(self.endpoint, json=data, **kwargs)
+        response = await self.api.post(self.endpoint, 'duplicate', json=data, **kwargs)
         return pydantic.TypeAdapter(JobPosting).validate_python(response)
 
 
