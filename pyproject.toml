@@ -76,6 +76,9 @@ lint.extend-ignore = [
 
 line-length = 120  # https://docs.astral.sh/ruff/settings/#line-length
 src = ["src"]  # https://docs.astral.sh/ruff/settings/#src
+extend-exclude = [
+    "docs",
+]
 
 [tool.ruff.format]
 quote-style = "single"

@@ -23,11 +23,11 @@ extensions = [
     'sphinx_rtd_theme',
 ]
 
-import os
+import pathlib
 import sys
 
 # Add the src directory to the Python path so Sphinx can find the modules
-sys.path.insert(0, os.path.abspath('../src'))
+sys.path.insert(0, pathlib.Path('../src').resolve())
 
 templates_path = ['_templates']
 exclude_patterns = []
@@ -41,22 +41,9 @@ autosummary_generate = True  # Automatically generate stub files
 # many models (WebhookSubscription, CardPayment, Transaction, etc.) have an
 # attribute named "type", so unqualified refs to "type" are ambiguous.
 suppress_warnings = ['ref.python']
-# Do not set 'members': True here; each api/*.rst uses :members: with an explicit list
-# so only that section's symbols are shown (and as factorialhr.Symbol).
-#autodoc_default_options = {
-#    'undoc-members': True,
-#    'show-inheritance': True,
-#}
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
-
-# Keep full toctree visible when navigating (e.g. back to index); avoid collapsing
-# the Resources level when viewing a third-level page then the first.
-html_theme_options = {
-    #'collapse_navigation': False,
-    'navigation_depth': 3,
-}

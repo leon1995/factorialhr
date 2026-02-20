@@ -3,6 +3,9 @@ Authentication
 
 Read the official documentation for more information about authentication: https://apidoc.factorialhr.com/docs/authentication
 
+Authentication methods
+~~~~~~~~~~~~~~~~~~~~~~
+
 The Factorial API client supports four authentication methods, each suited for different use cases:
 
 :class:`factorialhr.ApiKeyAuth`
