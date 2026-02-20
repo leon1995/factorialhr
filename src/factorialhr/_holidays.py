@@ -19,13 +19,21 @@ class CompanyHoliday(pydantic.BaseModel):
 
     model_config = pydantic.ConfigDict(frozen=True)
 
+    #: Company holiday id
     id: int = pydantic.Field(description='Company holiday id')
+    #: Related location ids
     location_ids: Sequence[int] | None = pydantic.Field(default=None, description='Related location ids')
+    #: Related team ids
     team_ids: Sequence[int] | None = pydantic.Field(default=None, description='Related team ids')
+    #: Related employee ids
     employee_ids: Sequence[int] | None = pydantic.Field(default=None, description='Related employee ids')
+    #: Company holiday summary
     summary: str | None = pydantic.Field(default=None, description='Company holiday summary')
+    #: Company holiday description
     description: str | None = pydantic.Field(default=None, description='Company holiday description')
+    #: Company holiday date
     date: datetime.date = pydantic.Field(description='Company holiday date')
+    #: If the company holiday is half-day and which part of the day
     half_day: HalfDay | None = pydantic.Field(
         default=None,
         description='If the company holiday is half-day and which part of the day',
@@ -38,18 +46,47 @@ class CompanyHolidaysEndpoint(Endpoint):
     endpoint = 'holidays/company_holidays'
 
     async def all(self, **kwargs) -> ListApiResponse[CompanyHoliday]:
-        """Get all company holidays records."""
+        """Get all company holidays records.
+
+        Official documentation: `holidays/company_holidays <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-holidays-company-holidays>`_
+
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Response containing the list of records.
+        :rtype: ListApiResponse[CompanyHoliday]
+        """
         data = await self.api.get_all(self.endpoint, **kwargs)
         return ListApiResponse(model_type=CompanyHoliday, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[CompanyHoliday]:
-        """Get company holidays with pagination metadata."""
+        """Get company holidays with pagination metadata.
+
+        Official documentation: `holidays/company_holidays <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-holidays-company-holidays>`_
+
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Response containing records and pagination metadata.
+        :rtype: MetaApiResponse[CompanyHoliday]
+        """
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
         return MetaApiResponse(model_type=CompanyHoliday, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, holiday_id: int | str, **kwargs) -> CompanyHoliday:
-        """Get a specific company holiday by ID."""
+        """Get a specific company holiday by ID.
+
+        Official documentation: `holidays/company_holidays <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-holidays-company-holidays-id>`_
+
+        :param holiday_id: The unique identifier.
+        :type holiday_id: int | str
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The record.
+        :rtype: CompanyHoliday
+        """
         data = await self.api.get(self.endpoint, holiday_id, **kwargs)
         return pydantic.TypeAdapter(CompanyHoliday).validate_python(data)

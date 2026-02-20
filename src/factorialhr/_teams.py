@@ -11,10 +11,15 @@ class Membership(pydantic.BaseModel):
 
     model_config = pydantic.ConfigDict(frozen=True)
 
+    #: Membership ID
     id: int = pydantic.Field(description='Membership ID')
+    #: Company ID of the membership
     company_id: int | None = pydantic.Field(default=None, description='Company ID of the membership')
+    #: Employee ID of the membership
     employee_id: int = pydantic.Field(description='Employee ID of the membership')
+    #: Team ID of the membership
     team_id: int = pydantic.Field(description='Team ID of the membership')
+    #: Whether the employee is a lead of the team or not
     lead: bool = pydantic.Field(description='Whether the employee is a lead of the team or not')
 
 
@@ -23,12 +28,19 @@ class Team(pydantic.BaseModel):
 
     model_config = pydantic.ConfigDict(frozen=True)
 
+    #: Team ID
     id: int = pydantic.Field(description='Team ID')
+    #: Team name
     name: str = pydantic.Field(description='Team name')
+    #: Team description
     description: str | None = pydantic.Field(default=None, description='Team description')
+    #: Team avatar URL
     avatar: str | None = pydantic.Field(default=None, description='Team avatar URL')
+    #: List of employee IDs in the team
     employee_ids: Sequence[int] | None = pydantic.Field(default=None, description='List of employee IDs in the team')
+    #: List of team lead employee IDs
     lead_ids: Sequence[int] | None = pydantic.Field(default=None, description='List of team lead employee IDs')
+    #: Company ID
     company_id: int = pydantic.Field(description='Company ID')
 
 
@@ -38,34 +50,98 @@ class MembershipsEndpoint(Endpoint):
     endpoint = 'teams/memberships'
 
     async def all(self, **kwargs) -> ListApiResponse[Membership]:
-        """Get all memberships records."""
+        """Get all memberships records.
+
+        Official documentation: `teams/memberships <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-teams-memberships>`_
+
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Response containing the list of records.
+        :rtype: ListApiResponse[Membership]
+        """
         data = await self.api.get_all(self.endpoint, **kwargs)
         return ListApiResponse(model_type=Membership, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[Membership]:
-        """Get memberships with pagination metadata."""
+        """Get memberships with pagination metadata.
+
+        Official documentation: `teams/memberships <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-teams-memberships>`_
+
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Response containing records and pagination metadata.
+        :rtype: MetaApiResponse[Membership]
+        """
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
         return MetaApiResponse(model_type=Membership, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, membership_id: int | str, **kwargs) -> Membership:
-        """Get a specific team membership by ID."""
+        """Get a specific team membership by ID.
+
+        Official documentation: `teams/memberships <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-teams-memberships-id>`_
+
+        :param membership_id: The unique identifier.
+        :type membership_id: int | str
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The record.
+        :rtype: Membership
+        """
         data = await self.api.get(self.endpoint, membership_id, **kwargs)
         return pydantic.TypeAdapter(Membership).validate_python(data)
 
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Membership:
-        """Create a new membership."""
+        """Create a new membership.
+
+        Official documentation: `teams/memberships <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-teams-memberships>`_
+
+        :param data: Payload for the new record (key-value mapping).
+        :type data: Mapping[str, typing.Any]
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The created record.
+        :rtype: Membership
+        """
         response = await self.api.post(self.endpoint, json=data, **kwargs)
         return pydantic.TypeAdapter(Membership).validate_python(response)
 
     async def update(self, membership_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Membership:
-        """Update a membership."""
+        """Update a membership.
+
+        Official documentation: `teams/memberships <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-teams-memberships-id>`_
+
+        :param membership_id: The unique identifier of the record to update.
+        :type membership_id: int | str
+        :param data: Payload with fields to update (key-value mapping).
+        :type data: Mapping[str, typing.Any]
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The updated record.
+        :rtype: Membership
+        """
         response = await self.api.put(self.endpoint, membership_id, json=data, **kwargs)
         return pydantic.TypeAdapter(Membership).validate_python(response)
 
     async def delete(self, membership_id: int | str, **kwargs) -> Membership:
-        """Delete a membership."""
+        """Delete a membership.
+
+        Official documentation: `teams/memberships <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-teams-memberships-id>`_
+
+        :param membership_id: The unique identifier of the record to delete.
+        :type membership_id: int | str
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The deleted record.
+        :rtype: Membership
+        """
         response = await self.api.delete(self.endpoint, membership_id, **kwargs)
         return pydantic.TypeAdapter(Membership).validate_python(response)
 
@@ -76,33 +152,97 @@ class TeamsEndpoint(Endpoint):
     endpoint = 'teams/teams'
 
     async def all(self, **kwargs) -> ListApiResponse[Team]:
-        """Get all teams records."""
+        """Get all teams records.
+
+        Official documentation: `teams/teams <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-teams-teams-id>`_
+
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Response containing the list of records.
+        :rtype: ListApiResponse[Team]
+        """
         data = await self.api.get_all(self.endpoint, **kwargs)
         return ListApiResponse(model_type=Team, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[Team]:
-        """Get teams with pagination metadata."""
+        """Get teams with pagination metadata.
+
+        Official documentation: `teams/teams <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-teams-teams>`_
+
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Response containing records and pagination metadata.
+        :rtype: MetaApiResponse[Team]
+        """
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
         return MetaApiResponse(model_type=Team, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, team_id: int | str, **kwargs) -> Team:
-        """Get a specific team by ID."""
+        """Get a specific team by ID.
+
+        Official documentation: `teams/teams <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-teams-teams-id>`_
+
+        :param team_id: The unique identifier.
+        :type team_id: int | str
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The record.
+        :rtype: Team
+        """
         data = await self.api.get(self.endpoint, team_id, **kwargs)
         return pydantic.TypeAdapter(Team).validate_python(data)
 
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Team:
-        """Create a new team."""
+        """Create a new team.
+
+        Official documentation: `teams/teams <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-teams-teams>`_
+
+        :param data: Payload for the new record (key-value mapping).
+        :type data: Mapping[str, typing.Any]
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The created record.
+        :rtype: Team
+        """
         response = await self.api.post(self.endpoint, json=data, **kwargs)
         return pydantic.TypeAdapter(Team).validate_python(response)
 
     async def update(self, team_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Team:
-        """Update a team."""
+        """Update a team.
+
+        Official documentation: `teams/teams <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-teams-teams-id>`_
+
+        :param team_id: The unique identifier of the record to update.
+        :type team_id: int | str
+        :param data: Payload with fields to update (key-value mapping).
+        :type data: Mapping[str, typing.Any]
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The updated record.
+        :rtype: Team
+        """
         response = await self.api.put(self.endpoint, team_id, json=data, **kwargs)
         return pydantic.TypeAdapter(Team).validate_python(response)
 
     async def delete(self, team_id: int | str, **kwargs) -> Team:
-        """Delete a team."""
+        """Delete a team.
+
+        Official documentation: `teams/teams <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-teams-teams-id>`_
+
+        :param team_id: The unique identifier of the record to delete.
+        :type team_id: int | str
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The deleted record.
+        :rtype: Team
+        """
         response = await self.api.delete(self.endpoint, team_id, **kwargs)
         return pydantic.TypeAdapter(Team).validate_python(response)

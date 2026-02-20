@@ -111,7 +111,10 @@ class Allowance(pydantic.BaseModel):
 
     model_config = pydantic.ConfigDict(frozen=True)
 
+    #: Unique identifier of the allowance
     id: int = pydantic.Field(description='Unique identifier of the allowance')
+    #: Only for Allowances based on worked time. It represents how many units you need to work to be granted allowance
+    #: units
     accrued_denominator_in_cents: int | None = pydantic.Field(
         default=None,
         description=(
@@ -119,6 +122,7 @@ class Allowance(pydantic.BaseModel):
             'It represents how many units you need to work to be granted allowance units'
         ),
     )
+    #: Only for Allowances based on worked time. It represents how many units you are given per unit of time worked
     accrued_factor_in_cents: int | None = pydantic.Field(
         default=None,
         description=(
@@ -126,78 +130,101 @@ class Allowance(pydantic.BaseModel):
             'It represents how many units you are given per unit of time worked'
         ),
     )
+    #: When can the accrued units be spent
     accrued_units_availability: AccruedUnitsAvailability | None = pydantic.Field(
         default=None,
         description='When can the accrued units be spent',
     )
+    #: Sets the allowance units. Can be "days" or "hours"
     allowance_type: AllowanceType = pydantic.Field(description='Sets the allowance units. Can be "days" or "hours"')
+    #: Indicates how the allowance units are accrued. For example all_days means all allowance days are given on the
+    #: first day of the cycle
     available_days: AvailableDays = pydantic.Field(
         description=(
             'Indicates how the allowance units are accrued. '
             'For example all_days means all allowance days are given on the first day of the cycle'
         ),
     )
+    #: How many units can carry over between cycles
     carry_over_days: int | None = pydantic.Field(
         default=None,
         description='How many units can carry over between cycles',
     )
+    #: How many units can carry over between cycles multiplied by 100
     carry_over_units_in_cents: int | None = pydantic.Field(
         default=None,
         description='How many units can carry over between cycles multiplied by 100',
     )
+    #: This setting flags if units taken during a bank holiday should be deducted or not from allowance
     count_holiday_as_workable: bool = pydantic.Field(
         description=(
             'This setting flags if units taken during a bank holiday should be deducted or not from allowance'
         ),
     )
+    #: How many months does each allowance cycle last
     cycle_length: int | None = pydantic.Field(
         default=None,
         description='How many months does each allowance cycle last',
     )
+    #: When does the cycle start
     cycle_start: str | None = pydantic.Field(default=None, description='When does the cycle start')
+    #: Indicates if the allowance is based on working on calendar days
     days_type: DaysType | None = pydantic.Field(
         default=None,
         description='Indicates if the allowance is based on working on calendar days',
     )
+    #: When does the carryover start
     employee_carry_over_starting_year: int | None = pydantic.Field(
         default=None,
         description='When does the carryover start',
     )
+    #: When does the carryover expire in months
     expire_in_months: int | None = pydantic.Field(default=None, description='When does the carryover expire in months')
+    #: Defines duration of the allowance cycles. Can be "yearly", "monthly_flexible" or "lifetime"
     frequency: Frequency | None = pydantic.Field(
         default=None,
         description='Defines duration of the allowance cycles. Can be "yearly", "monthly_flexible" or "lifetime"',
     )
+    #: Base amount of holiday allowance units multiplied by 100
     holiday_allowance_in_cents: int | None = pydantic.Field(
         default=None,
         description='Base amount of holiday allowance units multiplied by 100',
     )
+    #: An array of leave type ids associated with that allowance
     leave_type_ids: Sequence[int] = pydantic.Field(
         description='An array of leave type ids associated with that allowance',
     )
+    #: Maximum the allowance can reach on accrued
     maximum_amount_in_cents: int | None = pydantic.Field(
         default=None,
         description='Maximum the allowance can reach on accrued',
     )
+    #: Allowance name set by the user
     name: str = pydantic.Field(description='Allowance name set by the user')
+    #: Whether the allowance allows to request more days than available
     negative_counter_type: NegativeCounterType | None = pydantic.Field(
         default=None,
         description='Whether the allowance allows to request more days than available',
     )
     position: int | None = None  # Indicates the position in the allowance when rendering them in UI
+    #: Whether the allowance has proration enabled or not
     proration_type: ProationType = pydantic.Field(description='Whether the allowance has proration enabled or not')
     pto_proratio_enabled: bool | None = None  # Whether the allowance days are prorrated or not
+    #: Configures how leaves duration is handled
     range_type: RangeType | None = pydantic.Field(default=None, description='Configures how leaves duration is handled')
+    #: How the accrued units of the allowance are rounded. It depends if the allowance is set in hours or days
     rounding: Rounding = pydantic.Field(
         description=(
             'How the accrued units of the allowance are rounded. It depends if the allowance is set in hours or days'
         ),
     )
     send_notification: bool | None = None
+    #: This field configures the type of allowance (fixed balance, based on worked time)
     source_units: SourceUnits | None = pydantic.Field(
         default=None,
         description='This field configures the type of allowance (fixed balance, based on worked time)',
     )
+    #: In case the allowance has tenure periods, when is this tenure applied
     tenure_period_transition: TenurePeriodTransition | None = pydantic.Field(
         default=None,
         description='In case the allowance has tenure periods, when is this tenure applied',
@@ -286,6 +313,7 @@ class Leave(pydantic.BaseModel):
     employee_id: int  # Employee identifier of the leave
     start_on: datetime.date  # The start date of the leave
     finish_on: datetime.date | None = None  # The end date of the leave
+    #: Indicates if the leave is taken as a half-day
     half_day: HalfDay | None = pydantic.Field(default=None, description='Indicates if the leave is taken as a half-day')
     description: str | None = None  # A description of the leave
     reason: str | None = None  # The reason provided by the employee for taking the leave
@@ -299,6 +327,11 @@ class Leave(pydantic.BaseModel):
     deleted_at: datetime.datetime | None = None  # Deletion timestamp of the leave
     updated_at: datetime.datetime  # The updated at date of the leave
     created_at: datetime.datetime | None = None  # The created at date of the leave
+    #: Number of days taken for paid leave
+    days_taken: int | None = pydantic.Field(
+        default=None,
+        description='Number of days taken for paid leave',
+    )
 
 
 class LeaveType(pydantic.BaseModel):
@@ -374,39 +407,114 @@ class AllowancesEndpoint(Endpoint):
     endpoint = 'timeoff/allowances'
 
     async def all(self, **kwargs) -> ListApiResponse[Allowance]:
-        """Get all allowances records."""
+        """Get all allowances records.
+
+        Official documentation: `timeoff/allowances <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-allowances>`_
+
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Response containing the list of records.
+        :rtype: ListApiResponse[Allowance]
+        """
         data = await self.api.get_all(self.endpoint, **kwargs)
         return ListApiResponse(model_type=Allowance, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[Allowance]:
-        """Get allowances with pagination metadata."""
+        """Get allowances with pagination metadata.
+
+        Official documentation: `timeoff/allowances <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-allowances>`_
+
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Response containing records and pagination metadata.
+        :rtype: MetaApiResponse[Allowance]
+        """
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
         return MetaApiResponse(model_type=Allowance, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, allowance_id: int | str, **kwargs) -> Allowance:
-        """Get a specific allowance by ID."""
+        """Get a specific allowance by ID.
+
+        Official documentation: `timeoff/allowances <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-allowances-id>`_
+
+        :param allowance_id: The unique identifier.
+        :type allowance_id: int | str
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The record.
+        :rtype: Allowance
+        """
         data = await self.api.get(self.endpoint, allowance_id, **kwargs)
         return pydantic.TypeAdapter(Allowance).validate_python(data)
 
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Allowance:
-        """Create a new allowance."""
+        """Create a new allowance.
+
+        Official documentation: `timeoff/allowances <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-timeoff-allowances>`_
+
+        :param data: Payload for the new record (key-value mapping).
+        :type data: Mapping[str, typing.Any]
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The created record.
+        :rtype: Allowance
+        """
         response = await self.api.post(self.endpoint, json=data, **kwargs)
         return pydantic.TypeAdapter(Allowance).validate_python(response)
 
     async def update(self, allowance_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Allowance:
-        """Update an allowance."""
+        """Update an allowance.
+
+        Official documentation: `timeoff/allowances <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-timeoff-allowances-id>`_
+
+        :param allowance_id: The unique identifier of the record to update.
+        :type allowance_id: int | str
+        :param data: Payload with fields to update (key-value mapping).
+        :type data: Mapping[str, typing.Any]
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The updated record.
+        :rtype: Allowance
+        """
         response = await self.api.put(self.endpoint, allowance_id, json=data, **kwargs)
         return pydantic.TypeAdapter(Allowance).validate_python(response)
 
     async def delete(self, allowance_id: int | str, **kwargs) -> Allowance:
-        """Delete an allowance."""
+        """Delete an allowance.
+
+        Official documentation: `timeoff/allowances <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-timeoff-allowances-id>`_
+
+        :param allowance_id: The unique identifier of the record to delete.
+        :type allowance_id: int | str
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The deleted record.
+        :rtype: Allowance
+        """
         response = await self.api.delete(self.endpoint, allowance_id, **kwargs)
         return pydantic.TypeAdapter(Allowance).validate_python(response)
 
     async def delete_with_alt_allowance(self, data: Mapping[str, typing.Any], **kwargs) -> Allowance:
-        """Delete an allowance and migrate existing incidences to alternative allowance."""
+        """Delete an allowance and migrate existing incidences to alternative allowance.
+
+        Official documentation: `timeoff/allowances <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-timeoff-allowances-delete-with-alt-allowance>`_
+
+        :param data: Payload for the new record (key-value mapping).
+        :type data: Mapping[str, typing.Any]
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Result.
+        :rtype: Allowance
+        """
         response = await self.api.post(self.endpoint, 'delete_with_alt_allowance', json=data, **kwargs)
         return pydantic.TypeAdapter(Allowance).validate_python(response)
 
@@ -417,34 +525,98 @@ class AllowanceIncidencesEndpoint(Endpoint):
     endpoint = 'timeoff/allowance_incidences'
 
     async def all(self, **kwargs) -> ListApiResponse[AllowanceIncidence]:
-        """Get all allowance incidences records."""
+        """Get all allowance incidences records.
+
+        Official documentation: `timeoff/allowance_incidences <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-allowance-incidences>`_
+
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Response containing the list of records.
+        :rtype: ListApiResponse[AllowanceIncidence]
+        """
         data = await self.api.get_all(self.endpoint, **kwargs)
         return ListApiResponse(model_type=AllowanceIncidence, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[AllowanceIncidence]:
-        """Get allowance incidences with pagination metadata."""
+        """Get allowance incidences with pagination metadata.
+
+        Official documentation: `timeoff/allowance_incidences <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-allowance-incidences>`_
+
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Response containing records and pagination metadata.
+        :rtype: MetaApiResponse[AllowanceIncidence]
+        """
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
         return MetaApiResponse(model_type=AllowanceIncidence, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, incidence_id: int | str, **kwargs) -> AllowanceIncidence:
-        """Get a specific allowance incidence by ID."""
+        """Get a specific allowance incidence by ID.
+
+        Official documentation: `timeoff/allowance_incidences <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-allowance-incidences-id>`_
+
+        :param incidence_id: The unique identifier.
+        :type incidence_id: int | str
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The record.
+        :rtype: AllowanceIncidence
+        """
         data = await self.api.get(self.endpoint, incidence_id, **kwargs)
         return pydantic.TypeAdapter(AllowanceIncidence).validate_python(data)
 
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> AllowanceIncidence:
-        """Create a new allowance incidence."""
+        """Create a new allowance incidence.
+
+        Official documentation: `timeoff/allowance_incidences <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-timeoff-allowance-incidences>`_
+
+        :param data: Payload for the new record (key-value mapping).
+        :type data: Mapping[str, typing.Any]
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The created record.
+        :rtype: AllowanceIncidence
+        """
         response = await self.api.post(self.endpoint, json=data, **kwargs)
         return pydantic.TypeAdapter(AllowanceIncidence).validate_python(response)
 
     async def update(self, incidence_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> AllowanceIncidence:
-        """Update an allowance incidence."""
+        """Update an allowance incidence.
+
+        Official documentation: `timeoff/allowance_incidences <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-timeoff-allowance-incidences-id>`_
+
+        :param incidence_id: The unique identifier of the record to update.
+        :type incidence_id: int | str
+        :param data: Payload with fields to update (key-value mapping).
+        :type data: Mapping[str, typing.Any]
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The updated record.
+        :rtype: AllowanceIncidence
+        """
         response = await self.api.put(self.endpoint, incidence_id, json=data, **kwargs)
         return pydantic.TypeAdapter(AllowanceIncidence).validate_python(response)
 
     async def delete(self, incidence_id: int | str, **kwargs) -> AllowanceIncidence:
-        """Delete an allowance incidence."""
+        """Delete an allowance incidence.
+
+        Official documentation: `timeoff/allowance_incidences <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-timeoff-allowance-incidences-id>`_
+
+        :param incidence_id: The unique identifier of the record to delete.
+        :type incidence_id: int | str
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The deleted record.
+        :rtype: AllowanceIncidence
+        """
         response = await self.api.delete(self.endpoint, incidence_id, **kwargs)
         return pydantic.TypeAdapter(AllowanceIncidence).validate_python(response)
 
@@ -455,19 +627,48 @@ class AllowanceStatsEndpoint(Endpoint):
     endpoint = 'timeoff/allowance_stats'
 
     async def all(self, **kwargs) -> ListApiResponse[AllowanceStatsNew]:
-        """Get all allowance stats records."""
+        """Get all allowance stats records.
+
+        Official documentation: `timeoff/allowance_stats <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-allowance-stats>`_
+
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Response containing the list of records.
+        :rtype: ListApiResponse[AllowanceStatsNew]
+        """
         data = await self.api.get_all(self.endpoint, **kwargs)
         return ListApiResponse(model_type=AllowanceStatsNew, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[AllowanceStatsNew]:
-        """Get allowance stats with pagination metadata."""
+        """Get allowance stats with pagination metadata.
+
+        Official documentation: `timeoff/allowance_stats <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-allowance-stats>`_
+
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Response containing records and pagination metadata.
+        :rtype: MetaApiResponse[AllowanceStatsNew]
+        """
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
         return MetaApiResponse(model_type=AllowanceStatsNew, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, stat_id: int | str, **kwargs) -> AllowanceStatsNew:
-        """Get a specific allowance stat by ID."""
+        """Get a specific allowance stat by ID.
+
+        Official documentation: `timeoff/allowance_stats <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-allowance-stats-id>`_
+
+        :param stat_id: The unique identifier.
+        :type stat_id: int | str
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The record.
+        :rtype: AllowanceStatsNew
+        """
         data = await self.api.get(self.endpoint, stat_id, **kwargs)
         return pydantic.TypeAdapter(AllowanceStatsNew).validate_python(data)
 
@@ -478,34 +679,98 @@ class BlockedPeriodsEndpoint(Endpoint):
     endpoint = 'timeoff/blocked_periods'
 
     async def all(self, **kwargs) -> ListApiResponse[BlockedPeriod]:
-        """Get all blocked periods records."""
+        """Get all blocked periods records.
+
+        Official documentation: `timeoff/blocked_periods <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-blocked-periods>`_
+
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Response containing the list of records.
+        :rtype: ListApiResponse[BlockedPeriod]
+        """
         data = await self.api.get_all(self.endpoint, **kwargs)
         return ListApiResponse(model_type=BlockedPeriod, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[BlockedPeriod]:
-        """Get blocked periods with pagination metadata."""
+        """Get blocked periods with pagination metadata.
+
+        Official documentation: `timeoff/blocked_periods <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-blocked-periods>`_
+
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Response containing records and pagination metadata.
+        :rtype: MetaApiResponse[BlockedPeriod]
+        """
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
         return MetaApiResponse(model_type=BlockedPeriod, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, period_id: int | str, **kwargs) -> BlockedPeriod:
-        """Get a specific blocked period by ID."""
+        """Get a specific blocked period by ID.
+
+        Official documentation: `timeoff/blocked_periods <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-blocked-periods-id>`_
+
+        :param period_id: The unique identifier.
+        :type period_id: int | str
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The record.
+        :rtype: BlockedPeriod
+        """
         data = await self.api.get(self.endpoint, period_id, **kwargs)
         return pydantic.TypeAdapter(BlockedPeriod).validate_python(data)
 
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> BlockedPeriod:
-        """Create a new blocked period."""
+        """Create a new blocked period.
+
+        Official documentation: `timeoff/blocked_periods <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-timeoff-blocked-periods>`_
+
+        :param data: Payload for the new record (key-value mapping).
+        :type data: Mapping[str, typing.Any]
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The created record.
+        :rtype: BlockedPeriod
+        """
         response = await self.api.post(self.endpoint, json=data, **kwargs)
         return pydantic.TypeAdapter(BlockedPeriod).validate_python(response)
 
     async def update(self, period_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> BlockedPeriod:
-        """Update a blocked period."""
+        """Update a blocked period.
+
+        Official documentation: `timeoff/blocked_periods <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-timeoff-blocked-periods-id>`_
+
+        :param period_id: The unique identifier of the record to update.
+        :type period_id: int | str
+        :param data: Payload with fields to update (key-value mapping).
+        :type data: Mapping[str, typing.Any]
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The updated record.
+        :rtype: BlockedPeriod
+        """
         response = await self.api.put(self.endpoint, period_id, json=data, **kwargs)
         return pydantic.TypeAdapter(BlockedPeriod).validate_python(response)
 
     async def delete(self, period_id: int | str, **kwargs) -> BlockedPeriod:
-        """Delete a blocked period."""
+        """Delete a blocked period.
+
+        Official documentation: `timeoff/blocked_periods <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-timeoff-blocked-periods-id>`_
+
+        :param period_id: The unique identifier of the record to delete.
+        :type period_id: int | str
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The deleted record.
+        :rtype: BlockedPeriod
+        """
         response = await self.api.delete(self.endpoint, period_id, **kwargs)
         return pydantic.TypeAdapter(BlockedPeriod).validate_python(response)
 
@@ -516,49 +781,146 @@ class LeavesEndpoint(Endpoint):
     endpoint = 'timeoff/leaves'
 
     async def all(self, **kwargs) -> ListApiResponse[Leave]:
-        """Get all leaves records."""
+        """Get all leaves records.
+
+        Official documentation: `timeoff/leaves <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-timeoff-leaves-id>`_
+
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Response containing the list of records.
+        :rtype: ListApiResponse[Leave]
+        """
         data = await self.api.get_all(self.endpoint, **kwargs)
         return ListApiResponse(model_type=Leave, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[Leave]:
-        """Get leaves with pagination metadata."""
+        """Get leaves with pagination metadata.
+
+        Official documentation: `timeoff/leaves <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-leaves>`_
+
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Response containing records and pagination metadata.
+        :rtype: MetaApiResponse[Leave]
+        """
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
         return MetaApiResponse(model_type=Leave, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, leave_id: int | str, **kwargs) -> Leave:
-        """Get a specific leave by ID."""
+        """Get a specific leave by ID.
+
+        Official documentation: `timeoff/leaves <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-leaves-id>`_
+
+        :param leave_id: The unique identifier.
+        :type leave_id: int | str
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The record.
+        :rtype: Leave
+        """
         data = await self.api.get(self.endpoint, leave_id, **kwargs)
         return pydantic.TypeAdapter(Leave).validate_python(data)
 
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Leave:
-        """Create a new leave."""
+        """Create a new leave.
+
+        Official documentation: `timeoff/leaves <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-timeoff-leaves>`_
+
+        :param data: Payload for the new record (key-value mapping).
+        :type data: Mapping[str, typing.Any]
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The created record.
+        :rtype: Leave
+        """
         response = await self.api.post(self.endpoint, json=data, **kwargs)
         return pydantic.TypeAdapter(Leave).validate_python(response)
 
     async def update(self, leave_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Leave:
-        """Update a leave."""
+        """Update a leave.
+
+        Official documentation: `timeoff/leaves <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-timeoff-leaves-id>`_
+
+        :param leave_id: The unique identifier of the record to update.
+        :type leave_id: int | str
+        :param data: Payload with fields to update (key-value mapping).
+        :type data: Mapping[str, typing.Any]
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The updated record.
+        :rtype: Leave
+        """
         response = await self.api.put(self.endpoint, leave_id, json=data, **kwargs)
         return pydantic.TypeAdapter(Leave).validate_python(response)
 
     async def delete(self, leave_id: int | str, **kwargs) -> Leave:
-        """Delete a leave."""
+        """Delete a leave.
+
+        Official documentation: `timeoff/leaves <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-timeoff-leaves-id>`_
+
+        :param leave_id: The unique identifier of the record to delete.
+        :type leave_id: int | str
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The deleted record.
+        :rtype: Leave
+        """
         response = await self.api.delete(self.endpoint, leave_id, **kwargs)
         return pydantic.TypeAdapter(Leave).validate_python(response)
 
     async def approve(self, data: Mapping[str, typing.Any], **kwargs) -> Leave:
-        """Approve a leave."""
+        """Approve a leave.
+
+        Official documentation: `timeoff/leaves <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-timeoff-leaves-approve>`_
+
+        :param data: Payload for the new record (key-value mapping).
+        :type data: Mapping[str, typing.Any]
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Result.
+        :rtype: Leave
+        """
         response = await self.api.post(self.endpoint, 'approve', json=data, **kwargs)
         return pydantic.TypeAdapter(Leave).validate_python(response)
 
     async def approve_all(self, data: Mapping[str, typing.Any], **kwargs) -> Leave:
-        """Approve all steps of a leave."""
+        """Approve all steps of a leave.
+
+        Official documentation: `timeoff/leaves <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-timeoff-leaves-approve-all>`_
+
+        :param data: Payload for the new record (key-value mapping).
+        :type data: Mapping[str, typing.Any]
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Result.
+        :rtype: Leave
+        """
         response = await self.api.post(self.endpoint, 'approve_all', json=data, **kwargs)
         return pydantic.TypeAdapter(Leave).validate_python(response)
 
     async def reject(self, data: Mapping[str, typing.Any], **kwargs) -> Leave:
-        """Reject a leave."""
+        """Reject a leave.
+
+        Official documentation: `timeoff/leaves <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-timeoff-leaves-reject>`_
+
+        :param data: Payload for the new record (key-value mapping).
+        :type data: Mapping[str, typing.Any]
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Result.
+        :rtype: Leave
+        """
         response = await self.api.post(self.endpoint, 'reject', json=data, **kwargs)
         return pydantic.TypeAdapter(Leave).validate_python(response)
 
@@ -569,29 +931,82 @@ class LeaveTypesEndpoint(Endpoint):
     endpoint = 'timeoff/leave_types'
 
     async def all(self, **kwargs) -> ListApiResponse[LeaveType]:
-        """Get all leave types records."""
+        """Get all leave types records.
+
+        Official documentation: `timeoff/leave_types <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-leave-types>`_
+
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Response containing the list of records.
+        :rtype: ListApiResponse[LeaveType]
+        """
         data = await self.api.get_all(self.endpoint, **kwargs)
         return ListApiResponse(model_type=LeaveType, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[LeaveType]:
-        """Get leave types with pagination metadata."""
+        """Get leave types with pagination metadata.
+
+        Official documentation: `timeoff/leave_types <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-leave-types>`_
+
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Response containing records and pagination metadata.
+        :rtype: MetaApiResponse[LeaveType]
+        """
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
         return MetaApiResponse(model_type=LeaveType, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, leave_type_id: int | str, **kwargs) -> LeaveType:
-        """Get a specific leave type by ID."""
+        """Get a specific leave type by ID.
+
+        Official documentation: `timeoff/leave_types <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-leave-types-id>`_
+
+        :param leave_type_id: The unique identifier.
+        :type leave_type_id: int | str
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The record.
+        :rtype: LeaveType
+        """
         data = await self.api.get(self.endpoint, leave_type_id, **kwargs)
         return pydantic.TypeAdapter(LeaveType).validate_python(data)
 
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> LeaveType:
-        """Create a new leave type."""
+        """Create a new leave type.
+
+        Official documentation: `timeoff/leave_types <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-timeoff-leave-types>`_
+
+        :param data: Payload for the new record (key-value mapping).
+        :type data: Mapping[str, typing.Any]
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The created record.
+        :rtype: LeaveType
+        """
         response = await self.api.post(self.endpoint, json=data, **kwargs)
         return pydantic.TypeAdapter(LeaveType).validate_python(response)
 
     async def update(self, leave_type_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> LeaveType:
-        """Update a leave type."""
+        """Update a leave type.
+
+        Official documentation: `timeoff/leave_types <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-timeoff-leave-types-id>`_
+
+        :param leave_type_id: The unique identifier of the record to update.
+        :type leave_type_id: int | str
+        :param data: Payload with fields to update (key-value mapping).
+        :type data: Mapping[str, typing.Any]
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The updated record.
+        :rtype: LeaveType
+        """
         response = await self.api.put(self.endpoint, leave_type_id, json=data, **kwargs)
         return pydantic.TypeAdapter(LeaveType).validate_python(response)
 
@@ -602,34 +1017,98 @@ class PoliciesEndpoint(Endpoint):
     endpoint = 'timeoff/policies'
 
     async def all(self, **kwargs) -> ListApiResponse[Policy]:
-        """Get all policies records."""
+        """Get all policies records.
+
+        Official documentation: `timeoff/policies <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-timeoff-policies-id>`_
+
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Response containing the list of records.
+        :rtype: ListApiResponse[Policy]
+        """
         data = await self.api.get_all(self.endpoint, **kwargs)
         return ListApiResponse(model_type=Policy, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[Policy]:
-        """Get policies with pagination metadata."""
+        """Get policies with pagination metadata.
+
+        Official documentation: `timeoff/policies <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-policies>`_
+
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Response containing records and pagination metadata.
+        :rtype: MetaApiResponse[Policy]
+        """
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
         return MetaApiResponse(model_type=Policy, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, policy_id: int | str, **kwargs) -> Policy:
-        """Get a specific policy by ID."""
+        """Get a specific policy by ID.
+
+        Official documentation: `timeoff/policies <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-policies-id>`_
+
+        :param policy_id: The unique identifier.
+        :type policy_id: int | str
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The record.
+        :rtype: Policy
+        """
         data = await self.api.get(self.endpoint, policy_id, **kwargs)
         return pydantic.TypeAdapter(Policy).validate_python(data)
 
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Policy:
-        """Create a new policy."""
+        """Create a new policy.
+
+        Official documentation: `timeoff/policies <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-timeoff-policies>`_
+
+        :param data: Payload for the new record (key-value mapping).
+        :type data: Mapping[str, typing.Any]
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The created record.
+        :rtype: Policy
+        """
         response = await self.api.post(self.endpoint, json=data, **kwargs)
         return pydantic.TypeAdapter(Policy).validate_python(response)
 
     async def update(self, policy_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Policy:
-        """Update a policy."""
+        """Update a policy.
+
+        Official documentation: `timeoff/policies <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-timeoff-policies-id>`_
+
+        :param policy_id: The unique identifier of the record to update.
+        :type policy_id: int | str
+        :param data: Payload with fields to update (key-value mapping).
+        :type data: Mapping[str, typing.Any]
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The updated record.
+        :rtype: Policy
+        """
         response = await self.api.put(self.endpoint, policy_id, json=data, **kwargs)
         return pydantic.TypeAdapter(Policy).validate_python(response)
 
     async def delete(self, policy_id: int | str, **kwargs) -> Policy:
-        """Delete a policy."""
+        """Delete a policy.
+
+        Official documentation: `timeoff/policies <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-timeoff-policies-id>`_
+
+        :param policy_id: The unique identifier of the record to delete.
+        :type policy_id: int | str
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The deleted record.
+        :rtype: Policy
+        """
         response = await self.api.delete(self.endpoint, policy_id, **kwargs)
         return pydantic.TypeAdapter(Policy).validate_python(response)
 
@@ -640,34 +1119,98 @@ class PolicyAssignmentsEndpoint(Endpoint):
     endpoint = 'timeoff/policy_assignments'
 
     async def all(self, **kwargs) -> ListApiResponse[PolicyAssignment]:
-        """Get all policy assignments records."""
+        """Get all policy assignments records.
+
+        Official documentation: `timeoff/policy_assignments <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-policy-assignments>`_
+
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Response containing the list of records.
+        :rtype: ListApiResponse[PolicyAssignment]
+        """
         data = await self.api.get_all(self.endpoint, **kwargs)
         return ListApiResponse(model_type=PolicyAssignment, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[PolicyAssignment]:
-        """Get policy assignments with pagination metadata."""
+        """Get policy assignments with pagination metadata.
+
+        Official documentation: `timeoff/policy_assignments <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-policy-assignments>`_
+
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Response containing records and pagination metadata.
+        :rtype: MetaApiResponse[PolicyAssignment]
+        """
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
         return MetaApiResponse(model_type=PolicyAssignment, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, assignment_id: int | str, **kwargs) -> PolicyAssignment:
-        """Get a specific policy assignment by ID."""
+        """Get a specific policy assignment by ID.
+
+        Official documentation: `timeoff/policy_assignments <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-policy-assignments-id>`_
+
+        :param assignment_id: The unique identifier.
+        :type assignment_id: int | str
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The record.
+        :rtype: PolicyAssignment
+        """
         data = await self.api.get(self.endpoint, assignment_id, **kwargs)
         return pydantic.TypeAdapter(PolicyAssignment).validate_python(data)
 
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> PolicyAssignment:
-        """Create a new policy assignment."""
+        """Create a new policy assignment.
+
+        Official documentation: `timeoff/policy_assignments <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-timeoff-policy-assignments>`_
+
+        :param data: Payload for the new record (key-value mapping).
+        :type data: Mapping[str, typing.Any]
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The created record.
+        :rtype: PolicyAssignment
+        """
         response = await self.api.post(self.endpoint, json=data, **kwargs)
         return pydantic.TypeAdapter(PolicyAssignment).validate_python(response)
 
     async def update(self, assignment_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> PolicyAssignment:
-        """Update a policy assignment."""
+        """Update a policy assignment.
+
+        Official documentation: `timeoff/policy_assignments <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-timeoff-policy-assignments-id>`_
+
+        :param assignment_id: The unique identifier of the record to update.
+        :type assignment_id: int | str
+        :param data: Payload with fields to update (key-value mapping).
+        :type data: Mapping[str, typing.Any]
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The updated record.
+        :rtype: PolicyAssignment
+        """
         response = await self.api.put(self.endpoint, assignment_id, json=data, **kwargs)
         return pydantic.TypeAdapter(PolicyAssignment).validate_python(response)
 
     async def delete(self, assignment_id: int | str, **kwargs) -> PolicyAssignment:
-        """Delete a policy assignment."""
+        """Delete a policy assignment.
+
+        Official documentation: `timeoff/policy_assignments <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-timeoff-policy-assignments-id>`_
+
+        :param assignment_id: The unique identifier of the record to delete.
+        :type assignment_id: int | str
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The deleted record.
+        :rtype: PolicyAssignment
+        """
         response = await self.api.delete(self.endpoint, assignment_id, **kwargs)
         return pydantic.TypeAdapter(PolicyAssignment).validate_python(response)
 
@@ -678,12 +1221,30 @@ class PolicyTimelinesEndpoint(Endpoint):
     endpoint = 'timeoff/policy_timelines'
 
     async def all(self, **kwargs) -> ListApiResponse[PolicyTimeline]:
-        """Get all policy timelines records."""
+        """Get all policy timelines records.
+
+        Official documentation: `timeoff/policy_timelines <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-policy-timelines>`_
+
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Response containing the list of records.
+        :rtype: ListApiResponse[PolicyTimeline]
+        """
         data = await self.api.get_all(self.endpoint, **kwargs)
         return ListApiResponse(model_type=PolicyTimeline, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[PolicyTimeline]:
-        """Get policy timelines with pagination metadata."""
+        """Get policy timelines with pagination metadata.
+
+        Official documentation: `timeoff/policy_timelines <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-policy-timelines>`_
+
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Response containing records and pagination metadata.
+        :rtype: MetaApiResponse[PolicyTimeline]
+        """
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
