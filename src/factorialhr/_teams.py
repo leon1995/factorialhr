@@ -82,7 +82,7 @@ class MembershipsEndpoint(Endpoint):
     async def get_by_id(self, membership_id: int | str, **kwargs) -> Membership:
         """Get a specific team membership by ID.
 
-        Official documentation: `teams/memberships <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-teams-memberships>`_
+        Official documentation: `teams/memberships <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-teams-memberships-id>`_
 
         :param membership_id: The unique identifier.
         :type membership_id: int | str
@@ -98,7 +98,7 @@ class MembershipsEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Membership:
         """Create a new membership.
 
-        Official documentation: `teams/memberships <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-teams-memberships>`_
+        Official documentation: `teams/memberships <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-teams-memberships>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -114,7 +114,7 @@ class MembershipsEndpoint(Endpoint):
     async def update(self, membership_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Membership:
         """Update a membership.
 
-        Official documentation: `teams/memberships <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-teams-memberships>`_
+        Official documentation: `teams/memberships <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-teams-memberships-id>`_
 
         :param membership_id: The unique identifier of the record to update.
         :type membership_id: int | str
@@ -132,7 +132,7 @@ class MembershipsEndpoint(Endpoint):
     async def delete(self, membership_id: int | str, **kwargs) -> Membership:
         """Delete a membership.
 
-        Official documentation: `teams/memberships <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-teams-memberships>`_
+        Official documentation: `teams/memberships <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-teams-memberships-id>`_
 
         :param membership_id: The unique identifier of the record to delete.
         :type membership_id: int | str
@@ -154,7 +154,7 @@ class TeamsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Team]:
         """Get all teams records.
 
-        Official documentation: `teams/teams <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-teams-teams>`_
+        Official documentation: `teams/teams <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-teams-teams-id>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -184,7 +184,7 @@ class TeamsEndpoint(Endpoint):
     async def get_by_id(self, team_id: int | str, **kwargs) -> Team:
         """Get a specific team by ID.
 
-        Official documentation: `teams/teams <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-teams-teams>`_
+        Official documentation: `teams/teams <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-teams-teams-id>`_
 
         :param team_id: The unique identifier.
         :type team_id: int | str
@@ -200,7 +200,7 @@ class TeamsEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Team:
         """Create a new team.
 
-        Official documentation: `teams/teams <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-teams-teams>`_
+        Official documentation: `teams/teams <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-teams-teams>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -216,7 +216,7 @@ class TeamsEndpoint(Endpoint):
     async def update(self, team_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Team:
         """Update a team.
 
-        Official documentation: `teams/teams <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-teams-teams>`_
+        Official documentation: `teams/teams <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-teams-teams-id>`_
 
         :param team_id: The unique identifier of the record to update.
         :type team_id: int | str
@@ -234,7 +234,7 @@ class TeamsEndpoint(Endpoint):
     async def delete(self, team_id: int | str, **kwargs) -> Team:
         """Delete a team.
 
-        Official documentation: `teams/teams <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-teams-teams>`_
+        Official documentation: `teams/teams <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-teams-teams-id>`_
 
         :param team_id: The unique identifier of the record to delete.
         :type team_id: int | str

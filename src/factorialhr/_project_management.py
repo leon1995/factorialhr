@@ -73,7 +73,7 @@ class ExpenseRecordEndpoint(Endpoint):
     async def get_by_id(self, expense_id: int | str, **kwargs) -> ExpenseRecord:
         """Get a specific expense record by ID.
 
-        Official documentation: `project_management/expense_records <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-expense-records>`_
+        Official documentation: `project_management/expense_records <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-expense-records-id>`_
 
         :param expense_id: The unique identifier.
         :type expense_id: int | str
@@ -89,7 +89,7 @@ class ExpenseRecordEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> ExpenseRecord:
         """Create a new expense record.
 
-        Official documentation: `project_management/expense_records <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-expense-records>`_
+        Official documentation: `project_management/expense_records <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-project-management-expense-records>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -105,7 +105,7 @@ class ExpenseRecordEndpoint(Endpoint):
     async def update(self, expense_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> ExpenseRecord:
         """Update an expense record.
 
-        Official documentation: `project_management/expense_records <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-expense-records>`_
+        Official documentation: `project_management/expense_records <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-project-management-expense-records-id>`_
 
         :param expense_id: The unique identifier of the record to update.
         :type expense_id: int | str
@@ -123,7 +123,7 @@ class ExpenseRecordEndpoint(Endpoint):
     async def delete(self, expense_id: int | str, **kwargs) -> None:
         """Delete an expense record.
 
-        Official documentation: `project_management/expense_records <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-expense-records>`_
+        Official documentation: `project_management/expense_records <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-project-management-expense-records-id>`_
 
         :param expense_id: The unique identifier of the record to delete.
         :type expense_id: int | str
@@ -201,7 +201,7 @@ class ExportableExpenseEndpoint(Endpoint):
     async def get_by_id(self, expense_id: int | str, **kwargs) -> ExportableExpense:
         """Get a specific exportable expense by ID.
 
-        Official documentation: `project_management/exportable_expenses <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-exportable-expenses>`_
+        Official documentation: `project_management/exportable_expenses <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-exportable-expenses-id>`_
 
         :param expense_id: The unique identifier.
         :type expense_id: int | str
@@ -217,7 +217,7 @@ class ExportableExpenseEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> ExportableExpense:
         """Create a new exportable expense.
 
-        Official documentation: `project_management/exportable_expenses <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-exportable-expenses>`_
+        Official documentation: `project_management/exportable_expenses <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-project-management-exportable-expenses>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -233,7 +233,7 @@ class ExportableExpenseEndpoint(Endpoint):
     async def update(self, expense_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> ExportableExpense:
         """Update an exportable expense.
 
-        Official documentation: `project_management/exportable_expenses <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-exportable-expenses>`_
+        Official documentation: `project_management/exportable_expenses <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-project-management-exportable-expenses-id>`_
 
         :param expense_id: The unique identifier of the record to update.
         :type expense_id: int | str
@@ -251,7 +251,7 @@ class ExportableExpenseEndpoint(Endpoint):
     async def delete(self, expense_id: int | str, **kwargs) -> None:
         """Delete an exportable expense.
 
-        Official documentation: `project_management/exportable_expenses <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-exportable-expenses>`_
+        Official documentation: `project_management/exportable_expenses <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-project-management-exportable-expenses-id>`_
 
         :param expense_id: The unique identifier of the record to delete.
         :type expense_id: int | str
@@ -329,7 +329,7 @@ class ExportableProjectEndpoint(Endpoint):
     async def get_by_id(self, project_id: int | str, **kwargs) -> ExportableProject:
         """Get a specific exportable project by ID.
 
-        Official documentation: `project_management/exportable_projects <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-exportable-projects>`_
+        Official documentation: `project_management/exportable_projects <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-exportable-projects-id>`_
 
         :param project_id: The unique identifier.
         :type project_id: int | str
@@ -345,7 +345,7 @@ class ExportableProjectEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> ExportableProject:
         """Create a new exportable project.
 
-        Official documentation: `project_management/exportable_projects <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-exportable-projects>`_
+        Official documentation: `project_management/exportable_projects <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-project-management-exportable-projects>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -361,7 +361,7 @@ class ExportableProjectEndpoint(Endpoint):
     async def update(self, project_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> ExportableProject:
         """Update an exportable project.
 
-        Official documentation: `project_management/exportable_projects <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-exportable-projects>`_
+        Official documentation: `project_management/exportable_projects <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-project-management-exportable-projects-id>`_
 
         :param project_id: The unique identifier of the record to update.
         :type project_id: int | str
@@ -379,7 +379,7 @@ class ExportableProjectEndpoint(Endpoint):
     async def delete(self, project_id: int | str, **kwargs) -> None:
         """Delete an exportable project.
 
-        Official documentation: `project_management/exportable_projects <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-exportable-projects>`_
+        Official documentation: `project_management/exportable_projects <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-project-management-exportable-projects-id>`_
 
         :param project_id: The unique identifier of the record to delete.
         :type project_id: int | str
@@ -445,7 +445,7 @@ class FlexibleTimeRecordEndpoint(Endpoint):
     async def get_by_id(self, record_id: int | str, **kwargs) -> FlexibleTimeRecord:
         """Get a specific flexible time record by ID.
 
-        Official documentation: `project_management/flexible_time_records <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-flexible-time-records>`_
+        Official documentation: `project_management/flexible_time_records <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-flexible-time-records-id>`_
 
         :param record_id: The unique identifier.
         :type record_id: int | str
@@ -461,7 +461,7 @@ class FlexibleTimeRecordEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> FlexibleTimeRecord:
         """Create a new flexible time record.
 
-        Official documentation: `project_management/flexible_time_records <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-flexible-time-records>`_
+        Official documentation: `project_management/flexible_time_records <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-project-management-flexible-time-records>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -477,7 +477,7 @@ class FlexibleTimeRecordEndpoint(Endpoint):
     async def update(self, record_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> FlexibleTimeRecord:
         """Update a flexible time record.
 
-        Official documentation: `project_management/flexible_time_records <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-flexible-time-records>`_
+        Official documentation: `project_management/flexible_time_records <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-project-management-flexible-time-records-id>`_
 
         :param record_id: The unique identifier of the record to update.
         :type record_id: int | str
@@ -495,7 +495,7 @@ class FlexibleTimeRecordEndpoint(Endpoint):
     async def delete(self, record_id: int | str, **kwargs) -> FlexibleTimeRecord:
         """Delete a flexible time record.
 
-        Official documentation: `project_management/flexible_time_records <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-flexible-time-records>`_
+        Official documentation: `project_management/flexible_time_records <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-project-management-flexible-time-records-id>`_
 
         :param record_id: The unique identifier of the record to delete.
         :type record_id: int | str
@@ -562,7 +562,7 @@ class FlexibleTimeRecordCommentEndpoint(Endpoint):
     async def get_by_id(self, comment_id: int | str, **kwargs) -> FlexibleTimeRecordComment:
         """Get a specific flexible time record comment by ID.
 
-        Official documentation: `project_management/flexible_time_record_comments <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-flexible-time-record-comments>`_
+        Official documentation: `project_management/flexible_time_record_comments <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-flexible-time-record-comments-id>`_
 
         :param comment_id: The unique identifier.
         :type comment_id: int | str
@@ -578,7 +578,7 @@ class FlexibleTimeRecordCommentEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> FlexibleTimeRecordComment:
         """Create a new flexible time record comment.
 
-        Official documentation: `project_management/flexible_time_record_comments <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-flexible-time-record-comments>`_
+        Official documentation: `project_management/flexible_time_record_comments <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-project-management-flexible-time-record-comments>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -599,6 +599,8 @@ class FlexibleTimeRecordCommentEndpoint(Endpoint):
     ) -> FlexibleTimeRecordComment:
         """Update a flexible time record comment.
 
+        Official documentation: `project_management/flexible_time_record_comments <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-project-management-flexible-time-record-comments-id>`_
+
         :param comment_id: The unique identifier of the record to update.
         :type comment_id: int | str
         :param data: Payload with fields to update (key-value mapping).
@@ -615,7 +617,7 @@ class FlexibleTimeRecordCommentEndpoint(Endpoint):
     async def delete(self, comment_id: int | str, **kwargs) -> FlexibleTimeRecordComment:
         """Delete a flexible time record comment.
 
-        Official documentation: `project_management/flexible_time_record_comments <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-flexible-time-record-comments>`_
+        Official documentation: `project_management/flexible_time_record_comments <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-project-management-flexible-time-record-comments-id>`_
 
         :param comment_id: The unique identifier of the record to delete.
         :type comment_id: int | str
@@ -635,6 +637,8 @@ class FlexibleTimeRecordCommentEndpoint(Endpoint):
     ) -> FlexibleTimeRecordComment:
         """Delete a flexible time record comment by flexible time record ID.
 
+        Official documentation: `project_management/flexible_time_record_comments <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-project-management-flexible-time-record-comments-delete-by-flexible-time-record>`_
+
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
@@ -652,6 +656,8 @@ class FlexibleTimeRecordCommentEndpoint(Endpoint):
         **kwargs,
     ) -> FlexibleTimeRecordComment:
         """Update a flexible time record comment by flexible time record ID.
+
+        Official documentation: `project_management/flexible_time_record_comments <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-project-management-flexible-time-record-comments-update-by-flexible-time-record>`_
 
         :param data: Payload with fields to update (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -756,7 +762,7 @@ class ProjectEndpoint(Endpoint):
     async def get_by_id(self, project_id: int | str, **kwargs) -> Project:
         """Get a specific project by ID.
 
-        Official documentation: `project_management/projects <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-projects>`_
+        Official documentation: `project_management/projects <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-projects-id>`_
 
         :param project_id: The unique identifier.
         :type project_id: int | str
@@ -772,7 +778,7 @@ class ProjectEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Project:
         """Create a new project.
 
-        Official documentation: `project_management/projects <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-projects>`_
+        Official documentation: `project_management/projects <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-project-management-projects>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -788,7 +794,7 @@ class ProjectEndpoint(Endpoint):
     async def update(self, project_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Project:
         """Update a project.
 
-        Official documentation: `project_management/projects <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-projects>`_
+        Official documentation: `project_management/projects <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-project-management-projects-id>`_
 
         :param project_id: The unique identifier of the record to update.
         :type project_id: int | str
@@ -806,7 +812,7 @@ class ProjectEndpoint(Endpoint):
     async def delete(self, project_id: int | str, **kwargs) -> Project:
         """Delete a project.
 
-        Official documentation: `project_management/projects <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-projects>`_
+        Official documentation: `project_management/projects <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-project-management-projects-id>`_
 
         :param project_id: The unique identifier of the record to delete.
         :type project_id: int | str
@@ -822,7 +828,7 @@ class ProjectEndpoint(Endpoint):
     async def activate(self, data: Mapping[str, typing.Any], **kwargs) -> Project:
         """Activate a project.
 
-        Official documentation: `project_management/projects <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-projects>`_
+        Official documentation: `project_management/projects <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-project-management-projects-activate>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -838,7 +844,7 @@ class ProjectEndpoint(Endpoint):
     async def change_assignment(self, data: Mapping[str, typing.Any], **kwargs) -> Project:
         """Change assignment of a project.
 
-        Official documentation: `project_management/projects <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-projects>`_
+        Official documentation: `project_management/projects <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-project-management-projects-change-assignment>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -854,7 +860,7 @@ class ProjectEndpoint(Endpoint):
     async def change_status(self, data: Mapping[str, typing.Any], **kwargs) -> Project:
         """Change status of a project.
 
-        Official documentation: `project_management/projects <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-projects>`_
+        Official documentation: `project_management/projects <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-project-management-projects-change-status>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -870,7 +876,7 @@ class ProjectEndpoint(Endpoint):
     async def close(self, data: Mapping[str, typing.Any], **kwargs) -> Project:
         """Close a project.
 
-        Official documentation: `project_management/projects <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-projects>`_
+        Official documentation: `project_management/projects <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-project-management-projects-close>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -886,7 +892,7 @@ class ProjectEndpoint(Endpoint):
     async def soft_delete(self, data: Mapping[str, typing.Any], **kwargs) -> Project:
         """Soft delete a project.
 
-        Official documentation: `project_management/projects <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-projects>`_
+        Official documentation: `project_management/projects <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-project-management-projects-soft-delete>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -953,7 +959,7 @@ class ProjectTaskEndpoint(Endpoint):
     async def get_by_id(self, task_id: int | str, **kwargs) -> ProjectTask:
         """Get a specific project task by ID.
 
-        Official documentation: `project_management/project_tasks <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-project-tasks>`_
+        Official documentation: `project_management/project_tasks <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-project-tasks-id>`_
 
         :param task_id: The unique identifier.
         :type task_id: int | str
@@ -969,7 +975,7 @@ class ProjectTaskEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> ProjectTask:
         """Create a new project task.
 
-        Official documentation: `project_management/project_tasks <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-project-tasks>`_
+        Official documentation: `project_management/project_tasks <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-project-management-project-tasks>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -985,7 +991,7 @@ class ProjectTaskEndpoint(Endpoint):
     async def update(self, task_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> ProjectTask:
         """Update a project task.
 
-        Official documentation: `project_management/project_tasks <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-project-tasks>`_
+        Official documentation: `project_management/project_tasks <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-project-management-project-tasks-id>`_
 
         :param task_id: The unique identifier of the record to update.
         :type task_id: int | str
@@ -1003,7 +1009,7 @@ class ProjectTaskEndpoint(Endpoint):
     async def delete(self, task_id: int | str, **kwargs) -> ProjectTask:
         """Delete a project task.
 
-        Official documentation: `project_management/project_tasks <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-project-tasks>`_
+        Official documentation: `project_management/project_tasks <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-project-management-project-tasks-id>`_
 
         :param task_id: The unique identifier of the record to delete.
         :type task_id: int | str
@@ -1019,7 +1025,7 @@ class ProjectTaskEndpoint(Endpoint):
     async def bulk_destroy(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[ProjectTask]:
         """Bulk destroy project tasks.
 
-        Official documentation: `project_management/project_tasks <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-project-tasks>`_
+        Official documentation: `project_management/project_tasks <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-project-management-project-tasks-bulk-destroy>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1035,7 +1041,7 @@ class ProjectTaskEndpoint(Endpoint):
     async def bulk_duplicate(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[ProjectTask]:
         """Bulk duplicate project tasks.
 
-        Official documentation: `project_management/project_tasks <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-project-tasks>`_
+        Official documentation: `project_management/project_tasks <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-project-management-project-tasks-bulk-duplicate>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1106,7 +1112,7 @@ class ProjectWorkerEndpoint(Endpoint):
     async def get_by_id(self, worker_id: int | str, **kwargs) -> ProjectWorker:
         """Get a specific project worker by ID.
 
-        Official documentation: `project_management/project_workers <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-project-workers>`_
+        Official documentation: `project_management/project_workers <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-project-workers-id>`_
 
         :param worker_id: The unique identifier.
         :type worker_id: int | str
@@ -1122,7 +1128,7 @@ class ProjectWorkerEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> ProjectWorker:
         """Create a new project worker.
 
-        Official documentation: `project_management/project_workers <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-project-workers>`_
+        Official documentation: `project_management/project_workers <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-project-management-project-workers>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1138,7 +1144,7 @@ class ProjectWorkerEndpoint(Endpoint):
     async def update(self, worker_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> ProjectWorker:
         """Update a project worker.
 
-        Official documentation: `project_management/project_workers <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-project-workers>`_
+        Official documentation: `project_management/project_workers <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-project-management-project-workers-id>`_
 
         :param worker_id: The unique identifier of the record to update.
         :type worker_id: int | str
@@ -1156,7 +1162,7 @@ class ProjectWorkerEndpoint(Endpoint):
     async def delete(self, worker_id: int | str, **kwargs) -> ProjectWorker:
         """Delete a project worker.
 
-        Official documentation: `project_management/project_workers <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-project-workers>`_
+        Official documentation: `project_management/project_workers <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-project-management-project-workers-id>`_
 
         :param worker_id: The unique identifier of the record to delete.
         :type worker_id: int | str
@@ -1172,7 +1178,7 @@ class ProjectWorkerEndpoint(Endpoint):
     async def bulk_assign(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[ProjectWorker]:
         """Bulk assign project workers.
 
-        Official documentation: `project_management/project_workers <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-project-workers>`_
+        Official documentation: `project_management/project_workers <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-project-management-project-workers-bulk-assign>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1188,7 +1194,7 @@ class ProjectWorkerEndpoint(Endpoint):
     async def bulk_create(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[ProjectWorker]:
         """Bulk create project workers.
 
-        Official documentation: `project_management/project_workers <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-project-workers>`_
+        Official documentation: `project_management/project_workers <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-project-management-project-workers-bulk-create>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1204,7 +1210,7 @@ class ProjectWorkerEndpoint(Endpoint):
     async def unassign(self, data: Mapping[str, typing.Any], **kwargs) -> ProjectWorker:
         """Unassign a project worker.
 
-        Official documentation: `project_management/project_workers <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-project-workers>`_
+        Official documentation: `project_management/project_workers <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-project-management-project-workers-unassign>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1283,7 +1289,7 @@ class SubprojectEndpoint(Endpoint):
     async def get_by_id(self, subproject_id: int | str, **kwargs) -> Subproject:
         """Get a specific subproject by ID.
 
-        Official documentation: `project_management/subprojects <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-subprojects>`_
+        Official documentation: `project_management/subprojects <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-subprojects-id>`_
 
         :param subproject_id: The unique identifier.
         :type subproject_id: int | str
@@ -1299,7 +1305,7 @@ class SubprojectEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Subproject:
         """Create a new subproject.
 
-        Official documentation: `project_management/subprojects <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-subprojects>`_
+        Official documentation: `project_management/subprojects <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-project-management-subprojects>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1315,7 +1321,7 @@ class SubprojectEndpoint(Endpoint):
     async def update(self, subproject_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Subproject:
         """Update a subproject.
 
-        Official documentation: `project_management/subprojects <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-subprojects>`_
+        Official documentation: `project_management/subprojects <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-project-management-subprojects-id>`_
 
         :param subproject_id: The unique identifier of the record to update.
         :type subproject_id: int | str
@@ -1333,7 +1339,7 @@ class SubprojectEndpoint(Endpoint):
     async def delete(self, subproject_id: int | str, **kwargs) -> Subproject:
         """Delete a subproject.
 
-        Official documentation: `project_management/subprojects <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-subprojects>`_
+        Official documentation: `project_management/subprojects <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-project-management-subprojects-id>`_
 
         :param subproject_id: The unique identifier of the record to delete.
         :type subproject_id: int | str
@@ -1349,7 +1355,7 @@ class SubprojectEndpoint(Endpoint):
     async def rename(self, data: Mapping[str, typing.Any], **kwargs) -> Subproject:
         """Rename a subproject.
 
-        Official documentation: `project_management/subprojects <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-subprojects>`_
+        Official documentation: `project_management/subprojects <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-project-management-subprojects-rename>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1428,7 +1434,7 @@ class TimeRecordEndpoint(Endpoint):
     async def get_by_id(self, record_id: int | str, **kwargs) -> TimeRecord:
         """Get a specific time record by ID.
 
-        Official documentation: `project_management/time_records <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-time-records>`_
+        Official documentation: `project_management/time_records <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-time-records-id>`_
 
         :param record_id: The unique identifier.
         :type record_id: int | str
@@ -1444,7 +1450,7 @@ class TimeRecordEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> TimeRecord:
         """Create a new time record.
 
-        Official documentation: `project_management/time_records <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-time-records>`_
+        Official documentation: `project_management/time_records <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-project-management-time-records>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1460,7 +1466,7 @@ class TimeRecordEndpoint(Endpoint):
     async def update(self, record_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> TimeRecord:
         """Update a time record.
 
-        Official documentation: `project_management/time_records <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-time-records>`_
+        Official documentation: `project_management/time_records <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-project-management-time-records-id>`_
 
         :param record_id: The unique identifier of the record to update.
         :type record_id: int | str
@@ -1478,7 +1484,7 @@ class TimeRecordEndpoint(Endpoint):
     async def delete(self, record_id: int | str, **kwargs) -> TimeRecord:
         """Delete a time record.
 
-        Official documentation: `project_management/time_records <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-time-records>`_
+        Official documentation: `project_management/time_records <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-project-management-time-records-id>`_
 
         :param record_id: The unique identifier of the record to delete.
         :type record_id: int | str
@@ -1494,7 +1500,7 @@ class TimeRecordEndpoint(Endpoint):
     async def bulk_delete(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[TimeRecord]:
         """Bulk delete time records.
 
-        Official documentation: `project_management/time_records <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-time-records>`_
+        Official documentation: `project_management/time_records <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-project-management-time-records-bulk-delete>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1510,7 +1516,7 @@ class TimeRecordEndpoint(Endpoint):
     async def bulk_process(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[TimeRecord]:
         """Bulk process time records.
 
-        Official documentation: `project_management/time_records <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-time-records>`_
+        Official documentation: `project_management/time_records <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-project-management-time-records-bulk-process>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1526,7 +1532,7 @@ class TimeRecordEndpoint(Endpoint):
     async def update_project_worker(self, data: Mapping[str, typing.Any], **kwargs) -> TimeRecord:
         """Update project worker for a time record.
 
-        Official documentation: `project_management/time_records <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-time-records>`_
+        Official documentation: `project_management/time_records <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-project-management-time-records-update-project-worker>`_
 
         :param data: Payload with fields to update (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1601,7 +1607,7 @@ class PlannedRecordsEndpoint(Endpoint):
     async def get_by_id(self, planned_record_id: int | str, **kwargs) -> PlannedRecord:
         """Get a specific planned record by ID.
 
-        Official documentation: `project_management/planned_records <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-planned-records>`_
+        Official documentation: `project_management/planned_records <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-planned-records-id>`_
 
         :param planned_record_id: The unique identifier.
         :type planned_record_id: int | str
@@ -1617,7 +1623,7 @@ class PlannedRecordsEndpoint(Endpoint):
     async def update(self, planned_record_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> PlannedRecord:
         """Update a planned record.
 
-        Official documentation: `project_management/planned_records <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-planned-records>`_
+        Official documentation: `project_management/planned_records <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-project-management-planned-records-id>`_
 
         :param planned_record_id: The unique identifier of the record to update.
         :type planned_record_id: int | str
@@ -1635,7 +1641,7 @@ class PlannedRecordsEndpoint(Endpoint):
     async def delete(self, planned_record_id: int | str, **kwargs) -> PlannedRecord:
         """Delete a planned record.
 
-        Official documentation: `project_management/planned_records <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-planned-records>`_
+        Official documentation: `project_management/planned_records <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-project-management-planned-records-id>`_
 
         :param planned_record_id: The unique identifier of the record to delete.
         :type planned_record_id: int | str
@@ -1651,7 +1657,7 @@ class PlannedRecordsEndpoint(Endpoint):
     async def bulk_create(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[PlannedRecord]:
         """Bulk create planned records.
 
-        Official documentation: `project_management/planned_records <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-project-management-planned-records>`_
+        Official documentation: `project_management/planned_records <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-project-management-planned-records-bulk-create>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]

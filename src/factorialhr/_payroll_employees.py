@@ -77,7 +77,7 @@ class IdentifiersEndpoint(Endpoint):
     async def get_by_id(self, identifier_id: int | str, **kwargs) -> Payrollemployeesidentifier:
         """Get a specific payroll employee identifier by ID.
 
-        Official documentation: `payroll_employees/identifiers <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-payroll-employees-identifiers>`_
+        Official documentation: `payroll_employees/identifiers <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-payroll-employees-identifiers-id>`_
 
         :param identifier_id: The unique identifier.
         :type identifier_id: int | str
@@ -93,7 +93,7 @@ class IdentifiersEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Payrollemployeesidentifier:
         """Create a new payroll employee identifier.
 
-        Official documentation: `payroll_employees/identifiers <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-payroll-employees-identifiers>`_
+        Official documentation: `payroll_employees/identifiers <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-payroll-employees-identifiers>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -114,6 +114,8 @@ class IdentifiersEndpoint(Endpoint):
     ) -> Payrollemployeesidentifier:
         """Update a payroll employee identifier.
 
+        Official documentation: `payroll_employees/identifiers <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-payroll-employees-identifiers-id>`_
+
         :param identifier_id: The unique identifier of the record to update.
         :type identifier_id: int | str
         :param data: Payload with fields to update (key-value mapping).
@@ -130,7 +132,7 @@ class IdentifiersEndpoint(Endpoint):
     async def delete(self, identifier_id: int | str, **kwargs) -> Payrollemployeesidentifier:
         """Delete a payroll employee identifier.
 
-        Official documentation: `payroll_employees/identifiers <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-payroll-employees-identifiers>`_
+        Official documentation: `payroll_employees/identifiers <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-payroll-employees-identifiers-id>`_
 
         :param identifier_id: The unique identifier of the record to delete.
         :type identifier_id: int | str

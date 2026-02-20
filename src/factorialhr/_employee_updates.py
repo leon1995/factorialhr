@@ -472,7 +472,7 @@ class AbsencesEndpoint(Endpoint):
     async def get_by_id(self, absence_id: int | str, **kwargs) -> EmployeeAbsence:
         """Get a specific absence by ID.
 
-        Official documentation: `employee_updates/absences <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-employee-updates-absences>`_
+        Official documentation: `employee_updates/absences <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-employee-updates-absences-id>`_
 
         :param absence_id: The unique identifier.
         :type absence_id: int | str
@@ -524,7 +524,7 @@ class ContractChangesEndpoint(Endpoint):
     async def get_by_id(self, contract_change_id: int | str, **kwargs) -> EmployeeContractChange:
         """Get a specific contract change by ID.
 
-        Official documentation: `employee_updates/contract_changes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-employee-updates-contract-changes>`_
+        Official documentation: `employee_updates/contract_changes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-employee-updates-contract-changes-id>`_
 
         :param contract_change_id: The unique identifier.
         :type contract_change_id: int | str
@@ -576,7 +576,7 @@ class NewHiresEndpoint(Endpoint):
     async def get_by_id(self, new_hire_id: int | str, **kwargs) -> EmployeeNewHire:
         """Get a specific new hire by ID.
 
-        Official documentation: `employee_updates/new_hires <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-employee-updates-new-hires>`_
+        Official documentation: `employee_updates/new_hires <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-employee-updates-new-hires-id>`_
 
         :param new_hire_id: The unique identifier.
         :type new_hire_id: int | str
@@ -628,7 +628,7 @@ class PersonalChangesEndpoint(Endpoint):
     async def get_by_id(self, personal_change_id: int | str, **kwargs) -> EmployeePersonalChange:
         """Get a specific personal change by ID.
 
-        Official documentation: `employee_updates/personal_changes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-employee-updates-personal-changes>`_
+        Official documentation: `employee_updates/personal_changes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-employee-updates-personal-changes-id>`_
 
         :param personal_change_id: The unique identifier.
         :type personal_change_id: int | str
@@ -680,7 +680,7 @@ class SummariesEndpoint(Endpoint):
     async def get_by_id(self, summary_id: int | str, **kwargs) -> EmployeeSummary:
         """Get a specific summary by ID.
 
-        Official documentation: `employee_updates/summaries <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-employee-updates-summaries>`_
+        Official documentation: `employee_updates/summaries <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-employee-updates-summaries-id>`_
 
         :param summary_id: The unique identifier.
         :type summary_id: int | str
@@ -732,7 +732,7 @@ class TerminationsEndpoint(Endpoint):
     async def get_by_id(self, termination_id: int | str, **kwargs) -> EmployeeTermination:
         """Get a specific termination by ID.
 
-        Official documentation: `employee_updates/terminations <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-employee-updates-terminations>`_
+        Official documentation: `employee_updates/terminations <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-employee-updates-terminations-id>`_
 
         :param termination_id: The unique identifier.
         :type termination_id: int | str
@@ -784,7 +784,7 @@ class EmployeeUpdatesEndpoint(Endpoint):
     async def get_by_id(self, employee_update_id: int | str, **kwargs) -> EmployeeAbsence:
         """Get a specific employee_updates by ID.
 
-        Official documentation: `employee_updates <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-employee-updates>`_
+        Official documentation: `employee_updates <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-employee-updates-id>`_
 
         :param employee_update_id: The unique identifier.
         :type employee_update_id: int | str
@@ -800,7 +800,7 @@ class EmployeeUpdatesEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> EmployeeAbsence:
         """Create a new employee_updates.
 
-        Official documentation: `employee_updates <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-employee-updates>`_
+        Official documentation: `employee_updates <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-employee-updates>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -816,7 +816,7 @@ class EmployeeUpdatesEndpoint(Endpoint):
     async def update(self, update_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> EmployeeAbsence:
         """Update a employee_updates.
 
-        Official documentation: `employee_updates <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-employee-updates>`_
+        Official documentation: `employee_updates <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-employee-updates-id>`_
 
         :param update_id: The unique identifier of the record to update.
         :type update_id: int | str
@@ -834,7 +834,7 @@ class EmployeeUpdatesEndpoint(Endpoint):
     async def delete(self, update_id: int | str, **kwargs) -> None:
         """Delete a employee_updates.
 
-        Official documentation: `employee_updates <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-employee-updates>`_
+        Official documentation: `employee_updates <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-employee-updates-id>`_
 
         :param update_id: The unique identifier of the record to delete.
         :type update_id: int | str

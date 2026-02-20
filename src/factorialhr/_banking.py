@@ -239,7 +239,7 @@ class BankAccountsEndpoint(Endpoint):
     async def get_by_id(self, bank_account_id: int | str, **kwargs) -> BankAccount:
         """Get a specific bank account by ID.
 
-        Official documentation: `banking/bank_accounts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-banking-bank-accounts>`_
+        Official documentation: `banking/bank_accounts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-banking-bank-accounts-id>`_
 
         :param bank_account_id: The unique identifier.
         :type bank_account_id: int | str
@@ -255,7 +255,7 @@ class BankAccountsEndpoint(Endpoint):
     async def create_manual(self, data: Mapping[str, typing.Any], **kwargs) -> BankAccount:
         """Create a manual bank account.
 
-        Official documentation: `banking/bank_accounts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-banking-bank-accounts>`_
+        Official documentation: `banking/bank_accounts <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-banking-bank-accounts-create-manual>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -307,7 +307,7 @@ class CardPaymentsEndpoint(Endpoint):
     async def get_by_id(self, card_payment_id: int | str, **kwargs) -> CardPayment:
         """Get a specific card payment by ID.
 
-        Official documentation: `banking/card_payments <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-banking-card-payments>`_
+        Official documentation: `banking/card_payments <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-banking-card-payments-id>`_
 
         :param card_payment_id: The unique identifier.
         :type card_payment_id: int | str
@@ -359,7 +359,7 @@ class TransactionsEndpoint(Endpoint):
     async def get_by_id(self, transaction_id: int | str, **kwargs) -> Transaction:
         """Get a specific transaction by ID.
 
-        Official documentation: `banking/transactions <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-banking-transactions>`_
+        Official documentation: `banking/transactions <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-banking-transactions-id>`_
 
         :param transaction_id: The unique identifier.
         :type transaction_id: int | str

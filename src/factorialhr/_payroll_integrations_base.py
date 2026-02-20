@@ -91,7 +91,7 @@ class CodesEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Payrollintegrationsbasecode:
         """Create a new payroll integration code.
 
-        Official documentation: `payroll_integrations_base/codes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-payroll-integrations-base-codes>`_
+        Official documentation: `payroll_integrations_base/codes <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-payroll-integrations-base-codes>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -107,7 +107,7 @@ class CodesEndpoint(Endpoint):
     async def update(self, code_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Payrollintegrationsbasecode:
         """Update a payroll integration code.
 
-        Official documentation: `payroll_integrations_base/codes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-payroll-integrations-base-codes>`_
+        Official documentation: `payroll_integrations_base/codes <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-payroll-integrations-base-codes-id>`_
 
         :param code_id: The unique identifier of the record to update.
         :type code_id: int | str
@@ -125,7 +125,7 @@ class CodesEndpoint(Endpoint):
     async def delete(self, code_id: int | str, **kwargs) -> Payrollintegrationsbasecode:
         """Delete a payroll integration code.
 
-        Official documentation: `payroll_integrations_base/codes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-payroll-integrations-base-codes>`_
+        Official documentation: `payroll_integrations_base/codes <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-payroll-integrations-base-codes-id>`_
 
         :param code_id: The unique identifier of the record to delete.
         :type code_id: int | str

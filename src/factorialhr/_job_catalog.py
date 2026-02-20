@@ -90,7 +90,7 @@ class LevelsEndpoint(Endpoint):
     async def get_by_id(self, level_id: int | str, **kwargs) -> Jobcataloglevel:
         """Get a specific job catalog level by ID.
 
-        Official documentation: `job_catalog/levels <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-job-catalog-levels>`_
+        Official documentation: `job_catalog/levels <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-job-catalog-levels-id>`_
 
         :param level_id: The unique identifier.
         :type level_id: int | str
@@ -142,7 +142,7 @@ class RolesEndpoint(Endpoint):
     async def get_by_id(self, role_id: int | str, **kwargs) -> Jobcatalogrole:
         """Get a specific job catalog role by ID.
 
-        Official documentation: `job_catalog/roles <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-job-catalog-roles>`_
+        Official documentation: `job_catalog/roles <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-job-catalog-roles-id>`_
 
         :param role_id: The unique identifier.
         :type role_id: int | str

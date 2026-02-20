@@ -81,7 +81,7 @@ class InstallationsEndpoint(Endpoint):
     async def get_by_id(self, installation_id: int | str, **kwargs) -> Installation:
         """Get a specific installation by ID.
 
-        Official documentation: `marketplace/installations <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-marketplace-installations>`_
+        Official documentation: `marketplace/installations <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-marketplace-installations-id>`_
 
         :param installation_id: The unique identifier.
         :type installation_id: int | str
@@ -97,7 +97,7 @@ class InstallationsEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Installation:
         """Create a new installation.
 
-        Official documentation: `marketplace/installations <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-marketplace-installations>`_
+        Official documentation: `marketplace/installations <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-marketplace-installations>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]

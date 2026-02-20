@@ -120,7 +120,7 @@ class BreakConfigurationsEndpoint(Endpoint):
     async def get_by_id(self, break_configuration_id: int | str, **kwargs) -> BreakConfiguration:
         """Get a specific break configuration by ID.
 
-        Official documentation: `attendance/break_configurations <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-attendance-break-configurations>`_
+        Official documentation: `attendance/break_configurations <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-attendance-break-configurations-id>`_
 
         :param break_configuration_id: The unique identifier.
         :type break_configuration_id: int | str
@@ -136,7 +136,7 @@ class BreakConfigurationsEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> BreakConfiguration:
         """Create a new break configuration.
 
-        Official documentation: `attendance/break_configurations <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-attendance-break-configurations>`_
+        Official documentation: `attendance/break_configurations <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-attendance-break-configurations>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -156,6 +156,8 @@ class BreakConfigurationsEndpoint(Endpoint):
         **kwargs,
     ) -> BreakConfiguration:
         """Update a break configuration.
+
+        Official documentation: `attendance/break_configurations <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-attendance-break-configurations-id>`_
 
         :param break_configuration_id: The unique identifier of the record to update.
         :type break_configuration_id: int | str
@@ -247,7 +249,7 @@ class EditTimesheetRequestsEndpoint(Endpoint):
     async def get_by_id(self, edit_timesheet_request_id: int | str, **kwargs) -> EditTimesheetRequest:
         """Get a specific edit timesheet request by ID.
 
-        Official documentation: `attendance/edit_timesheet_requests <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-attendance-edit-timesheet-requests>`_
+        Official documentation: `attendance/edit_timesheet_requests <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-attendance-edit-timesheet-requests-id>`_
 
         :param edit_timesheet_request_id: The unique identifier.
         :type edit_timesheet_request_id: int | str
@@ -263,7 +265,7 @@ class EditTimesheetRequestsEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> EditTimesheetRequest:
         """Create a new edit timesheet request.
 
-        Official documentation: `attendance/edit_timesheet_requests <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-attendance-edit-timesheet-requests>`_
+        Official documentation: `attendance/edit_timesheet_requests <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-attendance-edit-timesheet-requests>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -284,6 +286,8 @@ class EditTimesheetRequestsEndpoint(Endpoint):
     ) -> EditTimesheetRequest:
         """Update an edit timesheet request.
 
+        Official documentation: `attendance/edit_timesheet_requests <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-attendance-edit-timesheet-requests-id>`_
+
         :param edit_timesheet_request_id: The unique identifier of the record to update.
         :type edit_timesheet_request_id: int | str
         :param data: Payload with fields to update (key-value mapping).
@@ -300,7 +304,7 @@ class EditTimesheetRequestsEndpoint(Endpoint):
     async def delete(self, edit_timesheet_request_id: int | str, **kwargs) -> EditTimesheetRequest:
         """Delete an edit timesheet request.
 
-        Official documentation: `attendance/edit_timesheet_requests <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-attendance-edit-timesheet-requests>`_
+        Official documentation: `attendance/edit_timesheet_requests <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-attendance-edit-timesheet-requests-id>`_
 
         :param edit_timesheet_request_id: The unique identifier of the record to delete.
         :type edit_timesheet_request_id: int | str
@@ -637,7 +641,7 @@ class OvertimeRequestsEndpoint(Endpoint):
     async def get_by_id(self, overtime_request_id: int | str, **kwargs) -> OvertimeRequest:
         """Get a specific overtime request by ID.
 
-        Official documentation: `attendance/overtime_requests <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-attendance-overtime-requests>`_
+        Official documentation: `attendance/overtime_requests <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-attendance-overtime-requests-id>`_
 
         :param overtime_request_id: The unique identifier.
         :type overtime_request_id: int | str
@@ -653,7 +657,7 @@ class OvertimeRequestsEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> OvertimeRequest:
         """Create a new overtime request.
 
-        Official documentation: `attendance/overtime_requests <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-attendance-overtime-requests>`_
+        Official documentation: `attendance/overtime_requests <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-attendance-overtime-requests>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -674,6 +678,8 @@ class OvertimeRequestsEndpoint(Endpoint):
     ) -> OvertimeRequest:
         """Update an overtime request.
 
+        Official documentation: `attendance/overtime_requests <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-attendance-overtime-requests-id>`_
+
         :param overtime_request_id: The unique identifier of the record to update.
         :type overtime_request_id: int | str
         :param data: Payload with fields to update (key-value mapping).
@@ -690,7 +696,7 @@ class OvertimeRequestsEndpoint(Endpoint):
     async def delete(self, overtime_request_id: int | str, **kwargs) -> OvertimeRequest:
         """Delete an overtime request.
 
-        Official documentation: `attendance/overtime_requests <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-attendance-overtime-requests>`_
+        Official documentation: `attendance/overtime_requests <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-attendance-overtime-requests-id>`_
 
         :param overtime_request_id: The unique identifier of the record to delete.
         :type overtime_request_id: int | str
@@ -706,7 +712,7 @@ class OvertimeRequestsEndpoint(Endpoint):
     async def approve(self, data: Mapping[str, typing.Any], **kwargs) -> OvertimeRequest:
         """Approve an overtime request.
 
-        Official documentation: `attendance/overtime_requests <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-attendance-overtime-requests>`_
+        Official documentation: `attendance/overtime_requests <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-attendance-overtime-requests-approve>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -722,7 +728,7 @@ class OvertimeRequestsEndpoint(Endpoint):
     async def reject(self, data: Mapping[str, typing.Any], **kwargs) -> OvertimeRequest:
         """Reject an overtime request.
 
-        Official documentation: `attendance/overtime_requests <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-attendance-overtime-requests>`_
+        Official documentation: `attendance/overtime_requests <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-attendance-overtime-requests-reject>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -774,7 +780,7 @@ class ShiftsEndpoint(Endpoint):
     async def get_by_id(self, shift_id: int | str, **kwargs) -> AttendanceShift:
         """Get a specific shift by ID.
 
-        Official documentation: `attendance/shifts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-attendance-shifts>`_
+        Official documentation: `attendance/shifts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-attendance-shifts-id>`_
 
         :param shift_id: The unique identifier.
         :type shift_id: int | str
@@ -790,7 +796,7 @@ class ShiftsEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> AttendanceShift:
         """Create a new shift.
 
-        Official documentation: `attendance/shifts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-attendance-shifts>`_
+        Official documentation: `attendance/shifts <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-attendance-shifts>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -811,6 +817,8 @@ class ShiftsEndpoint(Endpoint):
     ) -> AttendanceShift:
         """Update a shift.
 
+        Official documentation: `attendance/shifts <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-attendance-shifts-id>`_
+
         :param shift_id: The unique identifier of the record to update.
         :type shift_id: int | str
         :param data: Payload with fields to update (key-value mapping).
@@ -827,7 +835,7 @@ class ShiftsEndpoint(Endpoint):
     async def delete(self, shift_id: int | str, **kwargs) -> AttendanceShift:
         """Delete a shift.
 
-        Official documentation: `attendance/shifts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-attendance-shifts>`_
+        Official documentation: `attendance/shifts <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-attendance-shifts-id>`_
 
         :param shift_id: The unique identifier of the record to delete.
         :type shift_id: int | str
@@ -843,7 +851,7 @@ class ShiftsEndpoint(Endpoint):
     async def autofill(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[AttendanceShift]:
         """Autofill shifts.
 
-        Official documentation: `attendance/shifts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-attendance-shifts>`_
+        Official documentation: `attendance/shifts <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-attendance-shifts-autofill>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -859,7 +867,7 @@ class ShiftsEndpoint(Endpoint):
     async def break_start(self, data: Mapping[str, typing.Any], **kwargs) -> AttendanceShift:
         """Start a break in a shift.
 
-        Official documentation: `attendance/shifts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-attendance-shifts>`_
+        Official documentation: `attendance/shifts <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-attendance-shifts-break-start>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -875,7 +883,7 @@ class ShiftsEndpoint(Endpoint):
     async def break_end(self, data: Mapping[str, typing.Any], **kwargs) -> AttendanceShift:
         """End a break in a shift.
 
-        Official documentation: `attendance/shifts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-attendance-shifts>`_
+        Official documentation: `attendance/shifts <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-attendance-shifts-break-end>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -891,7 +899,7 @@ class ShiftsEndpoint(Endpoint):
     async def clock_in(self, data: Mapping[str, typing.Any], **kwargs) -> AttendanceShift:
         """Clock in a shift.
 
-        Official documentation: `attendance/shifts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-attendance-shifts>`_
+        Official documentation: `attendance/shifts <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-attendance-shifts-clock-in>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -907,7 +915,7 @@ class ShiftsEndpoint(Endpoint):
     async def clock_out(self, data: Mapping[str, typing.Any], **kwargs) -> AttendanceShift:
         """Clock out a shift.
 
-        Official documentation: `attendance/shifts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-attendance-shifts>`_
+        Official documentation: `attendance/shifts <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-attendance-shifts-clock-out>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -923,7 +931,7 @@ class ShiftsEndpoint(Endpoint):
     async def toggle_clock(self, data: Mapping[str, typing.Any], **kwargs) -> AttendanceShift:
         """Toggle clock (clock in/out) a shift.
 
-        Official documentation: `attendance/shifts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-attendance-shifts>`_
+        Official documentation: `attendance/shifts <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-attendance-shifts-toggle-clock>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -994,7 +1002,7 @@ class ReviewsEndpoint(Endpoint):
     async def get_by_id(self, review_id: int | str, **kwargs) -> Review:
         """Get a specific review by ID.
 
-        Official documentation: `attendance/reviews <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-attendance-reviews>`_
+        Official documentation: `attendance/reviews <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-attendance-reviews-id>`_
 
         :param review_id: The unique identifier.
         :type review_id: int | str
@@ -1010,7 +1018,7 @@ class ReviewsEndpoint(Endpoint):
     async def bulk_create(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[Review]:
         """Bulk create reviews.
 
-        Official documentation: `attendance/reviews <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-attendance-reviews>`_
+        Official documentation: `attendance/reviews <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-attendance-reviews-bulk-create>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1026,7 +1034,7 @@ class ReviewsEndpoint(Endpoint):
     async def bulk_destroy(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[Review]:
         """Bulk destroy reviews.
 
-        Official documentation: `attendance/reviews <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-attendance-reviews>`_
+        Official documentation: `attendance/reviews <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-attendance-reviews-bulk-destroy>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]

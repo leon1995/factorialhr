@@ -97,7 +97,7 @@ class CustomResourcesSchemasEndpoint(Endpoint):
     async def get_by_id(self, schema_id: int | str, **kwargs) -> Schema:
         """Get a specific schema by ID.
 
-        Official documentation: `custom_resources/schemas <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-custom-resources-schemas>`_
+        Official documentation: `custom_resources/schemas <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-custom-resources-schemas-id>`_
 
         :param schema_id: The unique identifier.
         :type schema_id: int | str
@@ -113,7 +113,7 @@ class CustomResourcesSchemasEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Schema:
         """Create a new schema.
 
-        Official documentation: `custom_resources/schemas <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-custom-resources-schemas>`_
+        Official documentation: `custom_resources/schemas <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-custom-resources-schemas>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -165,7 +165,7 @@ class ResourcesEndpoint(Endpoint):
     async def get_by_id(self, resource_id: int | str, **kwargs) -> Resource:
         """Get a specific resource by ID.
 
-        Official documentation: `custom_resources/resources <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-custom-resources-resources>`_
+        Official documentation: `custom_resources/resources <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-custom-resources-resources-id>`_
 
         :param resource_id: The unique identifier.
         :type resource_id: int | str
@@ -217,7 +217,7 @@ class CustomResourcesValuesEndpoint(Endpoint):
     async def get_by_id(self, value_id: int | str, **kwargs) -> CustomResourcesValue:
         """Get a specific value by ID.
 
-        Official documentation: `custom_resources/values <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-custom-resources-values>`_
+        Official documentation: `custom_resources/values <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-custom-resources-values-id>`_
 
         :param value_id: The unique identifier.
         :type value_id: int | str
@@ -233,7 +233,7 @@ class CustomResourcesValuesEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> CustomResourcesValue:
         """Create a new value.
 
-        Official documentation: `custom_resources/values <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-custom-resources-values>`_
+        Official documentation: `custom_resources/values <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-custom-resources-values>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]

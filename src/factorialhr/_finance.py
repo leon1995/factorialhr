@@ -629,7 +629,7 @@ class BudgetOptionsEndpoint(Endpoint):
     async def get_by_id(self, budget_option_id: int | str, **kwargs) -> BudgetOption:
         """Get a specific budget option by ID.
 
-        Official documentation: `finance/budget_options <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-budget-options>`_
+        Official documentation: `finance/budget_options <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-budget-options-id>`_
 
         :param budget_option_id: The unique identifier.
         :type budget_option_id: int | str
@@ -681,7 +681,7 @@ class AccountsEndpoint(Endpoint):
     async def get_by_id(self, account_id: int | str, **kwargs) -> Account:
         """Get a specific account by ID.
 
-        Official documentation: `finance/accounts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-accounts>`_
+        Official documentation: `finance/accounts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-accounts-id>`_
 
         :param account_id: The unique identifier.
         :type account_id: int | str
@@ -697,7 +697,7 @@ class AccountsEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Account:
         """Create a new account.
 
-        Official documentation: `finance/accounts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-accounts>`_
+        Official documentation: `finance/accounts <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-finance-accounts>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -713,7 +713,7 @@ class AccountsEndpoint(Endpoint):
     async def update(self, account_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Account:
         """Update an account.
 
-        Official documentation: `finance/accounts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-accounts>`_
+        Official documentation: `finance/accounts <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-finance-accounts-id>`_
 
         :param account_id: The unique identifier of the record to update.
         :type account_id: int | str
@@ -767,7 +767,7 @@ class AccountingSettingsEndpoint(Endpoint):
     async def get_by_id(self, setting_id: int | str, **kwargs) -> AccountingSetting:
         """Get a specific accounting setting by ID.
 
-        Official documentation: `finance/accounting_settings <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-accounting-settings>`_
+        Official documentation: `finance/accounting_settings <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-accounting-settings-id>`_
 
         :param setting_id: The unique identifier.
         :type setting_id: int | str
@@ -783,7 +783,7 @@ class AccountingSettingsEndpoint(Endpoint):
     async def upsert(self, data: Mapping[str, typing.Any], **kwargs) -> AccountingSetting:
         """Upsert an accounting setting.
 
-        Official documentation: `finance/accounting_settings <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-accounting-settings>`_
+        Official documentation: `finance/accounting_settings <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-finance-accounting-settings-upsert>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -835,7 +835,7 @@ class FinanceCategoriesEndpoint(Endpoint):
     async def get_by_id(self, category_id: int | str, **kwargs) -> FinanceCategory:
         """Get a specific category by ID.
 
-        Official documentation: `finance/categories <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-categories>`_
+        Official documentation: `finance/categories <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-categories-id>`_
 
         :param category_id: The unique identifier.
         :type category_id: int | str
@@ -887,7 +887,7 @@ class ContactsEndpoint(Endpoint):
     async def get_by_id(self, contact_id: int | str, **kwargs) -> Contact:
         """Get a specific contact by ID.
 
-        Official documentation: `finance/contacts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-contacts>`_
+        Official documentation: `finance/contacts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-contacts-id>`_
 
         :param contact_id: The unique identifier.
         :type contact_id: int | str
@@ -903,7 +903,7 @@ class ContactsEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Contact:
         """Create a new contact.
 
-        Official documentation: `finance/contacts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-contacts>`_
+        Official documentation: `finance/contacts <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-finance-contacts>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -919,7 +919,7 @@ class ContactsEndpoint(Endpoint):
     async def update(self, contact_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Contact:
         """Update a contact.
 
-        Official documentation: `finance/contacts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-contacts>`_
+        Official documentation: `finance/contacts <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-finance-contacts-id>`_
 
         :param contact_id: The unique identifier of the record to update.
         :type contact_id: int | str
@@ -973,7 +973,7 @@ class CostCentersEndpoint(Endpoint):
     async def get_by_id(self, cost_center_id: int | str, **kwargs) -> CostCenter:
         """Get a specific cost center by ID.
 
-        Official documentation: `finance/cost_centers <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-cost-centers>`_
+        Official documentation: `finance/cost_centers <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-cost-centers-id>`_
 
         :param cost_center_id: The unique identifier.
         :type cost_center_id: int | str
@@ -989,7 +989,7 @@ class CostCentersEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> CostCenter:
         """Create a new cost center.
 
-        Official documentation: `finance/cost_centers <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-cost-centers>`_
+        Official documentation: `finance/cost_centers <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-finance-cost-centers>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1005,7 +1005,7 @@ class CostCentersEndpoint(Endpoint):
     async def edit(self, data: Mapping[str, typing.Any], **kwargs) -> CostCenter:
         """Edit a cost center.
 
-        Official documentation: `finance/cost_centers <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-cost-centers>`_
+        Official documentation: `finance/cost_centers <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-finance-cost-centers-edit>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1021,7 +1021,7 @@ class CostCentersEndpoint(Endpoint):
     async def delete(self, cost_center_id: int | str, **kwargs) -> CostCenter:
         """Delete a cost center.
 
-        Official documentation: `finance/cost_centers <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-cost-centers>`_
+        Official documentation: `finance/cost_centers <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-finance-cost-centers-id>`_
 
         :param cost_center_id: The unique identifier of the record to delete.
         :type cost_center_id: int | str
@@ -1073,7 +1073,7 @@ class CostCenterMembershipsEndpoint(Endpoint):
     async def bulk_create_update(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[CostCenterMembership]:
         """Bulk create/update cost center memberships.
 
-        Official documentation: `finance/cost_center_memberships <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-cost-center-memberships>`_
+        Official documentation: `finance/cost_center_memberships <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-finance-cost-center-memberships-bulk-create-update>`_
 
         :param data: Payload with fields to update (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1125,7 +1125,7 @@ class FinancialDocumentsEndpoint(Endpoint):
     async def get_by_id(self, document_id: int | str, **kwargs) -> FinancialDocument:
         """Get a specific financial document by ID.
 
-        Official documentation: `finance/financial_documents <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-financial-documents>`_
+        Official documentation: `finance/financial_documents <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-financial-documents-id>`_
 
         :param document_id: The unique identifier.
         :type document_id: int | str
@@ -1177,7 +1177,7 @@ class JournalEntriesEndpoint(Endpoint):
     async def get_by_id(self, entry_id: int | str, **kwargs) -> JournalEntry:
         """Get a specific journal entry by ID.
 
-        Official documentation: `finance/journal_entries <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-journal-entries>`_
+        Official documentation: `finance/journal_entries <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-journal-entries-id>`_
 
         :param entry_id: The unique identifier.
         :type entry_id: int | str
@@ -1193,7 +1193,7 @@ class JournalEntriesEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> JournalEntry:
         """Create a new journal entry.
 
-        Official documentation: `finance/journal_entries <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-journal-entries>`_
+        Official documentation: `finance/journal_entries <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-finance-journal-entries>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1245,7 +1245,7 @@ class JournalLinesEndpoint(Endpoint):
     async def get_by_id(self, line_id: int | str, **kwargs) -> JournalLine:
         """Get a specific journal line by ID.
 
-        Official documentation: `finance/journal_lines <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-journal-lines>`_
+        Official documentation: `finance/journal_lines <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-journal-lines-id>`_
 
         :param line_id: The unique identifier.
         :type line_id: int | str
@@ -1297,7 +1297,7 @@ class LedgerAccountResourcesEndpoint(Endpoint):
     async def get_by_id(self, resource_id: int | str, **kwargs) -> LedgerAccountResource:
         """Get a specific ledger account resource by ID.
 
-        Official documentation: `finance/ledger_account_resources <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-ledger-account-resources>`_
+        Official documentation: `finance/ledger_account_resources <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-ledger-account-resources-id>`_
 
         :param resource_id: The unique identifier.
         :type resource_id: int | str
@@ -1313,7 +1313,7 @@ class LedgerAccountResourcesEndpoint(Endpoint):
     async def upsert(self, data: Mapping[str, typing.Any], **kwargs) -> LedgerAccountResource:
         """Upsert a ledger account resource.
 
-        Official documentation: `finance/ledger_account_resources <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-ledger-account-resources>`_
+        Official documentation: `finance/ledger_account_resources <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-finance-ledger-account-resources-upsert>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1365,7 +1365,7 @@ class TaxRatesEndpoint(Endpoint):
     async def get_by_id(self, rate_id: int | str, **kwargs) -> TaxRate:
         """Get a specific tax rate by ID.
 
-        Official documentation: `finance/tax_rates <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-tax-rates>`_
+        Official documentation: `finance/tax_rates <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-tax-rates-id>`_
 
         :param rate_id: The unique identifier.
         :type rate_id: int | str
@@ -1381,7 +1381,7 @@ class TaxRatesEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> TaxRate:
         """Create a new tax rate.
 
-        Official documentation: `finance/tax_rates <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-tax-rates>`_
+        Official documentation: `finance/tax_rates <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-finance-tax-rates>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1397,7 +1397,7 @@ class TaxRatesEndpoint(Endpoint):
     async def update(self, rate_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> TaxRate:
         """Update a tax rate.
 
-        Official documentation: `finance/tax_rates <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-tax-rates>`_
+        Official documentation: `finance/tax_rates <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-finance-tax-rates-id>`_
 
         :param rate_id: The unique identifier of the record to update.
         :type rate_id: int | str
@@ -1451,7 +1451,7 @@ class TaxTypesEndpoint(Endpoint):
     async def get_by_id(self, type_id: int | str, **kwargs) -> TaxType:
         """Get a specific tax type by ID.
 
-        Official documentation: `finance/tax_types <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-tax-types>`_
+        Official documentation: `finance/tax_types <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-tax-types-id>`_
 
         :param type_id: The unique identifier.
         :type type_id: int | str
@@ -1467,7 +1467,7 @@ class TaxTypesEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> TaxType:
         """Create a new tax type.
 
-        Official documentation: `finance/tax_types <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-tax-types>`_
+        Official documentation: `finance/tax_types <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-finance-tax-types>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1483,7 +1483,7 @@ class TaxTypesEndpoint(Endpoint):
     async def update(self, type_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> TaxType:
         """Update a tax type.
 
-        Official documentation: `finance/tax_types <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-finance-tax-types>`_
+        Official documentation: `finance/tax_types <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-finance-tax-types-id>`_
 
         :param type_id: The unique identifier of the record to update.
         :type type_id: int | str

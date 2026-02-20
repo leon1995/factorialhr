@@ -82,7 +82,7 @@ class ItAssetsEndpoint(Endpoint):
     async def get_by_id(self, asset_id: int | str, **kwargs) -> ItAsset:
         """Get a specific IT asset by ID.
 
-        Official documentation: `it_management/it_assets <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-it-management-it-assets>`_
+        Official documentation: `it_management/it_assets <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-it-management-it-assets-id>`_
 
         :param asset_id: The unique identifier.
         :type asset_id: int | str
@@ -99,7 +99,7 @@ class ItAssetsEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> ItAsset:
         """Create an IT asset.
 
-        Official documentation: `it_management/it_assets <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-it-management-it-assets>`_
+        Official documentation: `it_management/it_assets <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-it-management-it-assets>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -116,7 +116,7 @@ class ItAssetsEndpoint(Endpoint):
     async def update(self, asset_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> ItAsset:
         """Update an IT asset.
 
-        Official documentation: `it_management/it_assets <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-it-management-it-assets>`_
+        Official documentation: `it_management/it_assets <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-it-management-it-assets-id>`_
 
         :param asset_id: The unique identifier of the record to update.
         :type asset_id: int | str
@@ -135,7 +135,7 @@ class ItAssetsEndpoint(Endpoint):
     async def delete(self, asset_id: int | str, **kwargs) -> ItAsset:
         """Delete an IT asset.
 
-        Official documentation: `it_management/it_assets <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-it-management-it-assets>`_
+        Official documentation: `it_management/it_assets <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-it-management-it-assets-id>`_
 
         :param asset_id: The unique identifier of the record to delete.
         :type asset_id: int | str
@@ -209,7 +209,7 @@ class ItAssetModelsEndpoint(Endpoint):
     async def get_by_id(self, model_id: int | str, **kwargs) -> ItAssetModel:
         """Get a specific IT asset model by ID.
 
-        Official documentation: `it_management/it_asset_models <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-it-management-it-asset-models>`_
+        Official documentation: `it_management/it_asset_models <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-it-management-it-asset-models-id>`_
 
         :param model_id: The unique identifier.
         :type model_id: int | str
@@ -226,7 +226,7 @@ class ItAssetModelsEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> ItAssetModel:
         """Create an IT asset model.
 
-        Official documentation: `it_management/it_asset_models <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-it-management-it-asset-models>`_
+        Official documentation: `it_management/it_asset_models <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-it-management-it-asset-models>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -243,7 +243,7 @@ class ItAssetModelsEndpoint(Endpoint):
     async def update(self, model_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> ItAssetModel:
         """Update an IT asset model.
 
-        Official documentation: `it_management/it_asset_models <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-it-management-it-asset-models>`_
+        Official documentation: `it_management/it_asset_models <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-it-management-it-asset-models-id>`_
 
         :param model_id: The unique identifier of the record to update.
         :type model_id: int | str

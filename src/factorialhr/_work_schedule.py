@@ -112,7 +112,7 @@ class DayConfigurationEndpoint(Endpoint):
     async def get_by_id(self, day_config_id: int | str, **kwargs) -> WorkScheduleDayConfiguration:
         """Get a specific day configuration by ID.
 
-        Official documentation: `work_schedule/day_configurations <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-work-schedule-day-configurations>`_
+        Official documentation: `work_schedule/day_configurations <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-work-schedule-day-configurations-id>`_
 
         :param day_config_id: The unique identifier.
         :type day_config_id: int | str
@@ -128,7 +128,7 @@ class DayConfigurationEndpoint(Endpoint):
     async def bulk_cud(self, data: Mapping[str, typing.Any], **kwargs) -> WorkScheduleDayConfiguration:
         """Bulk create/update/delete day configurations.
 
-        Official documentation: `work_schedule/day_configurations <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-work-schedule-day-configurations>`_
+        Official documentation: `work_schedule/day_configurations <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-work-schedule-day-configurations-bulk-cud>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -184,7 +184,7 @@ class OverlapPeriodEndpoint(Endpoint):
     async def get_by_id(self, overlap_period_id: int | str, **kwargs) -> WorkScheduleOverlapPeriod:
         """Get a specific overlap period by ID.
 
-        Official documentation: `work_schedule/overlap_periods <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-work-schedule-overlap-periods>`_
+        Official documentation: `work_schedule/overlap_periods <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-work-schedule-overlap-periods-id>`_
 
         :param overlap_period_id: The unique identifier.
         :type overlap_period_id: int | str
@@ -200,7 +200,7 @@ class OverlapPeriodEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> WorkScheduleOverlapPeriod:
         """Create a new overlap period.
 
-        Official documentation: `work_schedule/overlap_periods <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-work-schedule-overlap-periods>`_
+        Official documentation: `work_schedule/overlap_periods <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-work-schedule-overlap-periods>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -221,6 +221,8 @@ class OverlapPeriodEndpoint(Endpoint):
     ) -> WorkScheduleOverlapPeriod:
         """Update an overlap period.
 
+        Official documentation: `work_schedule/overlap_periods <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-work-schedule-overlap-periods-id>`_
+
         :param overlap_period_id: The unique identifier of the record to update.
         :type overlap_period_id: int | str
         :param data: Payload with fields to update (key-value mapping).
@@ -237,7 +239,7 @@ class OverlapPeriodEndpoint(Endpoint):
     async def delete(self, overlap_period_id: int | str, **kwargs) -> WorkScheduleOverlapPeriod:
         """Delete an overlap period.
 
-        Official documentation: `work_schedule/overlap_periods <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-work-schedule-overlap-periods>`_
+        Official documentation: `work_schedule/overlap_periods <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-work-schedule-overlap-periods-id>`_
 
         :param overlap_period_id: The unique identifier of the record to delete.
         :type overlap_period_id: int | str
@@ -289,7 +291,7 @@ class ScheduleEndpoint(Endpoint):
     async def get_by_id(self, schedule_id: int | str, **kwargs) -> WorkScheduleSchedule:
         """Get a specific schedule by ID.
 
-        Official documentation: `work_schedule/schedules <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-work-schedule-schedules>`_
+        Official documentation: `work_schedule/schedules <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-work-schedule-schedules-id>`_
 
         :param schedule_id: The unique identifier.
         :type schedule_id: int | str
@@ -305,7 +307,7 @@ class ScheduleEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> WorkScheduleSchedule:
         """Create a new schedule.
 
-        Official documentation: `work_schedule/schedules <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-work-schedule-schedules>`_
+        Official documentation: `work_schedule/schedules <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-work-schedule-schedules>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -326,6 +328,8 @@ class ScheduleEndpoint(Endpoint):
     ) -> WorkScheduleSchedule:
         """Update a schedule.
 
+        Official documentation: `work_schedule/schedules <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-work-schedule-schedules-id>`_
+
         :param schedule_id: The unique identifier of the record to update.
         :type schedule_id: int | str
         :param data: Payload with fields to update (key-value mapping).
@@ -342,7 +346,7 @@ class ScheduleEndpoint(Endpoint):
     async def toggle_archive(self, data: Mapping[str, typing.Any], **kwargs) -> WorkScheduleSchedule:
         """Toggle archive status of a schedule.
 
-        Official documentation: `work_schedule/schedules <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-work-schedule-schedules>`_
+        Official documentation: `work_schedule/schedules <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-work-schedule-schedules-toggle-archive>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]

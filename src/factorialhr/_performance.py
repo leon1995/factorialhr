@@ -522,7 +522,7 @@ class AgreementsEndpoint(Endpoint):
     async def get_by_id(self, agreement_id: int | str, **kwargs) -> Agreement:
         """Get a specific agreement by ID.
 
-        Official documentation: `performance/agreements <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-agreements>`_
+        Official documentation: `performance/agreements <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-agreements-id>`_
 
         :param agreement_id: The unique identifier.
         :type agreement_id: int | str
@@ -538,7 +538,7 @@ class AgreementsEndpoint(Endpoint):
     async def bulk_initiate(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[Agreement]:
         """Initiate action plans for all direct reports in a review process.
 
-        Official documentation: `performance/agreements <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-agreements>`_
+        Official documentation: `performance/agreements <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-performance-agreements-bulk-initiate>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -554,7 +554,7 @@ class AgreementsEndpoint(Endpoint):
     async def initiate(self, data: Mapping[str, typing.Any], **kwargs) -> Agreement:
         """Initiate an action plan for a specific review process target.
 
-        Official documentation: `performance/agreements <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-agreements>`_
+        Official documentation: `performance/agreements <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-performance-agreements-initiate>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -610,7 +610,7 @@ class CompanyEmployeeScoreScalesEndpoint(Endpoint):
     async def get_by_id(self, scale_id: int | str, **kwargs) -> CompanyEmployeeScoreScale:
         """Get a specific company employee score scale by ID.
 
-        Official documentation: `performance/company_employee_score_scales <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-company-employee-score-scales>`_
+        Official documentation: `performance/company_employee_score_scales <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-company-employee-score-scales-id>`_
 
         :param scale_id: The unique identifier.
         :type scale_id: int | str
@@ -626,7 +626,7 @@ class CompanyEmployeeScoreScalesEndpoint(Endpoint):
     async def set_scale(self, data: Mapping[str, typing.Any], **kwargs) -> CompanyEmployeeScoreScale:
         """Set the predefined employee score scale for the company.
 
-        Official documentation: `performance/company_employee_score_scales <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-company-employee-score-scales>`_
+        Official documentation: `performance/company_employee_score_scales <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-performance-company-employee-score-scales-set>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -678,7 +678,7 @@ class EmployeeScoreScalesEndpoint(Endpoint):
     async def get_by_id(self, scale_id: int | str, **kwargs) -> EmployeeScoreScale:
         """Get a specific employee score scale by ID.
 
-        Official documentation: `performance/employee_score_scales <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-employee-score-scales>`_
+        Official documentation: `performance/employee_score_scales <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-employee-score-scales-id>`_
 
         :param scale_id: The unique identifier.
         :type scale_id: int | str
@@ -730,7 +730,7 @@ class ReviewEvaluationScoresEndpoint(Endpoint):
     async def get_by_id(self, score_id: int | str, **kwargs) -> ReviewEvaluationScore:
         """Get a specific review evaluation score by ID.
 
-        Official documentation: `performance/review_evaluation_scores <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-evaluation-scores>`_
+        Official documentation: `performance/review_evaluation_scores <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-evaluation-scores-id>`_
 
         :param score_id: The unique identifier.
         :type score_id: int | str
@@ -782,7 +782,7 @@ class ReviewEvaluationsEndpoint(Endpoint):
     async def get_by_id(self, evaluation_id: int | str, **kwargs) -> ReviewEvaluation:
         """Get a specific review evaluation by ID.
 
-        Official documentation: `performance/review_evaluations <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-evaluations>`_
+        Official documentation: `performance/review_evaluations <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-evaluations-id>`_
 
         :param evaluation_id: The unique identifier.
         :type evaluation_id: int | str
@@ -798,7 +798,7 @@ class ReviewEvaluationsEndpoint(Endpoint):
     async def replace_reviewer(self, data: Mapping[str, typing.Any], **kwargs) -> ReviewEvaluation:
         """Replace a reviewer for an evaluation.
 
-        Official documentation: `performance/review_evaluations <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-evaluations>`_
+        Official documentation: `performance/review_evaluations <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-performance-review-evaluations-replace-reviewer>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -886,7 +886,7 @@ class ReviewOwnersEndpoint(Endpoint):
     async def delete(self, owner_id: int | str, **kwargs) -> ReviewOwner:
         """Delete a review owner.
 
-        Official documentation: `performance/review_owners <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-owners>`_
+        Official documentation: `performance/review_owners <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-performance-review-owners-id>`_
 
         :param owner_id: The unique identifier of the record to delete.
         :type owner_id: int | str
@@ -902,7 +902,7 @@ class ReviewOwnersEndpoint(Endpoint):
     async def bulk_create(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[ReviewOwner]:
         """Add multiple owners to a review process.
 
-        Official documentation: `performance/review_owners <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-owners>`_
+        Official documentation: `performance/review_owners <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-performance-review-owners-bulk-create>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -954,7 +954,7 @@ class ReviewProcessesEndpoint(Endpoint):
     async def get_by_id(self, process_id: int | str, **kwargs) -> ReviewProcess:
         """Get a specific review process by ID.
 
-        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-processes>`_
+        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-processes-id>`_
 
         :param process_id: The unique identifier.
         :type process_id: int | str
@@ -970,7 +970,7 @@ class ReviewProcessesEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> ReviewProcess:
         """Create a new review process.
 
-        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-processes>`_
+        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-performance-review-processes>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -986,7 +986,7 @@ class ReviewProcessesEndpoint(Endpoint):
     async def delete(self, process_id: int | str, **kwargs) -> ReviewProcess:
         """Delete a review process.
 
-        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-processes>`_
+        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-performance-review-processes-id>`_
 
         :param process_id: The unique identifier of the record to delete.
         :type process_id: int | str
@@ -1002,7 +1002,7 @@ class ReviewProcessesEndpoint(Endpoint):
     async def create_from_template(self, data: Mapping[str, typing.Any], **kwargs) -> ReviewProcess:
         """Create a new review process from a template.
 
-        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-processes>`_
+        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-performance-review-processes-create-from-template>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1018,7 +1018,7 @@ class ReviewProcessesEndpoint(Endpoint):
     async def duplicate(self, data: Mapping[str, typing.Any], **kwargs) -> ReviewProcess:
         """Duplicate an existing review process.
 
-        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-processes>`_
+        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-performance-review-processes-duplicate>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1034,7 +1034,7 @@ class ReviewProcessesEndpoint(Endpoint):
     async def remind_in_bulk(self, data: Mapping[str, typing.Any], **kwargs) -> ReviewProcess:
         """Send bulk reminders to reviewers.
 
-        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-processes>`_
+        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-performance-review-processes-remind-in-bulk>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1050,7 +1050,7 @@ class ReviewProcessesEndpoint(Endpoint):
     async def remove_schedule(self, data: Mapping[str, typing.Any], **kwargs) -> ReviewProcess:
         """Remove the schedule job for a review process.
 
-        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-processes>`_
+        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-performance-review-processes-remove-schedule>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1066,7 +1066,7 @@ class ReviewProcessesEndpoint(Endpoint):
     async def reopen(self, data: Mapping[str, typing.Any], **kwargs) -> ReviewProcess:
         """Reopen a finished review process.
 
-        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-processes>`_
+        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-performance-review-processes-reopen>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1082,7 +1082,7 @@ class ReviewProcessesEndpoint(Endpoint):
     async def schedule(self, data: Mapping[str, typing.Any], **kwargs) -> ReviewProcess:
         """Schedule a review process to start at a given date.
 
-        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-processes>`_
+        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-performance-review-processes-schedule>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1098,7 +1098,7 @@ class ReviewProcessesEndpoint(Endpoint):
     async def start(self, data: Mapping[str, typing.Any], **kwargs) -> ReviewProcess:
         """Start a review process.
 
-        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-processes>`_
+        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-performance-review-processes-start>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1114,7 +1114,7 @@ class ReviewProcessesEndpoint(Endpoint):
     async def stop(self, data: Mapping[str, typing.Any], **kwargs) -> ReviewProcess:
         """Stop a review process.
 
-        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-processes>`_
+        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-performance-review-processes-stop>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1130,7 +1130,7 @@ class ReviewProcessesEndpoint(Endpoint):
     async def toggle_archive(self, data: Mapping[str, typing.Any], **kwargs) -> ReviewProcess:
         """Archive or unarchive a review process.
 
-        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-processes>`_
+        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-performance-review-processes-toggle-archive>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1146,7 +1146,7 @@ class ReviewProcessesEndpoint(Endpoint):
     async def update_agreements_configuration(self, data: Mapping[str, typing.Any], **kwargs) -> ReviewProcess:
         """Enable or disable action plans in a review process.
 
-        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-processes>`_
+        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-performance-review-processes-update-agreements-configuration>`_
 
         :param data: Payload with fields to update (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1162,7 +1162,7 @@ class ReviewProcessesEndpoint(Endpoint):
     async def update_basic_info(self, data: Mapping[str, typing.Any], **kwargs) -> ReviewProcess:
         """Update the basic information of a review process.
 
-        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-processes>`_
+        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-performance-review-processes-update-basic-info>`_
 
         :param data: Payload with fields to update (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1181,6 +1181,8 @@ class ReviewProcessesEndpoint(Endpoint):
         **kwargs,
     ) -> ReviewProcess:
         """Update competencies assessments configuration.
+
+        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-performance-review-processes-update-competencies-assessments-configuration>`_
 
         :param data: Payload with fields to update (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1201,7 +1203,7 @@ class ReviewProcessesEndpoint(Endpoint):
     async def update_deadline(self, data: Mapping[str, typing.Any], **kwargs) -> ReviewProcess:
         """Update the deadline of a review process.
 
-        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-processes>`_
+        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-performance-review-processes-update-deadline>`_
 
         :param data: Payload with fields to update (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1217,7 +1219,7 @@ class ReviewProcessesEndpoint(Endpoint):
     async def update_employee_score_configuration(self, data: Mapping[str, typing.Any], **kwargs) -> ReviewProcess:
         """Update employee score configuration.
 
-        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-processes>`_
+        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-performance-review-processes-update-employee-score-configuration>`_
 
         :param data: Payload with fields to update (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1233,7 +1235,7 @@ class ReviewProcessesEndpoint(Endpoint):
     async def update_reviewer_strategies(self, data: Mapping[str, typing.Any], **kwargs) -> ReviewProcess:
         """Update the review types of a review process.
 
-        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-processes>`_
+        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-performance-review-processes-update-reviewer-strategies>`_
 
         :param data: Payload with fields to update (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1249,7 +1251,7 @@ class ReviewProcessesEndpoint(Endpoint):
     async def update_schedule(self, data: Mapping[str, typing.Any], **kwargs) -> ReviewProcess:
         """Update the starting date of a scheduled review process.
 
-        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-processes>`_
+        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-performance-review-processes-update-schedule>`_
 
         :param data: Payload with fields to update (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1265,7 +1267,7 @@ class ReviewProcessesEndpoint(Endpoint):
     async def update_target_strategy(self, data: Mapping[str, typing.Any], **kwargs) -> ReviewProcess:
         """Update the criteria for calculating the participants of a review process.
 
-        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-processes>`_
+        Official documentation: `performance/review_processes <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-performance-review-processes-update-target-strategy>`_
 
         :param data: Payload with fields to update (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1321,7 +1323,7 @@ class ReviewProcessCustomTemplatesEndpoint(Endpoint):
     async def get_by_id(self, template_id: int | str, **kwargs) -> ReviewProcessCustomTemplate:
         """Get a specific review process custom template by ID.
 
-        Official documentation: `performance/review_process_custom_templates <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-process-custom-templates>`_
+        Official documentation: `performance/review_process_custom_templates <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-process-custom-templates-id>`_
 
         :param template_id: The unique identifier.
         :type template_id: int | str
@@ -1413,7 +1415,7 @@ class ReviewProcessTargetsEndpoint(Endpoint):
     async def get_by_id(self, target_id: str, **kwargs) -> ReviewProcessTarget:
         """Get a specific review process target by ID.
 
-        Official documentation: `performance/review_process_targets <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-process-targets>`_
+        Official documentation: `performance/review_process_targets <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-process-targets-id>`_
 
         :param target_id: The unique identifier.
         :type target_id: int | str
@@ -1429,7 +1431,7 @@ class ReviewProcessTargetsEndpoint(Endpoint):
     async def delete(self, target_id: str, **kwargs) -> ReviewProcessTarget:
         """Delete a participant from the active review process.
 
-        Official documentation: `performance/review_process_targets <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-process-targets>`_
+        Official documentation: `performance/review_process_targets <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-performance-review-process-targets-id>`_
 
         :param target_id: The unique identifier of the record to delete.
         :type target_id: int | str
@@ -1445,7 +1447,7 @@ class ReviewProcessTargetsEndpoint(Endpoint):
     async def add_peers(self, data: Mapping[str, typing.Any], **kwargs) -> ReviewProcessTarget:
         """Assign peers to evaluate a specific participant.
 
-        Official documentation: `performance/review_process_targets <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-process-targets>`_
+        Official documentation: `performance/review_process_targets <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-performance-review-process-targets-add-peers>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1461,7 +1463,7 @@ class ReviewProcessTargetsEndpoint(Endpoint):
     async def bulk_create(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[ReviewProcessTarget]:
         """Add multiple participants to the active review process.
 
-        Official documentation: `performance/review_process_targets <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-process-targets>`_
+        Official documentation: `performance/review_process_targets <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-performance-review-process-targets-bulk-create>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1477,7 +1479,7 @@ class ReviewProcessTargetsEndpoint(Endpoint):
     async def remove_peer_evaluations(self, data: Mapping[str, typing.Any], **kwargs) -> ReviewProcessTarget:
         """Remove peers and their evaluations from a specific participant.
 
-        Official documentation: `performance/review_process_targets <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-process-targets>`_
+        Official documentation: `performance/review_process_targets <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-performance-review-process-targets-remove-peer-evaluations>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1533,7 +1535,7 @@ class ReviewQuestionnaireByStrategiesEndpoint(Endpoint):
     async def get_by_id(self, questionnaire_id: int | str, **kwargs) -> ReviewQuestionnairesByStrategy:
         """Get a specific review questionnaire by strategy by ID.
 
-        Official documentation: `performance/review_questionnaire_by_strategies <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-questionnaire-by-strategies>`_
+        Official documentation: `performance/review_questionnaire_by_strategies <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-questionnaire-by-strategies-id>`_
 
         :param questionnaire_id: The unique identifier.
         :type questionnaire_id: int | str
@@ -1553,6 +1555,8 @@ class ReviewQuestionnaireByStrategiesEndpoint(Endpoint):
     ) -> ReviewQuestionnairesByStrategy:
         """Update the scoring range used in rating questions for all reviewer strategies.
 
+        Official documentation: `performance/review_questionnaire_by_strategies <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-performance-review-questionnaire-by-strategies-update-default-rating-scale>`_
+
         :param data: Payload with fields to update (key-value mapping).
         :type data: Mapping[str, typing.Any]
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
@@ -1570,6 +1574,8 @@ class ReviewQuestionnaireByStrategiesEndpoint(Endpoint):
         **kwargs,
     ) -> ReviewQuestionnairesByStrategy:
         """Update the review process questionnaire for a specific reviewer strategy.
+
+        Official documentation: `performance/review_questionnaire_by_strategies <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-performance-review-questionnaire-by-strategies-update-questionnaire-for-strategy>`_
 
         :param data: Payload with fields to update (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1626,7 +1632,7 @@ class ReviewVisibilitySettingsEndpoint(Endpoint):
     async def update(self, setting_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> ReviewVisibilitySetting:
         """Update the visibility settings of a review process.
 
-        Official documentation: `performance/review_visibility_settings <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-review-visibility-settings>`_
+        Official documentation: `performance/review_visibility_settings <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-performance-review-visibility-settings-id>`_
 
         :param setting_id: The unique identifier of the record to update.
         :type setting_id: int | str
@@ -1680,7 +1686,7 @@ class TargetManagersEndpoint(Endpoint):
     async def get_by_id(self, manager_id: int | str, **kwargs) -> TargetManager:
         """Get a specific target manager by ID.
 
-        Official documentation: `performance/target_managers <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-target-managers>`_
+        Official documentation: `performance/target_managers <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-performance-target-managers-id>`_
 
         :param manager_id: The unique identifier.
         :type manager_id: int | str

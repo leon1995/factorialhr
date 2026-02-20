@@ -94,7 +94,7 @@ class ShiftManagementEndpoint(Endpoint):
     async def get_by_id(self, shift_id: int | str, **kwargs) -> ShiftManagementShift:
         """Get a specific shift by ID.
 
-        Official documentation: `shift_management/shifts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-shift-management-shifts>`_
+        Official documentation: `shift_management/shifts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-shift-management-shifts-id>`_
 
         :param shift_id: The unique identifier.
         :type shift_id: int | str
@@ -110,7 +110,7 @@ class ShiftManagementEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> ShiftManagementShift:
         """Create a new shift.
 
-        Official documentation: `shift_management/shifts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-shift-management-shifts>`_
+        Official documentation: `shift_management/shifts <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-shift-management-shifts>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -126,7 +126,7 @@ class ShiftManagementEndpoint(Endpoint):
     async def update(self, shift_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> ShiftManagementShift:
         """Update a shift.
 
-        Official documentation: `shift_management/shifts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-shift-management-shifts>`_
+        Official documentation: `shift_management/shifts <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-shift-management-shifts-id>`_
 
         :param shift_id: The unique identifier of the record to update.
         :type shift_id: int | str
@@ -144,7 +144,7 @@ class ShiftManagementEndpoint(Endpoint):
     async def delete(self, shift_id: int | str, **kwargs) -> ShiftManagementShift:
         """Delete a shift.
 
-        Official documentation: `shift_management/shifts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-shift-management-shifts>`_
+        Official documentation: `shift_management/shifts <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-shift-management-shifts-id>`_
 
         :param shift_id: The unique identifier of the record to delete.
         :type shift_id: int | str
@@ -160,7 +160,7 @@ class ShiftManagementEndpoint(Endpoint):
     async def bulk_create(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[ShiftManagementShift]:
         """Bulk create shifts.
 
-        Official documentation: `shift_management/shifts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-shift-management-shifts>`_
+        Official documentation: `shift_management/shifts <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-shift-management-shifts-bulk-create>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -176,7 +176,7 @@ class ShiftManagementEndpoint(Endpoint):
     async def bulk_delete(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[ShiftManagementShift]:
         """Bulk delete shifts.
 
-        Official documentation: `shift_management/shifts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-shift-management-shifts>`_
+        Official documentation: `shift_management/shifts <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-shift-management-shifts-bulk-delete>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]

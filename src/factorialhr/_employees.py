@@ -215,7 +215,7 @@ class EmployeesEndpoint(Endpoint):
     async def get_by_id(self, employee_id: int | str, **kwargs) -> Employee:
         """Get a specific employee by ID.
 
-        Official documentation: `employees/employees <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-employees-employees>`_
+        Official documentation: `employees/employees <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-employees-employees-id>`_
 
         :param employee_id: The unique identifier.
         :type employee_id: int | str
@@ -231,7 +231,7 @@ class EmployeesEndpoint(Endpoint):
     async def update(self, employee_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Employee:
         """Update an employee.
 
-        Official documentation: `employees/employees <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-employees-employees>`_
+        Official documentation: `employees/employees <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-employees-employees-id>`_
 
         :param employee_id: The unique identifier of the record to update.
         :type employee_id: int | str
@@ -249,7 +249,7 @@ class EmployeesEndpoint(Endpoint):
     async def create_with_contract(self, data: Mapping[str, typing.Any], **kwargs) -> Employee:
         """Create an employee with contract.
 
-        Official documentation: `employees/employees <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-employees-employees>`_
+        Official documentation: `employees/employees <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-employees-employees-create-with-contract>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -265,7 +265,7 @@ class EmployeesEndpoint(Endpoint):
     async def invite(self, data: Mapping[str, typing.Any], **kwargs) -> Employee:
         """Invite an employee.
 
-        Official documentation: `employees/employees <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-employees-employees>`_
+        Official documentation: `employees/employees <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-employees-employees-invite>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -281,7 +281,7 @@ class EmployeesEndpoint(Endpoint):
     async def terminate(self, data: Mapping[str, typing.Any], **kwargs) -> Employee:
         """Terminate an employee.
 
-        Official documentation: `employees/employees <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-employees-employees>`_
+        Official documentation: `employees/employees <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-employees-employees-terminate>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -297,7 +297,7 @@ class EmployeesEndpoint(Endpoint):
     async def unterminate(self, data: Mapping[str, typing.Any], **kwargs) -> Employee:
         """Unterminate an employee.
 
-        Official documentation: `employees/employees <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-employees-employees>`_
+        Official documentation: `employees/employees <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-employees-employees-unterminate>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -313,7 +313,7 @@ class EmployeesEndpoint(Endpoint):
     async def set_regular_access_start_date(self, data: Mapping[str, typing.Any], **kwargs) -> Employee:
         """Set regular access start date for an employee.
 
-        Official documentation: `employees/employees <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-employees-employees>`_
+        Official documentation: `employees/employees <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-employees-employees-set-regular-access-start-date>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]

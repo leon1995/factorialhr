@@ -122,7 +122,7 @@ class CommentsEndpoint(Endpoint):
     async def get_by_id(self, comment_id: int | str, **kwargs) -> Comment:
         """Get a specific comment by ID.
 
-        Official documentation: `posts/comments <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-posts-comments>`_
+        Official documentation: `posts/comments <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-posts-comments-id>`_
 
         :param comment_id: The unique identifier.
         :type comment_id: int | str
@@ -138,7 +138,7 @@ class CommentsEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Comment:
         """Create a new comment.
 
-        Official documentation: `posts/comments <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-posts-comments>`_
+        Official documentation: `posts/comments <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-posts-comments>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -154,7 +154,7 @@ class CommentsEndpoint(Endpoint):
     async def update(self, comment_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Comment:
         """Update a comment.
 
-        Official documentation: `posts/comments <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-posts-comments>`_
+        Official documentation: `posts/comments <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-posts-comments-id>`_
 
         :param comment_id: The unique identifier of the record to update.
         :type comment_id: int | str
@@ -172,7 +172,7 @@ class CommentsEndpoint(Endpoint):
     async def delete(self, comment_id: int | str, **kwargs) -> Comment:
         """Delete a comment.
 
-        Official documentation: `posts/comments <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-posts-comments>`_
+        Official documentation: `posts/comments <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-posts-comments-id>`_
 
         :param comment_id: The unique identifier of the record to delete.
         :type comment_id: int | str
@@ -224,7 +224,7 @@ class GroupsEndpoint(Endpoint):
     async def get_by_id(self, group_id: int | str, **kwargs) -> Group:
         """Get a specific group by ID.
 
-        Official documentation: `posts/groups <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-posts-groups>`_
+        Official documentation: `posts/groups <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-posts-groups-id>`_
 
         :param group_id: The unique identifier.
         :type group_id: int | str
@@ -240,7 +240,7 @@ class GroupsEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Group:
         """Create a new group.
 
-        Official documentation: `posts/groups <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-posts-groups>`_
+        Official documentation: `posts/groups <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-posts-groups>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -256,7 +256,7 @@ class GroupsEndpoint(Endpoint):
     async def update(self, group_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Group:
         """Update a group.
 
-        Official documentation: `posts/groups <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-posts-groups>`_
+        Official documentation: `posts/groups <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-posts-groups-id>`_
 
         :param group_id: The unique identifier of the record to update.
         :type group_id: int | str
@@ -274,7 +274,7 @@ class GroupsEndpoint(Endpoint):
     async def delete(self, group_id: int | str, **kwargs) -> Group:
         """Delete a group.
 
-        Official documentation: `posts/groups <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-posts-groups>`_
+        Official documentation: `posts/groups <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-posts-groups-id>`_
 
         :param group_id: The unique identifier of the record to delete.
         :type group_id: int | str
@@ -290,7 +290,7 @@ class GroupsEndpoint(Endpoint):
     async def archive(self, data: Mapping[str, typing.Any], **kwargs) -> Group:
         """Archive a group.
 
-        Official documentation: `posts/groups <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-posts-groups>`_
+        Official documentation: `posts/groups <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-posts-groups-archive>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -342,7 +342,7 @@ class PostsEndpoint(Endpoint):
     async def get_by_id(self, post_id: int | str, **kwargs) -> Post:
         """Get a specific post by ID.
 
-        Official documentation: `posts/posts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-posts-posts>`_
+        Official documentation: `posts/posts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-posts-posts-id>`_
 
         :param post_id: The unique identifier.
         :type post_id: int | str
@@ -358,7 +358,7 @@ class PostsEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Post:
         """Create a new post.
 
-        Official documentation: `posts/posts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-posts-posts>`_
+        Official documentation: `posts/posts <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-posts-posts>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -374,7 +374,7 @@ class PostsEndpoint(Endpoint):
     async def update(self, post_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Post:
         """Update a post.
 
-        Official documentation: `posts/posts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-posts-posts>`_
+        Official documentation: `posts/posts <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-posts-posts-id>`_
 
         :param post_id: The unique identifier of the record to update.
         :type post_id: int | str
@@ -392,7 +392,7 @@ class PostsEndpoint(Endpoint):
     async def delete(self, post_id: int | str, **kwargs) -> Post:
         """Delete a post.
 
-        Official documentation: `posts/posts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-posts-posts>`_
+        Official documentation: `posts/posts <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-posts-posts-id>`_
 
         :param post_id: The unique identifier of the record to delete.
         :type post_id: int | str

@@ -98,7 +98,7 @@ class LocationsEndpoint(Endpoint):
     async def get_by_id(self, location_id: int | str, **kwargs) -> Location:
         """Get a specific location by ID.
 
-        Official documentation: `locations/locations <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-locations-locations>`_
+        Official documentation: `locations/locations <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-locations-locations-id>`_
 
         :param location_id: The unique identifier.
         :type location_id: int | str
@@ -114,7 +114,7 @@ class LocationsEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Location:
         """Create a new location.
 
-        Official documentation: `locations/locations <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-locations-locations>`_
+        Official documentation: `locations/locations <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-locations-locations>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -130,7 +130,7 @@ class LocationsEndpoint(Endpoint):
     async def update(self, location_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Location:
         """Update a location.
 
-        Official documentation: `locations/locations <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-locations-locations>`_
+        Official documentation: `locations/locations <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-locations-locations-id>`_
 
         :param location_id: The unique identifier of the record to update.
         :type location_id: int | str
@@ -148,7 +148,7 @@ class LocationsEndpoint(Endpoint):
     async def delete(self, location_id: int | str, **kwargs) -> Location:
         """Delete a location.
 
-        Official documentation: `locations/locations <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-locations-locations>`_
+        Official documentation: `locations/locations <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-locations-locations-id>`_
 
         :param location_id: The unique identifier of the record to delete.
         :type location_id: int | str
@@ -200,7 +200,7 @@ class WorkAreasEndpoint(Endpoint):
     async def get_by_id(self, work_area_id: int | str, **kwargs) -> WorkArea:
         """Get a specific work area by ID.
 
-        Official documentation: `locations/work_areas <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-locations-work-areas>`_
+        Official documentation: `locations/work_areas <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-locations-work-areas-id>`_
 
         :param work_area_id: The unique identifier.
         :type work_area_id: int | str
@@ -216,7 +216,7 @@ class WorkAreasEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> WorkArea:
         """Create a new work area.
 
-        Official documentation: `locations/work_areas <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-locations-work-areas>`_
+        Official documentation: `locations/work_areas <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-locations-work-areas>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -232,7 +232,7 @@ class WorkAreasEndpoint(Endpoint):
     async def update(self, work_area_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> WorkArea:
         """Update a work area.
 
-        Official documentation: `locations/work_areas <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-locations-work-areas>`_
+        Official documentation: `locations/work_areas <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-locations-work-areas-id>`_
 
         :param work_area_id: The unique identifier of the record to update.
         :type work_area_id: int | str
@@ -250,7 +250,7 @@ class WorkAreasEndpoint(Endpoint):
     async def archive(self, data: Mapping[str, typing.Any], **kwargs) -> WorkArea:
         """Archive a work area.
 
-        Official documentation: `locations/work_areas <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-locations-work-areas>`_
+        Official documentation: `locations/work_areas <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-locations-work-areas-archive>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -266,7 +266,7 @@ class WorkAreasEndpoint(Endpoint):
     async def unarchive(self, data: Mapping[str, typing.Any], **kwargs) -> WorkArea:
         """Unarchive a work area.
 
-        Official documentation: `locations/work_areas <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-locations-work-areas>`_
+        Official documentation: `locations/work_areas <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-locations-work-areas-unarchive>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]

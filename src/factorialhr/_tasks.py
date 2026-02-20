@@ -107,7 +107,7 @@ class TasksEndpoint(Endpoint):
     async def get_by_id(self, task_id: int | str, **kwargs) -> Task:
         """Get a specific task by ID.
 
-        Official documentation: `tasks/tasks <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-tasks-tasks>`_
+        Official documentation: `tasks/tasks <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-tasks-tasks-id>`_
 
         :param task_id: The unique identifier.
         :type task_id: int | str
@@ -123,7 +123,7 @@ class TasksEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Task:
         """Create a new task.
 
-        Official documentation: `tasks/tasks <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-tasks-tasks>`_
+        Official documentation: `tasks/tasks <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-tasks-tasks>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -139,7 +139,7 @@ class TasksEndpoint(Endpoint):
     async def update(self, task_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Task:
         """Update a task.
 
-        Official documentation: `tasks/tasks <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-tasks-tasks>`_
+        Official documentation: `tasks/tasks <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-tasks-tasks-id>`_
 
         :param task_id: The unique identifier of the record to update.
         :type task_id: int | str
@@ -157,7 +157,7 @@ class TasksEndpoint(Endpoint):
     async def delete(self, task_id: int | str, **kwargs) -> Task:
         """Delete a task.
 
-        Official documentation: `tasks/tasks <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-tasks-tasks>`_
+        Official documentation: `tasks/tasks <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-tasks-tasks-id>`_
 
         :param task_id: The unique identifier of the record to delete.
         :type task_id: int | str
@@ -173,7 +173,7 @@ class TasksEndpoint(Endpoint):
     async def bulk_create(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[Task]:
         """Bulk create tasks.
 
-        Official documentation: `tasks/tasks <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-tasks-tasks>`_
+        Official documentation: `tasks/tasks <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-tasks-tasks-bulk-create>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -189,7 +189,7 @@ class TasksEndpoint(Endpoint):
     async def bulk_delete(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[Task]:
         """Bulk delete tasks.
 
-        Official documentation: `tasks/tasks <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-tasks-tasks>`_
+        Official documentation: `tasks/tasks <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-tasks-tasks-bulk-delete>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -205,7 +205,7 @@ class TasksEndpoint(Endpoint):
     async def bulk_update(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[Task]:
         """Bulk update tasks.
 
-        Official documentation: `tasks/tasks <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-tasks-tasks>`_
+        Official documentation: `tasks/tasks <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-tasks-tasks-bulk-update>`_
 
         :param data: Payload with fields to update (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -221,7 +221,7 @@ class TasksEndpoint(Endpoint):
     async def copy(self, data: Mapping[str, typing.Any], **kwargs) -> Task:
         """Copy a task.
 
-        Official documentation: `tasks/tasks <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-tasks-tasks>`_
+        Official documentation: `tasks/tasks <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-tasks-tasks-copy>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -237,7 +237,7 @@ class TasksEndpoint(Endpoint):
     async def create_comment(self, data: Mapping[str, typing.Any], **kwargs) -> Task:
         """Create a comment on a task.
 
-        Official documentation: `tasks/tasks <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-tasks-tasks>`_
+        Official documentation: `tasks/tasks <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-tasks-tasks-create-comment>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -289,7 +289,7 @@ class TaskFilesEndpoint(Endpoint):
     async def get_by_id(self, file_id: int | str, **kwargs) -> TaskFile:
         """Get a specific task file by ID.
 
-        Official documentation: `tasks/task_files <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-tasks-task-files>`_
+        Official documentation: `tasks/task_files <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-tasks-task-files-id>`_
 
         :param file_id: The unique identifier.
         :type file_id: int | str
@@ -305,7 +305,7 @@ class TaskFilesEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> TaskFile:
         """Create a new task file.
 
-        Official documentation: `tasks/task_files <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-tasks-task-files>`_
+        Official documentation: `tasks/task_files <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-tasks-task-files>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -321,7 +321,7 @@ class TaskFilesEndpoint(Endpoint):
     async def delete(self, file_id: int | str, **kwargs) -> TaskFile:
         """Delete a task file.
 
-        Official documentation: `tasks/task_files <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-tasks-task-files>`_
+        Official documentation: `tasks/task_files <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-tasks-task-files-id>`_
 
         :param file_id: The unique identifier of the record to delete.
         :type file_id: int | str

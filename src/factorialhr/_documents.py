@@ -159,7 +159,7 @@ class DocumentsEndpoint(Endpoint):
     async def get_by_id(self, document_id: int | str, **kwargs) -> Document:
         """Get a specific document by ID.
 
-        Official documentation: `documents/documents <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-documents-documents>`_
+        Official documentation: `documents/documents <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-documents-documents-id>`_
 
         :param document_id: The unique identifier.
         :type document_id: int | str
@@ -175,7 +175,7 @@ class DocumentsEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Document:
         """Create a new document.
 
-        Official documentation: `documents/documents <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-documents-documents>`_
+        Official documentation: `documents/documents <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-documents-documents>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -191,7 +191,7 @@ class DocumentsEndpoint(Endpoint):
     async def update(self, document_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Document:
         """Update a document.
 
-        Official documentation: `documents/documents <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-documents-documents>`_
+        Official documentation: `documents/documents <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-documents-documents-id>`_
 
         :param document_id: The unique identifier of the record to update.
         :type document_id: int | str
@@ -209,7 +209,7 @@ class DocumentsEndpoint(Endpoint):
     async def delete(self, document_id: int | str, **kwargs) -> Document:
         """Delete a document.
 
-        Official documentation: `documents/documents <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-documents-documents>`_
+        Official documentation: `documents/documents <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-documents-documents-id>`_
 
         :param document_id: The unique identifier of the record to delete.
         :type document_id: int | str
@@ -225,7 +225,7 @@ class DocumentsEndpoint(Endpoint):
     async def move_to_trash_bin(self, document_ids: Sequence[int], **kwargs) -> Sequence[Document]:
         """Move documents to trash bin.
 
-        Official documentation: `documents/documents <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-documents-documents>`_
+        Official documentation: `documents/documents <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-documents-documents-move-to-trash-bin>`_
 
         :param document_ids: The unique identifier.
         :type document_ids: int | str
@@ -246,7 +246,7 @@ class DocumentsEndpoint(Endpoint):
     async def restore_from_trash_bin(self, document_ids: Sequence[int], **kwargs) -> Sequence[Document]:
         """Restore documents from trash bin.
 
-        Official documentation: `documents/documents <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-documents-documents>`_
+        Official documentation: `documents/documents <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-documents-documents-restore-from-trash-bin>`_
 
         :param document_ids: The unique identifier.
         :type document_ids: int | str
@@ -273,7 +273,7 @@ class DownloadUrlsEndpoint(Endpoint):
     async def bulk_create(self, document_ids: Sequence[int], **kwargs) -> Sequence[DownloadUrl]:
         """Bulk create download URLs for documents.
 
-        Official documentation: `documents/download_urls <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-documents-download-urls>`_
+        Official documentation: `documents/download_urls <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-documents-download-urls-bulk-create>`_
 
         :param document_ids: The unique identifier.
         :type document_ids: int | str
@@ -295,7 +295,7 @@ class FoldersEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Folder]:
         """Get all folders records.
 
-        Official documentation: `documents/folders <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-documents-folders>`_
+        Official documentation: `documents/folders <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-documents-folders-bulk-create>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -325,7 +325,7 @@ class FoldersEndpoint(Endpoint):
     async def get_by_id(self, folder_id: int | str, **kwargs) -> Folder:
         """Get a specific folder by ID.
 
-        Official documentation: `documents/folders <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-documents-folders>`_
+        Official documentation: `documents/folders <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-documents-folders-id>`_
 
         :param folder_id: The unique identifier.
         :type folder_id: int | str
@@ -341,7 +341,7 @@ class FoldersEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Folder:
         """Create a new folder.
 
-        Official documentation: `documents/folders <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-documents-folders>`_
+        Official documentation: `documents/folders <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-documents-folders>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -357,7 +357,7 @@ class FoldersEndpoint(Endpoint):
     async def update(self, folder_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Folder:
         """Update a folder.
 
-        Official documentation: `documents/folders <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-documents-folders>`_
+        Official documentation: `documents/folders <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-documents-folders-id>`_
 
         :param folder_id: The unique identifier of the record to update.
         :type folder_id: int | str

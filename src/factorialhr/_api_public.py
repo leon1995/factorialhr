@@ -154,7 +154,7 @@ class WebhookSubscriptionEndpoint(Endpoint):
     async def get_by_id(self, webhook_subscription_id: int | str, **kwargs) -> WebhookSubscription:
         """Get a specific webhook by ID.
 
-        Official documentation: `api_public/webhook_subscriptions <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-api-public-webhook-subscriptions>`_
+        Official documentation: `api_public/webhook_subscriptions <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-api-public-webhook-subscriptions-id>`_
 
         :param webhook_subscription_id: The unique identifier.
         :type webhook_subscription_id: int | str
@@ -170,7 +170,7 @@ class WebhookSubscriptionEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> WebhookSubscription:
         """Create a new webhook subscription.
 
-        Official documentation: `api_public/webhook_subscriptions <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-api-public-webhook-subscriptions>`_
+        Official documentation: `api_public/webhook_subscriptions <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-api-public-webhook-subscriptions>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -191,7 +191,7 @@ class WebhookSubscriptionEndpoint(Endpoint):
     ) -> WebhookSubscription:
         """Update an existing webhook subscription.
 
-        Official documentation: `api_public/webhook_subscriptions <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-api-public-webhook-subscriptions>`_
+        Official documentation: `api_public/webhook_subscriptions <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-api-public-webhook-subscriptions-id>`_
 
         :param webhook_subscription_id: The unique identifier of the record to update.
         :type webhook_subscription_id: int | str
@@ -214,7 +214,7 @@ class WebhookSubscriptionEndpoint(Endpoint):
     async def delete(self, webhook_subscription_id: int | str, **kwargs) -> WebhookSubscription:
         """Delete a webhook subscription.
 
-        Official documentation: `api_public/webhook_subscriptions <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-api-public-webhook-subscriptions>`_
+        Official documentation: `api_public/webhook_subscriptions <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-api-public-webhook-subscriptions-id>`_
 
         :param webhook_subscription_id: The unique identifier of the record to delete.
         :type webhook_subscription_id: int | str

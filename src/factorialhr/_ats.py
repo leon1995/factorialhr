@@ -215,7 +215,7 @@ class AnswersEndpoint(Endpoint):
     async def get_by_id(self, answer_id: int | str, **kwargs) -> Answer:
         """Get a specific answer by ID.
 
-        Official documentation: `ats/answers <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-answers>`_
+        Official documentation: `ats/answers <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-answers-id>`_
 
         :param answer_id: The unique identifier of the answer.
         :type answer_id: int | str
@@ -231,7 +231,7 @@ class AnswersEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Answer:
         """Create an answer.
 
-        Official documentation: `ats/answers <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-answers>`_
+        Official documentation: `ats/answers <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-ats-answers>`_
 
         :param data: Payload for the new answer (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -318,7 +318,7 @@ class ApplicationsEndpoint(Endpoint):
     async def get_by_id(self, application_id: int | str, **kwargs) -> Application:
         """Get a specific application by ID.
 
-        Official documentation: `ats/applications <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-applications>`_
+        Official documentation: `ats/applications <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-applications-id>`_
 
         :param application_id: The unique identifier of the application.
         :type application_id: int | str
@@ -334,7 +334,7 @@ class ApplicationsEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Application:
         """Create an application.
 
-        Official documentation: `ats/applications <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-applications>`_
+        Official documentation: `ats/applications <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-ats-applications>`_
 
         :param data: Payload for the new application (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -350,7 +350,7 @@ class ApplicationsEndpoint(Endpoint):
     async def update(self, application_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Application:
         """Update an application.
 
-        Official documentation: `ats/applications <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-applications>`_
+        Official documentation: `ats/applications <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-ats-applications-id>`_
 
         :param application_id: The unique identifier of the application to update.
         :type application_id: int | str
@@ -368,7 +368,7 @@ class ApplicationsEndpoint(Endpoint):
     async def delete(self, application_id: int | str, **kwargs) -> Application:
         """Delete an application.
 
-        Official documentation: `ats/applications <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-applications>`_
+        Official documentation: `ats/applications <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-ats-applications-id>`_
 
         :param application_id: The unique identifier of the application to delete.
         :type application_id: int | str
@@ -384,7 +384,7 @@ class ApplicationsEndpoint(Endpoint):
     async def apply(self, data: Mapping[str, typing.Any], **kwargs) -> Application:
         """Apply to an application.
 
-        Official documentation: `ats/applications <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-applications>`_
+        Official documentation: `ats/applications <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-ats-applications-apply>`_
 
         :param data: Payload for the apply action (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -459,7 +459,7 @@ class ApplicationPhasesEndpoint(Endpoint):
     async def get_by_id(self, application_phase_id: int | str, **kwargs) -> ApplicationPhase:
         """Get a single application phase by ID.
 
-        Official documentation: `ats/application_phases <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-application-phases>`_
+        Official documentation: `ats/application_phases <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-application-phases-id>`_
 
         :param application_phase_id: The unique identifier of the application phase.
         :type application_phase_id: int | str
@@ -578,7 +578,7 @@ class CandidatesEndpoint(Endpoint):
     async def get_by_id(self, candidate_id: int | str, **kwargs) -> Candidate:
         """Get a single candidate by ID.
 
-        Official documentation: `ats/candidates <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-candidates>`_
+        Official documentation: `ats/candidates <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-candidates-id>`_
 
         :param candidate_id: The unique identifier of the candidate.
         :type candidate_id: int | str
@@ -594,7 +594,7 @@ class CandidatesEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Candidate:
         """Create a candidate.
 
-        Official documentation: `ats/candidates <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-candidates>`_
+        Official documentation: `ats/candidates <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-ats-candidates>`_
 
         :param data: Payload for the new candidate (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -610,7 +610,7 @@ class CandidatesEndpoint(Endpoint):
     async def update(self, candidate_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Candidate:
         """Update a candidate.
 
-        Official documentation: `ats/candidates <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-candidates>`_
+        Official documentation: `ats/candidates <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-ats-candidates-id>`_
 
         :param candidate_id: The unique identifier of the candidate to update.
         :type candidate_id: int | str
@@ -628,7 +628,7 @@ class CandidatesEndpoint(Endpoint):
     async def delete(self, candidate_id: int | str, **kwargs) -> Candidate:
         """Delete a candidate.
 
-        Official documentation: `ats/candidates <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-candidates>`_
+        Official documentation: `ats/candidates <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-ats-candidates-id>`_
 
         :param candidate_id: The unique identifier of the candidate to delete.
         :type candidate_id: int | str
@@ -697,7 +697,7 @@ class CandidateSourcesEndpoint(Endpoint):
     async def get_by_id(self, candidate_source_id: int | str, **kwargs) -> CandidateSource:
         """Get a single candidate source by ID.
 
-        Official documentation: `ats/candidate_sources <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-candidate-sources>`_
+        Official documentation: `ats/candidate_sources <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-candidate-sources-id>`_
 
         :param candidate_source_id: The unique identifier of the candidate source.
         :type candidate_source_id: int | str
@@ -778,7 +778,7 @@ class EvaluationFormsEndpoint(Endpoint):
     async def get_by_id(self, evaluation_form_id: int | str, **kwargs) -> EvaluationForm:
         """Get a single evaluation form by ID.
 
-        Official documentation: `ats/evaluation_forms <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-evaluation-forms>`_
+        Official documentation: `ats/evaluation_forms <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-evaluation-forms-id>`_
 
         :param evaluation_form_id: The unique identifier of the evaluation form.
         :type evaluation_form_id: int | str
@@ -886,7 +886,7 @@ class FeedbacksEndpoint(Endpoint):
     async def get_by_id(self, feedback_id: int | str, **kwargs) -> Feedback:
         """Get a single feedback by ID.
 
-        Official documentation: `ats/feedbacks <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-feedbacks>`_
+        Official documentation: `ats/feedbacks <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-feedbacks-id>`_
 
         :param feedback_id: The unique identifier of the feedback.
         :type feedback_id: int | str
@@ -902,7 +902,7 @@ class FeedbacksEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Feedback:
         """Create a feedback.
 
-        Official documentation: `ats/feedbacks <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-feedbacks>`_
+        Official documentation: `ats/feedbacks <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-ats-feedbacks>`_
 
         :param data: Payload for the new feedback (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -918,7 +918,7 @@ class FeedbacksEndpoint(Endpoint):
     async def update(self, feedback_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Feedback:
         """Update a feedback.
 
-        Official documentation: `ats/feedbacks <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-feedbacks>`_
+        Official documentation: `ats/feedbacks <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-ats-feedbacks-id>`_
 
         :param feedback_id: The unique identifier of the feedback to update.
         :type feedback_id: int | str
@@ -936,7 +936,7 @@ class FeedbacksEndpoint(Endpoint):
     async def delete(self, feedback_id: int | str, **kwargs) -> Feedback:
         """Delete a feedback.
 
-        Official documentation: `ats/feedbacks <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-feedbacks>`_
+        Official documentation: `ats/feedbacks <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-ats-feedbacks-id>`_
 
         :param feedback_id: The unique identifier of the feedback to delete.
         :type feedback_id: int | str
@@ -1003,7 +1003,7 @@ class HiringStagesEndpoint(Endpoint):
     async def get_by_id(self, hiring_stage_id: int | str, **kwargs) -> HiringStage:
         """Get a single hiring stage by ID.
 
-        Official documentation: `ats/hiring_stages <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-hiring-stages>`_
+        Official documentation: `ats/hiring_stages <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-hiring-stages-id>`_
 
         :param hiring_stage_id: The unique identifier of the hiring stage.
         :type hiring_stage_id: int | str
@@ -1141,7 +1141,7 @@ class JobPostingsEndpoint(Endpoint):
     async def get_by_id(self, job_posting_id: int | str, **kwargs) -> JobPosting:
         """Get a single job posting by ID.
 
-        Official documentation: `ats/job_postings <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-job-postings>`_
+        Official documentation: `ats/job_postings <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-job-postings-id>`_
 
         :param job_posting_id: The unique identifier of the job posting.
         :type job_posting_id: int | str
@@ -1157,7 +1157,7 @@ class JobPostingsEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> JobPosting:
         """Create a job posting.
 
-        Official documentation: `ats/job_postings <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-job-postings>`_
+        Official documentation: `ats/job_postings <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-ats-job-postings>`_
 
         :param data: Payload for the new job posting (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1173,7 +1173,7 @@ class JobPostingsEndpoint(Endpoint):
     async def update(self, job_posting_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> JobPosting:
         """Update a job posting.
 
-        Official documentation: `ats/job_postings <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-job-postings>`_
+        Official documentation: `ats/job_postings <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-ats-job-postings-id>`_
 
         :param job_posting_id: The unique identifier of the job posting to update.
         :type job_posting_id: int | str
@@ -1191,7 +1191,7 @@ class JobPostingsEndpoint(Endpoint):
     async def delete(self, job_posting_id: int | str, **kwargs) -> JobPosting:
         """Delete a job posting.
 
-        Official documentation: `ats/job_postings <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-job-postings>`_
+        Official documentation: `ats/job_postings <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-ats-job-postings-id>`_
 
         :param job_posting_id: The unique identifier of the job posting to delete.
         :type job_posting_id: int | str
@@ -1290,7 +1290,7 @@ class MessagesEndpoint(Endpoint):
     async def get_by_id(self, message_id: int | str, **kwargs) -> Message:
         """Get a single message by ID.
 
-        Official documentation: `ats/messages <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-messages>`_
+        Official documentation: `ats/messages <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-messages-id>`_
 
         :param message_id: The unique identifier of the message.
         :type message_id: int | str
@@ -1306,7 +1306,7 @@ class MessagesEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Message:
         """Create a message.
 
-        Official documentation: `ats/messages <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-messages>`_
+        Official documentation: `ats/messages <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-ats-messages>`_
 
         :param data: Payload for the new message (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1385,7 +1385,7 @@ class QuestionsEndpoint(Endpoint):
     async def get_by_id(self, question_id: int | str, **kwargs) -> Question:
         """Get a single question by ID.
 
-        Official documentation: `ats/questions <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-questions>`_
+        Official documentation: `ats/questions <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-questions-id>`_
 
         :param question_id: The unique identifier of the question.
         :type question_id: int | str
@@ -1401,7 +1401,7 @@ class QuestionsEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Question:
         """Create a question.
 
-        Official documentation: `ats/questions <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-questions>`_
+        Official documentation: `ats/questions <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-ats-questions>`_
 
         :param data: Payload for the new question (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1417,7 +1417,7 @@ class QuestionsEndpoint(Endpoint):
     async def update(self, question_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Question:
         """Update a question.
 
-        Official documentation: `ats/questions <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-questions>`_
+        Official documentation: `ats/questions <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-ats-questions-id>`_
 
         :param question_id: The unique identifier of the question to update.
         :type question_id: int | str
@@ -1435,7 +1435,7 @@ class QuestionsEndpoint(Endpoint):
     async def delete(self, question_id: int | str, **kwargs) -> Question:
         """Delete a question.
 
-        Official documentation: `ats/questions <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-questions>`_
+        Official documentation: `ats/questions <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-ats-questions-id>`_
 
         :param question_id: The unique identifier of the question to delete.
         :type question_id: int | str
@@ -1504,7 +1504,7 @@ class RejectionReasonsEndpoint(Endpoint):
     async def get_by_id(self, rejection_reason_id: int | str, **kwargs) -> RejectionReason:
         """Get a single rejection reason by ID.
 
-        Official documentation: `ats/rejection_reasons <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-rejection-reasons>`_
+        Official documentation: `ats/rejection_reasons <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-ats-rejection-reasons-id>`_
 
         :param rejection_reason_id: The unique identifier of the rejection reason.
         :type rejection_reason_id: int | str

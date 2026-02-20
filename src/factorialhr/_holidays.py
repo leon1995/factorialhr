@@ -78,7 +78,7 @@ class CompanyHolidaysEndpoint(Endpoint):
     async def get_by_id(self, holiday_id: int | str, **kwargs) -> CompanyHoliday:
         """Get a specific company holiday by ID.
 
-        Official documentation: `holidays/company_holidays <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-holidays-company-holidays>`_
+        Official documentation: `holidays/company_holidays <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-holidays-company-holidays-id>`_
 
         :param holiday_id: The unique identifier.
         :type holiday_id: int | str
