@@ -9,7 +9,7 @@ authors = [
     { name = "Leon Budnick", email = "y6q6ea9w@mail-proxy.org" },
 ]
 description = "Python package for the api of FactorialHR"
-readme = "README.md"
+readme = "README.rst"
 requires-python = ">=3.11,<3.15"
 classifiers = [
     "License :: OSI Approved :: GNU Affero General Public License v3",
@@ -35,9 +35,14 @@ dependencies = [
 ]
 
 [dependency-groups]
+docs = [
+    "sphinx>=9.0.4",
+    "sphinx-rtd-theme>=3.1.0",
+]
 dev = [
     "ruff>=0.12.9",
     "ty>=0.0.17",
+    { "include-group" = "docs" },
 ]
 
 [project.urls]

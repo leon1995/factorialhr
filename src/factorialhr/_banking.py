@@ -77,23 +77,41 @@ class BankAccount(pydantic.BaseModel):
 
     model_config = pydantic.ConfigDict(frozen=True)
 
+    #: Factorial unique identifier
     id: int = pydantic.Field(description='Factorial unique identifier')
+    #: External ID for the bank account
     external_id: str = pydantic.Field(description='External ID for the bank account')
+    #: Currency
     currency: str = pydantic.Field(description='Currency')
+    #: Country
     country: str = pydantic.Field(description='Country')
+    #: Account number
     account_number: str = pydantic.Field(description='Account number')
+    #: Account number type
     account_number_type: AccountNumberType = pydantic.Field(description='Account number type')
+    #: Sort code
     sort_code: str | None = pydantic.Field(default=None, description='Sort code')
+    #: Bank Identifier Code
     bic: str | None = pydantic.Field(default=None, description='Bank Identifier Code')
+    #: International Bank Account Number
     iban: str | None = pydantic.Field(default=None, description='International Bank Account Number')
+    #: Routing number
     routing_number: str | None = pydantic.Field(default=None, description='Routing number')
+    #: Account balance in cents
     account_balance_cents: int = pydantic.Field(description='Account balance in cents')
+    #: Available balance in cents
     available_balance_cents: int = pydantic.Field(description='Available balance in cents')
+    #: Pending balance in cents
     pending_balance_cents: int = pydantic.Field(description='Pending balance in cents')
+    #: Beneficiary name
     beneficiary_name: str | None = pydantic.Field(default=None, description='Beneficiary name')
+    #: Bank name
     bank_name: str | None = pydantic.Field(default=None, description='Bank name')
+    #: Account alias
     account_alias: str | None = pydantic.Field(default=None, description='Account alias')
+    #: Last updated date
     updated_at: datetime.datetime = pydantic.Field(description='Last updated date')
+    #: Factorial unique identifier of the legal entity
     legal_entity_id: int | None = pydantic.Field(
         default=None,
         description='Factorial unique identifier of the legal entity',
@@ -105,24 +123,38 @@ class CardPayment(pydantic.BaseModel):
 
     model_config = pydantic.ConfigDict(frozen=True)
 
+    #: The ID of the card payment
     id: int = pydantic.Field(description='The ID of the card payment')
+    #: The ID of the card
     card_id: int = pydantic.Field(description='The ID of the card')
+    #: The amount of the card payment
     amount_cents: int = pydantic.Field(description='The amount of the card payment')
+    #: The currency of the card payment
     currency: str = pydantic.Field(description='The currency of the card payment')
+    #: The name of the merchant
     merchant_name: str = pydantic.Field(description='The name of the merchant')
+    #: The amount of the merchant
     merchant_amount_cents: int = pydantic.Field(description='The amount of the merchant')
+    #: The currency of the merchant
     merchant_currency: str = pydantic.Field(description='The currency of the merchant')
+    #: Whether the card payment was approved
     approved: bool = pydantic.Field(description='Whether the card payment was approved')
+    #: The date and time the card payment was created in the external system
     external_created_at: datetime.datetime = pydantic.Field(
         description='The date and time the card payment was created in the external system',
     )
+    #: The status of the card payment
     status: CardPaymentStatus = pydantic.Field(description='The status of the card payment')
+    #: The type of the card payment
     type: CardPaymentType = pydantic.Field(description='The type of the card payment')
+    #: The exchange rate of the card payment
     exchange_rate: float = pydantic.Field(description='The exchange rate of the card payment')
+    #: The reason the card payment was rejected
     rejected_reason: RejectedReason | None = pydantic.Field(
         default=None,
         description='The reason the card payment was rejected',
     )
+    #: The date and time the card payment was created in factorial
     created_at: datetime.datetime = pydantic.Field(
         description='The date and time the card payment was created in factorial',
     )
@@ -133,16 +165,27 @@ class Transaction(pydantic.BaseModel):
 
     model_config = pydantic.ConfigDict(frozen=True)
 
+    #: Factorial unique identifier
     id: int = pydantic.Field(description='Factorial unique identifier')
+    #: Factorial Banking Bank Account unique identifier
     bank_account_id: int = pydantic.Field(description='Factorial Banking Bank Account unique identifier')
+    #: Amount in cents
     amount_cents: int = pydantic.Field(description='Amount in cents')
+    #: Balance after the transaction in cents
     balance_after_cents: int | None = pydantic.Field(default=None, description='Balance after the transaction in cents')
+    #: Currency
     currency: str = pydantic.Field(description='Currency')
+    #: Type of transaction
     type: TransactionType = pydantic.Field(description='Type of transaction')
+    #: Description of the transaction
     description: str | None = pydantic.Field(default=None, description='Description of the transaction')
+    #: Booking date of the transaction
     booking_date: datetime.datetime = pydantic.Field(description='Booking date of the transaction')
+    #: Value date of the transaction
     value_date: datetime.datetime = pydantic.Field(description='Value date of the transaction')
+    #: Factorial unique identifier of the card payment
     card_payment_id: int = pydantic.Field(description='Factorial unique identifier of the card payment')
+    #: Date when the transaction was last updated
     updated_at: datetime.datetime = pydantic.Field(description='Date when the transaction was last updated')
 
 
@@ -164,24 +207,64 @@ class BankAccountsEndpoint(Endpoint):
     endpoint = 'banking/bank_accounts'
 
     async def all(self, **kwargs) -> ListApiResponse[BankAccount]:
-        """Get all bank accounts records."""
+        """Get all bank accounts records.
+
+        Official documentation: `banking/bank_accounts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-banking-bank-accounts>`_
+
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Response containing the list of records.
+        :rtype: ListApiResponse[BankAccount]
+        """
         data = await self.api.get_all(self.endpoint, **kwargs)
         return ListApiResponse(model_type=BankAccount, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[BankAccount]:
-        """Get bank accounts with pagination metadata."""
+        """Get bank accounts with pagination metadata.
+
+        Official documentation: `banking/bank_accounts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-banking-bank-accounts>`_
+
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Response containing records and pagination metadata.
+        :rtype: MetaApiResponse[BankAccount]
+        """
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
         return MetaApiResponse(model_type=BankAccount, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, bank_account_id: int | str, **kwargs) -> BankAccount:
-        """Get a specific bank account by ID."""
+        """Get a specific bank account by ID.
+
+        Official documentation: `banking/bank_accounts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-banking-bank-accounts>`_
+
+        :param bank_account_id: The unique identifier.
+        :type bank_account_id: int | str
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The record.
+        :rtype: BankAccount
+        """
         data = await self.api.get(self.endpoint, bank_account_id, **kwargs)
         return pydantic.TypeAdapter(BankAccount).validate_python(data)
 
     async def create_manual(self, data: Mapping[str, typing.Any], **kwargs) -> BankAccount:
-        """Create a manual bank account."""
+        """Create a manual bank account.
+
+        Official documentation: `banking/bank_accounts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-banking-bank-accounts>`_
+
+        :param data: Payload for the new record (key-value mapping).
+        :type data: Mapping[str, typing.Any]
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The created record.
+        :rtype: BankAccount
+        """
         response = await self.api.post(self.endpoint, 'create_manual', json=data, **kwargs)
         return pydantic.TypeAdapter(BankAccount).validate_python(response)
 
@@ -192,19 +275,48 @@ class CardPaymentsEndpoint(Endpoint):
     endpoint = 'banking/card_payments'
 
     async def all(self, **kwargs) -> ListApiResponse[CardPayment]:
-        """Get all card payments records."""
+        """Get all card payments records.
+
+        Official documentation: `banking/card_payments <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-banking-card-payments>`_
+
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Response containing the list of records.
+        :rtype: ListApiResponse[CardPayment]
+        """
         data = await self.api.get_all(self.endpoint, **kwargs)
         return ListApiResponse(model_type=CardPayment, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[CardPayment]:
-        """Get card payments with pagination metadata."""
+        """Get card payments with pagination metadata.
+
+        Official documentation: `banking/card_payments <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-banking-card-payments>`_
+
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Response containing records and pagination metadata.
+        :rtype: MetaApiResponse[CardPayment]
+        """
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
         return MetaApiResponse(model_type=CardPayment, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, card_payment_id: int | str, **kwargs) -> CardPayment:
-        """Get a specific card payment by ID."""
+        """Get a specific card payment by ID.
+
+        Official documentation: `banking/card_payments <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-banking-card-payments>`_
+
+        :param card_payment_id: The unique identifier.
+        :type card_payment_id: int | str
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The record.
+        :rtype: CardPayment
+        """
         data = await self.api.get(self.endpoint, card_payment_id, **kwargs)
         return pydantic.TypeAdapter(CardPayment).validate_python(data)
 
@@ -215,18 +327,47 @@ class TransactionsEndpoint(Endpoint):
     endpoint = 'banking/transactions'
 
     async def all(self, **kwargs) -> ListApiResponse[Transaction]:
-        """Get all transactions records."""
+        """Get all transactions records.
+
+        Official documentation: `banking/transactions <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-banking-transactions>`_
+
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Response containing the list of records.
+        :rtype: ListApiResponse[Transaction]
+        """
         data = await self.api.get_all(self.endpoint, **kwargs)
         return ListApiResponse(model_type=Transaction, raw_data=data)
 
     async def get(self, **kwargs) -> MetaApiResponse[Transaction]:
-        """Get transactions with pagination metadata."""
+        """Get transactions with pagination metadata.
+
+        Official documentation: `banking/transactions <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-banking-transactions>`_
+
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: Response containing records and pagination metadata.
+        :rtype: MetaApiResponse[Transaction]
+        """
         query_params = kwargs.pop('params', {})
         query_params.setdefault('page', 1)
         response = await self.api.get(self.endpoint, params=query_params, **kwargs)
         return MetaApiResponse(model_type=Transaction, raw_meta=response['meta'], raw_data=response['data'])
 
     async def get_by_id(self, transaction_id: int | str, **kwargs) -> Transaction:
-        """Get a specific transaction by ID."""
+        """Get a specific transaction by ID.
+
+        Official documentation: `banking/transactions <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-banking-transactions>`_
+
+        :param transaction_id: The unique identifier.
+        :type transaction_id: int | str
+        :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
+        :type kwargs: optional
+        :raises httpx.HTTPStatusError: When the API returns an error status code.
+        :return: The record.
+        :rtype: Transaction
+        """
         data = await self.api.get(self.endpoint, transaction_id, **kwargs)
         return pydantic.TypeAdapter(Transaction).validate_python(data)
