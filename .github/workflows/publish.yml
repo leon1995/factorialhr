@@ -65,6 +65,7 @@ jobs:
       - name: Attach artifacts to github release
         uses: softprops/action-gh-release@v2
         with:
+          body: Checkout full changelog at https://leon1995.github.io/factorialhr/changelog.html
           files: |
             dist/*
           prerelease: ${{ env.DO_PRERELEASE == '1' }}

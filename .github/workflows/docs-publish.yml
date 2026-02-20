@@ -1,8 +1,10 @@
 name: Documentation
 on:
   push:
-    branches:
-      - main
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+" # normal release
+      - "v[0-9]+.[0-9]+.[0-9]+rc[0-9]+" # release candidate
+      - "v[0-9]+.[0-9]+.[0-9]+[ab][0-9]+" # alpha or beta release
 permissions:
   contents: read
   pages: write
