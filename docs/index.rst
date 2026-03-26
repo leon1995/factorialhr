@@ -1,7 +1,7 @@
 .. include:: ../README.rst
 
 .. toctree::
-   :maxdepth: 2
+   :hidden:
    
    authentication
    api_public
