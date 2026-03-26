@@ -48,6 +48,8 @@ dev = [
 [project.urls]
 "Repository" = "https://github.com/leon1995/factorialhr"
 "Bug Tracker" = "https://github.com/leon1995/factorialhr/issues"
+"Documentation" = "https://leon1995.github.io/factorialhr/"
+"Changelog" = "https://leon1995.github.io/factorialhr/changelog.html"
 
 [tool.ruff]
 lint.select = ["ALL"]
