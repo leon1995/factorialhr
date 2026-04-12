@@ -63,7 +63,7 @@ jobs:
           echo DO_PRERELEASE=$do_prerelease
 
       - name: Attach artifacts to github release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           body: Checkout full changelog at https://leon1995.github.io/factorialhr/changelog.html
           files: |
