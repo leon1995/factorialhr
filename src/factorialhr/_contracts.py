@@ -126,11 +126,6 @@ class ContractVersion(pydantic.BaseModel):
     )
     #: Job title of the employee
     job_title: str | None = pydantic.Field(default=None, description='Job title of the employee')
-    #: Job catalog level identifier, refers to /job_catalog/levels endpoint
-    job_catalog_level_id: int | None = pydantic.Field(
-        default=None,
-        description='Job catalog level identifier, refers to /job_catalog/levels endpoint',
-    )
     #: The day the employee is hired
     starts_on: datetime.date | None = pydantic.Field(default=None, description='The day the employee is hired')
     #: The day the employee is terminated
@@ -274,6 +269,14 @@ class ContractVersion(pydantic.BaseModel):
     fr_work_type_id: int | None = pydantic.Field(default=None, description='Work type identifier')
     #: Contract type identifier
     de_contract_type_id: int | None = pydantic.Field(default=None, description='Contract type identifier')
+    #: Identifier for the german base salary type (see /payroll/concepts)
+    de_base_salary_type_id: int | None = pydantic.Field(
+        default=None,
+        description=(
+            'Identifier for the german base salary type. '
+            'references a payroll concept available via the /payroll/concepts endpoint'
+        ),
+    )
     #: Contract type identifier
     pt_contract_type_id: int | None = pydantic.Field(default=None, description='Contract type identifier')
     #: The role id of the employee in the job catalog
@@ -441,7 +444,7 @@ class CompensationsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Compensation]:
         """Get all compensations.
 
-        Official documentation: `contracts/compensations <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-compensations>`_
+        Official documentation: `contracts/compensations <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-compensations>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -455,7 +458,7 @@ class CompensationsEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[Compensation]:
         """Get compensations with pagination metadata.
 
-        Official documentation: `contracts/compensations <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-compensations>`_
+        Official documentation: `contracts/compensations <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-compensations>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -471,7 +474,7 @@ class CompensationsEndpoint(Endpoint):
     async def get_by_id(self, compensation_id: int | str, **kwargs) -> Compensation:
         """Get a specific compensation by ID.
 
-        Official documentation: `contracts/compensations <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-compensations-id>`_
+        Official documentation: `contracts/compensations <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-compensations-id>`_
 
         :param compensation_id: The unique identifier.
         :type compensation_id: int | str
@@ -487,7 +490,7 @@ class CompensationsEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Compensation:
         """Create a new compensation.
 
-        Official documentation: `contracts/compensations <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-contracts-compensations>`_
+        Official documentation: `contracts/compensations <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-contracts-compensations>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -503,7 +506,7 @@ class CompensationsEndpoint(Endpoint):
     async def update(self, compensation_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Compensation:
         """Update a compensation.
 
-        Official documentation: `contracts/compensations <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-contracts-compensations-id>`_
+        Official documentation: `contracts/compensations <https://apidoc.factorialhr.com/reference/put_api-2026-04-01-resources-contracts-compensations-id>`_
 
         :param compensation_id: The unique identifier of the record to update.
         :type compensation_id: int | str
@@ -521,7 +524,7 @@ class CompensationsEndpoint(Endpoint):
     async def delete(self, compensation_id: int | str, **kwargs) -> None:
         """Delete a compensation.
 
-        Official documentation: `contracts/compensations <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-contracts-compensations-id>`_
+        Official documentation: `contracts/compensations <https://apidoc.factorialhr.com/reference/delete_api-2026-04-01-resources-contracts-compensations-id>`_
 
         :param compensation_id: The unique identifier of the record to delete.
         :type compensation_id: int | str
@@ -542,7 +545,7 @@ class ContractTemplatesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[ContractTemplate]:
         """Get all contract templates.
 
-        Official documentation: `contracts/contract_templates <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-contract-templates>`_
+        Official documentation: `contracts/contract_templates <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-contract-templates>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -556,7 +559,7 @@ class ContractTemplatesEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[ContractTemplate]:
         """Get contract templates with pagination metadata.
 
-        Official documentation: `contracts/contract_templates <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-contract-templates>`_
+        Official documentation: `contracts/contract_templates <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-contract-templates>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -572,7 +575,7 @@ class ContractTemplatesEndpoint(Endpoint):
     async def get_by_id(self, template_id: int | str, **kwargs) -> ContractTemplate:
         """Get a specific contract template by ID.
 
-        Official documentation: `contracts/contract_templates <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-contract-templates-id>`_
+        Official documentation: `contracts/contract_templates <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-contract-templates-id>`_
 
         :param template_id: The unique identifier.
         :type template_id: int | str
@@ -594,7 +597,7 @@ class ContractVersionsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[ContractVersion]:
         """Get all contract versions.
 
-        Official documentation: `contracts/contract_versions <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-contract-versions>`_
+        Official documentation: `contracts/contract_versions <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-contract-versions>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -608,7 +611,7 @@ class ContractVersionsEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[ContractVersion]:
         """Get contract versions with pagination metadata.
 
-        Official documentation: `contracts/contract_versions <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-contract-versions>`_
+        Official documentation: `contracts/contract_versions <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-contract-versions>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -624,7 +627,7 @@ class ContractVersionsEndpoint(Endpoint):
     async def get_by_id(self, version_id: int | str, **kwargs) -> ContractVersion:
         """Get a specific contract version by ID.
 
-        Official documentation: `contracts/contract_versions <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-contract-versions-id>`_
+        Official documentation: `contracts/contract_versions <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-contract-versions-id>`_
 
         :param version_id: The unique identifier.
         :type version_id: int | str
@@ -640,7 +643,7 @@ class ContractVersionsEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> ContractVersion:
         """Create a new contract version.
 
-        Official documentation: `contracts/contract_versions <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-contracts-contract-versions>`_
+        Official documentation: `contracts/contract_versions <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-contracts-contract-versions>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -656,7 +659,7 @@ class ContractVersionsEndpoint(Endpoint):
     async def update(self, version_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> ContractVersion:
         """Update a contract version.
 
-        Official documentation: `contracts/contract_versions <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-contracts-contract-versions-id>`_
+        Official documentation: `contracts/contract_versions <https://apidoc.factorialhr.com/reference/put_api-2026-04-01-resources-contracts-contract-versions-id>`_
 
         :param version_id: The unique identifier of the record to update.
         :type version_id: int | str
@@ -674,7 +677,7 @@ class ContractVersionsEndpoint(Endpoint):
     async def delete(self, version_id: int | str, **kwargs) -> None:
         """Delete a contract version.
 
-        Official documentation: `contracts/contract_versions <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-contracts-contract-versions-id>`_
+        Official documentation: `contracts/contract_versions <https://apidoc.factorialhr.com/reference/delete_api-2026-04-01-resources-contracts-contract-versions-id>`_
 
         :param version_id: The unique identifier of the record to delete.
         :type version_id: int | str
@@ -695,7 +698,7 @@ class SpanishContractTypesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[SpanishContractType]:
         """Get all Spanish contract types.
 
-        Official documentation: `contracts/spanish_contract_types <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-spanish-contract-types>`_
+        Official documentation: `contracts/spanish_contract_types <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-spanish-contract-types>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -709,7 +712,7 @@ class SpanishContractTypesEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[SpanishContractType]:
         """Get Spanish contract types with pagination metadata.
 
-        Official documentation: `contracts/spanish_contract_types <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-spanish-contract-types>`_
+        Official documentation: `contracts/spanish_contract_types <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-spanish-contract-types>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -725,7 +728,7 @@ class SpanishContractTypesEndpoint(Endpoint):
     async def get_by_id(self, type_id: int | str, **kwargs) -> SpanishContractType:
         """Get a specific Spanish contract type by ID.
 
-        Official documentation: `contracts/spanish_contract_types <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-spanish-contract-types-id>`_
+        Official documentation: `contracts/spanish_contract_types <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-spanish-contract-types-id>`_
 
         :param type_id: The unique identifier.
         :type type_id: int | str
@@ -741,7 +744,7 @@ class SpanishContractTypesEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> SpanishContractType:
         """Create a new Spanish contract type.
 
-        Official documentation: `contracts/spanish_contract_types <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-contracts-spanish-contract-types>`_
+        Official documentation: `contracts/spanish_contract_types <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-contracts-spanish-contract-types>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -763,7 +766,7 @@ class FrenchContractTypesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[FrenchContractType]:
         """Get all French contract types.
 
-        Official documentation: `contracts/french_contract_types <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-french-contract-types>`_
+        Official documentation: `contracts/french_contract_types <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-french-contract-types>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -777,7 +780,7 @@ class FrenchContractTypesEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[FrenchContractType]:
         """Get French contract types with pagination metadata.
 
-        Official documentation: `contracts/french_contract_types <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-french-contract-types>`_
+        Official documentation: `contracts/french_contract_types <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-french-contract-types>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -793,7 +796,7 @@ class FrenchContractTypesEndpoint(Endpoint):
     async def get_by_id(self, type_id: int | str, **kwargs) -> FrenchContractType:
         """Get a specific French contract type by ID.
 
-        Official documentation: `contracts/french_contract_types <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-french-contract-types-id>`_
+        Official documentation: `contracts/french_contract_types <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-french-contract-types-id>`_
 
         :param type_id: The unique identifier.
         :type type_id: int | str
@@ -815,7 +818,7 @@ class GermanContractTypesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[GermanContractType]:
         """Get all German contract types.
 
-        Official documentation: `contracts/german_contract_types <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-german-contract-types>`_
+        Official documentation: `contracts/german_contract_types <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-german-contract-types>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -829,7 +832,7 @@ class GermanContractTypesEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[GermanContractType]:
         """Get German contract types with pagination metadata.
 
-        Official documentation: `contracts/german_contract_types <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-german-contract-types>`_
+        Official documentation: `contracts/german_contract_types <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-german-contract-types>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -845,7 +848,7 @@ class GermanContractTypesEndpoint(Endpoint):
     async def get_by_id(self, type_id: int | str, **kwargs) -> GermanContractType:
         """Get a specific German contract type by ID.
 
-        Official documentation: `contracts/german_contract_types <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-german-contract-types-id>`_
+        Official documentation: `contracts/german_contract_types <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-german-contract-types-id>`_
 
         :param type_id: The unique identifier.
         :type type_id: int | str
@@ -867,7 +870,7 @@ class PortugueseContractTypesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[PortugueseContractType]:
         """Get all Portuguese contract types.
 
-        Official documentation: `contracts/portuguese_contract_types <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-portuguese-contract-types>`_
+        Official documentation: `contracts/portuguese_contract_types <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-portuguese-contract-types>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -881,7 +884,7 @@ class PortugueseContractTypesEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[PortugueseContractType]:
         """Get Portuguese contract types with pagination metadata.
 
-        Official documentation: `contracts/portuguese_contract_types <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-portuguese-contract-types>`_
+        Official documentation: `contracts/portuguese_contract_types <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-portuguese-contract-types>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -897,7 +900,7 @@ class PortugueseContractTypesEndpoint(Endpoint):
     async def get_by_id(self, type_id: int | str, **kwargs) -> PortugueseContractType:
         """Get a specific Portuguese contract type by ID.
 
-        Official documentation: `contracts/portuguese_contract_types <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-portuguese-contract-types-id>`_
+        Official documentation: `contracts/portuguese_contract_types <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-portuguese-contract-types-id>`_
 
         :param type_id: The unique identifier.
         :type type_id: int | str
@@ -919,7 +922,7 @@ class ReferenceContractsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[ContractVersion]:
         """Get all reference contracts.
 
-        Official documentation: `contracts/reference_contracts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-reference-contracts>`_
+        Official documentation: `contracts/reference_contracts <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-reference-contracts>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -933,7 +936,7 @@ class ReferenceContractsEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[ContractVersion]:
         """Get reference contracts with pagination metadata.
 
-        Official documentation: `contracts/reference_contracts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-reference-contracts>`_
+        Official documentation: `contracts/reference_contracts <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-reference-contracts>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -955,7 +958,7 @@ class SpanishEducationLevelsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[SpanishEducationLevel]:
         """Get all Spanish education levels.
 
-        Official documentation: `contracts/spanish_education_levels <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-spanish-education-levels>`_
+        Official documentation: `contracts/spanish_education_levels <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-spanish-education-levels>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -969,7 +972,7 @@ class SpanishEducationLevelsEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[SpanishEducationLevel]:
         """Get Spanish education levels with pagination metadata.
 
-        Official documentation: `contracts/spanish_education_levels <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-spanish-education-levels>`_
+        Official documentation: `contracts/spanish_education_levels <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-spanish-education-levels>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -985,7 +988,7 @@ class SpanishEducationLevelsEndpoint(Endpoint):
     async def get_by_id(self, level_id: int | str, **kwargs) -> SpanishEducationLevel:
         """Get a specific Spanish education level by ID.
 
-        Official documentation: `contracts/spanish_education_levels <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-spanish-education-levels-id>`_
+        Official documentation: `contracts/spanish_education_levels <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-spanish-education-levels-id>`_
 
         :param level_id: The unique identifier.
         :type level_id: int | str
@@ -1001,7 +1004,7 @@ class SpanishEducationLevelsEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> SpanishEducationLevel:
         """Create a new Spanish education level.
 
-        Official documentation: `contracts/spanish_education_levels <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-contracts-spanish-education-levels>`_
+        Official documentation: `contracts/spanish_education_levels <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-contracts-spanish-education-levels>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1023,7 +1026,7 @@ class SpanishProfessionalCategoriesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[SpanishProfessionalCategory]:
         """Get all Spanish professional categories.
 
-        Official documentation: `contracts/spanish_professional_categories <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-spanish-professional-categories>`_
+        Official documentation: `contracts/spanish_professional_categories <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-spanish-professional-categories>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -1037,7 +1040,7 @@ class SpanishProfessionalCategoriesEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[SpanishProfessionalCategory]:
         """Get Spanish professional categories with pagination metadata.
 
-        Official documentation: `contracts/spanish_professional_categories <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-spanish-professional-categories>`_
+        Official documentation: `contracts/spanish_professional_categories <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-spanish-professional-categories>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -1057,7 +1060,7 @@ class SpanishProfessionalCategoriesEndpoint(Endpoint):
     async def get_by_id(self, category_id: int | str, **kwargs) -> SpanishProfessionalCategory:
         """Get a specific Spanish professional category by ID.
 
-        Official documentation: `contracts/spanish_professional_categories <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-spanish-professional-categories-id>`_
+        Official documentation: `contracts/spanish_professional_categories <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-spanish-professional-categories-id>`_
 
         :param category_id: The unique identifier.
         :type category_id: int | str
@@ -1073,7 +1076,7 @@ class SpanishProfessionalCategoriesEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> SpanishProfessionalCategory:
         """Create a new Spanish professional category.
 
-        Official documentation: `contracts/spanish_professional_categories <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-contracts-spanish-professional-categories>`_
+        Official documentation: `contracts/spanish_professional_categories <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-contracts-spanish-professional-categories>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1095,7 +1098,7 @@ class SpanishWorkingDayTypesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[SpanishWorkingDayType]:
         """Get all Spanish working day types.
 
-        Official documentation: `contracts/spanish_working_day_types <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-spanish-working-day-types>`_
+        Official documentation: `contracts/spanish_working_day_types <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-spanish-working-day-types>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -1109,7 +1112,7 @@ class SpanishWorkingDayTypesEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[SpanishWorkingDayType]:
         """Get Spanish working day types with pagination metadata.
 
-        Official documentation: `contracts/spanish_working_day_types <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-spanish-working-day-types>`_
+        Official documentation: `contracts/spanish_working_day_types <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-spanish-working-day-types>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -1125,7 +1128,7 @@ class SpanishWorkingDayTypesEndpoint(Endpoint):
     async def get_by_id(self, type_id: int | str, **kwargs) -> SpanishWorkingDayType:
         """Get a specific Spanish working day type by ID.
 
-        Official documentation: `contracts/spanish_working_day_types <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-spanish-working-day-types-id>`_
+        Official documentation: `contracts/spanish_working_day_types <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-spanish-working-day-types-id>`_
 
         :param type_id: The unique identifier.
         :type type_id: int | str
@@ -1141,7 +1144,7 @@ class SpanishWorkingDayTypesEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> SpanishWorkingDayType:
         """Create a new Spanish working day type.
 
-        Official documentation: `contracts/spanish_working_day_types <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-contracts-spanish-working-day-types>`_
+        Official documentation: `contracts/spanish_working_day_types <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-contracts-spanish-working-day-types>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1177,6 +1180,14 @@ class ContractVersionHistory(pydantic.BaseModel):
             'role. Refer to job_catalog/tree_nodes endpoint.'
         ),
     )
+    #: Identifier for the german base salary type (see /payroll/concepts)
+    de_base_salary_type_id: int | None = pydantic.Field(
+        default=None,
+        description=(
+            'Identifier for the german base salary type. '
+            'references a payroll concept available via the /payroll/concepts endpoint'
+        ),
+    )
     #: Creation date
     created_at: datetime.datetime = pydantic.Field(description='Creation date')
     #: Last update date
@@ -1210,7 +1221,7 @@ class ContractVersionHistoriesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[ContractVersionHistory]:
         """Get all contract version histories.
 
-        Official documentation: `contracts/contract_version_histories <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-contract-version-histories>`_
+        Official documentation: `contracts/contract_version_histories <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-contract-version-histories>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -1224,7 +1235,7 @@ class ContractVersionHistoriesEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[ContractVersionHistory]:
         """Get contract version histories with pagination metadata.
 
-        Official documentation: `contracts/contract_version_histories <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-contract-version-histories>`_
+        Official documentation: `contracts/contract_version_histories <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-contract-version-histories>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -1240,7 +1251,7 @@ class ContractVersionHistoriesEndpoint(Endpoint):
     async def get_by_id(self, history_id: int | str, **kwargs) -> ContractVersionHistory:
         """Get a specific contract version history by ID.
 
-        Official documentation: `contracts/contract_version_histories <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-contract-version-histories-id>`_
+        Official documentation: `contracts/contract_version_histories <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-contract-version-histories-id>`_
 
         :param history_id: The unique identifier.
         :type history_id: int | str
@@ -1262,7 +1273,7 @@ class ContractVersionMetaDataEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[ContractVersionMetaDatum]:
         """Get all contract version meta data.
 
-        Official documentation: `contracts/contract_version_meta_data <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-contract-version-meta-data>`_
+        Official documentation: `contracts/contract_version_meta_data <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-contract-version-meta-data>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -1276,7 +1287,7 @@ class ContractVersionMetaDataEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[ContractVersionMetaDatum]:
         """Get contract version meta data with pagination metadata.
 
-        Official documentation: `contracts/contract_version_meta_data <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-contract-version-meta-data>`_
+        Official documentation: `contracts/contract_version_meta_data <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-contract-version-meta-data>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -1296,7 +1307,7 @@ class ContractVersionMetaDataEndpoint(Endpoint):
     async def get_by_id(self, meta_datum_id: int | str, **kwargs) -> ContractVersionMetaDatum:
         """Get a specific contract version meta datum by ID.
 
-        Official documentation: `contracts/contract_version_meta_data <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-contract-version-meta-data-id>`_
+        Official documentation: `contracts/contract_version_meta_data <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-contract-version-meta-data-id>`_
 
         :param meta_datum_id: The unique identifier.
         :type meta_datum_id: int | str
@@ -1318,7 +1329,7 @@ class TaxonomiesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Taxonomy]:
         """Get all taxonomies.
 
-        Official documentation: `contracts/taxonomies <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-taxonomies>`_
+        Official documentation: `contracts/taxonomies <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-taxonomies>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -1332,7 +1343,7 @@ class TaxonomiesEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[Taxonomy]:
         """Get taxonomies with pagination metadata.
 
-        Official documentation: `contracts/taxonomies <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-taxonomies>`_
+        Official documentation: `contracts/taxonomies <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-taxonomies>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -1348,7 +1359,7 @@ class TaxonomiesEndpoint(Endpoint):
     async def get_by_id(self, taxonomy_id: int | str, **kwargs) -> Taxonomy:
         """Get a specific taxonomy by ID.
 
-        Official documentation: `contracts/taxonomies <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-contracts-taxonomies-id>`_
+        Official documentation: `contracts/taxonomies <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-contracts-taxonomies-id>`_
 
         :param taxonomy_id: The unique identifier.
         :type taxonomy_id: int | str

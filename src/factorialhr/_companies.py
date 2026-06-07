@@ -43,7 +43,7 @@ class LegalEntitiesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[LegalEntity]:
         """Get all companies records.
 
-        Official documentation: `companies/legal_entities <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-companies-legal-entities>`_
+        Official documentation: `companies/legal_entities <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-companies-legal-entities>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -57,7 +57,7 @@ class LegalEntitiesEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[LegalEntity]:
         """Get companies with pagination metadata.
 
-        Official documentation: `companies/legal_entities <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-companies-legal-entities>`_
+        Official documentation: `companies/legal_entities <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-companies-legal-entities>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -73,7 +73,7 @@ class LegalEntitiesEndpoint(Endpoint):
     async def get_by_id(self, legal_entity_id: int | str, **kwargs) -> LegalEntity:
         """Get a specific companies by ID.
 
-        Official documentation: `companies/legal_entities <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-companies-legal-entities-id>`_
+        Official documentation: `companies/legal_entities <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-companies-legal-entities-id>`_
 
         :param legal_entity_id: The unique identifier.
         :type legal_entity_id: int | str
@@ -89,7 +89,7 @@ class LegalEntitiesEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> LegalEntity:
         """Create a new companies.
 
-        Official documentation: `companies/legal_entities <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-companies-legal-entities>`_
+        Official documentation: `companies/legal_entities <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-companies-legal-entities>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]

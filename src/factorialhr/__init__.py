@@ -4,6 +4,10 @@ from factorialhr._api_public import (
     WebhookSubscription,
     WebhookSubscriptionEndpoint,
 )
+from factorialhr._approvals import (
+    MaterializedApprovalsFlow,
+    MaterializedApprovalsFlowsEndpoint,
+)
 from factorialhr._ats import (
     Answer,
     AnswersEndpoint,
@@ -287,6 +291,9 @@ from factorialhr._procurement import (
     PurchaseRequestStatus,
 )
 from factorialhr._project_management import (
+    BudgetStrategiesEndpoint,
+    BudgetStrategy,
+    BudgetStrategyType,
     ExpenseRecord,
     ExpenseRecordEndpoint,
     ExportableExpense,
@@ -349,6 +356,7 @@ from factorialhr._trainings import (
     TrainingCategory,
     TrainingClass,
     TrainingClassesEndpoint,
+    TrainingClassPaymentStatus,
     TrainingMembership,
     TrainingMembershipsEndpoint,
     TrainingsEndpoint,
@@ -400,6 +408,9 @@ __all__ = [
     'BreakConfigurationsEndpoint',
     'BudgetOption',
     'BudgetOptionsEndpoint',
+    'BudgetStrategiesEndpoint',
+    'BudgetStrategy',
+    'BudgetStrategyType',
     'Candidate',
     'CandidateSource',
     'CandidateSourceCategory',
@@ -536,6 +547,8 @@ __all__ = [
     'Location',
     'LocationType',
     'LocationsEndpoint',
+    'MaterializedApprovalsFlow',
+    'MaterializedApprovalsFlowsEndpoint',
     'Membership',
     'MembershipsEndpoint',
     'Message',
@@ -685,6 +698,7 @@ __all__ = [
     'TrainingCategoriesEndpoint',
     'TrainingCategory',
     'TrainingClass',
+    'TrainingClassPaymentStatus',
     'TrainingClassesEndpoint',
     'TrainingMembership',
     'TrainingMembershipsEndpoint',

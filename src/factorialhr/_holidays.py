@@ -48,7 +48,7 @@ class CompanyHolidaysEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[CompanyHoliday]:
         """Get all company holidays records.
 
-        Official documentation: `holidays/company_holidays <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-holidays-company-holidays>`_
+        Official documentation: `holidays/company_holidays <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-holidays-company-holidays>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -62,7 +62,7 @@ class CompanyHolidaysEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[CompanyHoliday]:
         """Get company holidays with pagination metadata.
 
-        Official documentation: `holidays/company_holidays <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-holidays-company-holidays>`_
+        Official documentation: `holidays/company_holidays <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-holidays-company-holidays>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -78,7 +78,7 @@ class CompanyHolidaysEndpoint(Endpoint):
     async def get_by_id(self, holiday_id: int | str, **kwargs) -> CompanyHoliday:
         """Get a specific company holiday by ID.
 
-        Official documentation: `holidays/company_holidays <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-holidays-company-holidays-id>`_
+        Official documentation: `holidays/company_holidays <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-holidays-company-holidays-id>`_
 
         :param holiday_id: The unique identifier.
         :type holiday_id: int | str

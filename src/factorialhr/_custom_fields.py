@@ -128,7 +128,7 @@ class FieldsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Field]:
         """Get all custom fields.
 
-        Official documentation: `custom_fields/fields <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-custom-fields-fields>`_
+        Official documentation: `custom_fields/fields <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-custom-fields-fields>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -142,7 +142,7 @@ class FieldsEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[Field]:
         """Get custom fields with pagination metadata.
 
-        Official documentation: `custom_fields/fields <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-custom-fields-fields>`_
+        Official documentation: `custom_fields/fields <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-custom-fields-fields>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -158,7 +158,7 @@ class FieldsEndpoint(Endpoint):
     async def get_by_id(self, field_id: int | str, **kwargs) -> Field:
         """Get a specific custom field by ID.
 
-        Official documentation: `custom_fields/fields <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-custom-fields-field-id>`_
+        Official documentation: `custom_fields/fields <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-custom-fields-field-id>`_
 
         :param field_id: The unique identifier.
         :type field_id: int | str
@@ -174,7 +174,7 @@ class FieldsEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Field:
         """Create a new custom field.
 
-        Official documentation: `custom_fields/fields <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-custom-fields-fields>`_
+        Official documentation: `custom_fields/fields <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-custom-fields-fields>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -190,7 +190,7 @@ class FieldsEndpoint(Endpoint):
     async def delete(self, field_id: int | str, **kwargs) -> None:
         """Delete a custom field.
 
-        Official documentation: `custom_fields/fields <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-custom-fields-fields-id>`_
+        Official documentation: `custom_fields/fields <https://apidoc.factorialhr.com/reference/delete_api-2026-04-01-resources-custom-fields-fields-id>`_
 
         :param field_id: The unique identifier of the record to delete.
         :type field_id: int | str
@@ -211,7 +211,7 @@ class OptionsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Option]:
         """Get all custom field options.
 
-        Official documentation: `custom_fields/options <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-custom-fields-options>`_
+        Official documentation: `custom_fields/options <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-custom-fields-options>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -225,7 +225,7 @@ class OptionsEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[Option]:
         """Get custom field options with pagination metadata.
 
-        Official documentation: `custom_fields/options <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-custom-fields-options>`_
+        Official documentation: `custom_fields/options <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-custom-fields-options>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -241,7 +241,7 @@ class OptionsEndpoint(Endpoint):
     async def get_by_id(self, option_id: int | str, **kwargs) -> Option:
         """Get a specific custom field option by ID.
 
-        Official documentation: `custom_fields/options <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-custom-fields-options-id>`_
+        Official documentation: `custom_fields/options <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-custom-fields-options-id>`_
 
         :param option_id: The unique identifier.
         :type option_id: int | str
@@ -257,7 +257,7 @@ class OptionsEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Option:
         """Create a new custom field option.
 
-        Official documentation: `custom_fields/options <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-custom-fields-options>`_
+        Official documentation: `custom_fields/options <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-custom-fields-options>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -279,7 +279,7 @@ class ResourceFieldsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[ResourceField]:
         """Get all custom resource fields.
 
-        Official documentation: `custom_fields/resource_fields <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-custom-fields-resource-fields>`_
+        Official documentation: `custom_fields/resource_fields <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-custom-fields-resource-fields>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -293,7 +293,7 @@ class ResourceFieldsEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[ResourceField]:
         """Get custom resource fields with pagination metadata.
 
-        Official documentation: `custom_fields/resource_fields <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-custom-fields-resource-fields>`_
+        Official documentation: `custom_fields/resource_fields <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-custom-fields-resource-fields>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -309,7 +309,7 @@ class ResourceFieldsEndpoint(Endpoint):
     async def get_by_id(self, resource_field_id: int | str, **kwargs) -> ResourceField:
         """Get a specific custom resource field by ID.
 
-        Official documentation: `custom_fields/resource_fields <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-custom-fields-resource-fields-id>`_
+        Official documentation: `custom_fields/resource_fields <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-custom-fields-resource-fields-id>`_
 
         :param resource_field_id: The unique identifier.
         :type resource_field_id: int | str
@@ -325,7 +325,7 @@ class ResourceFieldsEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> ResourceField:
         """Create a new custom resource field.
 
-        Official documentation: `custom_fields/resource_fields <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-custom-fields-resource-fields>`_
+        Official documentation: `custom_fields/resource_fields <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-custom-fields-resource-fields>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -347,7 +347,7 @@ class CustomFieldsValuesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[CustomFieldValue]:
         """Get all custom field values.
 
-        Official documentation: `custom_fields/values <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-custom-fields-values>`_
+        Official documentation: `custom_fields/values <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-custom-fields-values>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -361,7 +361,7 @@ class CustomFieldsValuesEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[CustomFieldValue]:
         """Get custom field values with pagination metadata.
 
-        Official documentation: `custom_fields/values <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-custom-fields-values>`_
+        Official documentation: `custom_fields/values <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-custom-fields-values>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -377,7 +377,7 @@ class CustomFieldsValuesEndpoint(Endpoint):
     async def get_by_id(self, value_id: int | str, **kwargs) -> CustomFieldValue:
         """Get a specific custom field value by ID.
 
-        Official documentation: `custom_fields/values <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-custom-fields-values-id>`_
+        Official documentation: `custom_fields/values <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-custom-fields-values-id>`_
 
         :param value_id: The unique identifier.
         :type value_id: int | str
@@ -393,7 +393,7 @@ class CustomFieldsValuesEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> CustomFieldValue:
         """Create a new custom field value.
 
-        Official documentation: `custom_fields/values <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-custom-fields-values>`_
+        Official documentation: `custom_fields/values <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-custom-fields-values>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -409,7 +409,7 @@ class CustomFieldsValuesEndpoint(Endpoint):
     async def update(self, value_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> CustomFieldValue:
         """Update a custom field value.
 
-        Official documentation: `custom_fields/values <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-custom-fields-values-id>`_
+        Official documentation: `custom_fields/values <https://apidoc.factorialhr.com/reference/put_api-2026-04-01-resources-custom-fields-values-id>`_
 
         :param value_id: The unique identifier of the record to update.
         :type value_id: int | str

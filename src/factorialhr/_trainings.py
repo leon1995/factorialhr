@@ -8,6 +8,13 @@ import pydantic
 from factorialhr._client import Endpoint, ListApiResponse, MetaApiResponse
 
 
+class TrainingClassPaymentStatus(StrEnum):
+    """Enum for training class payment status."""
+
+    PAID = 'paid'
+    PENDING = 'pending'
+
+
 class SessionModality(StrEnum):
     """Enum for session modality types."""
 
@@ -162,6 +169,14 @@ class SessionAttendance(pydantic.BaseModel):
     access_id: int = pydantic.Field(description='Access ID')
     #: Employee ID
     employee_id: int | None = pydantic.Field(default=None, description='Employee ID')
+    #: Completed duration in hours (e.g. 1.5 means 1h 30m). null when status is not completed
+    completed_duration: float | None = pydantic.Field(
+        default=None,
+        description=(
+            'Completed duration in hours (decimal format, e.g. 1.5 means 1h 30m). '
+            'null when session attendance status is not completed'
+        ),
+    )
 
 
 class Training(pydantic.BaseModel):
@@ -244,6 +259,28 @@ class TrainingClass(pydantic.BaseModel):
     total_attendances_count: int = pydantic.Field(
         description='Total number of session attendances expected in this group.',
     )
+    #: Total cost before subsidies, calculated as the sum of cost, indirect_cost, and salary_cost
+    gross_cost: str | None = pydantic.Field(
+        default=None,
+        description='Total cost before subsidies, calculated as the sum of cost, indirect_cost, and salary_cost',
+    )
+    #: Final cost after subsidies, calculated as gross_cost minus subsidized_cost
+    net_cost: str | None = pydantic.Field(
+        default=None,
+        description='Final cost after subsidies, calculated as gross_cost minus subsidized_cost',
+    )
+    #: Payment status of the cost of training class
+    payment_status: TrainingClassPaymentStatus | None = pydantic.Field(
+        default=None,
+        description='Payment status of the cost of training class',
+    )
+    #: Currency of the training class
+    currency: str | None = pydantic.Field(default=None, description='Currency of the training class')
+    #: Date and time when the training class was created
+    created_at: datetime.datetime | None = pydantic.Field(
+        default=None,
+        description='Date and time when the training class was created',
+    )
 
 
 class TrainingMembership(pydantic.BaseModel):
@@ -270,7 +307,7 @@ class TrainingCategoriesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[TrainingCategory]:
         """Get all training categories.
 
-        Official documentation: `trainings/categories <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-trainings-categories>`_
+        Official documentation: `trainings/categories <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-trainings-categories>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -284,7 +321,7 @@ class TrainingCategoriesEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[TrainingCategory]:
         """Get training categories with pagination metadata.
 
-        Official documentation: `trainings/categories <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-trainings-categories>`_
+        Official documentation: `trainings/categories <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-trainings-categories>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -300,7 +337,7 @@ class TrainingCategoriesEndpoint(Endpoint):
     async def get_by_id(self, category_id: int | str, **kwargs) -> TrainingCategory:
         """Get a specific training category by ID.
 
-        Official documentation: `trainings/categories <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-trainings-categories-id>`_
+        Official documentation: `trainings/categories <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-trainings-categories-id>`_
 
         :param category_id: The unique identifier.
         :type category_id: int | str
@@ -316,7 +353,7 @@ class TrainingCategoriesEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> TrainingCategory:
         """Create a new training category.
 
-        Official documentation: `trainings/categories <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-trainings-categories>`_
+        Official documentation: `trainings/categories <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-trainings-categories>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -332,7 +369,7 @@ class TrainingCategoriesEndpoint(Endpoint):
     async def delete(self, category_id: int | str, **kwargs) -> TrainingCategory:
         """Delete a training category.
 
-        Official documentation: `trainings/categories <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-trainings-categories-id>`_
+        Official documentation: `trainings/categories <https://apidoc.factorialhr.com/reference/delete_api-2026-04-01-resources-trainings-categories-id>`_
 
         :param category_id: The unique identifier of the record to delete.
         :type category_id: int | str
@@ -354,7 +391,7 @@ class SessionsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Session]:
         """Get all training sessions.
 
-        Official documentation: `trainings/sessions <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-trainings-sessions-id>`_
+        Official documentation: `trainings/sessions <https://apidoc.factorialhr.com/reference/delete_api-2026-04-01-resources-trainings-sessions-id>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -368,7 +405,7 @@ class SessionsEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[Session]:
         """Get training sessions with pagination metadata.
 
-        Official documentation: `trainings/sessions <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-trainings-sessions>`_
+        Official documentation: `trainings/sessions <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-trainings-sessions>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -384,7 +421,7 @@ class SessionsEndpoint(Endpoint):
     async def get_by_id(self, session_id: int | str, **kwargs) -> Session:
         """Get a specific training session by ID.
 
-        Official documentation: `trainings/sessions <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-trainings-sessions-id>`_
+        Official documentation: `trainings/sessions <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-trainings-sessions-id>`_
 
         :param session_id: The unique identifier.
         :type session_id: int | str
@@ -400,7 +437,7 @@ class SessionsEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Session:
         """Create a new training session.
 
-        Official documentation: `trainings/sessions <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-trainings-sessions>`_
+        Official documentation: `trainings/sessions <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-trainings-sessions>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -416,7 +453,7 @@ class SessionsEndpoint(Endpoint):
     async def update(self, session_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Session:
         """Update a training session.
 
-        Official documentation: `trainings/sessions <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-trainings-sessions-id>`_
+        Official documentation: `trainings/sessions <https://apidoc.factorialhr.com/reference/put_api-2026-04-01-resources-trainings-sessions-id>`_
 
         :param session_id: The unique identifier of the record to update.
         :type session_id: int | str
@@ -434,7 +471,7 @@ class SessionsEndpoint(Endpoint):
     async def delete(self, session_id: int | str, **kwargs) -> Session:
         """Delete a training session.
 
-        Official documentation: `trainings/sessions <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-trainings-sessions-id>`_
+        Official documentation: `trainings/sessions <https://apidoc.factorialhr.com/reference/delete_api-2026-04-01-resources-trainings-sessions-id>`_
 
         :param session_id: The unique identifier of the record to delete.
         :type session_id: int | str
@@ -456,7 +493,7 @@ class SessionAccessMembershipsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[SessionAccessMembership]:
         """Get all session access memberships.
 
-        Official documentation: `trainings/session_access_memberships <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-trainings-session-access-memberships>`_
+        Official documentation: `trainings/session_access_memberships <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-trainings-session-access-memberships>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -470,7 +507,7 @@ class SessionAccessMembershipsEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[SessionAccessMembership]:
         """Get session access memberships with pagination metadata.
 
-        Official documentation: `trainings/session_access_memberships <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-trainings-session-access-memberships>`_
+        Official documentation: `trainings/session_access_memberships <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-trainings-session-access-memberships>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -486,7 +523,7 @@ class SessionAccessMembershipsEndpoint(Endpoint):
     async def get_by_id(self, membership_id: int | str, **kwargs) -> SessionAccessMembership:
         """Get a specific session access membership by ID.
 
-        Official documentation: `trainings/session_access_memberships <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-trainings-session-access-memberships-id>`_
+        Official documentation: `trainings/session_access_memberships <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-trainings-session-access-memberships-id>`_
 
         :param membership_id: The unique identifier.
         :type membership_id: int | str
@@ -502,7 +539,7 @@ class SessionAccessMembershipsEndpoint(Endpoint):
     async def bulk_create(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[SessionAccessMembership]:
         """Bulk create session access memberships.
 
-        Official documentation: `trainings/session_access_memberships <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-trainings-session-access-memberships-bulk-create>`_
+        Official documentation: `trainings/session_access_memberships <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-trainings-session-access-memberships-bulk-create>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -518,7 +555,7 @@ class SessionAccessMembershipsEndpoint(Endpoint):
     async def bulk_destroy(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[SessionAccessMembership]:
         """Bulk destroy session access memberships.
 
-        Official documentation: `trainings/session_access_memberships <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-trainings-session-access-memberships-bulk-destroy>`_
+        Official documentation: `trainings/session_access_memberships <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-trainings-session-access-memberships-bulk-destroy>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -540,7 +577,7 @@ class SessionAttendancesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[SessionAttendance]:
         """Get all session attendances.
 
-        Official documentation: `trainings/session_attendances <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-trainings-session-attendances>`_
+        Official documentation: `trainings/session_attendances <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-trainings-session-attendances>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -554,7 +591,7 @@ class SessionAttendancesEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[SessionAttendance]:
         """Get session attendances with pagination metadata.
 
-        Official documentation: `trainings/session_attendances <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-trainings-session-attendances>`_
+        Official documentation: `trainings/session_attendances <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-trainings-session-attendances>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -570,7 +607,7 @@ class SessionAttendancesEndpoint(Endpoint):
     async def get_by_id(self, attendance_id: int | str, **kwargs) -> SessionAttendance:
         """Get a specific session attendance by ID.
 
-        Official documentation: `trainings/session_attendances <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-trainings-session-attendances-id>`_
+        Official documentation: `trainings/session_attendances <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-trainings-session-attendances-id>`_
 
         :param attendance_id: The unique identifier.
         :type attendance_id: int | str
@@ -586,7 +623,7 @@ class SessionAttendancesEndpoint(Endpoint):
     async def bulk_update(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[SessionAttendance]:
         """Bulk update session attendances.
 
-        Official documentation: `trainings/session_attendances <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-trainings-session-attendances-bulk-update>`_
+        Official documentation: `trainings/session_attendances <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-trainings-session-attendances-bulk-update>`_
 
         :param data: Payload with fields to update (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -608,7 +645,7 @@ class TrainingsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Training]:
         """Get all trainings.
 
-        Official documentation: `trainings/trainings <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-trainings-trainings>`_
+        Official documentation: `trainings/trainings <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-trainings-trainings>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -622,7 +659,7 @@ class TrainingsEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[Training]:
         """Get trainings with pagination metadata.
 
-        Official documentation: `trainings/trainings <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-trainings-trainings>`_
+        Official documentation: `trainings/trainings <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-trainings-trainings>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -638,7 +675,7 @@ class TrainingsEndpoint(Endpoint):
     async def get_by_id(self, training_id: int | str, **kwargs) -> Training:
         """Get a specific training by ID.
 
-        Official documentation: `trainings/trainings <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-trainings-trainings-id>`_
+        Official documentation: `trainings/trainings <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-trainings-trainings-id>`_
 
         :param training_id: The unique identifier.
         :type training_id: int | str
@@ -654,7 +691,7 @@ class TrainingsEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Training:
         """Create a new training.
 
-        Official documentation: `trainings/trainings <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-trainings-trainings>`_
+        Official documentation: `trainings/trainings <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-trainings-trainings>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -670,7 +707,7 @@ class TrainingsEndpoint(Endpoint):
     async def update(self, training_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Training:
         """Update a training.
 
-        Official documentation: `trainings/trainings <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-trainings-trainings-id>`_
+        Official documentation: `trainings/trainings <https://apidoc.factorialhr.com/reference/put_api-2026-04-01-resources-trainings-trainings-id>`_
 
         :param training_id: The unique identifier of the record to update.
         :type training_id: int | str
@@ -688,7 +725,7 @@ class TrainingsEndpoint(Endpoint):
     async def delete(self, training_id: int | str, **kwargs) -> Training:
         """Delete a training.
 
-        Official documentation: `trainings/trainings <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-trainings-trainings-id>`_
+        Official documentation: `trainings/trainings <https://apidoc.factorialhr.com/reference/delete_api-2026-04-01-resources-trainings-trainings-id>`_
 
         :param training_id: The unique identifier of the record to delete.
         :type training_id: int | str
@@ -704,7 +741,7 @@ class TrainingsEndpoint(Endpoint):
     async def bulk_delete(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[Training]:
         """Bulk delete trainings.
 
-        Official documentation: `trainings/trainings <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-trainings-trainings-bulk-delete>`_
+        Official documentation: `trainings/trainings <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-trainings-trainings-bulk-delete>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -720,7 +757,7 @@ class TrainingsEndpoint(Endpoint):
     async def bulk_update_catalog(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[Training]:
         """Bulk update catalog visibility for trainings.
 
-        Official documentation: `trainings/trainings <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-trainings-trainings-bulk-update-catalog>`_
+        Official documentation: `trainings/trainings <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-trainings-trainings-bulk-update-catalog>`_
 
         :param data: Payload with fields to update (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -736,7 +773,7 @@ class TrainingsEndpoint(Endpoint):
     async def update_status(self, data: Mapping[str, typing.Any], **kwargs) -> Training:
         """Update training status.
 
-        Official documentation: `trainings/trainings <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-trainings-trainings-update-status>`_
+        Official documentation: `trainings/trainings <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-trainings-trainings-update-status>`_
 
         :param data: Payload with fields to update (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -758,7 +795,7 @@ class TrainingClassesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[TrainingClass]:
         """Get all training classes.
 
-        Official documentation: `trainings/training_classes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-trainings-training-classes>`_
+        Official documentation: `trainings/training_classes <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-trainings-training-classes>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -772,7 +809,7 @@ class TrainingClassesEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[TrainingClass]:
         """Get training classes with pagination metadata.
 
-        Official documentation: `trainings/training_classes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-trainings-training-classes>`_
+        Official documentation: `trainings/training_classes <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-trainings-training-classes>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -788,7 +825,7 @@ class TrainingClassesEndpoint(Endpoint):
     async def get_by_id(self, class_id: int | str, **kwargs) -> TrainingClass:
         """Get a specific training class by ID.
 
-        Official documentation: `trainings/training_classes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-trainings-training-classes-id>`_
+        Official documentation: `trainings/training_classes <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-trainings-training-classes-id>`_
 
         :param class_id: The unique identifier.
         :type class_id: int | str
@@ -804,7 +841,7 @@ class TrainingClassesEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> TrainingClass:
         """Create a new training class.
 
-        Official documentation: `trainings/training_classes <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-trainings-training-classes>`_
+        Official documentation: `trainings/training_classes <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-trainings-training-classes>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -820,7 +857,7 @@ class TrainingClassesEndpoint(Endpoint):
     async def update(self, class_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> TrainingClass:
         """Update a training class.
 
-        Official documentation: `trainings/training_classes <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-trainings-training-classes-id>`_
+        Official documentation: `trainings/training_classes <https://apidoc.factorialhr.com/reference/put_api-2026-04-01-resources-trainings-training-classes-id>`_
 
         :param class_id: The unique identifier of the record to update.
         :type class_id: int | str
@@ -838,7 +875,7 @@ class TrainingClassesEndpoint(Endpoint):
     async def delete(self, class_id: int | str, **kwargs) -> TrainingClass:
         """Delete a training class.
 
-        Official documentation: `trainings/training_classes <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-trainings-training-classes-id>`_
+        Official documentation: `trainings/training_classes <https://apidoc.factorialhr.com/reference/delete_api-2026-04-01-resources-trainings-training-classes-id>`_
 
         :param class_id: The unique identifier of the record to delete.
         :type class_id: int | str
@@ -860,7 +897,7 @@ class TrainingMembershipsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[TrainingMembership]:
         """Get all training memberships.
 
-        Official documentation: `trainings/training_memberships <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-trainings-training-memberships>`_
+        Official documentation: `trainings/training_memberships <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-trainings-training-memberships>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -874,7 +911,7 @@ class TrainingMembershipsEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[TrainingMembership]:
         """Get training memberships with pagination metadata.
 
-        Official documentation: `trainings/training_memberships <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-trainings-training-memberships>`_
+        Official documentation: `trainings/training_memberships <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-trainings-training-memberships>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -890,7 +927,7 @@ class TrainingMembershipsEndpoint(Endpoint):
     async def get_by_id(self, membership_id: int | str, **kwargs) -> TrainingMembership:
         """Get a specific training membership by ID.
 
-        Official documentation: `trainings/training_memberships <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-trainings-training-memberships-id>`_
+        Official documentation: `trainings/training_memberships <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-trainings-training-memberships-id>`_
 
         :param membership_id: The unique identifier.
         :type membership_id: int | str
@@ -906,7 +943,7 @@ class TrainingMembershipsEndpoint(Endpoint):
     async def update(self, membership_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> TrainingMembership:
         """Update a training membership.
 
-        Official documentation: `trainings/training_memberships <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-trainings-training-memberships-id>`_
+        Official documentation: `trainings/training_memberships <https://apidoc.factorialhr.com/reference/put_api-2026-04-01-resources-trainings-training-memberships-id>`_
 
         :param membership_id: The unique identifier of the record to update.
         :type membership_id: int | str
@@ -924,7 +961,7 @@ class TrainingMembershipsEndpoint(Endpoint):
     async def bulk_create(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[TrainingMembership]:
         """Bulk create training memberships.
 
-        Official documentation: `trainings/training_memberships <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-trainings-training-memberships-bulk-create>`_
+        Official documentation: `trainings/training_memberships <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-trainings-training-memberships-bulk-create>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -940,7 +977,7 @@ class TrainingMembershipsEndpoint(Endpoint):
     async def bulk_destroy(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[TrainingMembership]:
         """Bulk destroy training memberships.
 
-        Official documentation: `trainings/training_memberships <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-trainings-training-memberships-bulk-destroy>`_
+        Official documentation: `trainings/training_memberships <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-trainings-training-memberships-bulk-destroy>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]

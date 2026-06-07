@@ -64,7 +64,7 @@ class ConceptsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Concept]:
         """Get all concepts records.
 
-        Official documentation: `compensations/concepts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-compensations-concepts>`_
+        Official documentation: `compensations/concepts <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-compensations-concepts>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -78,7 +78,7 @@ class ConceptsEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[Concept]:
         """Get concepts with pagination metadata.
 
-        Official documentation: `compensations/concepts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-compensations-concepts>`_
+        Official documentation: `compensations/concepts <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-compensations-concepts>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -94,7 +94,7 @@ class ConceptsEndpoint(Endpoint):
     async def get_by_id(self, concept_id: int | str, **kwargs) -> Concept:
         """Get a specific concept by ID.
 
-        Official documentation: `compensations/concepts <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-compensations-concepts-id>`_
+        Official documentation: `compensations/concepts <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-compensations-concepts-id>`_
 
         :param concept_id: The unique identifier.
         :type concept_id: int | str

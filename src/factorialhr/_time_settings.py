@@ -29,7 +29,7 @@ class BreakConfigurationEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[BreakConfiguration]:
         """Get all break configurations.
 
-        Official documentation: `time_settings/break_configurations <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-time-settings-break-configurations>`_
+        Official documentation: `time_settings/break_configurations <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-time-settings-break-configurations>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -43,7 +43,7 @@ class BreakConfigurationEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[BreakConfiguration]:
         """Get break configurations with pagination metadata.
 
-        Official documentation: `time_settings/break_configurations <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-time-settings-break-configurations>`_
+        Official documentation: `time_settings/break_configurations <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-time-settings-break-configurations>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -59,7 +59,7 @@ class BreakConfigurationEndpoint(Endpoint):
     async def get_by_id(self, config_id: int | str, **kwargs) -> BreakConfiguration:
         """Get a specific break configuration by ID.
 
-        Official documentation: `time_settings/break_configurations <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-time-settings-break-configurations-id>`_
+        Official documentation: `time_settings/break_configurations <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-time-settings-break-configurations-id>`_
 
         :param config_id: The unique identifier.
         :type config_id: int | str
@@ -75,7 +75,7 @@ class BreakConfigurationEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> BreakConfiguration:
         """Create a new break configuration.
 
-        Official documentation: `time_settings/break_configurations <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-time-settings-break-configurations>`_
+        Official documentation: `time_settings/break_configurations <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-time-settings-break-configurations>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -91,7 +91,7 @@ class BreakConfigurationEndpoint(Endpoint):
     async def update(self, config_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> BreakConfiguration:
         """Update a break configuration.
 
-        Official documentation: `time_settings/break_configurations <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-time-settings-break-configurations-id>`_
+        Official documentation: `time_settings/break_configurations <https://apidoc.factorialhr.com/reference/put_api-2026-04-01-resources-time-settings-break-configurations-id>`_
 
         :param config_id: The unique identifier of the record to update.
         :type config_id: int | str

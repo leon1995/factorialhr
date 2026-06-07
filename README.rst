@@ -3,7 +3,7 @@ FactorialHR api python wrapper
 
 This package provides a python wrapper to the `api of FactorialHR <https://apidoc.factorialhr.com/docs>`_.
 
-The package currently supports the api version `v2026-01-01 <https://apidoc.factorialhr.com/v2026-01-01/docs/getting-started>`_.
+The package currently supports the api version `v2026-04-01 <https://apidoc.factorialhr.com/v2026-04-01/docs/getting-started>`_.
 The openapi schema can be found at https://api.factorialhr.com/oas
 
 **I derived some types from the examples given. They might be incorrect. If you encounter any problems, please create an issue and/or contribute a fix.**
