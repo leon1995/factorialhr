@@ -232,7 +232,7 @@ class FamilySituationsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[FamilySituation]:
         """Get all family situations records.
 
-        Official documentation: `payroll/family_situations <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-payroll-family-situations>`_
+        Official documentation: `payroll/family_situations <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-payroll-family-situations>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -246,7 +246,7 @@ class FamilySituationsEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[FamilySituation]:
         """Get family situations with pagination metadata.
 
-        Official documentation: `payroll/family_situations <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-payroll-family-situations>`_
+        Official documentation: `payroll/family_situations <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-payroll-family-situations>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -262,7 +262,7 @@ class FamilySituationsEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> FamilySituation:
         """Create a new family situation.
 
-        Official documentation: `payroll/family_situations <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-payroll-family-situations>`_
+        Official documentation: `payroll/family_situations <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-payroll-family-situations>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -278,7 +278,7 @@ class FamilySituationsEndpoint(Endpoint):
     async def update(self, family_situation_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> FamilySituation:
         """Update a family situation.
 
-        Official documentation: `payroll/family_situations <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-payroll-family-situations-id>`_
+        Official documentation: `payroll/family_situations <https://apidoc.factorialhr.com/reference/put_api-2026-04-01-resources-payroll-family-situations-id>`_
 
         :param family_situation_id: The unique identifier of the record to update.
         :type family_situation_id: int | str
@@ -302,7 +302,7 @@ class PolicyPeriodsEndpoint(Endpoint):
     async def change_status(self, data: Mapping[str, typing.Any], **kwargs) -> PolicyPeriod:
         """Change status of a policy period.
 
-        Official documentation: `payroll/policy_periods <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-payroll-policy-periods-change-status>`_
+        Official documentation: `payroll/policy_periods <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-payroll-policy-periods-change-status>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -324,7 +324,7 @@ class SupplementsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Supplement]:
         """Get all supplements records.
 
-        Official documentation: `payroll/supplements <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-payroll-supplements>`_
+        Official documentation: `payroll/supplements <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-payroll-supplements>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -338,7 +338,7 @@ class SupplementsEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[Supplement]:
         """Get supplements with pagination metadata.
 
-        Official documentation: `payroll/supplements <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-payroll-supplements>`_
+        Official documentation: `payroll/supplements <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-payroll-supplements>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -354,7 +354,7 @@ class SupplementsEndpoint(Endpoint):
     async def get_by_id(self, supplement_id: int | str, **kwargs) -> Supplement:
         """Get a specific supplement by ID.
 
-        Official documentation: `payroll/supplements <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-payroll-supplements-id>`_
+        Official documentation: `payroll/supplements <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-payroll-supplements-id>`_
 
         :param supplement_id: The unique identifier.
         :type supplement_id: int | str
@@ -370,7 +370,7 @@ class SupplementsEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Supplement:
         """Create a new supplement.
 
-        Official documentation: `payroll/supplements <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-payroll-supplements>`_
+        Official documentation: `payroll/supplements <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-payroll-supplements>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -386,7 +386,7 @@ class SupplementsEndpoint(Endpoint):
     async def update(self, supplement_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Supplement:
         """Update a supplement.
 
-        Official documentation: `payroll/supplements <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-payroll-supplements-id>`_
+        Official documentation: `payroll/supplements <https://apidoc.factorialhr.com/reference/put_api-2026-04-01-resources-payroll-supplements-id>`_
 
         :param supplement_id: The unique identifier of the record to update.
         :type supplement_id: int | str
@@ -404,7 +404,7 @@ class SupplementsEndpoint(Endpoint):
     async def delete(self, supplement_id: int | str, **kwargs) -> Supplement:
         """Delete a supplement.
 
-        Official documentation: `payroll/supplements <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-payroll-supplements-id>`_
+        Official documentation: `payroll/supplements <https://apidoc.factorialhr.com/reference/delete_api-2026-04-01-resources-payroll-supplements-id>`_
 
         :param supplement_id: The unique identifier of the record to delete.
         :type supplement_id: int | str

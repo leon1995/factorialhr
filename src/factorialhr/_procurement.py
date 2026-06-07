@@ -63,7 +63,7 @@ class PurchaseOrdersEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[PurchaseOrder]:
         """Get all purchase orders records.
 
-        Official documentation: `procurement/purchase_orders <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-procurement-purchase-orders>`_
+        Official documentation: `procurement/purchase_orders <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-procurement-purchase-orders>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -77,7 +77,7 @@ class PurchaseOrdersEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[PurchaseOrder]:
         """Get purchase orders with pagination metadata.
 
-        Official documentation: `procurement/purchase_orders <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-procurement-purchase-orders>`_
+        Official documentation: `procurement/purchase_orders <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-procurement-purchase-orders>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -93,7 +93,7 @@ class PurchaseOrdersEndpoint(Endpoint):
     async def get_by_id(self, purchase_order_id: int | str, **kwargs) -> PurchaseOrder:
         """Get a specific purchase order by ID.
 
-        Official documentation: `procurement/purchase_orders <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-procurement-purchase-orders-id>`_
+        Official documentation: `procurement/purchase_orders <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-procurement-purchase-orders-id>`_
 
         :param purchase_order_id: The unique identifier.
         :type purchase_order_id: int | str
@@ -168,7 +168,7 @@ class PurchaseRequestsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[PurchaseRequest]:
         """Get all purchase requests records.
 
-        Official documentation: `procurement/purchase_requests <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-procurement-purchase-requests>`_
+        Official documentation: `procurement/purchase_requests <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-procurement-purchase-requests>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -182,7 +182,7 @@ class PurchaseRequestsEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[PurchaseRequest]:
         """Get purchase requests with pagination metadata.
 
-        Official documentation: `procurement/purchase_requests <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-procurement-purchase-requests>`_
+        Official documentation: `procurement/purchase_requests <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-procurement-purchase-requests>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -198,7 +198,7 @@ class PurchaseRequestsEndpoint(Endpoint):
     async def get_by_id(self, purchase_request_id: int | str, **kwargs) -> PurchaseRequest:
         """Get a specific purchase request by ID.
 
-        Official documentation: `procurement/purchase_requests <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-procurement-purchase-requests-id>`_
+        Official documentation: `procurement/purchase_requests <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-procurement-purchase-requests-id>`_
 
         :param purchase_request_id: The unique identifier.
         :type purchase_request_id: int | str
@@ -248,7 +248,7 @@ class ProcurementTypesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[ProcurementType]:
         """Get all procurement types records.
 
-        Official documentation: `procurement/types <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-procurement-types>`_
+        Official documentation: `procurement/types <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-procurement-types>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -262,7 +262,7 @@ class ProcurementTypesEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[ProcurementType]:
         """Get procurement types with pagination metadata.
 
-        Official documentation: `procurement/types <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-procurement-types>`_
+        Official documentation: `procurement/types <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-procurement-types>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -278,7 +278,7 @@ class ProcurementTypesEndpoint(Endpoint):
     async def get_by_id(self, type_id: int | str, **kwargs) -> ProcurementType:
         """Get a specific procurement type by ID.
 
-        Official documentation: `procurement/types <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-procurement-types-id>`_
+        Official documentation: `procurement/types <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-procurement-types-id>`_
 
         :param type_id: The unique identifier.
         :type type_id: int | str

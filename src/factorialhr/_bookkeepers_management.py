@@ -95,7 +95,7 @@ class BookkeepersManagementEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[BookkeepersManagementIncidence]:
         """Get all incidences records.
 
-        Official documentation: `bookkeepers_management/incidences <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-bookkeepers-management-incidences>`_
+        Official documentation: `bookkeepers_management/incidences <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-bookkeepers-management-incidences>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -109,7 +109,7 @@ class BookkeepersManagementEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[BookkeepersManagementIncidence]:
         """Get incidences with pagination metadata.
 
-        Official documentation: `bookkeepers_management/incidences <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-bookkeepers-management-incidences>`_
+        Official documentation: `bookkeepers_management/incidences <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-bookkeepers-management-incidences>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -129,7 +129,7 @@ class BookkeepersManagementEndpoint(Endpoint):
     async def get_by_id(self, incidence_id: int | str, **kwargs) -> BookkeepersManagementIncidence:
         """Get a specific incidence by ID.
 
-        Official documentation: `bookkeepers_management/incidences <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-bookkeepers-management-incidences-id>`_
+        Official documentation: `bookkeepers_management/incidences <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-bookkeepers-management-incidences-id>`_
 
         :param incidence_id: The unique identifier.
         :type incidence_id: int | str
@@ -150,7 +150,7 @@ class BookkeepersManagementEndpoint(Endpoint):
     ) -> BookkeepersManagementIncidence:
         """Update an incidence.
 
-        Official documentation: `bookkeepers_management/incidences <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-bookkeepers-management-incidences-id>`_
+        Official documentation: `bookkeepers_management/incidences <https://apidoc.factorialhr.com/reference/put_api-2026-04-01-resources-bookkeepers-management-incidences-id>`_
 
         :param incidence_id: The unique identifier of the record to update.
         :type incidence_id: int | str

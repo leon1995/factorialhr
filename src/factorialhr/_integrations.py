@@ -67,7 +67,7 @@ class SyncableItemsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[SyncableItem]:
         """Get all syncable items records.
 
-        Official documentation: `integrations/syncable_items <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-integrations-syncable-items>`_
+        Official documentation: `integrations/syncable_items <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-integrations-syncable-items>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -81,7 +81,7 @@ class SyncableItemsEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[SyncableItem]:
         """Get syncable items with pagination metadata.
 
-        Official documentation: `integrations/syncable_items <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-integrations-syncable-items>`_
+        Official documentation: `integrations/syncable_items <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-integrations-syncable-items>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -97,7 +97,7 @@ class SyncableItemsEndpoint(Endpoint):
     async def get_by_id(self, item_id: int | str, **kwargs) -> SyncableItem:
         """Get a specific syncable item by ID.
 
-        Official documentation: `integrations/syncable_items <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-integrations-syncable-items-id>`_
+        Official documentation: `integrations/syncable_items <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-integrations-syncable-items-id>`_
 
         :param item_id: The unique identifier.
         :type item_id: int | str
@@ -119,7 +119,7 @@ class SyncableSyncRunsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[SyncableSyncRun]:
         """Get all syncable sync runs records.
 
-        Official documentation: `integrations/syncable_sync_runs <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-integrations-syncable-sync-runs>`_
+        Official documentation: `integrations/syncable_sync_runs <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-integrations-syncable-sync-runs>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -133,7 +133,7 @@ class SyncableSyncRunsEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[SyncableSyncRun]:
         """Get syncable sync runs with pagination metadata.
 
-        Official documentation: `integrations/syncable_sync_runs <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-integrations-syncable-sync-runs>`_
+        Official documentation: `integrations/syncable_sync_runs <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-integrations-syncable-sync-runs>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -149,7 +149,7 @@ class SyncableSyncRunsEndpoint(Endpoint):
     async def get_by_id(self, run_id: int | str, **kwargs) -> SyncableSyncRun:
         """Get a specific syncable sync run by ID.
 
-        Official documentation: `integrations/syncable_sync_runs <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-integrations-syncable-sync-runs-id>`_
+        Official documentation: `integrations/syncable_sync_runs <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-integrations-syncable-sync-runs-id>`_
 
         :param run_id: The unique identifier.
         :type run_id: int | str
@@ -165,7 +165,7 @@ class SyncableSyncRunsEndpoint(Endpoint):
     async def update(self, run_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> SyncableSyncRun:
         """Update a syncable sync run.
 
-        Official documentation: `integrations/syncable_sync_runs <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-integrations-syncable-sync-runs-id>`_
+        Official documentation: `integrations/syncable_sync_runs <https://apidoc.factorialhr.com/reference/put_api-2026-04-01-resources-integrations-syncable-sync-runs-id>`_
 
         :param run_id: The unique identifier of the record to update.
         :type run_id: int | str

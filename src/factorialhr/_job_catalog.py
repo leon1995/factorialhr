@@ -60,7 +60,7 @@ class LevelsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Jobcataloglevel]:
         """Get all job catalog levels records.
 
-        Official documentation: `job_catalog/levels <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-job-catalog-levels>`_
+        Official documentation: `job_catalog/levels <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-job-catalog-levels>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -74,7 +74,7 @@ class LevelsEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[Jobcataloglevel]:
         """Get job catalog levels with pagination metadata.
 
-        Official documentation: `job_catalog/levels <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-job-catalog-levels>`_
+        Official documentation: `job_catalog/levels <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-job-catalog-levels>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -90,7 +90,7 @@ class LevelsEndpoint(Endpoint):
     async def get_by_id(self, level_id: int | str, **kwargs) -> Jobcataloglevel:
         """Get a specific job catalog level by ID.
 
-        Official documentation: `job_catalog/levels <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-job-catalog-levels-id>`_
+        Official documentation: `job_catalog/levels <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-job-catalog-levels-id>`_
 
         :param level_id: The unique identifier.
         :type level_id: int | str
@@ -112,7 +112,7 @@ class RolesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Jobcatalogrole]:
         """Get all job catalog roles records.
 
-        Official documentation: `job_catalog/roles <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-job-catalog-roles>`_
+        Official documentation: `job_catalog/roles <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-job-catalog-roles>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -126,7 +126,7 @@ class RolesEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[Jobcatalogrole]:
         """Get job catalog roles with pagination metadata.
 
-        Official documentation: `job_catalog/roles <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-job-catalog-roles>`_
+        Official documentation: `job_catalog/roles <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-job-catalog-roles>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -142,7 +142,7 @@ class RolesEndpoint(Endpoint):
     async def get_by_id(self, role_id: int | str, **kwargs) -> Jobcatalogrole:
         """Get a specific job catalog role by ID.
 
-        Official documentation: `job_catalog/roles <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-job-catalog-roles-id>`_
+        Official documentation: `job_catalog/roles <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-job-catalog-roles-id>`_
 
         :param role_id: The unique identifier.
         :type role_id: int | str
@@ -191,7 +191,7 @@ class NodeAttributesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[NodeAttribute]:
         """Get all node attributes.
 
-        Official documentation: `job_catalog/node_attributes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-job-catalog-node-attributes>`_
+        Official documentation: `job_catalog/node_attributes <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-job-catalog-node-attributes>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -205,7 +205,7 @@ class NodeAttributesEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[NodeAttribute]:
         """Get node attributes with pagination metadata.
 
-        Official documentation: `job_catalog/node_attributes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-job-catalog-node-attributes>`_
+        Official documentation: `job_catalog/node_attributes <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-job-catalog-node-attributes>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -268,7 +268,7 @@ class TreeNodesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[JobCatalogNode]:
         """Get all tree nodes.
 
-        Official documentation: `job_catalog/tree_nodes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-job-catalog-tree-nodes>`_
+        Official documentation: `job_catalog/tree_nodes <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-job-catalog-tree-nodes>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -282,7 +282,7 @@ class TreeNodesEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[JobCatalogNode]:
         """Get tree nodes with pagination metadata.
 
-        Official documentation: `job_catalog/tree_nodes <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-job-catalog-tree-nodes>`_
+        Official documentation: `job_catalog/tree_nodes <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-job-catalog-tree-nodes>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional

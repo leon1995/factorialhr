@@ -5,6 +5,38 @@ All notable changes to factorialhr module will be documented in this file.
 
 The format is based on `Keep a Changelog <https://keepachangelog.com/en/1.0.0>`_
 
+[7.0.0] - 2026-06-07
+-------------
+
+Changed
+^^^^^^^
+
+- support api version ``2026-04-01``. Checkout full `changelog <https://apidoc.factorialhr.com/changelog/changelog_2026-04-01>`_
+
+Added
+^^^^^
+
+- ``MaterializedApprovalsFlow``, ``MaterializedApprovalsFlowsEndpoint`` for approvals (``approve_resource``, ``reject_resource``)
+- ``BudgetStrategy``, ``BudgetStrategiesEndpoint``, ``BudgetStrategyType`` for project management budget strategies
+- ``default_work_area_id`` field to ``Employee`` model
+- ``contract_end_date`` field to ``EmployeeTermination`` model
+- ``trip_name`` field to ``PerDiem`` model
+- ``total``, ``accrued_incidences``, ``available_incidences`` fields to ``AllowanceStatsNew`` model
+- ``completed_duration`` field to ``SessionAttendance`` model
+- ``gross_cost``, ``net_cost``, ``currency``, ``created_at``, ``payment_status`` fields to ``TrainingClass`` model
+- ``TrainingClassPaymentStatus`` enum
+- ``de_base_salary_type_id`` field to ``ContractVersion`` and ``ContractVersionHistory`` models
+
+Removed
+^^^^^^^
+
+- ``job_catalog_level_id`` field from ``ContractVersion`` model
+
+Note
+^^^^
+
+- New query parameters (e.g. ``updated_at_gteq``, ``updated_at_lteq``, ``employee_id``, ``due_date``) and request body fields (e.g. ``source``, ``qr_code``, ``skip_qr``, ``system_created``, ``project_id``, ``send_calendar_invites``, ``completed_duration``, ``payment_status``, ``training_id``, ``all``) are supported by passing them via ``params`` or the request ``data`` to the existing endpoint methods.
+
 [6.0.0] - 2026-02-20
 -------------
 

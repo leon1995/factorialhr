@@ -83,7 +83,7 @@ class PlannedBreakEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[PlannedBreak]:
         """Get all planned breaks.
 
-        Official documentation: `time_planning/planned_breaks <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-time-planning-planned-breaks>`_
+        Official documentation: `time_planning/planned_breaks <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-time-planning-planned-breaks>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -97,7 +97,7 @@ class PlannedBreakEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[PlannedBreak]:
         """Get planned breaks with pagination metadata.
 
-        Official documentation: `time_planning/planned_breaks <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-time-planning-planned-breaks>`_
+        Official documentation: `time_planning/planned_breaks <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-time-planning-planned-breaks>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -113,7 +113,7 @@ class PlannedBreakEndpoint(Endpoint):
     async def get_by_id(self, break_id: int | str, **kwargs) -> PlannedBreak:
         """Get a specific planned break by ID.
 
-        Official documentation: `time_planning/planned_breaks <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-time-planning-planned-breaks-id>`_
+        Official documentation: `time_planning/planned_breaks <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-time-planning-planned-breaks-id>`_
 
         :param break_id: The unique identifier.
         :type break_id: int | str
@@ -129,7 +129,7 @@ class PlannedBreakEndpoint(Endpoint):
     async def bulk_create(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[PlannedBreak]:
         """Bulk create planned breaks.
 
-        Official documentation: `time_planning/planned_breaks <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-time-planning-planned-breaks-bulk-create>`_
+        Official documentation: `time_planning/planned_breaks <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-time-planning-planned-breaks-bulk-create>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -151,7 +151,7 @@ class PlanningVersionEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[PlanningVersion]:
         """Get all planning versions.
 
-        Official documentation: `time_planning/planning_versions <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-time-planning-planning-versions>`_
+        Official documentation: `time_planning/planning_versions <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-time-planning-planning-versions>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -165,7 +165,7 @@ class PlanningVersionEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[PlanningVersion]:
         """Get planning versions with pagination metadata.
 
-        Official documentation: `time_planning/planning_versions <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-time-planning-planning-versions>`_
+        Official documentation: `time_planning/planning_versions <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-time-planning-planning-versions>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -181,7 +181,7 @@ class PlanningVersionEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> PlanningVersion:
         """Create a new planning version.
 
-        Official documentation: `time_planning/planning_versions <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-time-planning-planning-versions>`_
+        Official documentation: `time_planning/planning_versions <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-time-planning-planning-versions>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -197,7 +197,7 @@ class PlanningVersionEndpoint(Endpoint):
     async def update(self, version_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> PlanningVersion:
         """Update a planning version.
 
-        Official documentation: `time_planning/planning_versions <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-time-planning-planning-versions-id>`_
+        Official documentation: `time_planning/planning_versions <https://apidoc.factorialhr.com/reference/put_api-2026-04-01-resources-time-planning-planning-versions-id>`_
 
         :param version_id: The unique identifier of the record to update.
         :type version_id: int | str
@@ -215,7 +215,7 @@ class PlanningVersionEndpoint(Endpoint):
     async def delete(self, version_id: int | str, **kwargs) -> PlanningVersion:
         """Delete a planning version.
 
-        Official documentation: `time_planning/planning_versions <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-time-planning-planning-versions-id>`_
+        Official documentation: `time_planning/planning_versions <https://apidoc.factorialhr.com/reference/delete_api-2026-04-01-resources-time-planning-planning-versions-id>`_
 
         :param version_id: The unique identifier of the record to delete.
         :type version_id: int | str
@@ -231,7 +231,7 @@ class PlanningVersionEndpoint(Endpoint):
     async def bulk_create(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[PlanningVersion]:
         """Bulk create planning versions.
 
-        Official documentation: `time_planning/planning_versions <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-time-planning-planning-versions-bulk-create>`_
+        Official documentation: `time_planning/planning_versions <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-time-planning-planning-versions-bulk-create>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]

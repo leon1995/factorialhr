@@ -273,6 +273,9 @@ class AllowanceStatsNew(pydantic.BaseModel):
     accumulated_carry_over: Mapping[str, typing.Any]
     available_days: Mapping[str, typing.Any]
     total_accrued_units: Mapping[str, typing.Any]
+    total: Mapping[str, typing.Any]
+    accrued_incidences: Mapping[str, typing.Any]
+    available_incidences: Mapping[str, typing.Any]
     incidences: Mapping[str, typing.Any]
     max_balance_cap: Mapping[str, typing.Any] | None = None
     policy_allowance: Mapping[str, typing.Any]
@@ -409,7 +412,7 @@ class AllowancesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Allowance]:
         """Get all allowances records.
 
-        Official documentation: `timeoff/allowances <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-allowances>`_
+        Official documentation: `timeoff/allowances <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-timeoff-allowances>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -423,7 +426,7 @@ class AllowancesEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[Allowance]:
         """Get allowances with pagination metadata.
 
-        Official documentation: `timeoff/allowances <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-allowances>`_
+        Official documentation: `timeoff/allowances <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-timeoff-allowances>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -439,7 +442,7 @@ class AllowancesEndpoint(Endpoint):
     async def get_by_id(self, allowance_id: int | str, **kwargs) -> Allowance:
         """Get a specific allowance by ID.
 
-        Official documentation: `timeoff/allowances <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-allowances-id>`_
+        Official documentation: `timeoff/allowances <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-timeoff-allowances-id>`_
 
         :param allowance_id: The unique identifier.
         :type allowance_id: int | str
@@ -455,7 +458,7 @@ class AllowancesEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Allowance:
         """Create a new allowance.
 
-        Official documentation: `timeoff/allowances <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-timeoff-allowances>`_
+        Official documentation: `timeoff/allowances <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-timeoff-allowances>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -471,7 +474,7 @@ class AllowancesEndpoint(Endpoint):
     async def update(self, allowance_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Allowance:
         """Update an allowance.
 
-        Official documentation: `timeoff/allowances <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-timeoff-allowances-id>`_
+        Official documentation: `timeoff/allowances <https://apidoc.factorialhr.com/reference/put_api-2026-04-01-resources-timeoff-allowances-id>`_
 
         :param allowance_id: The unique identifier of the record to update.
         :type allowance_id: int | str
@@ -489,7 +492,7 @@ class AllowancesEndpoint(Endpoint):
     async def delete(self, allowance_id: int | str, **kwargs) -> Allowance:
         """Delete an allowance.
 
-        Official documentation: `timeoff/allowances <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-timeoff-allowances-id>`_
+        Official documentation: `timeoff/allowances <https://apidoc.factorialhr.com/reference/delete_api-2026-04-01-resources-timeoff-allowances-id>`_
 
         :param allowance_id: The unique identifier of the record to delete.
         :type allowance_id: int | str
@@ -505,7 +508,7 @@ class AllowancesEndpoint(Endpoint):
     async def delete_with_alt_allowance(self, data: Mapping[str, typing.Any], **kwargs) -> Allowance:
         """Delete an allowance and migrate existing incidences to alternative allowance.
 
-        Official documentation: `timeoff/allowances <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-timeoff-allowances-delete-with-alt-allowance>`_
+        Official documentation: `timeoff/allowances <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-timeoff-allowances-delete-with-alt-allowance>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -527,7 +530,7 @@ class AllowanceIncidencesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[AllowanceIncidence]:
         """Get all allowance incidences records.
 
-        Official documentation: `timeoff/allowance_incidences <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-allowance-incidences>`_
+        Official documentation: `timeoff/allowance_incidences <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-timeoff-allowance-incidences>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -541,7 +544,7 @@ class AllowanceIncidencesEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[AllowanceIncidence]:
         """Get allowance incidences with pagination metadata.
 
-        Official documentation: `timeoff/allowance_incidences <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-allowance-incidences>`_
+        Official documentation: `timeoff/allowance_incidences <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-timeoff-allowance-incidences>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -557,7 +560,7 @@ class AllowanceIncidencesEndpoint(Endpoint):
     async def get_by_id(self, incidence_id: int | str, **kwargs) -> AllowanceIncidence:
         """Get a specific allowance incidence by ID.
 
-        Official documentation: `timeoff/allowance_incidences <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-allowance-incidences-id>`_
+        Official documentation: `timeoff/allowance_incidences <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-timeoff-allowance-incidences-id>`_
 
         :param incidence_id: The unique identifier.
         :type incidence_id: int | str
@@ -573,7 +576,7 @@ class AllowanceIncidencesEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> AllowanceIncidence:
         """Create a new allowance incidence.
 
-        Official documentation: `timeoff/allowance_incidences <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-timeoff-allowance-incidences>`_
+        Official documentation: `timeoff/allowance_incidences <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-timeoff-allowance-incidences>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -589,7 +592,7 @@ class AllowanceIncidencesEndpoint(Endpoint):
     async def update(self, incidence_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> AllowanceIncidence:
         """Update an allowance incidence.
 
-        Official documentation: `timeoff/allowance_incidences <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-timeoff-allowance-incidences-id>`_
+        Official documentation: `timeoff/allowance_incidences <https://apidoc.factorialhr.com/reference/put_api-2026-04-01-resources-timeoff-allowance-incidences-id>`_
 
         :param incidence_id: The unique identifier of the record to update.
         :type incidence_id: int | str
@@ -607,7 +610,7 @@ class AllowanceIncidencesEndpoint(Endpoint):
     async def delete(self, incidence_id: int | str, **kwargs) -> AllowanceIncidence:
         """Delete an allowance incidence.
 
-        Official documentation: `timeoff/allowance_incidences <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-timeoff-allowance-incidences-id>`_
+        Official documentation: `timeoff/allowance_incidences <https://apidoc.factorialhr.com/reference/delete_api-2026-04-01-resources-timeoff-allowance-incidences-id>`_
 
         :param incidence_id: The unique identifier of the record to delete.
         :type incidence_id: int | str
@@ -629,7 +632,7 @@ class AllowanceStatsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[AllowanceStatsNew]:
         """Get all allowance stats records.
 
-        Official documentation: `timeoff/allowance_stats <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-allowance-stats>`_
+        Official documentation: `timeoff/allowance_stats <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-timeoff-allowance-stats>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -643,7 +646,7 @@ class AllowanceStatsEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[AllowanceStatsNew]:
         """Get allowance stats with pagination metadata.
 
-        Official documentation: `timeoff/allowance_stats <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-allowance-stats>`_
+        Official documentation: `timeoff/allowance_stats <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-timeoff-allowance-stats>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -659,7 +662,7 @@ class AllowanceStatsEndpoint(Endpoint):
     async def get_by_id(self, stat_id: int | str, **kwargs) -> AllowanceStatsNew:
         """Get a specific allowance stat by ID.
 
-        Official documentation: `timeoff/allowance_stats <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-allowance-stats-id>`_
+        Official documentation: `timeoff/allowance_stats <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-timeoff-allowance-stats-id>`_
 
         :param stat_id: The unique identifier.
         :type stat_id: int | str
@@ -681,7 +684,7 @@ class BlockedPeriodsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[BlockedPeriod]:
         """Get all blocked periods records.
 
-        Official documentation: `timeoff/blocked_periods <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-blocked-periods>`_
+        Official documentation: `timeoff/blocked_periods <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-timeoff-blocked-periods>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -695,7 +698,7 @@ class BlockedPeriodsEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[BlockedPeriod]:
         """Get blocked periods with pagination metadata.
 
-        Official documentation: `timeoff/blocked_periods <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-blocked-periods>`_
+        Official documentation: `timeoff/blocked_periods <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-timeoff-blocked-periods>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -711,7 +714,7 @@ class BlockedPeriodsEndpoint(Endpoint):
     async def get_by_id(self, period_id: int | str, **kwargs) -> BlockedPeriod:
         """Get a specific blocked period by ID.
 
-        Official documentation: `timeoff/blocked_periods <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-blocked-periods-id>`_
+        Official documentation: `timeoff/blocked_periods <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-timeoff-blocked-periods-id>`_
 
         :param period_id: The unique identifier.
         :type period_id: int | str
@@ -727,7 +730,7 @@ class BlockedPeriodsEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> BlockedPeriod:
         """Create a new blocked period.
 
-        Official documentation: `timeoff/blocked_periods <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-timeoff-blocked-periods>`_
+        Official documentation: `timeoff/blocked_periods <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-timeoff-blocked-periods>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -743,7 +746,7 @@ class BlockedPeriodsEndpoint(Endpoint):
     async def update(self, period_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> BlockedPeriod:
         """Update a blocked period.
 
-        Official documentation: `timeoff/blocked_periods <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-timeoff-blocked-periods-id>`_
+        Official documentation: `timeoff/blocked_periods <https://apidoc.factorialhr.com/reference/put_api-2026-04-01-resources-timeoff-blocked-periods-id>`_
 
         :param period_id: The unique identifier of the record to update.
         :type period_id: int | str
@@ -761,7 +764,7 @@ class BlockedPeriodsEndpoint(Endpoint):
     async def delete(self, period_id: int | str, **kwargs) -> BlockedPeriod:
         """Delete a blocked period.
 
-        Official documentation: `timeoff/blocked_periods <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-timeoff-blocked-periods-id>`_
+        Official documentation: `timeoff/blocked_periods <https://apidoc.factorialhr.com/reference/delete_api-2026-04-01-resources-timeoff-blocked-periods-id>`_
 
         :param period_id: The unique identifier of the record to delete.
         :type period_id: int | str
@@ -783,7 +786,7 @@ class LeavesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Leave]:
         """Get all leaves records.
 
-        Official documentation: `timeoff/leaves <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-timeoff-leaves-id>`_
+        Official documentation: `timeoff/leaves <https://apidoc.factorialhr.com/reference/delete_api-2026-04-01-resources-timeoff-leaves-id>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -797,7 +800,7 @@ class LeavesEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[Leave]:
         """Get leaves with pagination metadata.
 
-        Official documentation: `timeoff/leaves <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-leaves>`_
+        Official documentation: `timeoff/leaves <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-timeoff-leaves>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -813,7 +816,7 @@ class LeavesEndpoint(Endpoint):
     async def get_by_id(self, leave_id: int | str, **kwargs) -> Leave:
         """Get a specific leave by ID.
 
-        Official documentation: `timeoff/leaves <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-leaves-id>`_
+        Official documentation: `timeoff/leaves <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-timeoff-leaves-id>`_
 
         :param leave_id: The unique identifier.
         :type leave_id: int | str
@@ -829,7 +832,7 @@ class LeavesEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Leave:
         """Create a new leave.
 
-        Official documentation: `timeoff/leaves <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-timeoff-leaves>`_
+        Official documentation: `timeoff/leaves <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-timeoff-leaves>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -845,7 +848,7 @@ class LeavesEndpoint(Endpoint):
     async def update(self, leave_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Leave:
         """Update a leave.
 
-        Official documentation: `timeoff/leaves <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-timeoff-leaves-id>`_
+        Official documentation: `timeoff/leaves <https://apidoc.factorialhr.com/reference/put_api-2026-04-01-resources-timeoff-leaves-id>`_
 
         :param leave_id: The unique identifier of the record to update.
         :type leave_id: int | str
@@ -863,7 +866,7 @@ class LeavesEndpoint(Endpoint):
     async def delete(self, leave_id: int | str, **kwargs) -> Leave:
         """Delete a leave.
 
-        Official documentation: `timeoff/leaves <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-timeoff-leaves-id>`_
+        Official documentation: `timeoff/leaves <https://apidoc.factorialhr.com/reference/delete_api-2026-04-01-resources-timeoff-leaves-id>`_
 
         :param leave_id: The unique identifier of the record to delete.
         :type leave_id: int | str
@@ -879,7 +882,7 @@ class LeavesEndpoint(Endpoint):
     async def approve(self, data: Mapping[str, typing.Any], **kwargs) -> Leave:
         """Approve a leave.
 
-        Official documentation: `timeoff/leaves <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-timeoff-leaves-approve>`_
+        Official documentation: `timeoff/leaves <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-timeoff-leaves-approve>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -895,7 +898,7 @@ class LeavesEndpoint(Endpoint):
     async def approve_all(self, data: Mapping[str, typing.Any], **kwargs) -> Leave:
         """Approve all steps of a leave.
 
-        Official documentation: `timeoff/leaves <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-timeoff-leaves-approve-all>`_
+        Official documentation: `timeoff/leaves <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-timeoff-leaves-approve-all>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -911,7 +914,7 @@ class LeavesEndpoint(Endpoint):
     async def reject(self, data: Mapping[str, typing.Any], **kwargs) -> Leave:
         """Reject a leave.
 
-        Official documentation: `timeoff/leaves <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-timeoff-leaves-reject>`_
+        Official documentation: `timeoff/leaves <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-timeoff-leaves-reject>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -933,7 +936,7 @@ class LeaveTypesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[LeaveType]:
         """Get all leave types records.
 
-        Official documentation: `timeoff/leave_types <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-leave-types>`_
+        Official documentation: `timeoff/leave_types <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-timeoff-leave-types>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -947,7 +950,7 @@ class LeaveTypesEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[LeaveType]:
         """Get leave types with pagination metadata.
 
-        Official documentation: `timeoff/leave_types <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-leave-types>`_
+        Official documentation: `timeoff/leave_types <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-timeoff-leave-types>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -963,7 +966,7 @@ class LeaveTypesEndpoint(Endpoint):
     async def get_by_id(self, leave_type_id: int | str, **kwargs) -> LeaveType:
         """Get a specific leave type by ID.
 
-        Official documentation: `timeoff/leave_types <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-leave-types-id>`_
+        Official documentation: `timeoff/leave_types <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-timeoff-leave-types-id>`_
 
         :param leave_type_id: The unique identifier.
         :type leave_type_id: int | str
@@ -979,7 +982,7 @@ class LeaveTypesEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> LeaveType:
         """Create a new leave type.
 
-        Official documentation: `timeoff/leave_types <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-timeoff-leave-types>`_
+        Official documentation: `timeoff/leave_types <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-timeoff-leave-types>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -995,7 +998,7 @@ class LeaveTypesEndpoint(Endpoint):
     async def update(self, leave_type_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> LeaveType:
         """Update a leave type.
 
-        Official documentation: `timeoff/leave_types <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-timeoff-leave-types-id>`_
+        Official documentation: `timeoff/leave_types <https://apidoc.factorialhr.com/reference/put_api-2026-04-01-resources-timeoff-leave-types-id>`_
 
         :param leave_type_id: The unique identifier of the record to update.
         :type leave_type_id: int | str
@@ -1019,7 +1022,7 @@ class PoliciesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Policy]:
         """Get all policies records.
 
-        Official documentation: `timeoff/policies <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-timeoff-policies-id>`_
+        Official documentation: `timeoff/policies <https://apidoc.factorialhr.com/reference/put_api-2026-04-01-resources-timeoff-policies-id>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -1033,7 +1036,7 @@ class PoliciesEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[Policy]:
         """Get policies with pagination metadata.
 
-        Official documentation: `timeoff/policies <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-policies>`_
+        Official documentation: `timeoff/policies <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-timeoff-policies>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -1049,7 +1052,7 @@ class PoliciesEndpoint(Endpoint):
     async def get_by_id(self, policy_id: int | str, **kwargs) -> Policy:
         """Get a specific policy by ID.
 
-        Official documentation: `timeoff/policies <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-policies-id>`_
+        Official documentation: `timeoff/policies <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-timeoff-policies-id>`_
 
         :param policy_id: The unique identifier.
         :type policy_id: int | str
@@ -1065,7 +1068,7 @@ class PoliciesEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> Policy:
         """Create a new policy.
 
-        Official documentation: `timeoff/policies <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-timeoff-policies>`_
+        Official documentation: `timeoff/policies <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-timeoff-policies>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1081,7 +1084,7 @@ class PoliciesEndpoint(Endpoint):
     async def update(self, policy_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> Policy:
         """Update a policy.
 
-        Official documentation: `timeoff/policies <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-timeoff-policies-id>`_
+        Official documentation: `timeoff/policies <https://apidoc.factorialhr.com/reference/put_api-2026-04-01-resources-timeoff-policies-id>`_
 
         :param policy_id: The unique identifier of the record to update.
         :type policy_id: int | str
@@ -1099,7 +1102,7 @@ class PoliciesEndpoint(Endpoint):
     async def delete(self, policy_id: int | str, **kwargs) -> Policy:
         """Delete a policy.
 
-        Official documentation: `timeoff/policies <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-timeoff-policies-id>`_
+        Official documentation: `timeoff/policies <https://apidoc.factorialhr.com/reference/delete_api-2026-04-01-resources-timeoff-policies-id>`_
 
         :param policy_id: The unique identifier of the record to delete.
         :type policy_id: int | str
@@ -1121,7 +1124,7 @@ class PolicyAssignmentsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[PolicyAssignment]:
         """Get all policy assignments records.
 
-        Official documentation: `timeoff/policy_assignments <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-policy-assignments>`_
+        Official documentation: `timeoff/policy_assignments <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-timeoff-policy-assignments>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -1135,7 +1138,7 @@ class PolicyAssignmentsEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[PolicyAssignment]:
         """Get policy assignments with pagination metadata.
 
-        Official documentation: `timeoff/policy_assignments <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-policy-assignments>`_
+        Official documentation: `timeoff/policy_assignments <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-timeoff-policy-assignments>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -1151,7 +1154,7 @@ class PolicyAssignmentsEndpoint(Endpoint):
     async def get_by_id(self, assignment_id: int | str, **kwargs) -> PolicyAssignment:
         """Get a specific policy assignment by ID.
 
-        Official documentation: `timeoff/policy_assignments <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-policy-assignments-id>`_
+        Official documentation: `timeoff/policy_assignments <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-timeoff-policy-assignments-id>`_
 
         :param assignment_id: The unique identifier.
         :type assignment_id: int | str
@@ -1167,7 +1170,7 @@ class PolicyAssignmentsEndpoint(Endpoint):
     async def create(self, data: Mapping[str, typing.Any], **kwargs) -> PolicyAssignment:
         """Create a new policy assignment.
 
-        Official documentation: `timeoff/policy_assignments <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-timeoff-policy-assignments>`_
+        Official documentation: `timeoff/policy_assignments <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-timeoff-policy-assignments>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -1183,7 +1186,7 @@ class PolicyAssignmentsEndpoint(Endpoint):
     async def update(self, assignment_id: int | str, data: Mapping[str, typing.Any], **kwargs) -> PolicyAssignment:
         """Update a policy assignment.
 
-        Official documentation: `timeoff/policy_assignments <https://apidoc.factorialhr.com/reference/put_api-2026-01-01-resources-timeoff-policy-assignments-id>`_
+        Official documentation: `timeoff/policy_assignments <https://apidoc.factorialhr.com/reference/put_api-2026-04-01-resources-timeoff-policy-assignments-id>`_
 
         :param assignment_id: The unique identifier of the record to update.
         :type assignment_id: int | str
@@ -1201,7 +1204,7 @@ class PolicyAssignmentsEndpoint(Endpoint):
     async def delete(self, assignment_id: int | str, **kwargs) -> PolicyAssignment:
         """Delete a policy assignment.
 
-        Official documentation: `timeoff/policy_assignments <https://apidoc.factorialhr.com/reference/delete_api-2026-01-01-resources-timeoff-policy-assignments-id>`_
+        Official documentation: `timeoff/policy_assignments <https://apidoc.factorialhr.com/reference/delete_api-2026-04-01-resources-timeoff-policy-assignments-id>`_
 
         :param assignment_id: The unique identifier of the record to delete.
         :type assignment_id: int | str
@@ -1223,7 +1226,7 @@ class PolicyTimelinesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[PolicyTimeline]:
         """Get all policy timelines records.
 
-        Official documentation: `timeoff/policy_timelines <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-policy-timelines>`_
+        Official documentation: `timeoff/policy_timelines <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-timeoff-policy-timelines>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -1237,7 +1240,7 @@ class PolicyTimelinesEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[PolicyTimeline]:
         """Get policy timelines with pagination metadata.
 
-        Official documentation: `timeoff/policy_timelines <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-timeoff-policy-timelines>`_
+        Official documentation: `timeoff/policy_timelines <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-timeoff-policy-timelines>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional

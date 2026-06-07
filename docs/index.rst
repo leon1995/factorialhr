@@ -5,6 +5,7 @@
    
    authentication
    api_public
+   approvals
    ats
    attendance
    banking

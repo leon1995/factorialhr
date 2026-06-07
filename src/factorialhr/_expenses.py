@@ -473,6 +473,8 @@ class PerDiem(pydantic.BaseModel):
     status: ExpenseStatus = pydantic.Field(description='The status of the per diem')
     #: The rates for the per diem
     rates: Sequence[typing.Any] = pydantic.Field(description='The rates for the per diem')
+    #: The name of the trip
+    trip_name: str | None = pydantic.Field(default=None, description='The name of the trip')
 
 
 class ExpensablesEndpoint(Endpoint):
@@ -483,7 +485,7 @@ class ExpensablesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Expensable]:
         """Get all expensables records.
 
-        Official documentation: `expenses/expensables <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-expenses-expensables>`_
+        Official documentation: `expenses/expensables <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-expenses-expensables>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -497,7 +499,7 @@ class ExpensablesEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[Expensable]:
         """Get expensables with pagination metadata.
 
-        Official documentation: `expenses/expensables <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-expenses-expensables>`_
+        Official documentation: `expenses/expensables <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-expenses-expensables>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -513,7 +515,7 @@ class ExpensablesEndpoint(Endpoint):
     async def get_by_id(self, expensable_id: int | str, **kwargs) -> Expensable:
         """Get a specific expensable by ID.
 
-        Official documentation: `expenses/expensables <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-expenses-expensables-id>`_
+        Official documentation: `expenses/expensables <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-expenses-expensables-id>`_
 
         :param expensable_id: The unique identifier.
         :type expensable_id: int | str
@@ -529,7 +531,7 @@ class ExpensablesEndpoint(Endpoint):
     async def bulk_set_to_paid(self, data: Mapping[str, typing.Any], **kwargs) -> Sequence[Expensable]:
         """Bulk set expensables to paid status.
 
-        Official documentation: `expenses/expensables <https://apidoc.factorialhr.com/reference/post_api-2026-01-01-resources-expenses-expensables-bulk-set-to-paid>`_
+        Official documentation: `expenses/expensables <https://apidoc.factorialhr.com/reference/post_api-2026-04-01-resources-expenses-expensables-bulk-set-to-paid>`_
 
         :param data: Payload for the new record (key-value mapping).
         :type data: Mapping[str, typing.Any]
@@ -551,7 +553,7 @@ class ExpensesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Expense]:
         """Get all expenses records.
 
-        Official documentation: `expenses/expenses <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-expenses-expenses>`_
+        Official documentation: `expenses/expenses <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-expenses-expenses>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -565,7 +567,7 @@ class ExpensesEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[Expense]:
         """Get expenses with pagination metadata.
 
-        Official documentation: `expenses/expenses <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-expenses-expenses>`_
+        Official documentation: `expenses/expenses <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-expenses-expenses>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -581,7 +583,7 @@ class ExpensesEndpoint(Endpoint):
     async def get_by_id(self, expense_id: int | str, **kwargs) -> Expense:
         """Get a specific expense by ID.
 
-        Official documentation: `expenses/expenses <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-expenses-expenses-id>`_
+        Official documentation: `expenses/expenses <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-expenses-expenses-id>`_
 
         :param expense_id: The unique identifier.
         :type expense_id: int | str
@@ -603,7 +605,7 @@ class MileagesEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[Mileage]:
         """Get all mileages records.
 
-        Official documentation: `expenses/mileages <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-expenses-mileages>`_
+        Official documentation: `expenses/mileages <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-expenses-mileages>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -617,7 +619,7 @@ class MileagesEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[Mileage]:
         """Get mileages with pagination metadata.
 
-        Official documentation: `expenses/mileages <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-expenses-mileages>`_
+        Official documentation: `expenses/mileages <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-expenses-mileages>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -633,7 +635,7 @@ class MileagesEndpoint(Endpoint):
     async def get_by_id(self, mileage_id: int | str, **kwargs) -> Mileage:
         """Get a specific mileage by ID.
 
-        Official documentation: `expenses/mileages <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-expenses-mileages-id>`_
+        Official documentation: `expenses/mileages <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-expenses-mileages-id>`_
 
         :param mileage_id: The unique identifier.
         :type mileage_id: int | str
@@ -655,7 +657,7 @@ class PerDiemsEndpoint(Endpoint):
     async def all(self, **kwargs) -> ListApiResponse[PerDiem]:
         """Get all per diems records.
 
-        Official documentation: `expenses/per_diems <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-expenses-per-diems>`_
+        Official documentation: `expenses/per_diems <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-expenses-per-diems>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -669,7 +671,7 @@ class PerDiemsEndpoint(Endpoint):
     async def get(self, **kwargs) -> MetaApiResponse[PerDiem]:
         """Get per diems with pagination metadata.
 
-        Official documentation: `expenses/per_diems <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-expenses-per-diems>`_
+        Official documentation: `expenses/per_diems <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-expenses-per-diems>`_
 
         :param kwargs: Optional keyword arguments (e.g. ``params`` for query string) forwarded to the HTTP request.
         :type kwargs: optional
@@ -685,7 +687,7 @@ class PerDiemsEndpoint(Endpoint):
     async def get_by_id(self, per_diem_id: int | str, **kwargs) -> PerDiem:
         """Get a specific per diem by ID.
 
-        Official documentation: `expenses/per_diems <https://apidoc.factorialhr.com/reference/get_api-2026-01-01-resources-expenses-per-diems-id>`_
+        Official documentation: `expenses/per_diems <https://apidoc.factorialhr.com/reference/get_api-2026-04-01-resources-expenses-per-diems-id>`_
 
         :param per_diem_id: The unique identifier.
         :type per_diem_id: int | str

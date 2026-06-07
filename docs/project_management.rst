@@ -34,6 +34,11 @@ Enums
    :undoc-members:
    :show-inheritance:
 
+.. autoclass:: factorialhr.BudgetStrategyType
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 .. autoclass:: factorialhr.ProjectEmployeeAssignment
    :members:
    :undoc-members:
@@ -82,6 +87,13 @@ Models and endpoints
    :exclude-members: model_config
 
 .. autoclass:: factorialhr.PlannedRecordsEndpoint
+   :members:
+
+.. autoclass:: factorialhr.BudgetStrategy
+   :members:
+   :exclude-members: model_config
+
+.. autoclass:: factorialhr.BudgetStrategiesEndpoint
    :members:
 
 .. autoclass:: factorialhr.Project

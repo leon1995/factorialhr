@@ -345,7 +345,7 @@ class ApiClient:
         :return: The API version string.
         :rtype: str
         """
-        return '2026-01-01'
+        return '2026-04-01'
 
     async def close(self):
         """Close the client session.
