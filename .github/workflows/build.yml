@@ -19,7 +19,7 @@ jobs:
       - name: Install dependencies
         run: uv sync --dev
 
-      - uses: astral-sh/ruff-action@v3
+      - uses: astral-sh/ruff-action@v4.0.0
       - run: ruff check
       - run: ruff format --check
       - run: uv run ty check
